@@ -7,6 +7,7 @@ import com.hp.dit.beetbook.entities.*;
 import com.hp.dit.beetbook.modals.*;
 import com.hp.dit.beetbook.repositories.RolesRepository;
 import com.hp.dit.beetbook.repositories.districtRepository.DistrictRepository;
+import com.hp.dit.beetbook.repositories.policestationRepository.PSRepository;
 import com.hp.dit.beetbook.repositories.sosdpo.SoSdpoRepository;
 import com.hp.dit.beetbook.repositories.stateRepository.StateRepository;
 import com.hp.dit.beetbook.repositories.user.UserRepository;
@@ -39,6 +40,9 @@ public class AjaxContoller {
 
     @Autowired
     SoSdpoRepository soSdpoRepository;
+
+    @Autowired
+    PSRepository psRepository;
 
 
     private static final Logger logger = LoggerFactory.getLogger(AjaxContoller.class);
@@ -129,6 +133,28 @@ public class AjaxContoller {
     String getDistrictViaState(@RequestParam(value = "id", required = true) String id) throws Exception {
         Map<String, Object> map = null;
         List<DistrictMaster> districts = districtRepository.findDistrictByStateId(Integer.parseInt(id));
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, districts);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+
+        ObjectMapper Obj = new ObjectMapper();
+        String jsonStr = null;
+        jsonStr = Obj.writeValueAsString(map);
+        logger.info(jsonStr);
+        return jsonStr;
+
+
+    }
+
+
+
+    @RequestMapping(value = "/ajax/getPoliceStations", method = RequestMethod.GET,  produces="application/json")
+    public @ResponseBody
+    String getPoliceStations(@RequestParam(value = "id", required = true) String id) throws Exception {
+        Map<String, Object> map = null;
+        List<PoliceStationMaster> districts = psRepository.getAllActivePoliceStationViaSoSdpo(Integer.parseInt(id));
 
         map = new HashMap<String, Object>();
         map.put(Constants.keyResponse, districts);

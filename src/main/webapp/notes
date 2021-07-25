@@ -58,6 +58,23 @@ CREATE TABLE mst_policestation (
     FOREIGN KEY (sosdpo_id) REFERENCES mst_sosdpo(sosdpo_id)
 );
 
+CREATE TABLE mst_beat (
+    beat_id serial PRIMARY KEY  NOT NULL,
+    beat_name character varying(100) NOT NULL,
+    state_id INTEGER NOT NULL,
+    district_id INTEGER NOT NULL,
+    sosdpo_id INTEGER NOT NULL,
+    ps_id INTEGER NOT NULL,
+    active boolean DEFAULT true NOT NULL,
+    createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
+    is_deleted boolean DEFAULT false NOT NULL,
+    lastmodifieddate timestamp without time zone,
+    FOREIGN KEY (state_id) REFERENCES mst_state(state_id),
+    FOREIGN KEY (district_id) REFERENCES mst_district(district_id),
+    FOREIGN KEY (sosdpo_id) REFERENCES mst_sosdpo(sosdpo_id),
+    FOREIGN KEY (ps_id) REFERENCES mst_policestation(ps_id),
+);
+
 
 INSERT INTO mst_policestation (ps_id, ps_name, state_id, district_id, active, createddate,is_deleted) VALUES
 (20,	'Police Jubbal',	9,	204,'Y','2020-06-01 17:07:31',	'N')

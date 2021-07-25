@@ -353,6 +353,42 @@ function getSOSDPOUpdate() {
 
 }
 
+//getPoliceStationsViasosdpoid
+function getPoliceStationsViasosdpoid(id) {
+	$.ajax({
+		type: "GET",
+		url: formURL + "/ajax/getPoliceStations",
+		data: {
+			"id": id
+		},
+		success: function(data) {
+			//Tomcat
+			var json_ = JSON.parse(JSON.stringify(data));
+			//Jboss
+			//var json_ = JSON.parse(data);
+			console.log("======= police Stations" + json_);
+			var selectRole = $('#psId'); // the state select element
+			selectRole.find('option').remove();
+			selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+			for (i = 0; i < json_.RESPONSE.length; i++) {
+				if (document.getElementById('psid') != null && document.getElementById('psid').value == json_.RESPONSE[i].psId) {
+					selectRole.append("<option selected value=" + json_.RESPONSE[i].psId + " >" + json_.RESPONSE[i].psName + "</option>")
+				} else {
+					selectRole.append("<option value=" + json_.RESPONSE[i].psId + " >" + json_.RESPONSE[i].psName + "</option>")
+				}
+			}
+
+		},
+		error: function(data) {
+			console.log(data)
+		}
+
+	});
+
+
+}
+
+
 //getBarriers
 function getBarriers(id) {
 	$.ajax({
