@@ -47,6 +47,25 @@
     </definition>
 
 
+    <!-- SO SDPO -->
+
+    <definition name="createSoSdpo" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/sosdpo/createsosdpo.jsp" />
+    </definition>
+
+
+    <definition name="updateSoSdpo" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/sosdpo/updatesosdpo.jsp" />
+    </definition>
+
+
+    <definition name="viewSoSdpo" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/sosdpo/viewsosdpo.jsp" />
+    </definition>
+
+    <!-- SO SDPO Ends-->
+
+
     <!-- Districts -->
     <definition name="createDistrict" extends="baselayoutdashboard">
         <put-attribute name="content" value="/WEB-INF/jsp/districts/createdistrict.jsp" />

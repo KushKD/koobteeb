@@ -32,6 +32,16 @@ SELECT nextval('mst_district_district_id_seq');
 SELECT setval('mst_district_district_id_seq', (SELECT MAX(district_id) FROM mst_district)+1);
 
 
+CREATE TABLE mst_sosdpo (
+    sosdpo_id serial PRIMARY KEY  NOT NULL,
+    sosdpo_name character varying(100) NOT NULL,
+    is_active boolean DEFAULT true NOT NULL,
+    is_deleted boolean DEFAULT false NOT NULL,
+    created_on timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
+    lastmodifieddate timestamp without time zone,
+
+);
+
 
 CREATE TABLE mst_policestation (
     ps_id serial PRIMARY KEY  NOT NULL,
