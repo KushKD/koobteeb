@@ -288,24 +288,58 @@ function getVehicleType() {
 
 
 //getBarrierType  "/ajax/getBarrierType"
-function getBarrierType() {
+
+
+//getSOSDPO
+function getSOSDPO() {
 	$.ajax({
 		type: "GET",
-		url: formURL + "/ajax/getBarrierType",
+		url: formURL + "/ajax/getsospdo",
 		success: function(data) {
 			//Tomcat
 			var json_ = JSON.parse(JSON.stringify(data));
 			//Jboss
 			//var json_ = JSON.parse(data);
 			console.log(json_);
-			var selectRole = $('#barrierType'); // the state select element
+			var selectRole = $('#sosdpoId'); // the state select element
 			selectRole.find('option').remove();
 			selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
 			for (i = 0; i < json_.RESPONSE.length; i++) {
 				if (document.getElementById('bid') != null && document.getElementById('bid').value == json_.RESPONSE[i].barrierTypeId) {
-					selectRole.append("<option selected value=" + json_.RESPONSE[i].barrierTypeId + " >" + json_.RESPONSE[i].barrierTypename + "</option>")
+					selectRole.append("<option selected value=" + json_.RESPONSE[i].sosdpoId + " >" + json_.RESPONSE[i].sosdpoName + "</option>")
 				} else {
-					selectRole.append("<option value=" + json_.RESPONSE[i].barrierTypeId + " >" + json_.RESPONSE[i].barrierTypename + "</option>")
+					selectRole.append("<option value=" + json_.RESPONSE[i].sosdpoId + " >" + json_.RESPONSE[i].sosdpoName + "</option>")
+				}
+			}
+
+		},
+		error: function(data) {
+			console.log(data)
+		}
+
+	});
+
+
+}
+
+function getSOSDPOUpdate() {
+	$.ajax({
+		type: "GET",
+		url: formURL + "/ajax/getsospdo",
+		success: function(data) {
+			//Tomcat
+			var json_ = JSON.parse(JSON.stringify(data));
+			//Jboss
+			//var json_ = JSON.parse(data);
+			console.log(json_);
+			var selectRole = $('#sosdpoId'); // the state select element
+			selectRole.find('option').remove();
+			selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+			for (i = 0; i < json_.RESPONSE.length; i++) {
+				if (document.getElementById('sosid') != null && document.getElementById('sosid').value == json_.RESPONSE[i].sosdpoId) {
+					selectRole.append("<option selected value=" + json_.RESPONSE[i].sosdpoId + " >" + json_.RESPONSE[i].sosdpoName + "</option>")
+				} else {
+					selectRole.append("<option value=" + json_.RESPONSE[i].sosdpoId + " >" + json_.RESPONSE[i].sosdpoName + "</option>")
 				}
 			}
 

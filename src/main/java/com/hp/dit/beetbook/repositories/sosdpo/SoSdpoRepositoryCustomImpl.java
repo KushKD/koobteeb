@@ -59,8 +59,8 @@ public class SoSdpoRepositoryCustomImpl implements SoSdpoRepositoryCustom{
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<S0SdpoMaster> cq = cb.createQuery(S0SdpoMaster.class);
         Root<S0SdpoMaster> book = cq.from(S0SdpoMaster.class);
-        Predicate active = cb.equal(book.get("is_active"), true);
-        Predicate deleted = cb.equal(book.get("is_deleted"), false);
+        Predicate active = cb.equal(book.get("isActive"), true);
+        Predicate deleted = cb.equal(book.get("isDeleted"), false);
         cq.where(active,deleted);
         TypedQuery<S0SdpoMaster> query =  entityManager.createQuery(cq);
         return query.getResultList();

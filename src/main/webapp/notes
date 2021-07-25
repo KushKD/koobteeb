@@ -48,12 +48,14 @@ CREATE TABLE mst_policestation (
     ps_name character varying(100) NOT NULL,
     state_id INTEGER NOT NULL,
     district_id INTEGER NOT NULL,
+    sosdpo_id INTEGER NOT NULL,
     active boolean DEFAULT true NOT NULL,
     createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
     is_deleted boolean DEFAULT false NOT NULL,
     lastmodifieddate timestamp without time zone,
     FOREIGN KEY (state_id) REFERENCES mst_state(state_id),
-    FOREIGN KEY (district_id) REFERENCES mst_district(district_id)
+    FOREIGN KEY (district_id) REFERENCES mst_district(district_id),
+    FOREIGN KEY (sosdpo_id) REFERENCES mst_sosdpo(sosdpo_id)
 );
 
 

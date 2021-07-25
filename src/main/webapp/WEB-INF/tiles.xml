@@ -65,6 +65,35 @@
 
     <!-- SO SDPO Ends-->
 
+    <!-- Police Station -->
+
+    <definition name="createPs" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/ps/createPs.jsp" />
+    </definition>
+
+    <definition name="viewPs" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/ps/viewPs.jsp" />
+    </definition>
+
+    <definition name="updatePs" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/ps/updatePs.jsp" />
+    </definition>
+
+
+
+    <!-- Police End -->
+
+
+    <definition name="updateSoSdpo" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/sosdpo/updatesosdpo.jsp" />
+    </definition>
+
+
+    <definition name="viewSoSdpo" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/sosdpo/viewsosdpo.jsp" />
+    </definition>
+    <!-- Police Station -->
+
 
     <!-- Districts -->
     <definition name="createDistrict" extends="baselayoutdashboard">

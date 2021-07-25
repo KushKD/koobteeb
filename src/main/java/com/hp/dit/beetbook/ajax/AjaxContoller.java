@@ -7,6 +7,7 @@ import com.hp.dit.beetbook.entities.*;
 import com.hp.dit.beetbook.modals.*;
 import com.hp.dit.beetbook.repositories.RolesRepository;
 import com.hp.dit.beetbook.repositories.districtRepository.DistrictRepository;
+import com.hp.dit.beetbook.repositories.sosdpo.SoSdpoRepository;
 import com.hp.dit.beetbook.repositories.stateRepository.StateRepository;
 import com.hp.dit.beetbook.repositories.user.UserRepository;
 import com.hp.dit.beetbook.utilities.Constants;
@@ -35,6 +36,9 @@ public class AjaxContoller {
 
     @Autowired
     DistrictRepository districtRepository;
+
+    @Autowired
+    SoSdpoRepository soSdpoRepository;
 
 
     private static final Logger logger = LoggerFactory.getLogger(AjaxContoller.class);
@@ -88,6 +92,27 @@ public class AjaxContoller {
             logger.info(jsonStr);
 
             return jsonStr;
+
+    }
+
+
+    @RequestMapping(value = "/ajax/getsospdo", method = RequestMethod.GET,  produces="application/json")
+    public @ResponseBody
+    String getSOSDPO() throws Exception {
+        Map<String, Object> map = null;
+        List<S0SdpoMaster> states = soSdpoRepository.getAllActiveSOSdo();
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, states);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+
+        ObjectMapper Obj = new ObjectMapper();
+        String jsonStr = null;
+        jsonStr = Obj.writeValueAsString(map);
+        logger.info(jsonStr);
+
+        return jsonStr;
 
     }
 
