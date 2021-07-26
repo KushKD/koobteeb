@@ -1,11 +1,6 @@
 package com.hp.dit.beetbook.validators;
 
-import com.hp.dit.beetbook.form.RegisterUser;
-import com.hp.dit.beetbook.form.sosdpo.SoSdpoForm;
 import com.hp.dit.beetbook.form.sosdpo.SoSdpoUpdate;
-import com.hp.dit.beetbook.form.state.UpdateState;
-import com.hp.dit.beetbook.repositories.stateRepository.StateRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;

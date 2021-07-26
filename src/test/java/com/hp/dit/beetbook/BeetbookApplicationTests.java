@@ -20,10 +20,10 @@ import java.util.Optional;
 class BeetbookApplicationTests {
 
 
-//	@Autowired
-//	RolesRepository rolesRepository;
-//    @Autowired
-//	UserRepository userRepository;
+	@Autowired
+	RolesRepository rolesRepository;
+    @Autowired
+	UserRepository userRepository;
 
 
 //    @Test
@@ -34,13 +34,19 @@ class BeetbookApplicationTests {
 //        UserEntity user1 = new UserEntity();
 //        PasswordEncoder encoder = new BCryptPasswordEncoder();
 //        user1.setUserName("kush");
+//        user1.setRank("Administrator");
+//        user1.setFirstName("Kush");
+//        user1.setLastName("Dhawan");
 //        user1.setPassword(encoder.encode("Demo@123"));
 //        user1.setMobileNumber(9459619235L);
+//        user1.setPsId(1);
+//        user1.setSosdpoId(1);
 //        user1.setActive(true);
 //
 //       // user1.setBarrierId(3);
 //        user1.setDistrictId(204);
 //        user1.setStateId(9);
+//        user1.setBeatId(1);
 //        Optional<RolesEntity> role = rolesRepository.findById(1);
 //		List<RolesEntity> list = new ArrayList<>();
 //		list.add(role.get());
@@ -48,7 +54,7 @@ class BeetbookApplicationTests {
 //
 //        userRepository.save(user1);
 //    }
-////
+//
 ////
 //    @Test
 //    @Transactional

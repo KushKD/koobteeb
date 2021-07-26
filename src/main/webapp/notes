@@ -194,22 +194,21 @@ CREATE TABLE users(
 user_id SERIAL PRIMARY KEY NOT NULL,
 first_name character varying(100),
 last_name  character varying (100),
-username character varying (50),
-password character varying (50),
+username character varying (100),
+password character varying (200),
 mobile_number INTEGER,
+rank character varying(200),
 state_id INTEGER NOT NULL,
 district_id INTEGER NOT NULL,
-barrier_id INTEGER NOT NULL,
+beat_id INTEGER NOT NULL,
 active boolean DEFAULT true NOT NULL,
 createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
 lastmodifieddate timestamp without time zone,
 FOREIGN KEY (state_id) REFERENCES mst_state(state_id),
 FOREIGN KEY (district_id) REFERENCES mst_district(district_id),
-FOREIGN KEY (barrier_id) REFERENCES mst_barrier(barrier_id)
+FOREIGN KEY (beat_id) REFERENCES mst_beat(beat_id)
 
 );
-ALTER TABLE public.users  ADD COLUMN first_name character varying(50);
-ALTER TABLE public.users  ADD COLUMN last_name character varying(50);
 
 --Roles
 CREATE TABLE roles(

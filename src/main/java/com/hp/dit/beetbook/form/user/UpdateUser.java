@@ -1,9 +1,10 @@
-package com.hp.dit.beetbook.form;
+package com.hp.dit.beetbook.form.user;
 
 import java.io.Serializable;
 
-public class RegisterUser implements Serializable {
+public class UpdateUser implements Serializable {
 
+    private String userId;
     private String username;
     private String password;
     private String passwordConfirm;
@@ -13,7 +14,52 @@ public class RegisterUser implements Serializable {
     private String lastName;
     private String stateId;
     private String districtId;
-    private String barrierId;
+    private String beatId;
+    private String rank;
+    private String sosdpoId;
+    private String psId;
+    private String userIsActive;
+    private Integer oldroleid;
+
+    public String getPsId() {
+        return psId;
+    }
+
+    public void setPsId(String psId) {
+        this.psId = psId;
+    }
+
+    public String getSosdpoId() {
+        return sosdpoId;
+    }
+
+    public void setSosdpoId(String sosdpoId) {
+        this.sosdpoId = sosdpoId;
+    }
+
+    public Integer getOldroleid() {
+        return oldroleid;
+    }
+
+    public void setOldroleid(Integer oldroleid) {
+        this.oldroleid = oldroleid;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getUserIsActive() {
+        return userIsActive;
+    }
+
+    public void setUserIsActive(String userIsActive) {
+        this.userIsActive = userIsActive;
+    }
 
     public String getUsername() {
         return username;
@@ -87,18 +133,27 @@ public class RegisterUser implements Serializable {
         this.districtId = districtId;
     }
 
-    public String getBarrierId() {
-        return barrierId;
+    public String getBeatId() {
+        return beatId;
     }
 
-    public void setBarrierId(String barrierId) {
-        this.barrierId = barrierId;
+    public void setBeatId(String beatId) {
+        this.beatId = beatId;
+    }
+
+    public String getRank() {
+        return rank;
+    }
+
+    public void setRank(String rank) {
+        this.rank = rank;
     }
 
     @Override
     public String toString() {
-        return "RegisterUser{" +
-                "username='" + username + '\'' +
+        return "UpdateUser{" +
+                "userId='" + userId + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", passwordConfirm='" + passwordConfirm + '\'' +
                 ", mobileNumber='" + mobileNumber + '\'' +
@@ -107,7 +162,12 @@ public class RegisterUser implements Serializable {
                 ", lastName='" + lastName + '\'' +
                 ", stateId='" + stateId + '\'' +
                 ", districtId='" + districtId + '\'' +
-                ", barrierId='" + barrierId + '\'' +
+                ", beatId='" + beatId + '\'' +
+                ", rank='" + rank + '\'' +
+                ", sosdpoId='" + sosdpoId + '\'' +
+                ", psId='" + psId + '\'' +
+                ", userIsActive='" + userIsActive + '\'' +
+                ", oldroleid=" + oldroleid +
                 '}';
     }
 }

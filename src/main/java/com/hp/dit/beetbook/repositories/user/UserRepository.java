@@ -20,17 +20,17 @@ public interface UserRepository extends CrudRepository<UserEntity,Long>, UserRep
 
 	UserEntity findByUsername(String username);
 
-	@Query(value="SELECT u.user_id, u.first_name, u.last_name, u.username,urm.role_id, r.role_name, u.mobile_number, u.state_id,state.state_name, u.district_id,district.district_name ,u.barrier_id, barrier.barrier_name  FROM users as u INNER JOIN user_role_mapping as urm on urm.user_id = u.user_id INNER JOIN roles as r on r.role_id = urm.role_id INNER JOIN mst_state as state on state.state_id = u.state_id INNER JOIN mst_district as district on district.district_id = u.district_id INNER JOIN mst_barrier as barrier on barrier.barrier_id = u.barrier_id", nativeQuery = true)
+	@Query(value="SELECT u.user_id, u.first_name, u.last_name, u.username,urm.role_id, r.role_name, u.mobile_number, u.state_id,state.state_name, u.district_id,district.district_name ,u.beat_id, beat.beat_name FROM users as u INNER JOIN user_role_mapping as urm on urm.user_id = u.user_id INNER JOIN roles as r on r.role_id = urm.role_id INNER JOIN mst_state as state on state.state_id = u.state_id INNER JOIN mst_district as district on district.district_id = u.district_id INNER JOIN mst_beat as beat on beat.beat_id = u.beat_id", nativeQuery = true)
 	List<Object[]> getUsersDetails();
 
 
-	@Query(value="SELECT u.user_id, u.first_name, u.last_name, u.username,urm.role_id, r.role_name, u.mobile_number, u.state_id,state.state_name, u.district_id,district.district_name ,u.barrier_id, barrier.barrier_name  FROM users as u INNER JOIN user_role_mapping as urm on urm.user_id = u.user_id INNER JOIN roles as r on r.role_id = urm.role_id INNER JOIN mst_state as state on state.state_id = u.state_id INNER JOIN mst_district as district on district.district_id = u.district_id INNER JOIN mst_barrier as barrier on barrier.barrier_id = u.barrier_id WHERE u.user_id =:userId AND urm.role_id =:roleId", nativeQuery = true)
+	@Query(value="SELECT u.user_id, u.first_name, u.last_name, u.username,urm.role_id, r.role_name, u.mobile_number, u.state_id,state.state_name, u.district_id,district.district_name ,u.beat_id, beat.beat_name ,u.rank, u.sosdpo_id, u.ps_id FROM users as u INNER JOIN user_role_mapping as urm on urm.user_id = u.user_id INNER JOIN roles as r on r.role_id = urm.role_id INNER JOIN mst_state as state on state.state_id = u.state_id INNER JOIN mst_district as district on district.district_id = u.district_id INNER JOIN mst_beat as beat on beat.beat_id = u.beat_id WHERE u.user_id =:userId AND urm.role_id =:roleId", nativeQuery = true)
 	List<Object[]> getSpecificUserViaUserRoleId(@Param("userId")  Integer userId, @Param("roleId") Integer role_id);
 
 
 
 	@Modifying(clearAutomatically = true)
-	@Query(value = "UPDATE users SET first_name =:firstname, last_name =:lastname, username =:username, password =:password, mobile_number =:mobileNumber, state_id =:stateId, district_id =:districtId, barrier_id =:barrierId, active =:active, lastmodifieddate =:lastmodifieddate WHERE user_id =:userId" , nativeQuery = true)
+	@Query(value = "UPDATE users SET first_name =:firstname, last_name =:lastname, username =:username, password =:password, mobile_number =:mobileNumber, state_id =:stateId, district_id =:districtId, beat_id =:beatId, sosdpo_id =:sosdpoId, ps_id =:psId, rank =:rank, active =:active, lastmodifieddate =:lastmodifieddate WHERE user_id =:userId" , nativeQuery = true)
 	int updateUser(@Param("firstname") String firstname,
 				   @Param("lastname") String lastname,
 				   @Param("username") String username,
@@ -38,10 +38,13 @@ public interface UserRepository extends CrudRepository<UserEntity,Long>, UserRep
 				   @Param("mobileNumber") BigInteger mobileNumber,
 				   @Param("stateId") Integer stateId,
 				   @Param("districtId") Integer districtId,
-				   @Param("barrierId") Integer barrierId,
+				   @Param("beatId") Integer beatId,
 				   @Param("active") Boolean active,
 				   @Param("lastmodifieddate") Date lastmodifieddate,
-				   @Param("userId") Integer userId);
+				   @Param("userId") Integer userId,
+				   @Param("sosdpoId") Integer sosdpoId,
+				   @Param("psId") Integer psId,
+				   @Param("rank") String rank);
 
 
 	@Modifying(clearAutomatically = true)

@@ -388,6 +388,41 @@ function getPoliceStationsViasosdpoid(id) {
 
 }
 
+//script getBeat
+function getBeat(id) {
+	$.ajax({
+		type: "GET",
+		url: formURL + "/ajax/getBeatsViaPolceStation",
+		data: {
+			"id": id
+		},
+		success: function(data) {
+			//Tomcat
+			var json_ = JSON.parse(JSON.stringify(data));
+			//Jboss
+			//var json_ = JSON.parse(data);
+			console.log("======= Beats" + json_);
+			var selectRole = $('#beats'); // the state select element
+			selectRole.find('option').remove();
+			selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+			for (i = 0; i < json_.RESPONSE.length; i++) {
+				if (document.getElementById('beatid') != null && document.getElementById('beatid').value == json_.RESPONSE[i].beatId) {
+					selectRole.append("<option selected value=" + json_.RESPONSE[i].beatId + " >" + json_.RESPONSE[i].beatName + "</option>")
+				} else {
+					selectRole.append("<option value=" + json_.RESPONSE[i].beatId + " >" + json_.RESPONSE[i].beatName + "</option>")
+				}
+			}
+
+		},
+		error: function(data) {
+			console.log(data)
+		}
+
+	});
+
+
+}
+
 
 //getBarriers
 function getBarriers(id) {

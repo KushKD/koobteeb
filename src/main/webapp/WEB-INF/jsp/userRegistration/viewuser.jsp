@@ -23,7 +23,7 @@
 										<th>Name</th>
 										<th>Username</th>
 										<th>District</th>
-										<th>Barrier</th>
+										<th>Beat</th>
 										<th>Role Name</th>
 										<th>Mobile Number</th>
 										<th>Update</th>
@@ -39,7 +39,7 @@
 											<td>${user.first_name} ${user.last_name}</td>
 											<td>${user.username}</td>
 											<td>${user.district_name}</td>
-											<td>${user.barrier_name}</td>
+											<td>${user.beat_name}</td>
 											<td>${user.role_name}</td>
 											<td>${user.mobile_number}</td>
 											<td>

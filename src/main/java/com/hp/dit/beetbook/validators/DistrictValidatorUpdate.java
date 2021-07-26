@@ -1,6 +1,6 @@
 package com.hp.dit.beetbook.validators;
 
-import com.hp.dit.beetbook.form.RegisterUser;
+import com.hp.dit.beetbook.form.user.RegisterUser;
 import com.hp.dit.beetbook.form.district.DistrictForm;
 import com.hp.dit.beetbook.repositories.districtRepository.DistrictRepository;
 import org.springframework.beans.factory.annotation.Autowired;

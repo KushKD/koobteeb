@@ -1,7 +1,6 @@
 package com.hp.dit.beetbook.validators;
 
 import com.hp.dit.beetbook.CustomLogin.CustomUserService;
-import com.hp.dit.beetbook.form.RegisterUser;
 import com.hp.dit.beetbook.form.VahanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

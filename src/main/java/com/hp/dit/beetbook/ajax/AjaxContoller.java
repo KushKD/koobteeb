@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hp.dit.beetbook.entities.*;
 import com.hp.dit.beetbook.modals.*;
 import com.hp.dit.beetbook.repositories.RolesRepository;
+import com.hp.dit.beetbook.repositories.beats.BeatRepository;
 import com.hp.dit.beetbook.repositories.districtRepository.DistrictRepository;
 import com.hp.dit.beetbook.repositories.policestationRepository.PSRepository;
 import com.hp.dit.beetbook.repositories.sosdpo.SoSdpoRepository;
@@ -43,6 +44,9 @@ public class AjaxContoller {
 
     @Autowired
     PSRepository psRepository;
+
+    @Autowired
+    BeatRepository beatRepository;
 
 
     private static final Logger logger = LoggerFactory.getLogger(AjaxContoller.class);
@@ -158,6 +162,28 @@ public class AjaxContoller {
 
         map = new HashMap<String, Object>();
         map.put(Constants.keyResponse, districts);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+
+        ObjectMapper Obj = new ObjectMapper();
+        String jsonStr = null;
+        jsonStr = Obj.writeValueAsString(map);
+        logger.info(jsonStr);
+        return jsonStr;
+
+
+    }
+
+
+
+    @RequestMapping(value = "/ajax/getBeatsViaPolceStation", method = RequestMethod.GET,  produces="application/json")
+    public @ResponseBody
+    String getBeatsViaPolceStation(@RequestParam(value = "id", required = true) String id) throws Exception {
+        Map<String, Object> map = null;
+        List<BeatMaster> beats = beatRepository.findBeatByPSId(Integer.parseInt(id));
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, beats);
         map.put(Constants.keyMessage, Constants.valueMessage);
         map.put(Constants.keyStatus, HttpStatus.OK);
 

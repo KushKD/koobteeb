@@ -16,8 +16,35 @@ public class UsersDetials implements Serializable {
     private String state_name;
     private Integer district_id;
     private String district_name;
-    private Integer barrier_id;
-    private String barrier_name;
+    private Integer beat_id;
+    private String beat_name;
+    private String rank;
+    private Integer sodpo_id;
+    private Integer ps_id;
+
+    public Integer getSodpo_id() {
+        return sodpo_id;
+    }
+
+    public void setSodpo_id(Integer sodpo_id) {
+        this.sodpo_id = sodpo_id;
+    }
+
+    public Integer getPs_id() {
+        return ps_id;
+    }
+
+    public void setPs_id(Integer ps_id) {
+        this.ps_id = ps_id;
+    }
+
+    public String getRank() {
+        return rank;
+    }
+
+    public void setRank(String rank) {
+        this.rank = rank;
+    }
 
     public Integer getUser_id() {
         return user_id;
@@ -107,20 +134,20 @@ public class UsersDetials implements Serializable {
         this.district_name = district_name;
     }
 
-    public Integer getBarrier_id() {
-        return barrier_id;
+    public Integer getBeat_id() {
+        return beat_id;
     }
 
-    public void setBarrier_id(Integer barrier_id) {
-        this.barrier_id = barrier_id;
+    public void setBeat_id(Integer beat_id) {
+        this.beat_id = beat_id;
     }
 
-    public String getBarrier_name() {
-        return barrier_name;
+    public String getBeat_name() {
+        return beat_name;
     }
 
-    public void setBarrier_name(String barrier_name) {
-        this.barrier_name = barrier_name;
+    public void setBeat_name(String beat_name) {
+        this.beat_name = beat_name;
     }
 
     @Override
@@ -137,8 +164,11 @@ public class UsersDetials implements Serializable {
                 ", state_name='" + state_name + '\'' +
                 ", district_id=" + district_id +
                 ", district_name='" + district_name + '\'' +
-                ", barrier_id=" + barrier_id +
-                ", barrier_name='" + barrier_name + '\'' +
+                ", beat_id=" + beat_id +
+                ", beat_name='" + beat_name + '\'' +
+                ", rank='" + rank + '\'' +
+                ", sodpo_id=" + sodpo_id +
+                ", ps_id=" + ps_id +
                 '}';
     }
 }

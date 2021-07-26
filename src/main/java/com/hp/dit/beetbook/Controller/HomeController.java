@@ -5,7 +5,7 @@ import com.hp.dit.beetbook.CustomLogin.CustomUserService;
 import com.hp.dit.beetbook.CustomLogin.SecurityService;
 import com.hp.dit.beetbook.entities.RolesEntity;
 import com.hp.dit.beetbook.entities.UserEntity;
-import com.hp.dit.beetbook.form.RegisterUser;
+import com.hp.dit.beetbook.form.user.RegisterUser;
 import com.hp.dit.beetbook.form.RolesForm;
 import com.hp.dit.beetbook.form.SearchID;
 import com.hp.dit.beetbook.form.showIdCardList.showIdCardList;
@@ -161,15 +161,6 @@ public class HomeController {
 
 
 
-
-
-
-
-
-
-
-
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model) {
         System.out.println("We are here");
@@ -177,124 +168,6 @@ public class HomeController {
         return "login";
     }
 
-
-    @RequestMapping(value = "/createUser", method = RequestMethod.GET)
-    public String createUser(Model model) {
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "login";
-        } else {
-            model.addAttribute("registerUser", new RegisterUser());
-            return "createuser";
-        }
-
-
-    }
-
-    @RequestMapping(value = "/saveuser", method = RequestMethod.POST)
-    @Transactional
-    public String saveUser(@ModelAttribute("registerUser") RegisterUser registerUser, BindingResult bindingResult, Model model, HttpServletRequest request) {
-        userValidator.validate(registerUser, bindingResult);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "login";
-        } else {
-            if (bindingResult.hasErrors()) {
-                return "createuser";
-            }
-            try {
-                UserEntity user = new UserEntity();
-                PasswordEncoder encoder = new BCryptPasswordEncoder();
-                user.setActive(true);
-                user.setMobileNumber(Long.valueOf(registerUser.getMobileNumber()));
-                user.setUserName(registerUser.getUsername());
-                user.setFirstName(registerUser.getFirstName());
-                user.setLastName(registerUser.getLastName());
-                user.setStateId(Integer.parseInt(registerUser.getStateId()));
-                user.setDistrictId(Integer.parseInt(registerUser.getDistrictId()));
-              //  user.setBarrierId(Integer.parseInt(registerUser.getBarrierId()));
-                user.setPassword(encoder.encode(registerUser.getPassword()));
-                String roleIid = registerUser.getRoleId();
-
-                Optional<RolesEntity> role = roleService.getRoleDetails(roleIid);
-                if (role.get() != null) {
-                    List<RolesEntity> list = new ArrayList<RolesEntity>();
-                    list.add(role.get());
-                    user.setRoles(list);
-                    UserEntity savedData = userservice.saveUser(user);
-
-                    request.getSession().setAttribute("successMessage", savedData.getUserName() + "  Successfully Saved. ID is" + savedData.getUserId());
-                    registerUser.setMobileNumber("");
-                    registerUser.setPasswordConfirm("");
-                    registerUser.setPassword("");
-                    registerUser.setUsername("");
-                    registerUser.setRoleId("0");
-                    return "createuser";
-                } else {
-                    registerUser.setMobileNumber("");
-                    registerUser.setPasswordConfirm("");
-                    registerUser.setPassword("");
-                    registerUser.setUsername("");
-                    registerUser.setRoleId("0");
-                    model.addAttribute("serverError", "No Role Name and Role Description Exist with this ID");
-                    return "createuser";
-                }
-
-            } catch (Exception ex) {
-                registerUser.setMobileNumber("");
-                registerUser.setPasswordConfirm("");
-                registerUser.setUsername("");
-                registerUser.setPassword("");
-                model.addAttribute("serverError", ex.toString());
-                return "createuser";
-            }
-        }
-
-    }
-
-
-    @RequestMapping(value = "/createRole", method = RequestMethod.GET)
-    public String createRole(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "login";
-        } else {
-            model.addAttribute("rolesForm", new RolesForm());
-            return "createrole";
-        }
-    }
-
-
-    @RequestMapping(value = "/saveRole", method = RequestMethod.POST)
-    public String saveRole(@ModelAttribute("rolesForm") RolesForm roleForm, BindingResult bindingResult, Model model, HttpServletRequest request) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "login";
-        } else {
-
-            roleValidator.validate(roleForm, bindingResult);
-            if (bindingResult.hasErrors()) {
-                return "createrole";
-            }
-            try {
-                RolesEntity rolesEntity = new RolesEntity();
-                rolesEntity.setActive(true);
-                rolesEntity.setRoleName(roleForm.getRoleName());
-                rolesEntity.setRoleDescription(roleForm.getRoleDescription());
-                RolesEntity savedData = roleService.saveRole(rolesEntity);
-                roleForm.setRoleName("");
-                roleForm.setRoleDescription("");
-                request.getSession().setAttribute("successMessage", savedData.getRoleName() + " role Successfully Saved. ID is" + savedData.getRoleId());
-                return "createrole";
-            } catch (Exception ex) {
-                roleForm.setRoleName("");
-                roleForm.setRoleDescription("");
-                model.addAttribute("serverError", ex.toString());
-                return "createrole";
-            }
-        }
-    }
 
     @RequestMapping(value = "/showIdCards", method = RequestMethod.GET)
     public String showIdCardList(Model model, HttpServletRequest request) {
