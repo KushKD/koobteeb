@@ -25,6 +25,22 @@
             <form:errors path="beatName"></form:errors>
          </div>
       </spring:bind>
+
+      <spring:bind path="latitude">
+                     <div class="form-group ${status.error ? 'has-error' : ''}">
+                        <form:input type="text" path="latitude" class="form-control" value="${beat_to_update.latitude}" autocomplete="off"   placeholder="Latitude"></form:input>
+                        <form:errors path="latitude"></form:errors>
+                     </div>
+                  </spring:bind>
+
+                   <spring:bind path="longitude">
+                                 <div class="form-group ${status.error ? 'has-error' : ''}">
+                                    <form:input type="text" path="longitude" class="form-control" value="${beat_to_update.longitude}" autocomplete="off"   placeholder="longitude"></form:input>
+                                    <form:errors path="longitude"></form:errors>
+                                 </div>
+                              </spring:bind>
+
+
       <spring:bind path="stateId">
          <div class="form-group  ${status.error ? 'has-error' : ''}">
             <form:label path="stateId" for="roles">Select State</form:label>

@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.locationtech.jts.geom.*;
+
 @Entity
 @Table(name="mst_beat")
 public class BeatMaster implements Serializable {
@@ -36,6 +38,13 @@ public class BeatMaster implements Serializable {
     @Column(name = "is_deleted")
     private Boolean deleted;
 
+
+    @Column(name = "latitude")
+    private Double latitude;
+
+    @Column(name = "longitude")
+    private Double longitude;
+
     @Column(name = "createddate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
@@ -43,6 +52,33 @@ public class BeatMaster implements Serializable {
     @Column(name = "lastmodifieddate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOn;
+
+    @Column(nullable = false, name="beat_geometry" ,columnDefinition = "geometry(Point,4326)")
+    private Geometry  beatGeometry;
+
+    public Geometry getBeatGeometry() {
+        return beatGeometry;
+    }
+
+    public void setBeatGeometry(Geometry beatGeometry) {
+        this.beatGeometry = beatGeometry;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
 
     public Integer getBeatId() {
         return beatId;
@@ -135,8 +171,11 @@ public class BeatMaster implements Serializable {
                 ", psId=" + psId +
                 ", active=" + active +
                 ", deleted=" + deleted +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
                 ", createdDate=" + createdDate +
                 ", updatedOn=" + updatedOn +
+                ", beatGeometry=" + beatGeometry +
                 '}';
     }
 }

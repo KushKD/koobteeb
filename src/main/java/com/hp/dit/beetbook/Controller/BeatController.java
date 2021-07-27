@@ -8,6 +8,9 @@ import com.hp.dit.beetbook.repositories.beats.BeatRepository;
 import com.hp.dit.beetbook.repositories.districtRepository.DistrictRepository;
 import com.hp.dit.beetbook.validators.DistrictValidator;
 import com.hp.dit.beetbook.validators.DistrictValidatorUpdate;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.Point;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -79,6 +82,9 @@ public class BeatController {
                 beat.setDistrictId(Integer.parseInt(form.getDistrictId()));
                 beat.setSosdpoId(Integer.parseInt(form.getSosdpoId()));
                 beat.setPsId(Integer.parseInt(form.getPsId()));
+
+                beat.setLatitude(Double.parseDouble(form.getLatitude()));
+                beat.setLongitude(Double.parseDouble(form.getLongitude()));
 
 
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -167,6 +173,19 @@ public class BeatController {
                 beat.setDistrictId(Integer.parseInt(form.getDistrictId()));
                 beat.setSosdpoId(Integer.parseInt(form.getSosdpoId()));
                 beat.setPsId(Integer.parseInt(form.getPsId()));
+
+                beat.setLatitude(Double.parseDouble(form.getLatitude()));
+                beat.setLongitude(Double.parseDouble(form.getLongitude()));
+
+                GeometryFactory geometryFactory = new GeometryFactory();
+
+                Coordinate coordinate = new Coordinate();
+                coordinate.x = beat.getLongitude();
+                coordinate.y = beat.getLatitude();
+
+                Point myPoint = geometryFactory.createPoint(coordinate);
+                myPoint.setSRID(4326);
+                beat.setBeatGeometry(myPoint);
 
 
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
