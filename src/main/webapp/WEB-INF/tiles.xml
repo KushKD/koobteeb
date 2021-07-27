@@ -122,21 +122,7 @@
     </definition>
     <!-- District Ends -->
 
-    <!-- Barrier -->
-    <definition name="createBarrier" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/barriers/createbarrier.jsp" />
-    </definition>
 
-
-    <definition name="updateBarrier" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/barriers/updatebarrier.jsp" />
-    </definition>
-
-
-    <definition name="viewBarrier" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/barriers/viewbarrier.jsp" />
-    </definition>
-    <!-- Barrier Ends -->
 
     <!-- Users -->
     <definition name="viewUser" extends="baselayoutdashboard">
@@ -150,23 +136,25 @@
 
     <!-- Users End-->
 
-    <!-- Revenue -->
-    <definition name="feeCollectionRevenue" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/revenue/feeCollectionRevenue.jsp" />
-    </definition>
-    <!-- Revenue ends -->
-
-
-    <!-- Cashier -->
-
-    <definition name="cashVerification" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/cashier/cashierRole.jsp" />
+   <!--Module MAster -->
+    <definition name="createmodule" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/module/createmodule.jsp" />
     </definition>
 
-    <definition name="cashierReport" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/cashier/downloadReportCashier.jsp" />
+    <definition name="viewmodule" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/module/viewmodule.jsp" />
     </definition>
-    <!-- Cashier -->
+
+
+    <definition name="updatemodule" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/module/updatemodule.jsp" />
+    </definition>
+
+
+
+
+
+    <!--Module MAster Ends -->
 
 
     <definition name="twoStepVerification" extends="baselayoutdashboardnonav">

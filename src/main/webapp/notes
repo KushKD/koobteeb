@@ -79,25 +79,8 @@ CREATE TABLE mst_beat (
 INSERT INTO mst_policestation (ps_id, ps_name, state_id, district_id, active, createddate,is_deleted) VALUES
 (20,	'Police Jubbal',	9,	204,'Y','2020-06-01 17:07:31',	'N')
 
--- Trucks , Trallas , Light Commercial Vechicle
-CREATE TABLE mst_vehicle_type (
-    vehicle_type_id serial PRIMARY KEY  NOT NULL,
-    vehicle_type_name character varying(50) NOT NULL,
-    active boolean DEFAULT true NOT NULL,
-    createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
-    lastmodifieddate timestamp without time zone,
-     is_deleted boolean DEFAULT false NOT NULL
-);
 
--- Driver Conductor Other
-CREATE TABLE mst_vehicle_owner_type (
-    vehicle_owner_type_id serial PRIMARY KEY  NOT NULL,
-    vehicle_owner_name character varying(100) NOT NULL,
-    active boolean DEFAULT true NOT NULL,
-    createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
-    lastmodifieddate timestamp without time zone,
-     is_deleted boolean DEFAULT false NOT NULL
-);
+
 
 -- Coming From Locations
 CREATE TABLE mst_comingfromlocations (
@@ -109,84 +92,21 @@ CREATE TABLE mst_comingfromlocations (
      is_deleted boolean DEFAULT false NOT NULL
 );
 
--- Vehicle User Entries
-CREATE TABLE mst_vehicle_owner_entries (
-    vehicle_owner_id serial PRIMARY KEY  NOT NULL,
-    id_card_number character varying(50) NOT NULL,
-    state_id INTEGER NOT NULL,
-    district_id INTEGER NOT NULL,
-    barrier_id INTEGER NOT NULL,
-    vehicle_type_id INTEGER NOT NULL,
-    vehicle_owner_type_id INTEGER NOT NULL,
-    vehicle_owner_name character varying(50) NOT NULL, 
-    vehicle_owner_imagename_one character varying(100) NOT NULL,
-    vehicle_owner_imagename_two character varying(100) NOT NULL,
-    vehicle_owner_mobile_number INTEGER NOT NULL,
-    id_valid_from DATE NOT NULL,
-    id_valid_upto DATE NOT NULL,
-    vehicle_owner_aadhaar_number INTEGER NOT NULL,
-    vehicle_owner_vehicle_number character varying(15) NOT NULL,
-    vehicle_owner_chassis_number character varying(30) NOT NULL,
-    vehicle_owner_engine_number character varying(30) NOT NULL,
-    vehicle_owner_driving_licence character varying(15) NOT NULL,
-    mobile_information character varying(100) NOT NULL,
-    other_information character varying(255) NOT NULL,
-    data_entered_by INTEGER NOT NULL,
+--Module
+
+CREATE TABLE mst_module (
+    module_id serial PRIMARY KEY  NOT NULL,
+    module_name character varying(255) NOT NULL,
+	module_icon character varying(255) NOT NULL,
+    role_id INTEGER NOT NULL,
     active boolean DEFAULT true NOT NULL,
+    is_deleted boolean DEFAULT false NOT NULL,
     createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
     lastmodifieddate timestamp without time zone,
-    FOREIGN KEY (data_entered_by) REFERENCES users(user_id),
-    FOREIGN KEY (state_id) REFERENCES mst_state(state_id),
-    FOREIGN KEY (district_id) REFERENCES mst_district(district_id),
-    FOREIGN KEY (barrier_id) REFERENCES mst_barrier(barrier_id), 
-    FOREIGN KEY (vehicle_type_id) REFERENCES mst_vehicle_type(vehicle_type_id),
-    FOREIGN KEY (vehicle_owner_type_id) REFERENCES mst_vehicle_owner_type(vehicle_owner_type_id)
-);
-
-//User Routes
-CREATE TABLE vehicle_in_out_trans (
-    in_out_trans_id serial PRIMARY KEY  NOT NULL,
-    vehicle_owner_id INTEGER NOT NULL,
-    user_id INTEGER NOT NULL,
-    barrier_id INTEGER NOT NULL,
-    comingfromlocation_id INTEGER NOT NULL,
-    state_id INTEGER NOT NULL,
-    district_id INTEGER NOT NULL,
-    address_goingto character varying(255),
-    boxesnumber INTEGER NOT NULL,
-    vehicle_number character varying(255) NOT NULL,
-    mobilenumber character varying(255) NOT NULL,
-    latitude DOUBLE PRECISION NOT NULL,
-    longitude DOUBLE PRECISION NOT NULL,
-    is_active boolean NOT NULL DEFAULT true,
-    remarks character varying(255),
-    createddate timestamp with time zone NOT NULL DEFAULT now(),
-    FOREIGN KEY (vehicle_owner_id) REFERENCES mst_vehicle_owner_entries(vehicle_owner_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (barrier_id) REFERENCES mst_barrier(barrier_id),
-    FOREIGN KEY (comingfromlocation_id) REFERENCES mst_comingfromlocations(comingfromlocation_id),
-    FOREIGN KEY (state_id) REFERENCES mst_state(state_id),
-    FOREIGN KEY (district_id) REFERENCES mst_district(district_id)
+	FOREIGN KEY (role_id) REFERENCES roles(role_id)
 );
 
 
---Transaction Table
-CREATE TABLE user_transaction (
-    id serial PRIMARY KEY  NOT NULL,
-    vehicle_owner_id INTEGER NOT NULL,
-    barrier_id INTEGER NOT NULL,
-    vehicle_type_id INTEGER NOT NULL,
-    vehicle_number character varying(255) NOT NULL,
-    mobilenumber character varying(255) NOT NULL,
-    amount INTEGER NOT NULL,
-    payment_mode character varying (100),
-    error character varying(255),
-    active boolean DEFAULT true NOT NULL,
-    paymentdate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
-    FOREIGN KEY (vehicle_owner_id) REFERENCES mst_vehicle_owner_entries(vehicle_owner_id),
-    FOREIGN KEY (barrier_id) REFERENCES mst_barrier(barrier_id),
-    FOREIGN KEY (vehicle_type_id) REFERENCES mst_vehicle_owner_type(vehicle_type_id)
-);
 
 
 -- Users
@@ -234,16 +154,8 @@ FOREIGN KEY (role_id) REFERENCES roles(role_id)
 
 )
 
--- OTP Table
-CREATE TABLE otp_login(
-id SERIAL PRIMARY KEY NOT NULL,
-mobile_number INTEGER NOT NULL,
-otp INTEGER NOT NULL,
-active boolean DEFAULT true NOT NULL,
-createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
-lastmodifieddate timestamp without time zone
 
-)
+
 
 ####################
 --HelpFul Queries
@@ -621,6 +533,9 @@ UPDATE mst_vehicle_type SET vehicle_type_name = 'Truck/ Six-wheeler' WHERE vehic
 INSERT INTO mst_vehicle_type ( vehicle_type_name, active ,createddate, is_deleted) VALUES ('Tralla Truck', true, '2020-06-20 00:00:00',false);
 
 UPDATE mst_vehicle_owner_type SET vehicle_owner_name = 'Owner' WHERE vehicle_owner_type_id = 2
+
+
+
 
 
 

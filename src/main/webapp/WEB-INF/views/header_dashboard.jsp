@@ -86,12 +86,12 @@
                         </sec:authorize>
 
    <sec:authorize access="hasAuthority('SUPER ADMIN')">
-                                  <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">Beat Master</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-                                    <ul class="treeview-menu">
-                                    <li><a class="treeview-item" href="${pageContext.request.contextPath}/createbeat" ><i class="icon fa fa-circle-o"></i> Create Beat</a></li>
-                                      <li><a class="treeview-item" href="${pageContext.request.contextPath}/viewbeat"><i class="icon fa fa-circle-o"></i> Update Beat</a></li>
-                                    </ul>
-                                  </li>
+                      <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">Beat Master</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+                        <ul class="treeview-menu">
+                        <li><a class="treeview-item" href="${pageContext.request.contextPath}/createbeat" ><i class="icon fa fa-circle-o"></i> Create Beat</a></li>
+                          <li><a class="treeview-item" href="${pageContext.request.contextPath}/viewbeat"><i class="icon fa fa-circle-o"></i> Update Beat</a></li>
+                        </ul>
+                      </li>
                           </sec:authorize>
 
 
@@ -105,40 +105,39 @@
         </li>
         </sec:authorize>
 
+        <sec:authorize access="hasAuthority('SUPER ADMIN')">
+                <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">Module Management</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+                  <ul class="treeview-menu">
+                  <li><a class="treeview-item" href="${pageContext.request.contextPath}/createmodule" ><i class="icon fa fa-circle-o"></i> Create Module</a></li>
+                  <li><a class="treeview-item" href="${pageContext.request.contextPath}/viewmodule"><i class="icon fa fa-circle-o"></i> View Modules </a></li>
 
-        <sec:authorize access="hasAnyAuthority('SUPER ADMIN', 'REVENUE')">
-        <li><a class="app-menu__item" href="${pageContext.request.contextPath}/showIdCards"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">ID Card List</span></a></li>
-          <li><a class="app-menu__item" href="${pageContext.request.contextPath}/searchId"><i class="app-menu__icon fa fa-search"></i><span class="app-menu__label">Search Id Card</span></a></li>
-          </sec:authorize>
+                  </ul>
+                </li>
+                </sec:authorize>
 
+           <sec:authorize access="hasAuthority('SUPER ADMIN')">
+                        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">Module Role Mapping</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+                          <ul class="treeview-menu">
+                           <li><a class="treeview-item" href="${pageContext.request.contextPath}/viewmodule"><i class="icon fa fa-circle-o"></i> Create Module Role Mapping </a></li>
+                          <li><a class="treeview-item" href="${pageContext.request.contextPath}/viewmodule"><i class="icon fa fa-circle-o"></i> View Module Role Mapping </a></li>
 
-            <sec:authorize access="hasAnyAuthority('SUPER ADMIN','VIEWER')">
-                  <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">Reports</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-                    <ul class="treeview-menu">
-                     <li><a class="app-menu__item" href="${pageContext.request.contextPath}/generateReport"><i class="app-menu__icon fa fa-file-excel-o"></i><span class="app-menu__label">Vehicle ID Card Reports</span></a></li>
-                      <li><a class="app-menu__item" href="${pageContext.request.contextPath}/applereports"><i class="app-menu__icon fa fa-file-excel-o"></i><span class="app-menu__label">Boxes Report (Form C)</span></a></li>
-                      <li><a class="app-menu__item" href="${pageContext.request.contextPath}/formbvehicles"><i class="app-menu__icon fa fa-file-excel-o"></i><span class="app-menu__label">Vehicle Report (Form B)</span></a></li>
-                                 <li><a class="app-menu__item" href="${pageContext.request.contextPath}/cashierReport"><i class="app-menu__icon fa fa-bus"></i><span class="app-menu__label">Cashier Report</span></a></li>
-
-                    </ul>
-                  </li>
-                  </sec:authorize>
-
-
- <sec:authorize access="hasAuthority('SUPER REVENUE')">
-       <li><a class="app-menu__item" href="${pageContext.request.contextPath}/feeCollectionRevenue"><i class="app-menu__icon fa fa-bus"></i><span class="app-menu__label">Fee Collection </span></a></li>
-   </sec:authorize>
-
-    <sec:authorize access="hasAuthority('SUPER OPERATOR')">
-          <li><a class="app-menu__item" href="${pageContext.request.contextPath}/approvedCardList"><i class="app-menu__icon fa fa-bus"></i><span class="app-menu__label"> Approved Card List </span></a></li>
-      </sec:authorize>
-
-    <sec:authorize access="hasAnyAuthority('SUPER ADMIN', 'CASHIER')">
-          <li><a class="app-menu__item" href="${pageContext.request.contextPath}/cashVerificationn"><i class="app-menu__icon fa fa-bus"></i><span class="app-menu__label">Cash Collection</span></a></li>
-           <li><a class="app-menu__item" href="${pageContext.request.contextPath}/cashierReport"><i class="app-menu__icon fa fa-bus"></i><span class="app-menu__label">Cashier Report</span></a></li>
+                          </ul>
+                        </li>
+                        </sec:authorize>
 
 
-      </sec:authorize>
+        <sec:authorize access="hasAuthority('SUPER ADMIN')">
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">Sub Module Management</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+          <ul class="treeview-menu">
+          <li><a class="treeview-item" href="${pageContext.request.contextPath}/createRole" ><i class="icon fa fa-circle-o"></i> Create Sub Module</a></li>
+          <li><a class="treeview-item" href="${pageContext.request.contextPath}/viewUsers"><i class="icon fa fa-circle-o"></i> Update Sub Module </a></li>
+          </ul>
+        </li>
+        </sec:authorize>
+
+
+
+
 
 
       </ul>

@@ -19,11 +19,11 @@ import java.util.Optional;
 @SpringBootTest
 class BeetbookApplicationTests {
 
-
-	@Autowired
-	RolesRepository rolesRepository;
-    @Autowired
-	UserRepository userRepository;
+//
+//	@Autowired
+//	RolesRepository rolesRepository;
+//    @Autowired
+//	UserRepository userRepository;
 
 
 //    @Test
