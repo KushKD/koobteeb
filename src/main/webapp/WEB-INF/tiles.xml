@@ -152,6 +152,21 @@
 
     <!--Module MAster Ends -->
 
+    <!-- Sub Module -->
+    <definition name="createsubmodule" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/submodule/createsubmodule.jsp" />
+    </definition>
+
+    <definition name="viewsubmodule" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/submodule/viewsubmodule.jsp" />
+    </definition>
+
+
+    <definition name="updatesubmodule" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/submodule/updatesubmodule.jsp" />
+    </definition>
+    <!-- Sub Module -->
+
     <!-- Module Role Mapping -->
     <definition name="createmodulerolemapping" extends="baselayoutdashboard">
         <put-attribute name="content" value="/WEB-INF/jsp/modulerole/createmodulerolemapping.jsp" />
