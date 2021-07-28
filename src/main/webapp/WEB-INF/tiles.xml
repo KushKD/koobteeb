@@ -167,6 +167,17 @@
     </definition>
     <!-- Sub Module -->
 
+    <!-- Pin -->
+    <definition name="viewpin" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/pin/viewpin.jsp" />
+    </definition>
+
+
+    <definition name="updatepin" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/pin/updatepin.jsp" />
+    </definition>
+    <!-- Pin Ends -->
+
     <!-- Module Role Mapping -->
     <definition name="createmodulerolemapping" extends="baselayoutdashboard">
         <put-attribute name="content" value="/WEB-INF/jsp/modulerole/createmodulerolemapping.jsp" />

@@ -132,6 +132,16 @@ CREATE TABLE mst_submodule (
 );
 
 
+CREATE TABLE mst_apppin (
+    pin_id serial PRIMARY KEY  NOT NULL,
+    pin INTEGER NOT NULL,
+    active boolean DEFAULT true NOT NULL,
+    is_deleted boolean DEFAULT false NOT NULL,
+    createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
+    lastmodifieddate timestamp without time zone
+);
+
+
 
 
 -- Users
