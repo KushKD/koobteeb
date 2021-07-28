@@ -7,6 +7,7 @@ import com.hp.dit.beetbook.form.module.ModuleForm;
 import com.hp.dit.beetbook.form.modulerole.ModuleRoleForm;
 import com.hp.dit.beetbook.modals.moduleRole.ModuleRoleList;
 import com.hp.dit.beetbook.repositories.rolemodule.RoleModuleRepository;
+import com.hp.dit.beetbook.validators.ModuleRoleValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -32,12 +33,12 @@ import java.util.List;
 @Controller
 public class ModuleRoleMapping {
 
-    //createmodulerolemapping
-    //viewmodulerolemapping
-    //updatemodulerolemapping
 
     @Autowired
     RoleModuleRepository roleModuleRepository;
+
+    @Autowired
+    ModuleRoleValidator moduleRoleValidator;
 
     @RequestMapping(value = "/createmodulerolemapping", method = RequestMethod.GET)
     public String createDistrict(Model model) {
@@ -58,7 +59,7 @@ public class ModuleRoleMapping {
                               HttpSession session, RedirectAttributes redirectAttributes) {
 
 
-       // moduleValidator.validate(moduleForm, bindingResult);
+        moduleRoleValidator.validate(moduleRoleForm, bindingResult);
         if (bindingResult.hasErrors()) {
             return "createmodulerolemapping";
         }
@@ -124,6 +125,56 @@ public class ModuleRoleMapping {
             return "updatemodulerolemapping";
 
         }
+    }
+
+    //updateModuleRoleEntity
+    // updateModuleEntity
+    @RequestMapping(value = "/updateModuleRoleEntity", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @Transactional
+    public String updateModuleRoleEntity(@ModelAttribute("moduleRoleForm") ModuleRoleForm moduleRoleForm,
+                                     BindingResult bindingResult, Model model, HttpServletRequest request,
+                                     HttpSession session, RedirectAttributes redirectAttributes) {
+
+
+        moduleRoleValidator.validate(moduleRoleForm, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "updatemodulerolemapping";
+        }
+        try {
+            System.out.println(moduleRoleForm.toString());
+            ModuleRoleMappingMaster moduleRoleMappingMaster = null;
+            ModuleRoleMappingMaster moduleRoleToUpdate = new ModuleRoleMappingMaster();
+
+            moduleRoleToUpdate = roleModuleRepository.getModuleRoleViaId_(Integer.parseInt(moduleRoleForm.getId()));
+
+            ModuleMaster module = new ModuleMaster();
+            module.setModuleId(Integer.parseInt(moduleRoleForm.getModuleId()));
+            moduleRoleToUpdate.setModuleId(module);
+
+            RolesEntity role = new RolesEntity();
+            role.setRoleId(Integer.parseInt(moduleRoleForm.getRoleId()));
+            moduleRoleToUpdate.setRoleId(role);
+
+            if (moduleRoleForm.getIsActive().equalsIgnoreCase("T")) {
+                moduleRoleToUpdate.setActive(true);
+            } else {
+                moduleRoleToUpdate.setActive(false);
+            }
+
+
+
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            Date date = new Date(timestamp.getTime());
+            moduleRoleToUpdate.setUpdatedOn(date);
+
+            moduleRoleMappingMaster = roleModuleRepository.save(moduleRoleToUpdate);
+            request.getSession().setAttribute("successMessage", "Module Updated Successfully. ");
+            return "redirect:/viewmodulerolemapping";
+        } catch (Exception ex) {
+            request.getSession().setAttribute("successMessage", ex.getLocalizedMessage());
+            return "updatemodulerolemapping";
+        }
+
     }
 
 }

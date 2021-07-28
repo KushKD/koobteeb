@@ -15,6 +15,8 @@ public interface RoleModuleRepositoryCustom {
 
     List<ModuleRoleList> getAllActiveModulesViaRoles() throws Exception;
     ModuleRoleList getModuleRoleViaId(Integer id) throws Exception;
+    Integer moduleRoleCount(Integer module_id, Integer role_id);
+    ModuleRoleMappingMaster getModuleRoleViaId_(Integer id);
 
 
 }
