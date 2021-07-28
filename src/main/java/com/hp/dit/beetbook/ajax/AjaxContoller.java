@@ -8,6 +8,7 @@ import com.hp.dit.beetbook.modals.*;
 import com.hp.dit.beetbook.repositories.RolesRepository;
 import com.hp.dit.beetbook.repositories.beats.BeatRepository;
 import com.hp.dit.beetbook.repositories.districtRepository.DistrictRepository;
+import com.hp.dit.beetbook.repositories.modules.ModuleRepository;
 import com.hp.dit.beetbook.repositories.policestationRepository.PSRepository;
 import com.hp.dit.beetbook.repositories.sosdpo.SoSdpoRepository;
 import com.hp.dit.beetbook.repositories.stateRepository.StateRepository;
@@ -48,6 +49,9 @@ public class AjaxContoller {
     @Autowired
     BeatRepository beatRepository;
 
+    @Autowired
+    ModuleRepository moduleRepository;
+
 
     private static final Logger logger = LoggerFactory.getLogger(AjaxContoller.class);
 
@@ -76,6 +80,28 @@ public class AjaxContoller {
         String jsonStr = null;
         jsonStr = Obj.writeValueAsString(map);
         logger.info(jsonStr);
+        return jsonStr;
+
+
+    }
+
+
+    @RequestMapping(value = "/ajax/getModules", method = RequestMethod.GET,  produces="application/json")
+    public @ResponseBody
+    String getModules() throws Exception {
+        Map<String, Object> map = null;
+        List<ModuleMaster> modules = moduleRepository.getAllActiveModules();
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, modules);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+
+        ObjectMapper Obj = new ObjectMapper();
+        String jsonStr = null;
+        jsonStr = Obj.writeValueAsString(map);
+        logger.info(jsonStr);
+
         return jsonStr;
 
 

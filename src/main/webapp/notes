@@ -106,6 +106,19 @@ CREATE TABLE mst_module (
 	FOREIGN KEY (role_id) REFERENCES roles(role_id)
 );
 
+-- Module Role Mapping
+CREATE TABLE module_role_mapping(
+id SERIAL PRIMARY KEY NOT NULL,
+module_id INTEGER NOT NULL,
+role_id INTEGER NOT NULL,
+active boolean DEFAULT true NOT NULL,
+createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
+lastmodifieddate timestamp without time zone
+FOREIGN KEY (module_id) REFERENCES mst_module(module_id),
+FOREIGN KEY (role_id) REFERENCES roles(role_id)
+
+)
+
 
 
 

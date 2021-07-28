@@ -150,11 +150,22 @@
         <put-attribute name="content" value="/WEB-INF/jsp/module/updatemodule.jsp" />
     </definition>
 
-
-
-
-
     <!--Module MAster Ends -->
+
+    <!-- Module Role Mapping -->
+    <definition name="createmodulerolemapping" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/modulerole/createmodulerolemapping.jsp" />
+    </definition>
+
+    <definition name="viewmodulerolemapping" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/modulerole/viewmodulerolemapping.jsp" />
+    </definition>
+
+
+    <definition name="updatemodulerolemapping" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/modulerole/updatemodulerolemapping.jsp" />
+    </definition>
+    <!-- Module Role Mapping Ends -->
 
 
     <definition name="twoStepVerification" extends="baselayoutdashboardnonav">

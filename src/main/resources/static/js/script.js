@@ -76,6 +76,65 @@ function getroles() {
 	});
 }
 
+//getmodules
+function getmodules() {
+
+	$.ajax({
+		type: "GET",
+		url: formURL + "/ajax/getModules",
+		success: function(data) {
+			//Tomcat
+			var json_ = JSON.parse(JSON.stringify(data));
+			//Jboss
+			//var json_ = JSON.parse(data);
+
+			console.log(json_);
+			var selectRole = $('#modules'); // the state select element
+			selectRole.find('option').remove();
+			selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+			for (i = 0; i < json_.RESPONSE.length; i++) {
+				selectRole.append("<option value=" + json_.RESPONSE[i].moduleId + " >" + json_.RESPONSE[i].moduleName + "</option>")
+			}
+
+		},
+		error: function(data) {
+			console.log(data)
+		}
+
+	});
+}
+
+function getModulesUpdated(mid) {
+
+	$.ajax({
+		type: "GET",
+		url: formURL + "/ajax/getModules",
+		success: function(data) {
+			//Tomcat
+			var json_ = JSON.parse(JSON.stringify(data));
+			//Jboss
+			//var json_ = JSON.parse(data);
+
+			console.log(json_);
+			var selectRole = $('#modules'); // the state select element
+			selectRole.find('option').remove();
+			selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+			for (i = 0; i < json_.RESPONSE.length; i++) {
+				if (document.getElementById('mid') != null && document.getElementById('mid').value == json_.RESPONSE[i].moduleId) {
+					selectRole.append("<option selected value=" + json_.RESPONSE[i].moduleId + " >" + json_.RESPONSE[i].moduleName + "</option>")
+				} else {
+					selectRole.append("<option value=" + json_.RESPONSE[i].moduleId + " >" + json_.RESPONSE[i].moduleName + "</option>")
+				}
+			}
+
+		},
+		error: function(data) {
+			console.log(data)
+		}
+
+	});
+}
+
 
 function getRolesUpdated(rid) {
 
