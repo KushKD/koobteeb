@@ -93,4 +93,19 @@ public class PSRepositoryCustomImpl implements PSRepositoryCustom {
         TypedQuery<PoliceStationMaster> query =  entityManager.createQuery(cq);
         return query.getResultList();
     }
+
+    @Override
+    public List<PoliceStationMaster> getAllActivePoliceStationViaDistrictSoSdpo(Integer stateId, Integer DistrictId, Integer SoSdpoId) throws Exception {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<PoliceStationMaster> cq = cb.createQuery(PoliceStationMaster.class);
+        Root<PoliceStationMaster> book = cq.from(PoliceStationMaster.class);
+        Predicate active = cb.equal(book.get("active"), true);
+        Predicate deleted = cb.equal(book.get("deleted"), false);
+        Predicate state_id = cb.equal(book.get("stateID"), stateId);
+        Predicate district_id = cb.equal(book.get("districtId"), DistrictId);
+        Predicate sosdpo_id = cb.equal(book.get("sosdpoId"), SoSdpoId);
+        cq.where(active,deleted,state_id,district_id,sosdpo_id);
+        TypedQuery<PoliceStationMaster> query =  entityManager.createQuery(cq);
+        return query.getResultList();
+    }
 }

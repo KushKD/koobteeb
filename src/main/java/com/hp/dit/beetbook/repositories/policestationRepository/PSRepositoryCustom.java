@@ -20,5 +20,7 @@ public interface PSRepositoryCustom {
     List<PoliceStationMaster> getAllActivePoliceStation() throws Exception;
     List<PoliceStationMaster> getAllActivePoliceStationViaDistrictSoSdpo(Integer DistrictId, Integer SoSdpoId) throws Exception;
     List<PoliceStationMaster> getAllActivePoliceStationViaSoSdpo(Integer SoSdpoId) throws Exception;
+    List<PoliceStationMaster> getAllActivePoliceStationViaDistrictSoSdpo(Integer stateId,Integer DistrictId, Integer SoSdpoId) throws Exception;
+
 
 }

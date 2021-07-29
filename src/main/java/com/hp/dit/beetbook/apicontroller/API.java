@@ -4,13 +4,16 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.hp.dit.beetbook.entities.DistrictMaster;
-import com.hp.dit.beetbook.entities.StatesMaster;
+import com.hp.dit.beetbook.entities.*;
 import com.hp.dit.beetbook.modals.RolesUser;
 import com.hp.dit.beetbook.modals.UsePoJo;
 import com.hp.dit.beetbook.modals.UserPojoWithRole;
+import com.hp.dit.beetbook.modals.beats.BeatsNameId;
 import com.hp.dit.beetbook.repositories.RolesRepository;
+import com.hp.dit.beetbook.repositories.beats.BeatRepository;
 import com.hp.dit.beetbook.repositories.districtRepository.DistrictRepository;
+import com.hp.dit.beetbook.repositories.policestationRepository.PSRepository;
+import com.hp.dit.beetbook.repositories.sosdpo.SoSdpoRepository;
 import com.hp.dit.beetbook.repositories.stateRepository.StateRepository;
 import com.hp.dit.beetbook.repositories.user.UserRepository;
 import com.hp.dit.beetbook.security.EncryptDecrypt;
@@ -55,22 +58,23 @@ public class API {
 
     @Autowired
     DistrictRepository districtRepository;
-
-
-
     @Autowired
     UserRepository userRepository;
 
-
-
+    @Autowired
+    BeatRepository beatRepository;
 
     @Autowired
     private FileStorageService fileStorageService;
 
-
+    @Autowired
+    private SoSdpoRepository soSdpoRepository;
 
     @Autowired
     private RolesRepository rolesRepository;
+
+    @Autowired
+    private PSRepository psRepository;
 
 
 
@@ -125,6 +129,48 @@ public class API {
 
         try {
             List<StatesMaster> states = stateRepository.getAllStates();
+            if (!states.isEmpty()) {
+                map = new HashMap<String, Object>();
+                map.put(Constants.keyResponse, states);
+                map.put(Constants.keyMessage, "Request Successful. Data Found Successfully.");
+                map.put(Constants.keyStatus, HttpStatus.OK.value());
+                Obj = new ObjectMapper();
+                jsonStr = Obj.writeValueAsString(map);
+                logger.info(jsonStr);
+                logger.info(ED.encrypt(jsonStr));
+                return ED.encrypt(jsonStr);
+            } else {
+                map = new HashMap<String, Object>();
+                map.put(Constants.keyResponse, states);
+                map.put(Constants.keyMessage, "Request Successful. No Data Found.");
+                map.put(Constants.keyStatus, HttpStatus.NO_CONTENT.value());
+                Obj = new ObjectMapper();
+                jsonStr = Obj.writeValueAsString(map);
+                logger.info(jsonStr);
+                return ED.encrypt(jsonStr);
+            }
+        } catch (Exception ex) {
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, ex.getLocalizedMessage().toString());
+            map.put(Constants.keyMessage, "Server was unable to process the Request. Please try again Later.");
+            map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+            Obj = new ObjectMapper();
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+            return ED.encrypt(jsonStr);
+
+        }
+    }
+
+    @RequestMapping(value = "/api/sosdpo", method = RequestMethod.GET, produces = Constants.ProducesPlainText)
+    public String getsosdpo() throws JsonProcessingException, UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
+        Map<String, Object> map = null;
+        EncryptDecrypt ED = new EncryptDecrypt();
+        ObjectMapper Obj = null;
+        String jsonStr = null;
+
+        try {
+            List<S0SdpoMaster> states = soSdpoRepository.getAllActiveSOSdo();
             if (!states.isEmpty()) {
                 map = new HashMap<String, Object>();
                 map.put(Constants.keyResponse, states);
@@ -262,6 +308,162 @@ public class API {
         } else {
             map = new HashMap<String, Object>();
             map.put(Constants.keyResponse, "State ID Passed not in valid format");
+            map.put(Constants.keyMessage, "Request Successful. Data Found Successfully.");
+            map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+            Obj = new ObjectMapper();
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+            logger.info(ED.encrypt(jsonStr));
+            return ED.encrypt(jsonStr);
+        }
+    }
+
+
+    /**
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/api/getPoliceStations", method = RequestMethod.POST, consumes = "text/plain", produces = "text/plain")
+    @ResponseBody
+    public String getPoliceStations(@RequestBody String stateId) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, JsonProcessingException {
+        Map<String, Object> map = null;
+        String state_id = null, jsonStr = null;
+        String district_id = null, sosdpo_id = null;
+        EncryptDecrypt ED = new EncryptDecrypt();
+        ObjectMapper Obj = null;
+
+        if (stateId != null && !stateId.isEmpty()) {
+            logger.info("State ID:-\t" + stateId);
+            state_id = ED.decrypt(stateId);
+
+            try {
+
+                JsonObject jsonObject = new JsonParser().parse(state_id).getAsJsonObject();
+                System.out.println(jsonObject.toString());
+                logger.info("API:: User Data is (Json Object ):- " + jsonObject);
+                stateId = jsonObject.getAsJsonObject().get("stateId").getAsString();
+                district_id = jsonObject.getAsJsonObject().get("districtId").getAsString();
+                sosdpo_id = jsonObject.getAsJsonObject().get("sdpoId").getAsString();
+
+                logger.info("stateId:- " + stateId);
+                logger.info("districtId:- " + district_id);
+                logger.info("SoSDPOId:- " + sosdpo_id);
+
+                List<PoliceStationMaster> policeStations = psRepository.getAllActivePoliceStationViaDistrictSoSdpo(Integer.parseInt(stateId),Integer.parseInt(district_id),Integer.parseInt(sosdpo_id));
+                if (!policeStations.isEmpty()) {
+                    map = new HashMap<String, Object>();
+                    map.put(Constants.keyResponse, policeStations);
+                    map.put(Constants.keyMessage, "Request Successful. Data Found Successfully.");
+                    map.put(Constants.keyStatus, HttpStatus.OK.value());
+                    Obj = new ObjectMapper();
+                    jsonStr = Obj.writeValueAsString(map);
+                    logger.info(jsonStr);
+                    logger.info(ED.encrypt(jsonStr));
+                    return ED.encrypt(jsonStr);
+                } else {
+                    map = new HashMap<String, Object>();
+                    map.put(Constants.keyResponse, policeStations);
+                    map.put(Constants.keyMessage, "Request Successful. No Data Found.");
+                    map.put(Constants.keyStatus, HttpStatus.NO_CONTENT.value());
+                    Obj = new ObjectMapper();
+                    jsonStr = Obj.writeValueAsString(map);
+                    logger.info(jsonStr);
+                    return ED.encrypt(jsonStr);
+                }
+            } catch (Exception ex) {
+                map = new HashMap<String, Object>();
+                map.put(Constants.keyResponse, ex.getLocalizedMessage().toString());
+                map.put(Constants.keyMessage, "Server was unable to process the Request. Please try again Later.");
+                map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+                Obj = new ObjectMapper();
+                jsonStr = Obj.writeValueAsString(map);
+                logger.info(jsonStr);
+                return ED.encrypt(jsonStr);
+            }
+
+
+        } else {
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, "Data Passed not in valid format");
+            map.put(Constants.keyMessage, "Request Successful. Data Found Successfully.");
+            map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+            Obj = new ObjectMapper();
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+            logger.info(ED.encrypt(jsonStr));
+            return ED.encrypt(jsonStr);
+        }
+    }
+
+
+    /**
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/api/getBeats", method = RequestMethod.POST, consumes = "text/plain", produces = "text/plain")
+    @ResponseBody
+    public String getBeats(@RequestBody String stateId) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, JsonProcessingException {
+        Map<String, Object> map = null;
+        String state_id = null, jsonStr = null;
+        String district_id = null, sosdpo_id = null, ps_id = null;
+        EncryptDecrypt ED = new EncryptDecrypt();
+        ObjectMapper Obj = null;
+
+        if (stateId != null && !stateId.isEmpty()) {
+            logger.info("State ID:-\t" + stateId);
+            state_id = ED.decrypt(stateId);
+
+            try {
+
+                JsonObject jsonObject = new JsonParser().parse(state_id).getAsJsonObject();
+                System.out.println(jsonObject.toString());
+                logger.info("API:: User Data is (Json Object ):- " + jsonObject);
+                stateId = jsonObject.getAsJsonObject().get("stateId").getAsString();
+                district_id = jsonObject.getAsJsonObject().get("districtId").getAsString();
+                sosdpo_id = jsonObject.getAsJsonObject().get("sdpoId").getAsString();
+                ps_id = jsonObject.getAsJsonObject().get("psId").getAsString();
+
+                logger.info("stateId:- " + stateId);
+                logger.info("districtId:- " + district_id);
+                logger.info("SoSDPOId:- " + sosdpo_id);
+                logger.info("PSID:- " + ps_id);
+
+                List<BeatsNameId> beats = beatRepository.findBeatNameIdByPSId(Integer.parseInt(ps_id));
+                if (!beats.isEmpty()) {
+                    map = new HashMap<String, Object>();
+                    map.put(Constants.keyResponse, beats);
+                    map.put(Constants.keyMessage, "Request Successful. Data Found Successfully.");
+                    map.put(Constants.keyStatus, HttpStatus.OK.value());
+                    Obj = new ObjectMapper();
+                    jsonStr = Obj.writeValueAsString(map);
+                    logger.info(jsonStr);
+                    logger.info(ED.encrypt(jsonStr));
+                    return ED.encrypt(jsonStr);
+                } else {
+                    map = new HashMap<String, Object>();
+                    map.put(Constants.keyResponse, beats);
+                    map.put(Constants.keyMessage, "Request Successful. No Data Found.");
+                    map.put(Constants.keyStatus, HttpStatus.NO_CONTENT.value());
+                    Obj = new ObjectMapper();
+                    jsonStr = Obj.writeValueAsString(map);
+                    logger.info(jsonStr);
+                    return ED.encrypt(jsonStr);
+                }
+            } catch (Exception ex) {
+                map = new HashMap<String, Object>();
+                map.put(Constants.keyResponse, ex.getLocalizedMessage().toString());
+                map.put(Constants.keyMessage, "Server was unable to process the Request. Please try again Later.");
+                map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+                Obj = new ObjectMapper();
+                jsonStr = Obj.writeValueAsString(map);
+                logger.info(jsonStr);
+                return ED.encrypt(jsonStr);
+            }
+
+
+        } else {
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, "Data Passed not in valid format");
             map.put(Constants.keyMessage, "Request Successful. Data Found Successfully.");
             map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
             Obj = new ObjectMapper();

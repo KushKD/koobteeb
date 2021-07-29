@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.locationtech.jts.geom.*;
 
 @Entity
@@ -53,7 +55,9 @@ public class BeatMaster implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOn;
 
+
     @Column(nullable = false, name="beat_geometry" ,columnDefinition = "geometry(Point,4326)")
+    @JsonDeserialize(as = Point.class)
     private Geometry  beatGeometry;
 
     public Geometry getBeatGeometry() {

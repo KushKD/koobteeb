@@ -53,7 +53,30 @@ public class AjaxContoller {
     ModuleRepository moduleRepository;
 
 
+
+
     private static final Logger logger = LoggerFactory.getLogger(AjaxContoller.class);
+
+
+    @RequestMapping(value = "/ajax/getStates", method = RequestMethod.GET,  produces="application/json")
+    public @ResponseBody
+    String getStates() throws Exception {
+        Map<String, Object> map = null;
+        List<StatesMaster> states = stateRepository.getAllStates();
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, states);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+
+        ObjectMapper Obj = new ObjectMapper();
+        String jsonStr = null;
+        jsonStr = Obj.writeValueAsString(map);
+        logger.info(jsonStr);
+
+        return jsonStr;
+
+    }
 
 
     @RequestMapping(value = "/ajax/getRoles", method = RequestMethod.GET,  produces="application/json")
@@ -109,25 +132,7 @@ public class AjaxContoller {
 
 
 
-        @RequestMapping(value = "/ajax/getStates", method = RequestMethod.GET,  produces="application/json")
-    public @ResponseBody
-    String getStates() throws Exception {
-        Map<String, Object> map = null;
-        List<StatesMaster> states = stateRepository.getAllStates();
 
-        map = new HashMap<String, Object>();
-        map.put(Constants.keyResponse, states);
-        map.put(Constants.keyMessage, Constants.valueMessage);
-        map.put(Constants.keyStatus, HttpStatus.OK);
-
-            ObjectMapper Obj = new ObjectMapper();
-            String jsonStr = null;
-            jsonStr = Obj.writeValueAsString(map);
-            logger.info(jsonStr);
-
-            return jsonStr;
-
-    }
 
 
     @RequestMapping(value = "/ajax/getsospdo", method = RequestMethod.GET,  produces="application/json")
@@ -161,6 +166,26 @@ public class AjaxContoller {
     @RequestMapping(value = "/ajax/getDistrictViaState", method = RequestMethod.GET,  produces="application/json")
     public @ResponseBody
     String getDistrictViaState(@RequestParam(value = "id", required = true) String id) throws Exception {
+        Map<String, Object> map = null;
+        List<DistrictMaster> districts = districtRepository.findDistrictByStateId(Integer.parseInt(id));
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, districts);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+
+        ObjectMapper Obj = new ObjectMapper();
+        String jsonStr = null;
+        jsonStr = Obj.writeValueAsString(map);
+        logger.info(jsonStr);
+        return jsonStr;
+
+
+    }
+
+    @RequestMapping(value = "/ajax/soSdpo", method = RequestMethod.GET,  produces="application/json")
+    public @ResponseBody
+    String getSoSDpo(@RequestParam(value = "id", required = true) String id) throws Exception {
         Map<String, Object> map = null;
         List<DistrictMaster> districts = districtRepository.findDistrictByStateId(Integer.parseInt(id));
 

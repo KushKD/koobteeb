@@ -807,3 +807,6 @@ SELECT location_id, location_name, location_points, ST_Distance(location_points,
             FROM mst_locations
             ORDER BY location_points  <-> ST_SetSRID(ST_Point(77.4082178,31.0667738),4326)
             LIMIT 20
+
+
+SELECT ST_AsGeoJSON(beat_geometry) from  mst_beat WHERE ps_id=1

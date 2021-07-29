@@ -2,6 +2,9 @@ package com.hp.dit.beetbook.repositories.beats;
 
 import com.hp.dit.beetbook.entities.BeatMaster;
 import com.hp.dit.beetbook.entities.DistrictMaster;
+import com.hp.dit.beetbook.entities.UserEntity;
+import com.hp.dit.beetbook.modals.LoggedInUserSession;
+import com.hp.dit.beetbook.modals.beats.BeatsNameId;
 import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,6 +32,23 @@ public class BeatRepositoryCustomImpl implements BeatRepositoryCustom {
         Predicate deleted = cb.equal(book.get("deleted"), false);
         cq.where(stateId_,active,deleted);
         TypedQuery<BeatMaster> query =  entityManager.createQuery(cq);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<BeatsNameId> findBeatNameIdByPSId(Integer polise_station) throws Exception {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<BeatsNameId> cq = cb.createQuery(BeatsNameId.class);
+        Root<BeatMaster> book = cq.from(BeatMaster.class);
+        Predicate stateId_ = cb.equal(book.get("psId"), polise_station);
+        Predicate active = cb.equal(book.get("active"), true);
+        Predicate deleted = cb.equal(book.get("deleted"), false);
+        cq.where(stateId_,active,deleted);
+        cq.multiselect(
+                book.get("beatId"),
+                book.get("beatName")
+               ).distinct(true);
+        TypedQuery<BeatsNameId> query =  entityManager.createQuery(cq);
         return query.getResultList();
     }
 
