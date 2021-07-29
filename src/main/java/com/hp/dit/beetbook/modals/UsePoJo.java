@@ -14,23 +14,28 @@ public class UsePoJo implements Serializable {
 	private String firstName;
 	private String lastName;
 	private String password;
+	private Integer stateID;
+	private Integer districtId;
+	private Integer sosdpoId;
+	private Integer psId;
+	private Integer beatId;
 
-
-	public UsePoJo(Long user_id, String user_name, Long mobile_number, String firstName, String lastName, String password) {
+	public UsePoJo(Long user_id, String user_name, Long mobile_number, String firstName, String lastName, String password, Integer stateID, Integer districtId, Integer sosdpoId, Integer psId, Integer beatId) {
 		this.user_id = user_id;
 		this.user_name = user_name;
 		this.mobile_number = mobile_number;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.password = password;
+		this.stateID = stateID;
+		this.districtId = districtId;
+		this.sosdpoId = sosdpoId;
+		this.psId = psId;
+		this.beatId = beatId;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
 	}
 
 	public Long getUser_id() {
@@ -73,6 +78,54 @@ public class UsePoJo implements Serializable {
 		this.lastName = lastName;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Integer getStateID() {
+		return stateID;
+	}
+
+	public void setStateID(Integer stateID) {
+		this.stateID = stateID;
+	}
+
+	public Integer getDistrictId() {
+		return districtId;
+	}
+
+	public void setDistrictId(Integer districtId) {
+		this.districtId = districtId;
+	}
+
+	public Integer getSosdpoId() {
+		return sosdpoId;
+	}
+
+	public void setSosdpoId(Integer sosdpoId) {
+		this.sosdpoId = sosdpoId;
+	}
+
+	public Integer getPsId() {
+		return psId;
+	}
+
+	public void setPsId(Integer psId) {
+		this.psId = psId;
+	}
+
+	public Integer getBeatId() {
+		return beatId;
+	}
+
+	public void setBeatId(Integer beatId) {
+		this.beatId = beatId;
+	}
+
 	@Override
 	public String toString() {
 		return "UsePoJo{" +
@@ -82,6 +135,11 @@ public class UsePoJo implements Serializable {
 				", firstName='" + firstName + '\'' +
 				", lastName='" + lastName + '\'' +
 				", password='" + password + '\'' +
+				", stateID=" + stateID +
+				", districtId=" + districtId +
+				", sosdpoId=" + sosdpoId +
+				", psId=" + psId +
+				", beatId=" + beatId +
 				'}';
 	}
 }

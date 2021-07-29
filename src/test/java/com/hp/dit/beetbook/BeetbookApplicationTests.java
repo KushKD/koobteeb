@@ -257,6 +257,73 @@ class BeetbookApplicationTests {
 
     }
 
+    @Test
+    @Transactional
+    @Rollback(value = false)
+    void loginBeat() throws Exception  {
+
+        EncryptDecrypt ED = new EncryptDecrypt();
+        JsonObject jsonObjecttwo = new JsonObject();
+        jsonObjecttwo.addProperty("stateId", "9");
+        jsonObjecttwo.addProperty("districtId", "204");
+        jsonObjecttwo.addProperty("sdpoId", "1");
+        jsonObjecttwo.addProperty("psId", "1");
+        jsonObjecttwo.addProperty("beatId", "2");
+        jsonObjecttwo.addProperty("username", "beat");
+        jsonObjecttwo.addProperty("password", "Demo@123");
+        System.out.println(ED.encrypt(jsonObjecttwo.toString()));
+        String ps = apiController.loginBeat(ED.encrypt(jsonObjecttwo.toString()));
+        System.out.println("===Loggged In User===");
+        System.out.println(ps);
+        System.out.println(ED.decrypt(ps));
+
+    }
+
+    @Test
+    @Transactional
+    @Rollback(value = false)
+    void loginSoSP() throws Exception  {
+
+        EncryptDecrypt ED = new EncryptDecrypt();
+        JsonObject jsonObjecttwo = new JsonObject();
+        jsonObjecttwo.addProperty("stateId", "9");
+        jsonObjecttwo.addProperty("districtId", "204");
+        jsonObjecttwo.addProperty("sdpoId", "1");
+        jsonObjecttwo.addProperty("psId", "1");
+        jsonObjecttwo.addProperty("username", "shouser");
+        jsonObjecttwo.addProperty("password", "Demo@123");
+        System.out.println(ED.encrypt(jsonObjecttwo.toString()));
+        String ps = apiController.loginSoSP(ED.encrypt(jsonObjecttwo.toString()));
+        System.out.println("===Loggged In SHO User===");
+        System.out.println(ps);
+        System.out.println(ED.decrypt(ps));
+
+    }
+
+    @Test
+    @Transactional
+    @Rollback(value = false)
+    void checkPin() throws Exception  {
+            EncryptDecrypt ED = new EncryptDecrypt();
+        String districts = apiController.checkPin();
+        System.out.println("===Districts===");
+        System.out.println(districts);
+        System.out.println(ED.decrypt(districts));
+
+    }
+
+    @Test
+    @Transactional
+    @Rollback(value = false)
+    void getModules() throws Exception  {
+        EncryptDecrypt ED = new EncryptDecrypt();
+        String modules = apiController.getModules(ED.encrypt("4"));
+        System.out.println("===Modules===");
+        System.out.println(modules);
+        System.out.println(ED.decrypt(modules));
+
+    }
+
 
 
 

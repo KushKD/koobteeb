@@ -45,4 +45,16 @@ public class PinRepositoryCustomImpl implements PinRepositoryCustom {
         TypedQuery<PinMaster> query =  entityManager.createQuery(cq);
         return query.getResultList().get(0);
     }
+
+    @Override
+    public PinMaster findActivePins() throws Exception {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<PinMaster> cq = cb.createQuery(PinMaster.class);
+        Root<PinMaster> book = cq.from(PinMaster.class);
+        Predicate active = cb.equal(book.get("active"), true);
+        Predicate deleted = cb.equal(book.get("deleted"), false);
+        cq.where(active,deleted);
+        TypedQuery<PinMaster> query =  entityManager.createQuery(cq);
+        return query.getResultList().get(0);
+    }
 }

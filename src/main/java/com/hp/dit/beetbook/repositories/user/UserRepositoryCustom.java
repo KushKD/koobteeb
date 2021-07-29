@@ -14,7 +14,9 @@ public interface UserRepositoryCustom {
     List<LoggedInUserSession> getUserGeoData(String username_);
     UserEntity findByMobileNumber(Long mobile);
     UserEntity getUserDetails(Long mobile );
-    UsePoJo apiLogin(Long mobile, Integer StateId, Integer DistrictId, Integer BarrierId, String username );
+    UsePoJo apiLogin(Integer StateId, Integer DistrictId, Integer sosdpoid, Integer psid, Integer beatid, String username, String password );
+    UsePoJo apiLoginSho(Integer StateId, Integer DistrictId, Integer sosdpoid, Integer beatid, String username, String password );
+
     RevenueUserDetails getRevenueUserPhoneNumber(Integer userId);
 
 }

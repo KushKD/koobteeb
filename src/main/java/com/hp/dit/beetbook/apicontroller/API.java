@@ -5,13 +5,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.hp.dit.beetbook.entities.*;
+import com.hp.dit.beetbook.modals.RolesModal;
 import com.hp.dit.beetbook.modals.RolesUser;
 import com.hp.dit.beetbook.modals.UsePoJo;
 import com.hp.dit.beetbook.modals.UserPojoWithRole;
 import com.hp.dit.beetbook.modals.beats.BeatsNameId;
+import com.hp.dit.beetbook.modals.moduleModel.ModulesModal;
 import com.hp.dit.beetbook.repositories.RolesRepository;
 import com.hp.dit.beetbook.repositories.beats.BeatRepository;
 import com.hp.dit.beetbook.repositories.districtRepository.DistrictRepository;
+import com.hp.dit.beetbook.repositories.modules.ModuleRepository;
+import com.hp.dit.beetbook.repositories.pin.PinRepository;
 import com.hp.dit.beetbook.repositories.policestationRepository.PSRepository;
 import com.hp.dit.beetbook.repositories.sosdpo.SoSdpoRepository;
 import com.hp.dit.beetbook.repositories.stateRepository.StateRepository;
@@ -75,6 +79,12 @@ public class API {
 
     @Autowired
     private PSRepository psRepository;
+
+    @Autowired
+    PinRepository pinRepository;
+
+    @Autowired
+    ModuleRepository moduleRepository;
 
 
 
@@ -482,12 +492,12 @@ public class API {
      */
     @RequestMapping(value = "/api/login", method = RequestMethod.POST, consumes = "text/plain", produces = "text/plain")
     @ResponseBody
-    public String login(@RequestBody String userData) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, JsonProcessingException {
+    public String loginBeat(@RequestBody String userData) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, JsonProcessingException {
         Map<String, Object> map = null;
         String userData_ = null, jsonStr = null;
         EncryptDecrypt ED = new EncryptDecrypt();
         ObjectMapper Obj = null;
-        String encrypted = null, username = null, password = null, stateId = null, districtId = null, barrierId = null, mobileNumber = null, roleId;
+        String encrypted = null, psid=null, username = null, beatid=null, password = null, stateId = null, districtId = null, sosdpoid = null, mobileNumber = null, roleId;
 
         if (userData != null && !userData.isEmpty()) {
             logger.info("User Data Encrypted:-\t" + userData);
@@ -498,27 +508,32 @@ public class API {
                 JsonObject jsonObject = new JsonParser().parse(userData_).getAsJsonObject();
                 System.out.println(jsonObject.toString());
                 logger.info("API:: User Data is (Json Object ):- " + jsonObject);
+
+
                 username = jsonObject.getAsJsonObject().get("username").getAsString();
                 password = jsonObject.getAsJsonObject().get("password").getAsString();
                 stateId = jsonObject.getAsJsonObject().get("stateId").getAsString();
                 districtId = jsonObject.getAsJsonObject().get("districtId").getAsString();
-                barrierId = jsonObject.getAsJsonObject().get("barrierId").getAsString();
-                mobileNumber = jsonObject.getAsJsonObject().get("mobile").getAsString();
+                sosdpoid = jsonObject.getAsJsonObject().get("sdpoId").getAsString();
+                psid = jsonObject.getAsJsonObject().get("psId").getAsString();
+                beatid = jsonObject.getAsJsonObject().get("beatId").getAsString();
 
                 logger.info("Username:- " + username);
                 logger.info("password:- " + password);
                 logger.info("stateId:- " + stateId);
                 logger.info("districtId:- " + districtId);
-                logger.info("barrierId:- " + barrierId);
-                logger.info("mobileNumber:- " + mobileNumber);
+                logger.info("barrierId:- " + sosdpoid);
+                logger.info("psid:- " + psid);
+                logger.info("beatid:- " + beatid);
 
 
                 UsePoJo user = userRepository.apiLogin(
-                        Long.parseLong(mobileNumber),
                         Integer.parseInt(stateId),
                         Integer.parseInt(districtId),
-                        Integer.parseInt(barrierId),
-                        username);
+                        Integer.parseInt(sosdpoid),
+                        Integer.parseInt(psid),
+                        Integer.parseInt(beatid),
+                        username,password);
                 logger.info("User \t" + user.toString());
 
                 if (user != null) {
@@ -596,9 +611,154 @@ public class API {
 
             } catch (Exception ex) {
                 map = new HashMap<String, Object>();
-                map.put(Constants.keyResponse, ex.getLocalizedMessage().toString());
-                map.put(Constants.keyMessage, "Server was unable to process the Request. Please try again Later.");
-                map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+                map.put(Constants.keyResponse, "No User found");
+                map.put(Constants.keyMessage, "Request Successful. No Data Found.");
+                map.put(Constants.keyStatus, HttpStatus.NO_CONTENT.value());
+                Obj = new ObjectMapper();
+                jsonStr = Obj.writeValueAsString(map);
+                logger.info(jsonStr);
+                return ED.encrypt(jsonStr);
+            }
+
+
+        } else {
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, "Data not in valid format");
+            map.put(Constants.keyMessage, "Request Successful. Data Found Successfully.");
+            map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+            Obj = new ObjectMapper();
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+            logger.info(ED.encrypt(jsonStr));
+            return ED.encrypt(jsonStr);
+        }
+    }
+
+
+    /**
+     * Login SO and SHO
+     */
+    @RequestMapping(value = "/api/loginSoSP", method = RequestMethod.POST, consumes = "text/plain", produces = "text/plain")
+    @ResponseBody
+    public String loginSoSP(@RequestBody String userData) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, JsonProcessingException {
+        Map<String, Object> map = null;
+        String userData_ = null, jsonStr = null;
+        EncryptDecrypt ED = new EncryptDecrypt();
+        ObjectMapper Obj = null;
+        String encrypted = null, psid=null, username = null, beatid=null, password = null, stateId = null, districtId = null, sosdpoid = null, mobileNumber = null, roleId;
+
+        if (userData != null && !userData.isEmpty()) {
+            logger.info("User Data Encrypted:-\t" + userData);
+            userData_ = ED.decrypt(userData);
+            logger.info("User Data DeEncrypted:-\t" + userData_);
+
+            try {
+                JsonObject jsonObject = new JsonParser().parse(userData_).getAsJsonObject();
+                System.out.println(jsonObject.toString());
+                logger.info("API:: User Data is (Json Object ):- " + jsonObject);
+
+
+                username = jsonObject.getAsJsonObject().get("username").getAsString();
+                password = jsonObject.getAsJsonObject().get("password").getAsString();
+                stateId = jsonObject.getAsJsonObject().get("stateId").getAsString();
+                districtId = jsonObject.getAsJsonObject().get("districtId").getAsString();
+                sosdpoid = jsonObject.getAsJsonObject().get("sdpoId").getAsString();
+                psid = jsonObject.getAsJsonObject().get("psId").getAsString();
+
+                logger.info("Username:- " + username);
+                logger.info("password:- " + password);
+                logger.info("stateId:- " + stateId);
+                logger.info("districtId:- " + districtId);
+                logger.info("barrierId:- " + sosdpoid);
+                logger.info("psid:- " + psid);
+
+
+                UsePoJo user = userRepository.apiLoginSho(
+                        Integer.parseInt(stateId),
+                        Integer.parseInt(districtId),
+                        Integer.parseInt(sosdpoid),
+                        Integer.parseInt(psid),
+                        username,password);
+                logger.info("User \t" + user.toString());
+
+                if (user != null) {
+
+                    UserPojoWithRole userwithRole = new UserPojoWithRole();
+                    userwithRole.setUserPojo(user);
+
+                    logger.info("User with Role");
+                    logger.info(userwithRole.toString());
+
+                    //Get Role of the User
+                    //TODO kush
+
+                    logger.info("Getting Data from Roles Table");
+                    List<Object[]> rolesOfUser = rolesRepository.getRoleViaUser(user.getUser_id());
+                    List<RolesUser> rolesUser = new ArrayList<>();
+
+
+                    for (Object[] result : rolesOfUser) {
+                        RolesUser pojo = new RolesUser();
+                        pojo.setRole_id((Integer) result[0]);
+                        pojo.setRole_name((String) result[1]);
+                        rolesUser.add(pojo);
+                    }
+
+                    logger.info("Roles List Data" , rolesUser.toString());
+                    logger.info("Roles ID " , rolesUser.get(0).getRole_id());
+                    logger.info("Roles Name " , rolesUser.get(0).getRole_name());
+
+                    userwithRole.setRoleId(rolesUser.get(0).getRole_id());
+                    userwithRole.setRoleName(rolesUser.get(0).getRole_name());
+
+                    System.out.println(user.toString());
+                    PasswordEncoder encoder = new BCryptPasswordEncoder();
+                    System.out.println(encoder.encode(password));
+
+                    boolean isPasswordMatch = encoder.matches(password, user.getPassword());
+                    System.out.println("Password : " + password + "   isPasswordMatch    : " + isPasswordMatch);
+
+                    //Get RoleId via UserPojo UserID
+
+                    if (isPasswordMatch) {
+
+                        map = new HashMap<String, Object>();
+                        map.put(Constants.keyResponse, userwithRole);
+                        map.put(Constants.keyMessage, "Request Successful. Data Found Successfully.");
+                        map.put(Constants.keyStatus, HttpStatus.OK.value());
+                        Obj = new ObjectMapper();
+                        jsonStr = Obj.writeValueAsString(map);
+                        logger.info(jsonStr);
+                        logger.info(ED.encrypt(jsonStr));
+                        return ED.encrypt(jsonStr);
+
+                    } else {
+                        map = new HashMap<String, Object>();
+                        map.put(Constants.keyResponse, "Password Doesn't Match!");
+                        map.put(Constants.keyMessage, "Request Successful.");
+                        map.put(Constants.keyStatus, HttpStatus.NO_CONTENT.value());
+                        Obj = new ObjectMapper();
+                        jsonStr = Obj.writeValueAsString(map);
+                        logger.info(jsonStr);
+                        return ED.encrypt(jsonStr);
+                    }
+
+                } else {
+                    map = new HashMap<String, Object>();
+                    map.put(Constants.keyResponse, "No User found");
+                    map.put(Constants.keyMessage, "Request Successful. No Data Found.");
+                    map.put(Constants.keyStatus, HttpStatus.NO_CONTENT.value());
+                    Obj = new ObjectMapper();
+                    jsonStr = Obj.writeValueAsString(map);
+                    logger.info(jsonStr);
+                    return ED.encrypt(jsonStr);
+                }
+
+            } catch (Exception ex) {
+                map = new HashMap<String, Object>();
+                map.put(Constants.keyResponse, "No User found");
+                map.put(Constants.keyMessage, "Request Successful. No Data Found.");
+                map.put(Constants.keyStatus, HttpStatus.NO_CONTENT.value());
                 Obj = new ObjectMapper();
                 jsonStr = Obj.writeValueAsString(map);
                 logger.info(jsonStr);
@@ -621,22 +781,121 @@ public class API {
 
 
 
+    @RequestMapping(value = "/api/checkPin", method = RequestMethod.POST, consumes = "text/plain", produces = "text/plain")
+    @ResponseBody
+    public String checkPin() throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, JsonProcessingException {
+        Map<String, Object> map = null;
+        String state_id = null, jsonStr = null;
+        EncryptDecrypt ED = new EncryptDecrypt();
+        ObjectMapper Obj = null;
+
+
+            try {
+                PinMaster pinDetails = pinRepository.findActivePins();
+                if (pinDetails!=null) {
+                    map = new HashMap<String, Object>();
+                    map.put(Constants.keyResponse, pinDetails);
+                    map.put(Constants.keyMessage, "Request Successful. Data Found Successfully.");
+                    map.put(Constants.keyStatus, HttpStatus.OK.value());
+                    Obj = new ObjectMapper();
+                    jsonStr = Obj.writeValueAsString(map);
+                    logger.info(jsonStr);
+                    logger.info(ED.encrypt(jsonStr));
+                    return ED.encrypt(jsonStr);
+                } else {
+                    map = new HashMap<String, Object>();
+                    map.put(Constants.keyResponse, "");
+                    map.put(Constants.keyMessage, "Request Successful. No Data Found.");
+                    map.put(Constants.keyStatus, HttpStatus.NO_CONTENT.value());
+                    Obj = new ObjectMapper();
+                    jsonStr = Obj.writeValueAsString(map);
+                    logger.info(jsonStr);
+                    return ED.encrypt(jsonStr);
+                }
+            } catch (Exception ex) {
+                map = new HashMap<String, Object>();
+                map.put(Constants.keyResponse, ex.getLocalizedMessage().toString());
+                map.put(Constants.keyMessage, "Server was unable to process the Request. Please try again Later.");
+                map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+                Obj = new ObjectMapper();
+                jsonStr = Obj.writeValueAsString(map);
+                logger.info(jsonStr);
+                return ED.encrypt(jsonStr);
+            }
 
 
 
+    }
+
+    @RequestMapping(value = "/api/getModules", method = RequestMethod.POST, consumes = "text/plain", produces = "text/plain")
+    @ResponseBody
+    public String getModules(@RequestBody String roleId) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, JsonProcessingException {
+        Map<String, Object> map = null;
+        String role_id = null, jsonStr = null;
+        EncryptDecrypt ED = new EncryptDecrypt();
+        ObjectMapper Obj = null;
+        List<ModulesModal> modulesViaRole = null;
+
+        if (roleId != null && !roleId.isEmpty()) {
+            logger.info("Role ID:-\t" + roleId);
+            role_id = ED.decrypt(roleId);
+
+            try {
+                List<Object[]> modules = moduleRepository.getModulesViaRoleId(Integer.parseInt(role_id));
+
+                if (!modules.isEmpty()) {
+
+                    modulesViaRole = new ArrayList<>();
+                    for (Object[] result : modules) {
+                        ModulesModal pojo = new ModulesModal();
+                        pojo.setModuleId((Integer) result[0]);
+                        pojo.setModuleName((String) result[1]);
+                        pojo.setModuleName((String) result[2]);
+                        pojo.setActive((Boolean) result[3]);
+                        modulesViaRole.add(pojo);
+                    }
+
+                    map = new HashMap<String, Object>();
+                    map.put(Constants.keyResponse, modulesViaRole);
+                    map.put(Constants.keyMessage, "Request Successful. Data Found Successfully.");
+                    map.put(Constants.keyStatus, HttpStatus.OK.value());
+                    Obj = new ObjectMapper();
+                    jsonStr = Obj.writeValueAsString(map);
+                    logger.info(jsonStr);
+                    logger.info(ED.encrypt(jsonStr));
+                    return ED.encrypt(jsonStr);
+                } else {
+                    map = new HashMap<String, Object>();
+                    map.put(Constants.keyResponse, "");
+                    map.put(Constants.keyMessage, "Request Successful. No Data Found.");
+                    map.put(Constants.keyStatus, HttpStatus.NO_CONTENT.value());
+                    Obj = new ObjectMapper();
+                    jsonStr = Obj.writeValueAsString(map);
+                    logger.info(jsonStr);
+                    return ED.encrypt(jsonStr);
+                }
+            } catch (Exception ex) {
+                map = new HashMap<String, Object>();
+                map.put(Constants.keyResponse, ex.getLocalizedMessage().toString());
+                map.put(Constants.keyMessage, "Server was unable to process the Request. Please try again Later.");
+                map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+                Obj = new ObjectMapper();
+                jsonStr = Obj.writeValueAsString(map);
+                logger.info(jsonStr);
+                return ED.encrypt(jsonStr);
+            }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        } else {
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, "State ID Passed not in valid format");
+            map.put(Constants.keyMessage, "Request Successful. Data Found Successfully.");
+            map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+            Obj = new ObjectMapper();
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+            logger.info(ED.encrypt(jsonStr));
+            return ED.encrypt(jsonStr);
+        }
+    }
 }

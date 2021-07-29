@@ -70,23 +70,56 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
     }
 
     @Override
-    public UsePoJo apiLogin(Long mobile, Integer StateId, Integer DistrictId, Integer BarrierId, String username) {
+    public UsePoJo apiLogin(Integer StateId, Integer DistrictId,Integer sosdpoid, Integer psid, Integer beatId, String username,String password) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<UsePoJo> cq = cb.createQuery(UsePoJo.class);
         Root<UserEntity> book = cq.from(UserEntity.class);
         Predicate isActive_ = cb.equal(book.get("active"), true);
-        Predicate mobile_ = cb.equal(book.get("mobileNumber"), mobile);
         Predicate stateId_ = cb.equal(book.get("stateId"), StateId);
         Predicate districtId_ = cb.equal(book.get("districtId"), DistrictId);
-        Predicate barrierId_ = cb.equal(book.get("barrierId"), BarrierId);
+        Predicate sosdpoid_ = cb.equal(book.get("sosdpoId"), sosdpoid);
+        Predicate psid_ = cb.equal(book.get("psId"), psid);
+        Predicate beatid_ = cb.equal(book.get("beatId"), beatId);
         Predicate username_ = cb.equal(book.get("username"), username);
-        cq.where(isActive_,mobile_,stateId_,districtId_,barrierId_,username_);
+        cq.where(isActive_,sosdpoid_,stateId_,districtId_,psid_,username_,beatid_);
         cq.multiselect(book.get("userId"),
                 book.get("username"),
                 book.get("mobileNumber"),
                 book.get("firstName"),
                 book.get("lastName"),
-                book.get("password")).distinct(true);
+                book.get("password"),
+                book.get("stateId"),
+                book.get("districtId"),
+                book.get("sosdpoId"),
+                book.get("psId"),
+                book.get("beatId")).distinct(true);
+        TypedQuery<UsePoJo> query =  entityManager.createQuery(cq);
+        return query.getSingleResult();
+    }
+
+    @Override
+    public UsePoJo apiLoginSho(Integer StateId, Integer DistrictId, Integer sosdpoid, Integer beatid, String username, String password) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<UsePoJo> cq = cb.createQuery(UsePoJo.class);
+        Root<UserEntity> book = cq.from(UserEntity.class);
+        Predicate isActive_ = cb.equal(book.get("active"), true);
+        Predicate stateId_ = cb.equal(book.get("stateId"), StateId);
+        Predicate districtId_ = cb.equal(book.get("districtId"), DistrictId);
+        Predicate sosdpoid_ = cb.equal(book.get("sosdpoId"), sosdpoid);
+        Predicate psid_ = cb.equal(book.get("psId"), beatid);
+        Predicate username_ = cb.equal(book.get("username"), username);
+        cq.where(isActive_,sosdpoid_,stateId_,districtId_,psid_,username_);
+        cq.multiselect(book.get("userId"),
+                book.get("username"),
+                book.get("mobileNumber"),
+                book.get("firstName"),
+                book.get("lastName"),
+                book.get("password"),
+                book.get("stateId"),
+                book.get("districtId"),
+                book.get("sosdpoId"),
+                book.get("psId"),
+                book.get("beatId")).distinct(true);
         TypedQuery<UsePoJo> query =  entityManager.createQuery(cq);
         return query.getSingleResult();
     }

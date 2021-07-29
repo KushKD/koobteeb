@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hp.dit.beetbook.entities.*;
 import com.hp.dit.beetbook.modals.*;
+import com.hp.dit.beetbook.modals.beats.BeatsNameId;
 import com.hp.dit.beetbook.repositories.RolesRepository;
 import com.hp.dit.beetbook.repositories.beats.BeatRepository;
 import com.hp.dit.beetbook.repositories.districtRepository.DistrictRepository;
@@ -231,7 +232,7 @@ public class AjaxContoller {
     public @ResponseBody
     String getBeatsViaPolceStation(@RequestParam(value = "id", required = true) String id) throws Exception {
         Map<String, Object> map = null;
-        List<BeatMaster> beats = beatRepository.findBeatByPSId(Integer.parseInt(id));
+        List<BeatsNameId> beats = beatRepository.findBeatNameIdByPSId(Integer.parseInt(id));
 
         map = new HashMap<String, Object>();
         map.put(Constants.keyResponse, beats);
