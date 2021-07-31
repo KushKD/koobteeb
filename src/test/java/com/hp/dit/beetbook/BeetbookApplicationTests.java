@@ -359,6 +359,18 @@ class BeetbookApplicationTests {
 
     }
 
+    //getSubModules
+    @Test
+    @Transactional
+    @Rollback(value = false)
+    void getSubModules() throws Exception  {
+        EncryptDecrypt ED = new EncryptDecrypt();
+        String modules = apiController.getSubModules(ED.encrypt("2"));
+        System.out.println("===Sub Modules===");
+        System.out.println(modules);
+        System.out.println(ED.decrypt(modules));
+
+    }
 
 
 

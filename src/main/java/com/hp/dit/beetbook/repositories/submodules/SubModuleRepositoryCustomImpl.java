@@ -1,7 +1,9 @@
-package com.hp.dit.beetbook.repositories.submodules.modules;
+package com.hp.dit.beetbook.repositories.submodules;
 
-import com.hp.dit.beetbook.entities.ModuleMaster;
+import com.hp.dit.beetbook.entities.BeatMaster;
 import com.hp.dit.beetbook.entities.SubModuleMaster;
+import com.hp.dit.beetbook.modals.beats.BeatsNameId;
+import com.hp.dit.beetbook.modals.submoduleModal.SubModuleRoleList;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -75,5 +77,24 @@ public class SubModuleRepositoryCustomImpl implements SubModuleRepositoryCustom 
         cq.where(isActive_,isDeleted_,districtname_);
         cq.select(cb.count(book)).where(isActive_,isDeleted_,districtname_);
         return Math.toIntExact(entityManager.createQuery(cq).getSingleResult());
+    }
+
+    @Override
+    public List<SubModuleRoleList> findSubModulesByModueId(Integer moduleId) throws Exception {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<SubModuleRoleList> cq = cb.createQuery(SubModuleRoleList.class);
+        Root<SubModuleMaster> book = cq.from(SubModuleMaster.class);
+        Predicate stateId_ = cb.equal(book.get("moduleId"), moduleId);
+        Predicate active = cb.equal(book.get("active"), true);
+        Predicate deleted = cb.equal(book.get("deleted"), false);
+        cq.where(stateId_,active,deleted);
+        cq.multiselect(
+                book.get("submoduleId"),
+                book.get("submoduleName"),
+                book.get("moduleId"),
+                book.get("subiconName")
+        ).distinct(true);
+        TypedQuery<SubModuleRoleList> query =  entityManager.createQuery(cq);
+        return query.getResultList();
     }
 }

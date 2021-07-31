@@ -1,11 +1,8 @@
 package com.hp.dit.beetbook.Controller;
 
-import com.hp.dit.beetbook.entities.ModuleMaster;
 import com.hp.dit.beetbook.entities.SubModuleMaster;
-import com.hp.dit.beetbook.form.module.ModuleForm;
 import com.hp.dit.beetbook.form.submodule.SubModuleForm;
-import com.hp.dit.beetbook.repositories.modules.ModuleRepository;
-import com.hp.dit.beetbook.repositories.submodules.modules.SubModuleRepository;
+import com.hp.dit.beetbook.repositories.submodules.SubModuleRepository;
 import com.hp.dit.beetbook.services.FileStorageService;
 import com.hp.dit.beetbook.validators.ModuleValidator;
 import org.springframework.beans.factory.annotation.Autowired;
