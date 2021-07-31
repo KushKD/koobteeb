@@ -1,10 +1,10 @@
 function getContextPath() {
-	return window.location.pathname.substring(0, window.location.pathname.indexOf("/", 0)); //2
+	return window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2)); //2  0
 }
 
 //Tomcat
 function getContextPathTwo() {
-	return window.location.pathname.substring(0, window.location.pathname.indexOf("/", 0));
+	return window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2));
 }
 
 

@@ -20,9 +20,13 @@ import com.hp.dit.beetbook.repositories.policestationRepository.PSRepository;
 import com.hp.dit.beetbook.repositories.sosdpo.SoSdpoRepository;
 import com.hp.dit.beetbook.repositories.stateRepository.StateRepository;
 import com.hp.dit.beetbook.repositories.user.UserRepository;
+import com.hp.dit.beetbook.repositories.userlocationlogs.UserLocationLogsRepository;
 import com.hp.dit.beetbook.security.EncryptDecrypt;
 import com.hp.dit.beetbook.services.FileStorageService;
 import com.hp.dit.beetbook.utilities.Constants;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.Point;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +37,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.crypto.BadPaddingException;
@@ -46,10 +51,8 @@ import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.Timestamp;
+import java.util.*;
 
 @RestController
 public class API {
@@ -85,6 +88,9 @@ public class API {
 
     @Autowired
     ModuleRepository moduleRepository;
+
+    @Autowired
+    UserLocationLogsRepository userLocationLogsRepository;
 
 
 
@@ -152,6 +158,58 @@ public class API {
             } else {
                 map = new HashMap<String, Object>();
                 map.put(Constants.keyResponse, states);
+                map.put(Constants.keyMessage, "Request Successful. No Data Found.");
+                map.put(Constants.keyStatus, HttpStatus.NO_CONTENT.value());
+                Obj = new ObjectMapper();
+                jsonStr = Obj.writeValueAsString(map);
+                logger.info(jsonStr);
+                return ED.encrypt(jsonStr);
+            }
+        } catch (Exception ex) {
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, ex.getLocalizedMessage().toString());
+            map.put(Constants.keyMessage, "Server was unable to process the Request. Please try again Later.");
+            map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+            Obj = new ObjectMapper();
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+            return ED.encrypt(jsonStr);
+
+        }
+    }
+
+
+    @RequestMapping(value = "/api/roles", method = RequestMethod.GET, produces = Constants.ProducesPlainText)
+    public String getRoles() throws JsonProcessingException, UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
+        Map<String, Object> map = null;
+        EncryptDecrypt ED = new EncryptDecrypt();
+        ObjectMapper Obj = null;
+        String jsonStr = null;
+
+        try {
+            List<Object[] > roles = rolesRepository.getRoles();
+            List<RolesModal> modelRole = new ArrayList<>();
+
+
+            for (Object[] result : roles) {
+                RolesModal pojo = new RolesModal();
+                pojo.setRole_id((Integer) result[0]);
+                pojo.setRole_name((String) result[1]);
+                modelRole.add(pojo);
+            }
+            if (!modelRole.isEmpty()) {
+                map = new HashMap<String, Object>();
+                map.put(Constants.keyResponse, modelRole);
+                map.put(Constants.keyMessage, "Request Successful. Data Found Successfully.");
+                map.put(Constants.keyStatus, HttpStatus.OK.value());
+                Obj = new ObjectMapper();
+                jsonStr = Obj.writeValueAsString(map);
+                logger.info(jsonStr);
+                logger.info(ED.encrypt(jsonStr));
+                return ED.encrypt(jsonStr);
+            } else {
+                map = new HashMap<String, Object>();
+                map.put(Constants.keyResponse, modelRole);
                 map.put(Constants.keyMessage, "Request Successful. No Data Found.");
                 map.put(Constants.keyStatus, HttpStatus.NO_CONTENT.value());
                 Obj = new ObjectMapper();
@@ -781,8 +839,7 @@ public class API {
 
 
 
-    @RequestMapping(value = "/api/checkPin", method = RequestMethod.POST, consumes = "text/plain", produces = "text/plain")
-    @ResponseBody
+    @RequestMapping(value = "/api/checkPin", method = RequestMethod.GET, produces = Constants.ProducesPlainText)
     public String checkPin() throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, JsonProcessingException {
         Map<String, Object> map = null;
         String state_id = null, jsonStr = null;
@@ -850,7 +907,7 @@ public class API {
                         ModulesModal pojo = new ModulesModal();
                         pojo.setModuleId((Integer) result[0]);
                         pojo.setModuleName((String) result[1]);
-                        pojo.setModuleName((String) result[2]);
+                        pojo.setModuleIcon((String) result[2]);
                         pojo.setActive((Boolean) result[3]);
                         modulesViaRole.add(pojo);
                     }
@@ -898,4 +955,131 @@ public class API {
             return ED.encrypt(jsonStr);
         }
     }
+
+
+    /**
+     * Login SO and SHO
+     */
+    @RequestMapping(value = "/api/saveLocationLogs", method = RequestMethod.POST, consumes = "text/plain", produces = "text/plain")
+    @ResponseBody
+    public String saveLocationLogs(@RequestBody String userData) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, JsonProcessingException {
+        Map<String, Object> map = null;
+        String LogsData_ = null, jsonStr = null;
+        EncryptDecrypt ED = new EncryptDecrypt();
+        ObjectMapper Obj = null;
+        String encrypted = null,  username = null, beatid=null,  mobileNumber = null, roleId = null , userId = null;
+        String latitude_ =null, longitude_=null;
+        UserLocationLogsEntity userLocationLogsEntity = null, userSavedLocationLogsEntity = null;
+
+        if (userData != null && !userData.isEmpty()) {
+            logger.info("User Data Encrypted:-\t" + userData);
+            LogsData_ = ED.decrypt(userData);
+            logger.info("User Data DeEncrypted:-\t" + LogsData_);
+
+            try {
+                JsonObject jsonObject = new JsonParser().parse(LogsData_).getAsJsonObject();
+                System.out.println(jsonObject.toString());
+                logger.info("API:: Logs Data is (Json Object ):- " + jsonObject);
+
+
+                username = jsonObject.getAsJsonObject().get("username").getAsString();
+                userId = jsonObject.getAsJsonObject().get("user_id").getAsString();
+                roleId = jsonObject.getAsJsonObject().get("role_id").getAsString();
+                mobileNumber = jsonObject.getAsJsonObject().get("mobile").getAsString();
+                beatid = jsonObject.getAsJsonObject().get("beat_id").getAsString();
+                latitude_ = jsonObject.getAsJsonObject().get("latitude").getAsString();
+                longitude_ = jsonObject.getAsJsonObject().get("longitude").getAsString();
+
+                logger.info("Username:- " + username);
+                logger.info("userId:- " + userId);
+                logger.info("roleId:- " + roleId);
+                logger.info("mobileNumber:- " + mobileNumber);
+                logger.info("beatid:- " + beatid);
+                logger.info("latitude_:- " + latitude_);
+                logger.info("longitude_:- " + longitude_);
+
+
+                userLocationLogsEntity = new UserLocationLogsEntity();
+                userLocationLogsEntity.setUsername(username);
+                userLocationLogsEntity.setUserId(Integer.parseInt(userId));
+                userLocationLogsEntity.setRoleId(Integer.parseInt(roleId));
+                userLocationLogsEntity.setMobileNumber(Long.valueOf(mobileNumber));
+                userLocationLogsEntity.setBeat_id(Integer.parseInt(beatid));
+                userLocationLogsEntity.setLatitude(Double.parseDouble(latitude_));
+                userLocationLogsEntity.setLongitude(Double.parseDouble(longitude_));
+                userLocationLogsEntity.setActive(true);
+
+                GeometryFactory geometryFactory = new GeometryFactory();
+
+                Coordinate coordinate = new Coordinate();
+                coordinate.x = Double.parseDouble(longitude_);
+                coordinate.y = Double.parseDouble(latitude_);
+
+                Point myPoint = geometryFactory.createPoint(coordinate);
+                myPoint.setSRID(4326);
+                userLocationLogsEntity.setLocationPoints(myPoint);
+
+
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                Date date = new Date(timestamp.getTime());
+                userLocationLogsEntity.setCreatedDate(date);
+
+                logger.info("User \t" + userLocationLogsEntity.toString());
+
+                userSavedLocationLogsEntity = userLocationLogsRepository.save(userLocationLogsEntity);
+                if (userSavedLocationLogsEntity!=null) {
+
+
+
+                        map = new HashMap<String, Object>();
+                        map.put(Constants.keyResponse, userSavedLocationLogsEntity.getLogsId());
+                        map.put(Constants.keyMessage, "Saved successfully.");
+                        map.put(Constants.keyStatus, HttpStatus.OK.value());
+                        Obj = new ObjectMapper();
+                        jsonStr = Obj.writeValueAsString(map);
+                        logger.info(jsonStr);
+                        logger.info(ED.encrypt(jsonStr));
+                        return ED.encrypt(jsonStr);
+
+
+
+                } else {
+                    map = new HashMap<String, Object>();
+                    map.put(Constants.keyResponse, "Unable to save Data");
+                    map.put(Constants.keyMessage, "Request Successful. Unable to save Data");
+                    map.put(Constants.keyStatus, HttpStatus.NO_CONTENT.value());
+                    Obj = new ObjectMapper();
+                    jsonStr = Obj.writeValueAsString(map);
+                    logger.info(jsonStr);
+                    return ED.encrypt(jsonStr);
+                }
+
+            } catch (Exception ex) {
+                map = new HashMap<String, Object>();
+                map.put(Constants.keyResponse, "Data not in valid format");
+                map.put(Constants.keyMessage, "Request Successful. Data Found Successfully.");
+                map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+                Obj = new ObjectMapper();
+                jsonStr = Obj.writeValueAsString(map);
+                logger.info(jsonStr);
+                logger.info(ED.encrypt(jsonStr));
+                return ED.encrypt(jsonStr);
+            }
+
+
+        } else {
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, "Data not in valid format");
+            map.put(Constants.keyMessage, "Request Successful. Data Found Successfully.");
+            map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+            Obj = new ObjectMapper();
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+            logger.info(ED.encrypt(jsonStr));
+            return ED.encrypt(jsonStr);
+        }
+    }
+
+
+
 }

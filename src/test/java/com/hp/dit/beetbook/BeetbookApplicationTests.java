@@ -268,7 +268,7 @@ class BeetbookApplicationTests {
         jsonObjecttwo.addProperty("districtId", "204");
         jsonObjecttwo.addProperty("sdpoId", "1");
         jsonObjecttwo.addProperty("psId", "1");
-        jsonObjecttwo.addProperty("beatId", "2");
+        jsonObjecttwo.addProperty("beatId", "1");
         jsonObjecttwo.addProperty("username", "beat");
         jsonObjecttwo.addProperty("password", "Demo@123");
         System.out.println(ED.encrypt(jsonObjecttwo.toString()));
@@ -321,6 +321,41 @@ class BeetbookApplicationTests {
         System.out.println("===Modules===");
         System.out.println(modules);
         System.out.println(ED.decrypt(modules));
+
+    }
+
+    @Test
+    @Transactional
+    @Rollback(value = false)
+    void getRoles() throws Exception  {
+        EncryptDecrypt ED = new EncryptDecrypt();
+        String modules = apiController.getRoles();
+        System.out.println("===Roles===");
+        System.out.println(modules);
+        System.out.println(ED.decrypt(modules));
+
+    }
+
+    @Test
+    @Transactional
+    @Rollback(value = false)
+    void locationLogs() throws Exception  {
+
+
+        EncryptDecrypt ED = new EncryptDecrypt();
+        JsonObject jsonObjecttwo = new JsonObject();
+        jsonObjecttwo.addProperty("user_id", "3");
+        jsonObjecttwo.addProperty("role_id", "4");
+        jsonObjecttwo.addProperty("latitude", "0.0");
+        jsonObjecttwo.addProperty("longitude", "0.0");
+        jsonObjecttwo.addProperty("username", "beat");
+        jsonObjecttwo.addProperty("mobile", "9459619235");
+        jsonObjecttwo.addProperty("beat_id", "1");
+        System.out.println(ED.encrypt(jsonObjecttwo.toString()));
+        String ps = apiController.saveLocationLogs(ED.encrypt(jsonObjecttwo.toString()));
+        System.out.println("===Loggged In SHO User===");
+        System.out.println(ps);
+        System.out.println(ED.decrypt(ps));
 
     }
 

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-@CacheConfig(cacheNames = "modules_")
 public interface ModuleRepositoryCustom {
 
 
