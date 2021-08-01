@@ -20,6 +20,7 @@ import com.hp.dit.beetbook.repositories.pin.PinRepository;
 import com.hp.dit.beetbook.repositories.policestationRepository.PSRepository;
 import com.hp.dit.beetbook.repositories.sosdpo.SoSdpoRepository;
 import com.hp.dit.beetbook.repositories.stateRepository.StateRepository;
+import com.hp.dit.beetbook.repositories.submoduleoptions.SubModuleOptionRepository;
 import com.hp.dit.beetbook.repositories.submodules.SubModuleRepository;
 import com.hp.dit.beetbook.repositories.user.UserRepository;
 import com.hp.dit.beetbook.repositories.userlocationlogs.UserLocationLogsRepository;
@@ -39,7 +40,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.crypto.BadPaddingException;
@@ -96,6 +96,9 @@ public class API {
 
     @Autowired
     SubModuleRepository subModuleRepository;
+
+    @Autowired
+    SubModuleOptionRepository subModuleOptionRepository;
 
 
 
@@ -1142,6 +1145,73 @@ public class API {
         } else {
             map = new HashMap<String, Object>();
             map.put(Constants.keyResponse, "State ID Passed not in valid format");
+            map.put(Constants.keyMessage, "Request Successful. Data Found Successfully.");
+            map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+            Obj = new ObjectMapper();
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+            logger.info(ED.encrypt(jsonStr));
+            return ED.encrypt(jsonStr);
+        }
+    }
+
+
+    /**
+     * GEt Sub Modules
+     */
+    @RequestMapping(value = "/api/getSubModulesOptions", method = RequestMethod.POST, consumes = "text/plain", produces = "text/plain")
+    @ResponseBody
+    public String getSubModulesOptions(@RequestBody String roleId) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, JsonProcessingException {
+        Map<String, Object> map = null;
+        String role_id = null, jsonStr = null;
+        EncryptDecrypt ED = new EncryptDecrypt();
+        ObjectMapper Obj = null;
+        List<SubModuleRoleList> submodules = null;
+
+        if (roleId != null && !roleId.isEmpty()) {
+            logger.info("Role ID:-\t" + roleId);
+            role_id = ED.decrypt(roleId);
+
+            try {
+                List<OptionsMaster> options = subModuleOptionRepository.getOptionsViaSubModuleId(Integer.parseInt(role_id));
+
+                if (!options.isEmpty()) {
+
+
+                    map = new HashMap<String, Object>();
+                    map.put(Constants.keyResponse, options);
+                    map.put(Constants.keyMessage, "Request Successful. Data Found Successfully.");
+                    map.put(Constants.keyStatus, HttpStatus.OK.value());
+                    Obj = new ObjectMapper();
+                    jsonStr = Obj.writeValueAsString(map);
+                    logger.info(jsonStr);
+                    logger.info(ED.encrypt(jsonStr));
+                    return ED.encrypt(jsonStr);
+                } else {
+                    map = new HashMap<String, Object>();
+                    map.put(Constants.keyResponse, "");
+                    map.put(Constants.keyMessage, "Request Successful. No Data Found.");
+                    map.put(Constants.keyStatus, HttpStatus.NO_CONTENT.value());
+                    Obj = new ObjectMapper();
+                    jsonStr = Obj.writeValueAsString(map);
+                    logger.info(jsonStr);
+                    return ED.encrypt(jsonStr);
+                }
+            } catch (Exception ex) {
+                map = new HashMap<String, Object>();
+                map.put(Constants.keyResponse, ex.getLocalizedMessage().toString());
+                map.put(Constants.keyMessage, "Server was unable to process the Request. Please try again Later.");
+                map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+                Obj = new ObjectMapper();
+                jsonStr = Obj.writeValueAsString(map);
+                logger.info(jsonStr);
+                return ED.encrypt(jsonStr);
+            }
+
+
+        } else {
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, "Sub Module ID Passed not in valid format");
             map.put(Constants.keyMessage, "Request Successful. Data Found Successfully.");
             map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
             Obj = new ObjectMapper();
