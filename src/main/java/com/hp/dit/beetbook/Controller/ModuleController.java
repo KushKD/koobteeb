@@ -7,6 +7,7 @@ import com.hp.dit.beetbook.form.module.ModuleForm;
 import com.hp.dit.beetbook.repositories.modules.ModuleRepository;
 import com.hp.dit.beetbook.services.FileStorageService;
 import com.hp.dit.beetbook.validators.ModuleValidator;
+import com.hp.dit.beetbook.validators.ModuleValidatorUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -37,6 +38,9 @@ public class ModuleController {
 
     @Autowired
     ModuleValidator moduleValidator;
+
+    @Autowired
+    ModuleValidatorUpdate moduleValidatorUpdate;
 
     @Autowired
     private FileStorageService fileStorageService;
@@ -145,7 +149,7 @@ public class ModuleController {
                               HttpSession session, RedirectAttributes redirectAttributes) {
 
 
-        moduleValidator.validate(moduleForm, bindingResult);
+        moduleValidatorUpdate.validate(moduleForm, bindingResult);
         if (bindingResult.hasErrors()) {
             return "updatemodule";
         }

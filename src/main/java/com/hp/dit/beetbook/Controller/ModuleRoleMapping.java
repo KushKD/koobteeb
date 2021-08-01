@@ -8,6 +8,7 @@ import com.hp.dit.beetbook.form.modulerole.ModuleRoleForm;
 import com.hp.dit.beetbook.modals.moduleRole.ModuleRoleList;
 import com.hp.dit.beetbook.repositories.rolemodule.RoleModuleRepository;
 import com.hp.dit.beetbook.validators.ModuleRoleValidator;
+import com.hp.dit.beetbook.validators.ModuleRoleValidatorUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -39,6 +40,9 @@ public class ModuleRoleMapping {
 
     @Autowired
     ModuleRoleValidator moduleRoleValidator;
+
+    @Autowired
+    ModuleRoleValidatorUpdate moduleRoleValidatorUpdate;
 
     @RequestMapping(value = "/createmodulerolemapping", method = RequestMethod.GET)
     public String createDistrict(Model model) {
@@ -136,7 +140,7 @@ public class ModuleRoleMapping {
                                      HttpSession session, RedirectAttributes redirectAttributes) {
 
 
-        moduleRoleValidator.validate(moduleRoleForm, bindingResult);
+        moduleRoleValidatorUpdate.validate(moduleRoleForm, bindingResult);
         if (bindingResult.hasErrors()) {
             return "updatemodulerolemapping";
         }
