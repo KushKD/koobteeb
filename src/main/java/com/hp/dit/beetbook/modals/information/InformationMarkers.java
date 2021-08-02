@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class InformationMarkers implements Serializable {
 
+    private Integer id;
     private Double latitude;
     private Double longitude;
     private String name;
@@ -13,7 +14,10 @@ public class InformationMarkers implements Serializable {
     private Integer moduleId;
     private String subMoculeIcon;
 
-    public InformationMarkers(Double latitude, Double longitude, String name, String photo, String subModuleName, Integer subModuleId, Integer moduleId, String subMoculeIcon) {
+
+
+    public InformationMarkers(Integer id, Double latitude, Double longitude, String name, String photo, String subModuleName, Integer subModuleId, Integer moduleId, String subMoculeIcon) {
+        this.id = id;
         this.latitude = latitude;
         this.longitude = longitude;
         this.name = name;
@@ -22,6 +26,14 @@ public class InformationMarkers implements Serializable {
         SubModuleId = subModuleId;
         this.moduleId = moduleId;
         this.subMoculeIcon = subMoculeIcon;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Double getLatitude() {
@@ -91,7 +103,8 @@ public class InformationMarkers implements Serializable {
     @Override
     public String toString() {
         return "InformationMarkers{" +
-                "latitude=" + latitude +
+                "id=" + id +
+                ", latitude=" + latitude +
                 ", longitude=" + longitude +
                 ", name='" + name + '\'' +
                 ", photo='" + photo + '\'' +

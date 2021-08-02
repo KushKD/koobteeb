@@ -1,8 +1,8 @@
 package com.hp.dit.beetbook.repositories.information;
 
 import com.hp.dit.beetbook.entities.InformationEntity;
-import com.hp.dit.beetbook.entities.SubModuleMaster;
 import com.hp.dit.beetbook.modals.information.InformationMarkers;
+import com.hp.dit.beetbook.modals.information.InformationViaId;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -30,16 +30,18 @@ public class InformationRepositoryCustomImpl implements InformationRepositoryCus
         Predicate active = cb.equal(book.get("active"), true);
         cq.where(moduleId_,active,subModuleID_);
         cq.multiselect(
+                book.get("id"),
                 book.get("latitude"),
                 book.get("longitude"),
                 book.get("name"),
                 book.get("photo"),
                 book.get("submoduleId").<String>get("submoduleName"),
                 book.get("submoduleId").<Integer>get("submoduleId"),
-                book.get("submoduleId").<String>get("subiconName"),
-                book.get("moduleId")
+                book.get("moduleId"),
+                book.get("submoduleId").<String>get("subiconName")
+
         ).distinct(true);
-        TypedQuery<InformationMarkers> query =  entityManager.createQuery(cq).setMaxResults(20);
+        TypedQuery<InformationMarkers> query =  entityManager.createQuery(cq).setMaxResults(30);
         return query.getResultList();
     }
 
@@ -55,16 +57,17 @@ public class InformationRepositoryCustomImpl implements InformationRepositoryCus
         Predicate active = cb.equal(book.get("active"), true);
         cq.where(moduleId_,active,subModuleID_);
         cq.multiselect(
+                book.get("id"),
                 book.get("latitude"),
                 book.get("longitude"),
                 book.get("name"),
                 book.get("photo"),
                 book.get("submoduleId").<String>get("submoduleName"),
                 book.get("submoduleId").<Integer>get("submoduleId"),
-                book.get("submoduleId").<String>get("subiconName"),
-                book.get("moduleId")
+                book.get("moduleId"),
+                book.get("submoduleId").<String>get("subiconName")
         ).distinct(true);
-        TypedQuery<InformationMarkers> query =  entityManager.createQuery(cq).setMaxResults(20);
+        TypedQuery<InformationMarkers> query =  entityManager.createQuery(cq).setMaxResults(30);
         return query.getResultList();
     }
 
@@ -80,41 +83,117 @@ public class InformationRepositoryCustomImpl implements InformationRepositoryCus
         Predicate active = cb.equal(book.get("active"), true);
         cq.where(moduleId_,active,subModuleID_);
         cq.multiselect(
+                book.get("id"),
                 book.get("latitude"),
                 book.get("longitude"),
                 book.get("name"),
                 book.get("photo"),
                 book.get("submoduleId").<String>get("submoduleName"),
                 book.get("submoduleId").<Integer>get("submoduleId"),
-                book.get("submoduleId").<String>get("subiconName"),
-                book.get("moduleId")
+                book.get("moduleId"),
+                book.get("submoduleId").<String>get("subiconName")
         ).distinct(true);
-        TypedQuery<InformationMarkers> query =  entityManager.createQuery(cq).setMaxResults(20);
+        TypedQuery<InformationMarkers> query =  entityManager.createQuery(cq).setMaxResults(30);
         return query.getResultList();
     }
 
+
+
+
     @Override
-    public InformationEntity getInformationViaId(Integer id) {
+    public InformationViaId getInformationViaId(Integer id) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<InformationEntity> cq = cb.createQuery(InformationEntity.class);
+        CriteriaQuery<InformationViaId> cq = cb.createQuery(InformationViaId.class);
         Root<InformationEntity> book = cq.from(InformationEntity.class);
         Predicate districtId_ = cb.equal(book.get("id"), id);
         Predicate active = cb.equal(book.get("active"), true);
         cq.where(districtId_,active);
-        TypedQuery<InformationEntity> query =  entityManager.createQuery(cq);
+        cq.multiselect(
+                book.get("name"),
+                book.get("ownerName"),
+                book.get("ownerNameTwo"),
+                book.get("photo"),
+                book.get("photoId"),
+                book.get("contactNoOne"),
+                book.get("contactNoTwo"),
+                book.get("helplineNumber"),
+                book.get("landlineNumber"),
+                book.get("optionId"),
+                book.get("cctv"),
+                book.get("numberIdols"),
+                book.get("numberSecurityPersons"),
+                book.get("emailId"),
+                book.get("facbookId"),
+                book.get("presentAddress"),
+                book.get("permanentAddress"),
+                book.get("firNo"),
+                book.get("firDetails"),
+                book.get("licenceeNo"),
+                book.get("licenceeName"),
+                book.get("details"),
+                book.get("other"),
+                book.get("checkingDateSho"),
+                book.get("totalPopulation"),
+                book.get("periodFair"),
+                book.get("authority"),
+                book.get("durationParole"),
+                book.get("idProof"),
+                book.get("section"),
+                book.get("SpecialReportedCases"),
+                book.get("extraOne"),
+                book.get("extraTwo"),
+                book.get("latitude"),
+                book.get("longitude"));
+        TypedQuery<InformationViaId> query =  entityManager.createQuery(cq);
         return query.getResultList().get(0);
     }
 
     @Override
-    public InformationEntity getInformationViaId(Integer id, Integer moduleId, Integer SubmoduleId) {
+    public InformationViaId getInformationViaId(Integer id, Integer moduleId, Integer SubmoduleId) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<InformationEntity> cq = cb.createQuery(InformationEntity.class);
+        CriteriaQuery<InformationViaId> cq = cb.createQuery(InformationViaId.class);
         Root<InformationEntity> book = cq.from(InformationEntity.class);
         Predicate districtId_ = cb.equal(book.get("id"), id);
         Predicate active = cb.equal(book.get("active"), true);
         Predicate subModuleID_ = cb.equal(book.get("submoduleId").<Integer>get("submoduleId"), SubmoduleId);
         cq.where(districtId_,active);
-        TypedQuery<InformationEntity> query =  entityManager.createQuery(cq);
+        cq.multiselect(
+                book.get("name"),
+                book.get("ownerName"),
+                book.get("ownerNameTwo"),
+                book.get("photo"),
+                book.get("photoId"),
+                book.get("contactNoOne"),
+                book.get("contactNoTwo"),
+                book.get("helplineNumber"),
+                book.get("landlineNumber"),
+                book.get("optionId"),
+                book.get("cctv"),
+                book.get("numberIdols"),
+                book.get("numberSecurityPersons"),
+                book.get("emailId"),
+                book.get("facbookId"),
+                book.get("presentAddress"),
+                book.get("permanentAddress"),
+                book.get("firNo"),
+                book.get("firDetails"),
+                book.get("licenceeNo"),
+                book.get("licenceeName"),
+                book.get("details"),
+                book.get("other"),
+                book.get("checkingDateSho"),
+                book.get("totalPopulation"),
+                book.get("periodFair"),
+                book.get("authority"),
+                book.get("durationParole"),
+                book.get("idProof"),
+                book.get("section"),
+                book.get("SpecialReportedCases"),
+                book.get("extraOne"),
+                book.get("extraTwo"),
+                book.get("latitude"),
+                book.get("longitude"));
+        TypedQuery<InformationViaId> query =  entityManager.createQuery(cq);
         return query.getResultList().get(0);
     }
 }

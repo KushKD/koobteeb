@@ -385,6 +385,100 @@ class BeetbookApplicationTests {
 
     }
 
+    String json = "{\n" +
+            "  \"stateId\": 9,\n" +
+            "  \"districtId\": 204,\n" +
+            "  \"sosdpoId\": 1,\n" +
+            "  \"psId\": 1,\n" +
+            "  \"beatId\": 1,\n" +
+            "  \"moduleId\": 2,\n" +
+            "  \"submoduleId\": {\n" +
+            "    \"submoduleId\": 2\n" +
+            "  },\n" +
+            "  \"userId\": 3,\n" +
+            "  \"roleId\": 4,\n" +
+            "  \"name\": \"test\",\n" +
+            "  \"ownerName\": \"hhxhxhf\",\n" +
+            "  \"ownerNameTwo\": \"\",\n" +
+            "  \"photo\": \"\",\n" +
+            "  \"photoId\": \"\",\n" +
+            "  \"contactNoOne\": \"9459619235\",\n" +
+            "  \"contactNoTwo\": \"\",\n" +
+            "  \"helplineNumber\": \"\",\n" +
+            "  \"landlineNumber\": \"\",\n" +
+            "  \"optionId\": 1,\n" +
+            "  \"numberIdols\": \"\",\n" +
+            "  \"numberSecurityPersons\": \"\",\n" +
+            "  \"cctv\": \"\",\n" +
+            "  \"emailId\": \"\",\n" +
+            "  \"facbookId\": \"\",\n" +
+            "  \"presentAddress\": \"\",\n" +
+            "  \"permanentAddress\": \"\",\n" +
+            "  \"firNo\": \"\",\n" +
+            "  \"firDetails\": \"\",\n" +
+            "  \"licenceeNo\": \"\",\n" +
+            "  \"licenceeName\": \"\",\n" +
+            "  \"details\": \"\",\n" +
+            "  \"other\": \"\",\n" +
+            "  \"checkingDateSho\": \"\",\n" +
+            "  \"totalPopulation\": \"\",\n" +
+            "  \"periodFair\": \"\",\n" +
+            "  \"authority\": \"\",\n" +
+            "  \"durationParole\": \"\",\n" +
+            "  \"idProof\": \"\",\n" +
+            "  \"section\": \"\",\n" +
+            "  \"specialReportedCases\": \"\",\n" +
+            "  \"extraOne\": \"\",\n" +
+            "  \"extraTwo\": \"\",\n" +
+            "  \"latitude\": 31.0704335,\n" +
+            "  \"longitude\": 77.1868896\n" +
+            "}";
+
+    @Test
+    @Transactional
+    @Rollback(value = false)
+    void saveInformation() throws Exception  {
+        EncryptDecrypt ED = new EncryptDecrypt();
+        String modules = apiController.saveInformation(ED.encrypt(json));
+        System.out.println("===Information===");
+        System.out.println(modules);
+        System.out.println(ED.decrypt(modules));
+
+    }
+
+
+    @Test
+    @Transactional
+    @Rollback(value = false)
+    void saveInformationViaId() throws Exception  {
+        EncryptDecrypt ED = new EncryptDecrypt();
+        String modules = apiController.getInformationViaId(ED.encrypt("1"));
+        System.out.println("===Information===");
+        System.out.println(modules);
+        System.out.println(ED.decrypt(modules));
+
+    }
+
+
+    @Test
+    @Transactional
+    @Rollback(value = false)
+    void getmarkersViaLocation() throws Exception  {
+
+
+        JsonObject jsonObjecttwo = new JsonObject();
+        jsonObjecttwo.addProperty("beat_id", "1");
+        jsonObjecttwo.addProperty("module_id", "2");
+        jsonObjecttwo.addProperty("submodule_id", "2");
+        jsonObjecttwo.addProperty("ps_id", "1");
+
+        EncryptDecrypt ED = new EncryptDecrypt();
+        String modules = apiController.getMarkers(ED.encrypt(jsonObjecttwo.toString()));
+        System.out.println("===Information===");
+        System.out.println(modules);
+        System.out.println(ED.decrypt(modules));
+
+    }
 
 
 

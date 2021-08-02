@@ -10,11 +10,14 @@ import com.hp.dit.beetbook.modals.RolesUser;
 import com.hp.dit.beetbook.modals.UsePoJo;
 import com.hp.dit.beetbook.modals.UserPojoWithRole;
 import com.hp.dit.beetbook.modals.beats.BeatsNameId;
+import com.hp.dit.beetbook.modals.information.InformationMarkers;
+import com.hp.dit.beetbook.modals.information.InformationViaId;
 import com.hp.dit.beetbook.modals.moduleModel.ModulesModal;
 import com.hp.dit.beetbook.modals.submoduleModal.SubModuleRoleList;
 import com.hp.dit.beetbook.repositories.RolesRepository;
 import com.hp.dit.beetbook.repositories.beats.BeatRepository;
 import com.hp.dit.beetbook.repositories.districtRepository.DistrictRepository;
+import com.hp.dit.beetbook.repositories.information.InformationRepository;
 import com.hp.dit.beetbook.repositories.modules.ModuleRepository;
 import com.hp.dit.beetbook.repositories.pin.PinRepository;
 import com.hp.dit.beetbook.repositories.policestationRepository.PSRepository;
@@ -48,6 +51,7 @@ import javax.crypto.NoSuchPaddingException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
@@ -100,14 +104,15 @@ public class API {
     @Autowired
     SubModuleOptionRepository subModuleOptionRepository;
 
+    @Autowired
+    InformationRepository informationRepository;
+
 
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    ObjectMapper objectMapperx = new ObjectMapper();
-    ObjectMapper objectMappery = new ObjectMapper();
-    ObjectMapper objectMapperz = new ObjectMapper();
+    ObjectMapper objectMapper = new ObjectMapper();
 
 
     /**
@@ -1222,6 +1227,250 @@ public class API {
         }
     }
 
+    /**
+     * saveInformation
+     */
+    @Transactional
+    @RequestMapping(value = "/api/saveInformation", method = RequestMethod.POST, consumes = "text/plain", produces = "text/plain")
+    @ResponseBody
+    public String saveInformation(@RequestBody String indormation) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, JsonProcessingException {
+        Map<String, Object> map = null;
+        String info = null, jsonStr = null;
+        EncryptDecrypt ED = new EncryptDecrypt();
+        ObjectMapper Obj = null;
+        List<SubModuleRoleList> submodules = null;
+
+        InformationEntity informationToSave = new InformationEntity();
+        InformationEntity informationSaved = null;
+
+        if (indormation != null && !indormation.isEmpty()) {
+            logger.info("Information ID:-\t" + indormation);
+            info = ED.decrypt(indormation);
+            logger.info("Information Decrypt ID:-\t" + info);
+
+            try {
+                informationToSave = objectMapper.readValue(info, InformationEntity.class);
+
+                informationToSave.setActive(true);
+                GeometryFactory geometryFactory = new GeometryFactory();
+
+                Coordinate coordinate = new Coordinate();
+                coordinate.x = informationToSave.getLongitude();
+                coordinate.y = informationToSave.getLatitude();
+
+                Point myPoint = geometryFactory.createPoint(coordinate);
+                myPoint.setSRID(4326);
+                informationToSave.setLocationPoints(myPoint);
+
+
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                Date date = new Date(timestamp.getTime());
+                informationToSave.setCreatedDate(date);
+
+
+
+                logger.info("informationToSave :-" + informationToSave.toString());
+
+
+                informationSaved = informationRepository.save(informationToSave);
+
+                if (informationSaved!=null) {
+
+
+                    map = new HashMap<String, Object>();
+                    map.put(Constants.keyResponse, informationSaved.getId());
+                    map.put(Constants.keyMessage, "Request Successful. Data Saved Successfully.");
+                    map.put(Constants.keyStatus, HttpStatus.OK.value());
+                    Obj = new ObjectMapper();
+                    jsonStr = Obj.writeValueAsString(map);
+                    logger.info(jsonStr);
+                    logger.info(ED.encrypt(jsonStr));
+                    return ED.encrypt(jsonStr);
+                } else {
+                    map = new HashMap<String, Object>();
+                    map.put(Constants.keyResponse, "Error in saving the data");
+                    map.put(Constants.keyMessage, "Request Successful. Error in saving the data");
+                    map.put(Constants.keyStatus, HttpStatus.NO_CONTENT.value());
+                    Obj = new ObjectMapper();
+                    jsonStr = Obj.writeValueAsString(map);
+                    logger.info(jsonStr);
+                    return ED.encrypt(jsonStr);
+                }
+            } catch (Exception ex) {
+                map = new HashMap<String, Object>();
+                map.put(Constants.keyResponse, ex.getLocalizedMessage().toString());
+                map.put(Constants.keyMessage, "Server was unable to process the Request. Please try again Later.");
+                map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+                Obj = new ObjectMapper();
+                jsonStr = Obj.writeValueAsString(map);
+                logger.info(jsonStr);
+                return ED.encrypt(jsonStr);
+            }
+
+
+        } else {
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, "Data in Invalid format");
+            map.put(Constants.keyMessage, "Request Successful. Data Found Successfully.");
+            map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+            Obj = new ObjectMapper();
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+            logger.info(ED.encrypt(jsonStr));
+            return ED.encrypt(jsonStr);
+        }
+    }
+
+    @RequestMapping(value = "/api/getInformationViaId", method = RequestMethod.POST, consumes = "text/plain", produces = "text/plain")
+    @ResponseBody
+    public String getInformationViaId(@RequestBody String id) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, JsonProcessingException {
+        Map<String, Object> map = null;
+        String role_id = null, jsonStr = null;
+        EncryptDecrypt ED = new EncryptDecrypt();
+        ObjectMapper Obj = null;
+        List<SubModuleRoleList> submodules = null;
+
+        if (id != null && !id.isEmpty()) {
+            logger.info("Role ID:-\t" + id);
+            role_id = ED.decrypt(id);
+
+            try {
+                InformationViaId information = informationRepository.getInformationViaId(Integer.parseInt(role_id));
+
+                if (information!=null) {
+
+
+                    map = new HashMap<String, Object>();
+                    map.put(Constants.keyResponse, information);
+                    map.put(Constants.keyMessage, "Request Successful. Data Found Successfully.");
+                    map.put(Constants.keyStatus, HttpStatus.OK.value());
+                    Obj = new ObjectMapper();
+                    jsonStr = Obj.writeValueAsString(map);
+                    logger.info(jsonStr);
+                    logger.info(ED.encrypt(jsonStr));
+                    return ED.encrypt(jsonStr);
+                } else {
+                    map = new HashMap<String, Object>();
+                    map.put(Constants.keyResponse, "");
+                    map.put(Constants.keyMessage, "Request Successful. No Data Found.");
+                    map.put(Constants.keyStatus, HttpStatus.NO_CONTENT.value());
+                    Obj = new ObjectMapper();
+                    jsonStr = Obj.writeValueAsString(map);
+                    logger.info(jsonStr);
+                    return ED.encrypt(jsonStr);
+                }
+            } catch (Exception ex) {
+                map = new HashMap<String, Object>();
+                map.put(Constants.keyResponse, ex.getLocalizedMessage().toString());
+                map.put(Constants.keyMessage, "Server was unable to process the Request. Please try again Later.");
+                map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+                Obj = new ObjectMapper();
+                jsonStr = Obj.writeValueAsString(map);
+                logger.info(jsonStr);
+                return ED.encrypt(jsonStr);
+            }
+
+
+        } else {
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, "Sub Module ID Passed not in valid format");
+            map.put(Constants.keyMessage, "Request Successful. Data Found Successfully.");
+            map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+            Obj = new ObjectMapper();
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+            logger.info(ED.encrypt(jsonStr));
+            return ED.encrypt(jsonStr);
+        }
+    }
+
+
+    @RequestMapping(value = "/api/getMarkers", method = RequestMethod.POST, consumes = "text/plain", produces = "text/plain")
+    @ResponseBody
+    public String getMarkers(@RequestBody String userData) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, JsonProcessingException {
+        Map<String, Object> map = null;
+        String LogsData_ = null, jsonStr = null;
+        EncryptDecrypt ED = new EncryptDecrypt();
+        ObjectMapper Obj = null;
+        String encrypted = null,  beatid=null, moduleId = null, submoduleId=null, psId = null;
+        UserLocationLogsEntity userLocationLogsEntity = null, userSavedLocationLogsEntity = null;
+
+        if (userData != null && !userData.isEmpty()) {
+            logger.info("User Data Encrypted:-\t" + userData);
+            LogsData_ = ED.decrypt(userData);
+            logger.info("User Data DeEncrypted:-\t" + LogsData_);
+
+            try {
+                JsonObject jsonObject = new JsonParser().parse(LogsData_).getAsJsonObject();
+                System.out.println(jsonObject.toString());
+                logger.info("API:: Logs Data is (Json Object ):- " + jsonObject);
+
+                beatid = jsonObject.getAsJsonObject().get("beat_id").getAsString();
+                moduleId = jsonObject.getAsJsonObject().get("module_id").getAsString();
+                submoduleId = jsonObject.getAsJsonObject().get("submodule_id").getAsString();
+                psId = jsonObject.getAsJsonObject().get("ps_id").getAsString();
+
+
+                logger.info("beatid:- " + beatid);
+                logger.info("moduleId:- " + moduleId);
+                logger.info("submoduleId:- " + submoduleId);
+                logger.info("psId:- " + psId);
+
+                List<InformationMarkers> markers = informationRepository.getmarkersViaLocation(Integer.parseInt(moduleId),Integer.parseInt(submoduleId),
+                        Integer.parseInt(beatid),Integer.parseInt(psId));
+
+                if (!markers.isEmpty()) {
+
+
+
+                    map = new HashMap<String, Object>();
+                    map.put(Constants.keyResponse, markers);
+                    map.put(Constants.keyMessage, "Data Found Successfully.");
+                    map.put(Constants.keyStatus, HttpStatus.OK.value());
+                    Obj = new ObjectMapper();
+                    jsonStr = Obj.writeValueAsString(map);
+                    logger.info(jsonStr);
+                    logger.info(ED.encrypt(jsonStr));
+                    return ED.encrypt(jsonStr);
+
+
+
+                } else {
+                    map = new HashMap<String, Object>();
+                    map.put(Constants.keyResponse, "No Record Found");
+                    map.put(Constants.keyMessage, "Request Successful. No Record Found");
+                    map.put(Constants.keyStatus, HttpStatus.NO_CONTENT.value());
+                    Obj = new ObjectMapper();
+                    jsonStr = Obj.writeValueAsString(map);
+                    logger.info(jsonStr);
+                    return ED.encrypt(jsonStr);
+                }
+
+            } catch (Exception ex) {
+                map = new HashMap<String, Object>();
+                map.put(Constants.keyResponse, "Data not in valid format");
+                map.put(Constants.keyMessage, "Internal Error");
+                map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+                Obj = new ObjectMapper();
+                jsonStr = Obj.writeValueAsString(map);
+                logger.info(jsonStr);
+                logger.info(ED.encrypt(jsonStr));
+                return ED.encrypt(jsonStr);
+            }
+
+
+        } else {
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, "Data not in valid format");
+            map.put(Constants.keyMessage, "Internal Error");
+            map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+            Obj = new ObjectMapper();
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+            logger.info(ED.encrypt(jsonStr));
+            return ED.encrypt(jsonStr);
+        }
+    }
 
 
 }

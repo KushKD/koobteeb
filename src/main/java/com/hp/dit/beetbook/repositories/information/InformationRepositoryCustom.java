@@ -2,6 +2,7 @@ package com.hp.dit.beetbook.repositories.information;
 
 import com.hp.dit.beetbook.entities.InformationEntity;
 import com.hp.dit.beetbook.modals.information.InformationMarkers;
+import com.hp.dit.beetbook.modals.information.InformationViaId;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,8 +16,8 @@ public interface InformationRepositoryCustom {
     List<InformationMarkers> getmarkersViaLocation(Integer moduleId, Integer submoduleId, Integer beatId, Integer psId);
 
     //getInformationViaId
-    InformationEntity getInformationViaId(Integer id);
-    InformationEntity getInformationViaId(Integer id,Integer moduleId, Integer SubmoduleId);
+    InformationViaId getInformationViaId(Integer id);
+    InformationViaId getInformationViaId(Integer id,Integer moduleId, Integer SubmoduleId);
 
 
 
