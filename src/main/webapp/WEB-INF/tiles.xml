@@ -218,7 +218,7 @@
 
 
     <definition name="login" extends="baselayoutdashboardnonav">
-        <put-attribute name="content" value="/WEB-INF/jsp/login.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/loginn.jsp" />
     </definition>
 
 <!-- Earlier working

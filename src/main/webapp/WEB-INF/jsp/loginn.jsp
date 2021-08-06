@@ -16,17 +16,22 @@
             <div class="card login-card">
                 <div class="row no-gutters">
                     <div class="col-md-5">
-                        <img src="${pageContext.request.contextPath}/resources/images/login/new.jpg" alt="login" class="login-card-img">
+                        <img src="${pageContext.request.contextPath}/resources/images/login/4.jpg" id="bgm" alt="login" class="login-card-img">
 
- <div class="container">
-  <!-- <img src="${pageContext.request.contextPath}/resources/images/login/1200.png" style="margin-left:450px; height:80px; width:100px;" class="avatar1" >  -->
-    <img src="${pageContext.request.contextPath}/resources/images/login/himsabe.png" style="margin-left:-500px; margin-top:-30px; height:150px; width:150px;" class="avatar2" >
-</div>
-                    </div>
+        </div>
                     <div class="col-md-7">
+                <a>
+                                                        <img src="${pageContext.request.contextPath}/resources/images/login/1111.png" class="avatar1">
+                                                    </a>
+                                                    <a >
+                                                        <img src="${pageContext.request.contextPath}/resources/images/login/1200.png" class="avatar2">
+
+                                                    </a>
+                                                    <img src="${pageContext.request.contextPath}/resources/images/login/1q.jpg" class="avatar " >
+                                        <div class="container " id="box">
+
                         <div class="card-body">
                             <div class="brand-wrapper">
-                                <img src="${pageContext.request.contextPath}/resources/images/login/1q.jpg" class="avatar">
 
                             </div>
                             <p class="login-card-description" align="center"><spring:message code="loginpage.heading" text="Login"/></p>

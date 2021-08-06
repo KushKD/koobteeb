@@ -28,7 +28,8 @@ public class SubModuleOptionRepositoryCustomImpl implements SubModuleOptionRepos
         CriteriaQuery<OptionsMaster> cq = cb.createQuery(OptionsMaster.class);
         Root<OptionsMaster> book = cq.from(OptionsMaster.class);
         Predicate isActive_ = cb.equal(book.get("active"), true);
-        cq.where(isActive_);
+        Predicate subModuleId = cb.equal(book.get("subModuleId"), SubModuleId);
+        cq.where(isActive_,subModuleId);
         TypedQuery<OptionsMaster> query =  entityManager.createQuery(cq);
         return query.getResultList();
     }
