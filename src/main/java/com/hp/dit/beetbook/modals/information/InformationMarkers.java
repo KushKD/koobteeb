@@ -1,6 +1,7 @@
 package com.hp.dit.beetbook.modals.information;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class InformationMarkers implements Serializable {
 
@@ -13,10 +14,10 @@ public class InformationMarkers implements Serializable {
     private Integer SubModuleId;
     private Integer moduleId;
     private String subMoculeIcon;
+    private Date createdDate;
 
 
-
-    public InformationMarkers(Integer id, Double latitude, Double longitude, String name, String photo, String subModuleName, Integer subModuleId, Integer moduleId, String subMoculeIcon) {
+    public InformationMarkers(Integer id, Double latitude, Double longitude, String name, String photo, String subModuleName, Integer subModuleId, Integer moduleId, String subMoculeIcon, Date createdDate) {
         this.id = id;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -26,6 +27,7 @@ public class InformationMarkers implements Serializable {
         SubModuleId = subModuleId;
         this.moduleId = moduleId;
         this.subMoculeIcon = subMoculeIcon;
+        this.createdDate = createdDate;
     }
 
     public Integer getId() {
@@ -100,6 +102,14 @@ public class InformationMarkers implements Serializable {
         this.subMoculeIcon = subMoculeIcon;
     }
 
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
     @Override
     public String toString() {
         return "InformationMarkers{" +
@@ -112,6 +122,7 @@ public class InformationMarkers implements Serializable {
                 ", SubModuleId=" + SubModuleId +
                 ", moduleId=" + moduleId +
                 ", subMoculeIcon='" + subMoculeIcon + '\'' +
+                ", createdDate='" + createdDate + '\'' +
                 '}';
     }
 }
