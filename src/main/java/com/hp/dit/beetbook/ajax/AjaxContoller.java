@@ -13,6 +13,7 @@ import com.hp.dit.beetbook.repositories.modules.ModuleRepository;
 import com.hp.dit.beetbook.repositories.policestationRepository.PSRepository;
 import com.hp.dit.beetbook.repositories.sosdpo.SoSdpoRepository;
 import com.hp.dit.beetbook.repositories.stateRepository.StateRepository;
+import com.hp.dit.beetbook.repositories.submodules.SubModuleRepository;
 import com.hp.dit.beetbook.repositories.user.UserRepository;
 import com.hp.dit.beetbook.utilities.Constants;
 import org.slf4j.Logger;
@@ -52,6 +53,9 @@ public class AjaxContoller {
 
     @Autowired
     ModuleRepository moduleRepository;
+
+    @Autowired
+    SubModuleRepository subModuleRepository;
 
 
 
@@ -157,6 +161,25 @@ public class AjaxContoller {
     }
 
 
+    @RequestMapping(value = "/ajax/getSubModules", method = RequestMethod.GET,  produces="application/json")
+    public @ResponseBody
+    String getSubModules() throws Exception {
+        Map<String, Object> map = null;
+        List<SubModuleMaster> subModules = subModuleRepository.getAllActiveSubModules();
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, subModules);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+
+        ObjectMapper Obj = new ObjectMapper();
+        String jsonStr = null;
+        jsonStr = Obj.writeValueAsString(map);
+        logger.info(jsonStr);
+
+        return jsonStr;
+
+    }
 
 
 

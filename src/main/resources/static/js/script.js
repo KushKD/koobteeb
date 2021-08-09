@@ -1,10 +1,10 @@
 function getContextPath() {
-	return window.location.pathname.substring(0, window.location.pathname.indexOf("/", 0)); //2  0
+	return window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2)); //2  0
 }
 
 //Tomcat
 function getContextPathTwo() {
-	return window.location.pathname.substring(0, window.location.pathname.indexOf("/", 0));
+	return window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2));
 }
 
 
@@ -399,6 +399,38 @@ function getSOSDPOUpdate() {
 					selectRole.append("<option selected value=" + json_.RESPONSE[i].sosdpoId + " >" + json_.RESPONSE[i].sosdpoName + "</option>")
 				} else {
 					selectRole.append("<option value=" + json_.RESPONSE[i].sosdpoId + " >" + json_.RESPONSE[i].sosdpoName + "</option>")
+				}
+			}
+
+		},
+		error: function(data) {
+			console.log(data)
+		}
+
+	});
+
+
+}
+
+//getSubmodule
+function getSubmodule() {
+	$.ajax({
+		type: "GET",
+		url: formURL + "/ajax/getSubModules",
+		success: function(data) {
+			//Tomcat
+			var json_ = JSON.parse(JSON.stringify(data));
+			//Jboss
+			//var json_ = JSON.parse(data);
+			console.log(json_);
+			var selectRole = $('#submodule'); // the state select element
+			selectRole.find('option').remove();
+			selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+			for (i = 0; i < json_.RESPONSE.length; i++) {
+				if (document.getElementById('sosid') != null && document.getElementById('submoduleId').value == json_.RESPONSE[i].submoduleId) {
+					selectRole.append("<option selected value=" + json_.RESPONSE[i].submoduleId + " >" + json_.RESPONSE[i].submoduleName + "</option>")
+				} else {
+					selectRole.append("<option value=" + json_.RESPONSE[i].submoduleId + " >" + json_.RESPONSE[i].submoduleName + "</option>")
 				}
 			}
 

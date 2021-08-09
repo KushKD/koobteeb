@@ -266,6 +266,10 @@
         <put-attribute name="content" value="/WEB-INF/jsp/activebeat/activeBeat.jsp" />
     </definition>
 
+    <definition name="viewData" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/viewdata/viewdata.jsp" />
+    </definition>
+
 
 
 </tiles-definitions>
