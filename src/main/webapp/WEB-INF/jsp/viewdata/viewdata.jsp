@@ -52,13 +52,13 @@
                <form:errors path="beatId"></form:errors>
             </div>
          </spring:bind>
-          <spring:bind path="submoduleId">
-                     <div class="col-md-3 form-group  ${status.error ? 'has-error' : ''}">
-                        <form:label path="submoduleId" for="roles">Select Sub Module</form:label>
-                        <form:select path="submoduleId" name="submoduleId" autocomplete="off"  oncopy="return false" onpaste="return false" class="form-control" id="submodule" ></form:select>
-                        <form:errors path="submoduleId"></form:errors>
-                     </div>
-                  </spring:bind>
+         <spring:bind path="submoduleId">
+            <div class="col-md-3 form-group  ${status.error ? 'has-error' : ''}">
+               <form:label path="submoduleId" for="roles">Select Sub Module</form:label>
+               <form:select path="submoduleId" name="submoduleId" autocomplete="off"  oncopy="return false" onpaste="return false" class="form-control" id="submodule" ></form:select>
+               <form:errors path="submoduleId"></form:errors>
+            </div>
+         </spring:bind>
          <spring:bind path="fromDate">
             <div class="col-md-3 form-group  ${status.error ? 'has-error' : ''}">
                <form:label path="fromDate" >From Date</form:label>
@@ -78,41 +78,132 @@
          <c:remove var="successMessage" scope="session" />
       </div>
    </form:form>
+   <input class="form-control col-md-6"  id="did" type="hidden" value="${state_id}"  />
+   <input class="form-control col-md-6"  id="sid" type="hidden" value="${district_id}"  />
+   <input class="form-control col-md-6"  id="sosid" type="hidden" value="${sodpo_id}"  />
+   <input class="form-control col-md-6"  id="psid" type="hidden" value="${ps_id}"  />
+   <input class="form-control col-md-6"  id="beatid" type="hidden" value="${beat_id}"  />
+   <input class="form-control col-md-6"  id="submoduleid" type="hidden" value="${submodule_id}"  />
+   <c:if test="${not empty informationMarkerWebs}">
+      <div class="row">
+      <div class="col-md-12">
+         <div class="tile">
+            <div class="tile-body">
+               <div class="table-responsive">
+                  <table class="table table-hover table-bordered" id="sampleTable">
+                     <thead>
+                        <tr>
+                           <th>S.No</th>
+                           <th>Sub Module Name</th>
+                           <th>Name</th>
+                           <th>Creation Date</th>
+                           <th>Action </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <c:forEach items="${informationMarkerWebs}" var="inf" varStatus="loopCounter">
+                           <tr>
+                              <td>
+                                 <c:out value="${loopCounter.count}"/>
+                              </td>
+                              <td>${inf.submoduleName}</td>
+                              <td>${inf.name}</td>
+                              <td>${inf.date}</td>
+                              <td class="btn-success text-center">
+                              <a href="${pageContext.request.contextPath}/updateInformation/${inf.id}" style="color:#FFFFFF; text-decoration:none;">Update</a>
+                              </td>
+                           </tr>
+                        </c:forEach>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <div></div>
+         </div>
+   </c:if>
    </div>
-   <input class="form-control col-md-6"  id="did" type="hidden" value="${barrier_to_update.stateId}"  />
-   <input class="form-control col-md-6"  id="sid" type="hidden" value="${barrier_to_update.districtId}"  />
-   <input class="form-control col-md-6"  id="bid" type="hidden" value="${barrier_to_update.barrierType}"  />
-   <c:if test="${not empty vid}">
-      <input class="form-control col-md-3"  id="vid" type="hidden" value="${vid}"  />
-   </c:if>
-   <c:if test="${not empty oid}">
-      <input class="form-control col-md-3"  id="oid" type="hidden" value="${oid}"  />
-   </c:if>
 </main>
 <script type="text/javascript">
-   $( document ).ready(function() {
+   function getStatesOnLoad(){
+               if(document.getElementById('did') != null && document.getElementById('did').value  != null ){
+                       getStatesUpdate(document.getElementById('did').value);
+                       }else{
+                                         getStates();
+                                         }
+                   }
 
-    var date = new Date();
-        var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    function getdistrictsOnLoad(){
+                 if(document.getElementById('sid') != null && document.getElementById('sid').value  != null ){
+                         getdistrictsUpdate(document.getElementById('did').value);
+                         }
+                     }
 
-   $('#fromDate').datepicker({
-         	format: "dd-mm-yyyy",
-         	autoclose: true,
-         	todayHighlight: true,
-         	endDate:today
-         });
 
-         $('#toDate').datepicker({
-                 	format: "dd-mm-yyyy",
-                 	autoclose: true,
-                 	todayHighlight: true,
-                 	endDate:today
-                 });
 
-     getStates();
-     getSOSDPO();
-     getSubmodule();
+      function getSOSDPOLoad(){
+                       if(document.getElementById('sosid') != null && document.getElementById('sosid').value  != null ){
+                               getSOSDPOUpdate();
+                               }else{
+                                                         getSOSDPO();
+                                                         }
+                           }
 
-   });
+
+
+        function getPoliceStationOnLoad(){
+                       if(document.getElementById('psid') != null && document.getElementById('psid').value  != null ){
+                               getPoliceStationsViasosdpoid(document.getElementById('sosid').value);
+                               }
+                           }
+
+        function getBeatOnLoad(){
+                             if(document.getElementById('beatid') != null && document.getElementById('beatid').value  != null ){
+                                     getBeat(document.getElementById('psid').value);
+                                     }
+                                 }
+
+   function getsubmoduleidLoad(){
+                       if(document.getElementById('submoduleid') != null && document.getElementById('submoduleid').value  != null ){
+                               getSubmoduleUpdate();
+                               }else{
+                                                         getSubmodule();
+                                                         }
+                           }
+
+
+
+     $( document ).ready(function() {
+
+      var date = new Date();
+          var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+     $('#fromDate').datepicker({
+           	format: "dd-mm-yyyy",
+           	autoclose: true,
+           	todayHighlight: true,
+           	endDate:today
+           });
+
+           $('#toDate').datepicker({
+                   	format: "dd-mm-yyyy",
+                   	autoclose: true,
+                   	todayHighlight: true,
+                   	endDate:today
+                   });
+
+
+
+
+
+        getStatesOnLoad();
+           getdistrictsOnLoad();
+           getSOSDPOLoad();
+           getPoliceStationOnLoad();
+           getBeatOnLoad();
+           getsubmoduleidLoad();
+
+     });
+
+     $('#sampleTable').DataTable();
 
 </script>

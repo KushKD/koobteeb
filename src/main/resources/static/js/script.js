@@ -444,6 +444,38 @@ function getSubmodule() {
 
 }
 
+//getSubmoduleUpdate
+function getSubmoduleUpdate() {
+	$.ajax({
+		type: "GET",
+		url: formURL + "/ajax/getSubModules",
+		success: function(data) {
+			//Tomcat
+			var json_ = JSON.parse(JSON.stringify(data));
+			//Jboss
+			//var json_ = JSON.parse(data);
+			console.log(json_);
+			var selectRole = $('#submodule'); // the state select element
+			selectRole.find('option').remove();
+			selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+			for (i = 0; i < json_.RESPONSE.length; i++) {
+				if (document.getElementById('submoduleid') != null && document.getElementById('submoduleid').value == json_.RESPONSE[i].submoduleId) {
+					selectRole.append("<option selected value=" + json_.RESPONSE[i].submoduleId + " >" + json_.RESPONSE[i].submoduleName + "</option>")
+				} else {
+					selectRole.append("<option value=" + json_.RESPONSE[i].submoduleId + " >" + json_.RESPONSE[i].submoduleName + "</option>")
+				}
+			}
+
+		},
+		error: function(data) {
+			console.log(data)
+		}
+
+	});
+
+
+}
+
 //getPoliceStationsViasosdpoid
 function getPoliceStationsViasosdpoid(id) {
 	$.ajax({
