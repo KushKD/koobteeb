@@ -489,7 +489,7 @@ class BeetbookApplicationTests {
     void getActiveBeats() throws Exception  {
         EncryptDecrypt ED = new EncryptDecrypt();
         System.out.println(ED.encrypt("09-08-2021"));
-        String data = apiController.getActiveBeats(ED.encrypt("09-08-2021"));
+        String data = apiController.getActiveBeats(ED.encrypt("08-08-2021"));
         System.out.println("===Data Active Beats===");
         System.out.println(data);
         System.out.println(ED.decrypt(data));
