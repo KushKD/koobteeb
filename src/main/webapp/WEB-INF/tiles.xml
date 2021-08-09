@@ -262,6 +262,10 @@
         <put-attribute name="content" value="/WEB-INF/jsp/showIdCardList/approvedIdCards.jsp" />
     </definition>
 
+    <definition name="activebeat" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/activebeat/activeBeat.jsp" />
+    </definition>
+
 
 
 </tiles-definitions>
