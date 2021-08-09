@@ -326,3 +326,18 @@ SELECT location_id, location_name, location_points, ST_Distance(location_points,
 
 
 SELECT ST_AsGeoJSON(beat_geometry) from  mst_beat WHERE ps_id=1
+
+
+ --Working Queries
+ SELECT *,  ST_Distance(location_points, ST_SetSRID(ST_Point(77.1868896,31.0704335),4326))/1000 AS distance
+ FROM information
+ WHERE ST_DWithin(location_points, ST_MakePoint(77.1868896,31.0704335)::geography, 100);
+
+ -- chandigarh 30.7350626,76.6934887
+ SELECT *
+ FROM information
+ WHERE ST_DWithin(
+   location_points::geography,
+   ST_GeomFromText('POINT(76.6934887 30.7350626)',4326)::geography,
+   40000 -- DISTANCE IN METERS
+ );

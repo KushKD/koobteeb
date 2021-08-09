@@ -79,9 +79,9 @@ public class InformationRepositoryCustomImpl implements InformationRepositoryCus
         Predicate moduleId_ = cb.equal(book.get("moduleId"), moduleId);
         Predicate subModuleID_ = cb.equal(book.get("submoduleId").<Integer>get("submoduleId"), submoduleId);
         Predicate latitude_ = cb.equal(book.get("beatId"), beatId);
-        Predicate longitude_ = cb.equal(book.get("psId"), psId);
+        Predicate psid_ = cb.equal(book.get("psId"), psId);
         Predicate active = cb.equal(book.get("active"), true);
-        cq.where(moduleId_,active,subModuleID_);
+        cq.where(moduleId_,active,subModuleID_,psid_);
         cq.multiselect(
                 book.get("id"),
                 book.get("latitude"),
@@ -97,7 +97,32 @@ public class InformationRepositoryCustomImpl implements InformationRepositoryCus
         return query.getResultList();
     }
 
+    @Override
+    public List<InformationMarkers> getmarkersViaLocationPsBeat(Integer moduleId, Integer submoduleId, Integer beatId, Integer psId) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+            CriteriaQuery<InformationMarkers> cq = cb.createQuery(InformationMarkers.class);
+            Root<InformationEntity> book = cq.from(InformationEntity.class);
+            Predicate moduleId_ = cb.equal(book.get("moduleId"), moduleId);
+            Predicate subModuleID_ = cb.equal(book.get("submoduleId").<Integer>get("submoduleId"), submoduleId);
+            Predicate beat_id = cb.equal(book.get("beatId"), beatId);
+            Predicate psid_ = cb.equal(book.get("psId"), psId);
+            Predicate active = cb.equal(book.get("active"), true);
+            cq.where(moduleId_,active,subModuleID_,psid_,beat_id);
+            cq.multiselect(
+                    book.get("id"),
+                    book.get("latitude"),
+                    book.get("longitude"),
+                    book.get("name"),
+                    book.get("photo"),
+                    book.get("submoduleId").<String>get("submoduleName"),
+                    book.get("submoduleId").<Integer>get("submoduleId"),
+                    book.get("moduleId"),
+                    book.get("submoduleId").<String>get("subiconName")
+            ).distinct(true);
+            TypedQuery<InformationMarkers> query =  entityManager.createQuery(cq).setMaxResults(30);
+            return query.getResultList();
 
+    }
 
 
     @Override

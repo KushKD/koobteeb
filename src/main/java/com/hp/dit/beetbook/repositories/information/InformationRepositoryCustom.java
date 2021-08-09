@@ -15,6 +15,8 @@ public interface InformationRepositoryCustom {
     List<InformationMarkers> getmarkersLocationWise(Integer moduleId, Integer submoduleId, Double latitude, Double longitude);
     List<InformationMarkers> getmarkersViaLocation(Integer moduleId, Integer submoduleId, Integer beatId, Integer psId);
 
+    List<InformationMarkers> getmarkersViaLocationPsBeat(Integer moduleId, Integer submoduleId, Integer beatId, Integer psId);
+
     //getInformationViaId
     InformationViaId getInformationViaId(Integer id);
     InformationViaId getInformationViaId(Integer id,Integer moduleId, Integer SubmoduleId);
