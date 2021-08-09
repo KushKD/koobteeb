@@ -10,7 +10,7 @@
 	<!-- Modal -->
 
 	<form:form method="POST" id="form" modelAttribute="activeBeat" action="${pageContext.request.contextPath}/getActiveBeat" class="form-signin">
-		<h2 class="form-signin-heading">View Active Beats</h2>
+		<h2 class="form-signin-heading">Active Beats</h2>
 		<c:if test="${not empty successMessage}">
 			<div id="serverError" class="successMessage">${successMessage}</div>
 		</c:if>

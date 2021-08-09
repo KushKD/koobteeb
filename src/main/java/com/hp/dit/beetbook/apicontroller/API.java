@@ -9,6 +9,7 @@ import com.hp.dit.beetbook.modals.RolesModal;
 import com.hp.dit.beetbook.modals.RolesUser;
 import com.hp.dit.beetbook.modals.UsePoJo;
 import com.hp.dit.beetbook.modals.UserPojoWithRole;
+import com.hp.dit.beetbook.modals.activeBeatModal.ActiveBeatModal;
 import com.hp.dit.beetbook.modals.beats.BeatsNameId;
 import com.hp.dit.beetbook.modals.information.InformationMarkers;
 import com.hp.dit.beetbook.modals.information.InformationViaId;
@@ -54,6 +55,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -106,6 +108,7 @@ public class API {
 
     @Autowired
     InformationRepository informationRepository;
+
 
 
 
@@ -1463,6 +1466,87 @@ public class API {
             map = new HashMap<String, Object>();
             map.put(Constants.keyResponse, "Data not in valid format");
             map.put(Constants.keyMessage, "Internal Error");
+            map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+            Obj = new ObjectMapper();
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+            logger.info(ED.encrypt(jsonStr));
+            return ED.encrypt(jsonStr);
+        }
+    }
+
+
+
+    @RequestMapping(value = "/api/getActiveBeats", method = RequestMethod.POST, consumes = "text/plain", produces = "text/plain")
+    @ResponseBody
+    public String getActiveBeats(@RequestBody String date) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, JsonProcessingException {
+        Map<String, Object> map = null;
+        String date_to_search = null, jsonStr = null;
+        EncryptDecrypt ED = new EncryptDecrypt();
+        ObjectMapper Obj = null;
+        List<SubModuleRoleList> submodules = null;
+
+        if (date != null && !date.isEmpty()) {
+            logger.info("Date ID:-\t" + date);
+            date_to_search = ED.decrypt(date);
+
+            try {
+                List<Object[]> data = userLocationLogsRepository.getActiveBeats(date_to_search);
+
+                if (data!=null) {
+
+                    List<ActiveBeatModal> activeBeatModal = new ArrayList<>();
+
+
+                    for (Object[] result : data) {
+                        ActiveBeatModal pojo = new ActiveBeatModal();
+                        pojo.setBeatId((Integer) result[0]);
+                        pojo.setUsername((String) result[1]);
+                        pojo.setUserId((Integer) result[2]);
+                        pojo.setRoleId((Integer) result[3]);
+                        pojo.setMobile((BigInteger) result[4]);
+                        pojo.setBeatName((String) result[5]);
+                        pojo.setPoliceStationName((String) result[6]);
+                        pojo.setDate((String) result[7]);
+                        activeBeatModal.add(pojo);
+                    }
+
+
+                    map = new HashMap<String, Object>();
+                    map.put(Constants.keyResponse, activeBeatModal);
+                    map.put(Constants.keyMessage, "Request Successful. Data Found Successfully.");
+                    map.put(Constants.keyStatus, HttpStatus.OK.value());
+                    Obj = new ObjectMapper();
+                    jsonStr = Obj.writeValueAsString(map);
+                    logger.info(jsonStr);
+                    logger.info(ED.encrypt(jsonStr));
+                    return ED.encrypt(jsonStr);
+                } else {
+                    map = new HashMap<String, Object>();
+                    map.put(Constants.keyResponse, "");
+                    map.put(Constants.keyMessage, "Request Successful. No Data Found.");
+                    map.put(Constants.keyStatus, HttpStatus.NO_CONTENT.value());
+                    Obj = new ObjectMapper();
+                    jsonStr = Obj.writeValueAsString(map);
+                    logger.info(jsonStr);
+                    return ED.encrypt(jsonStr);
+                }
+            } catch (Exception ex) {
+                map = new HashMap<String, Object>();
+                map.put(Constants.keyResponse, ex.getLocalizedMessage().toString());
+                map.put(Constants.keyMessage, "Server was unable to process the Request. Please try again Later.");
+                map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+                Obj = new ObjectMapper();
+                jsonStr = Obj.writeValueAsString(map);
+                logger.info(jsonStr);
+                return ED.encrypt(jsonStr);
+            }
+
+
+        } else {
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, "Sub Module ID Passed not in valid format");
+            map.put(Constants.keyMessage, "Request Successful. Data Found Successfully.");
             map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
             Obj = new ObjectMapper();
             jsonStr = Obj.writeValueAsString(map);
