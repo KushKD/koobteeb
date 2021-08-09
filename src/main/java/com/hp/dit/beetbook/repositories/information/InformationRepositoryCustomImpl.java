@@ -1,5 +1,6 @@
 package com.hp.dit.beetbook.repositories.information;
 
+import com.hp.dit.beetbook.entities.DistrictMaster;
 import com.hp.dit.beetbook.entities.InformationEntity;
 import com.hp.dit.beetbook.modals.information.InformationMarkers;
 import com.hp.dit.beetbook.modals.information.InformationViaId;
@@ -173,6 +174,18 @@ public class InformationRepositoryCustomImpl implements InformationRepositoryCus
                 book.get("latitude"),
                 book.get("longitude"));
         TypedQuery<InformationViaId> query =  entityManager.createQuery(cq);
+        return query.getResultList().get(0);
+    }
+
+    @Override
+    public InformationEntity getCompleteInformationViaId(Integer id) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<InformationEntity> cq = cb.createQuery(InformationEntity.class);
+        Root<InformationEntity> book = cq.from(InformationEntity.class);
+        Predicate districtId_ = cb.equal(book.get("id"), id);
+        Predicate active = cb.equal(book.get("active"), true);
+        cq.where(districtId_,active);
+        TypedQuery<InformationEntity> query =  entityManager.createQuery(cq);
         return query.getResultList().get(0);
     }
 

@@ -1,6 +1,9 @@
 package com.hp.dit.beetbook.Controller;
 
+import com.hp.dit.beetbook.entities.DistrictMaster;
+import com.hp.dit.beetbook.entities.InformationEntity;
 import com.hp.dit.beetbook.form.activebeat.ActiveBeat;
+import com.hp.dit.beetbook.form.district.DistrictForm;
 import com.hp.dit.beetbook.form.viewdata.ViewData;
 import com.hp.dit.beetbook.modals.activeBeatModal.ActiveBeatModal;
 import com.hp.dit.beetbook.modals.information.InformationMarkerWeb;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -117,5 +121,30 @@ public class ViewDataController  {
             }
         }
 
+    }
+
+    @RequestMapping(value = "/updateInformation/{district_id}", method = RequestMethod.GET)
+    public String updateInformation(@PathVariable("district_id")Integer district_id, Model model) throws Exception {
+
+        System.out.println(district_id);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "login";
+        } else {
+
+            InformationEntity information =informationRepository.getCompleteInformationViaId(district_id);
+            System.out.println(information.toString());
+
+            model.addAttribute("state_id", information.getStateId());
+            model.addAttribute("district_id", information.getDistrictId());
+            model.addAttribute("sodpo_id", information.getSosdpoId());
+            model.addAttribute("ps_id", information.getPsId());
+            model.addAttribute("beat_id", information.getBeatId());
+            model.addAttribute("submodule_id", information.getSubmoduleId());
+
+            model.addAttribute("districtForm", new DistrictForm());
+            return "updateDistrict";
+
+        }
     }
 }
