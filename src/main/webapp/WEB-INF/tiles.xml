@@ -270,6 +270,10 @@
         <put-attribute name="content" value="/WEB-INF/jsp/viewdata/viewdata.jsp" />
     </definition>
 
+    <definition name="viewInformation" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/viewinformation/viewInformation.jsp" />
+    </definition>
+
 
 
 </tiles-definitions>

@@ -2,12 +2,16 @@ package com.hp.dit.beetbook.Controller;
 
 import com.hp.dit.beetbook.entities.DistrictMaster;
 import com.hp.dit.beetbook.entities.InformationEntity;
+import com.hp.dit.beetbook.entities.UserEntity;
+import com.hp.dit.beetbook.form.ViewInformationWebForm;
 import com.hp.dit.beetbook.form.activebeat.ActiveBeat;
 import com.hp.dit.beetbook.form.district.DistrictForm;
 import com.hp.dit.beetbook.form.viewdata.ViewData;
+import com.hp.dit.beetbook.modals.LoggedInUserSession;
 import com.hp.dit.beetbook.modals.activeBeatModal.ActiveBeatModal;
 import com.hp.dit.beetbook.modals.information.InformationMarkerWeb;
 import com.hp.dit.beetbook.repositories.information.InformationRepository;
+import com.hp.dit.beetbook.repositories.user.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +37,7 @@ public class ViewDataController  {
 
     @Autowired
     InformationRepository informationRepository;
+
 
 
     private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -124,7 +129,7 @@ public class ViewDataController  {
     }
 
     @RequestMapping(value = "/updateInformation/{district_id}", method = RequestMethod.GET)
-    public String updateInformation(@PathVariable("district_id")Integer district_id, Model model) throws Exception {
+    public String updateInformation(@PathVariable("district_id")Integer district_id, Model model,HttpServletRequest request) throws Exception {
 
         System.out.println(district_id);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -135,15 +140,21 @@ public class ViewDataController  {
             InformationEntity information =informationRepository.getCompleteInformationViaId(district_id);
             System.out.println(information.toString());
 
+
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user.toString());
+
             model.addAttribute("state_id", information.getStateId());
             model.addAttribute("district_id", information.getDistrictId());
             model.addAttribute("sodpo_id", information.getSosdpoId());
             model.addAttribute("ps_id", information.getPsId());
             model.addAttribute("beat_id", information.getBeatId());
-            model.addAttribute("submodule_id", information.getSubmoduleId());
+            model.addAttribute("submodule_id", information.getSubmoduleId().getSubmoduleId());
+            model.addAttribute("information", information);
+            model.addAttribute("user", user);
 
-            model.addAttribute("districtForm", new DistrictForm());
-            return "updateDistrict";
+            model.addAttribute("viewInformationWebForm", new ViewInformationWebForm());
+            return "viewInformation";
 
         }
     }
