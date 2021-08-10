@@ -1,18 +1,12 @@
 package com.hp.dit.beetbook.Controller;
 
-import com.hp.dit.beetbook.entities.DistrictMaster;
 import com.hp.dit.beetbook.entities.InformationEntity;
 import com.hp.dit.beetbook.entities.SubModuleMaster;
-import com.hp.dit.beetbook.entities.UserEntity;
 import com.hp.dit.beetbook.form.ViewInformationWebForm;
-import com.hp.dit.beetbook.form.activebeat.ActiveBeat;
-import com.hp.dit.beetbook.form.district.DistrictForm;
 import com.hp.dit.beetbook.form.viewdata.ViewData;
 import com.hp.dit.beetbook.modals.LoggedInUserSession;
-import com.hp.dit.beetbook.modals.activeBeatModal.ActiveBeatModal;
 import com.hp.dit.beetbook.modals.information.InformationMarkerWeb;
 import com.hp.dit.beetbook.repositories.information.InformationRepository;
-import com.hp.dit.beetbook.repositories.user.UserRepository;
 import com.hp.dit.beetbook.utilities.Utilities;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
@@ -33,8 +27,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
-import java.io.Serializable;
-import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
