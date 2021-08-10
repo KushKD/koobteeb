@@ -37,7 +37,7 @@ public class InformationEntity {
 	private Integer moduleId;
 
 	@OneToOne()
-	@JoinColumn(name="submodule_id", updatable = false )
+	@JoinColumn(name="submodule_id")
 	private SubModuleMaster submoduleId;
 
 	@Column(name="user_id")

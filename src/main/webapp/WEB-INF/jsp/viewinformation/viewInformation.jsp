@@ -9,7 +9,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/plugins/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/plugins/dataTables.bootstrap.min.js"></script>
 <main class="app-content">
-   <form:form method="POST" modelAttribute="viewInformationWebForm" action="${pageContext.request.contextPath}/updateSelectedUser" class="form-signin">
+   <form:form method="POST" modelAttribute="viewInformationWebForm" action="${pageContext.request.contextPath}/updateInformationEntity" class="form-signin">
       <div class="row user">
          <c:if test="${not empty successMessage}">
             <div id="serverError" class="successMessage col-lg-12 ">${successMessage}</div>
@@ -475,7 +475,8 @@
                               </div>
                            </div>
 
-
+ <input type="submit" id="payment_proceed"  value="Update Information" class="btn btn-primary">
+   <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
 
       </div>
    </form:form>

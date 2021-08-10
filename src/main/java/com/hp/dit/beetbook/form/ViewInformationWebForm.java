@@ -15,6 +15,8 @@ public class ViewInformationWebForm implements Serializable {
 
     private Integer  user_id;
     private Integer  role_id;
+
+
     private String name;
     private String owner_name;
     private String owner_nametwo;
