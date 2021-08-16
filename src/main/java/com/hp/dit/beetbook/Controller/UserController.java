@@ -2,10 +2,13 @@ package com.hp.dit.beetbook.Controller;
 
 import com.hp.dit.beetbook.CustomLogin.CustomUserService;
 import com.hp.dit.beetbook.entities.RolesEntity;
+import com.hp.dit.beetbook.entities.SubModuleMaster;
 import com.hp.dit.beetbook.entities.UserEntity;
 import com.hp.dit.beetbook.form.RolesForm;
+import com.hp.dit.beetbook.form.submodule.SubModuleForm;
 import com.hp.dit.beetbook.form.user.RegisterUser;
 import com.hp.dit.beetbook.form.user.UpdateUser;
+import com.hp.dit.beetbook.modals.LoggedInUserSession;
 import com.hp.dit.beetbook.modals.UsersDetials;
 import com.hp.dit.beetbook.repositories.user.UserRepository;
 import com.hp.dit.beetbook.services.RoleService;
@@ -66,79 +69,100 @@ public class UserController {
 
 
     @RequestMapping(value = "/viewUsers", method = RequestMethod.GET)
-    public String viewBarrier(Model model) throws Exception {
+    public String viewBarrier(Model model,HttpServletRequest request) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
 
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
 
-            List<Object[]> users = userRepository.getUsersDetails();
-            List<UsersDetials> usersDetails = new ArrayList<>();
+            if(user==null){
+                return "login";
+            }else{
 
-            for (Object[] result : users) {
-                UsersDetials pojo = new UsersDetials();
-                pojo.setUser_id((Integer) result[0]);
-                pojo.setFirst_name((String) result[1]);
-                pojo.setLast_name((String) result[2]);
-                pojo.setUsername((String) result[3]);
-                pojo.setRole_id((Integer) result[4]);
-                pojo.setRole_name((String) result[5]);
-                pojo.setMobile_number((BigInteger) result[6]);
-                pojo.setState_id((Integer) result[7]);
-                pojo.setState_name((String) result[8]);
-                pojo.setDistrict_id((Integer) result[9]);
-                pojo.setDistrict_name((String) result[10]);
-                pojo.setBeat_id((Integer) result[11]);
-                pojo.setBeat_name((String) result[12]);
-                usersDetails.add(pojo);
+                List<Object[]> users = userRepository.getUsersDetails();
+                List<UsersDetials> usersDetails = new ArrayList<>();
+
+                for (Object[] result : users) {
+                    UsersDetials pojo = new UsersDetials();
+                    pojo.setUser_id((Integer) result[0]);
+                    pojo.setFirst_name((String) result[1]);
+                    pojo.setLast_name((String) result[2]);
+                    pojo.setUsername((String) result[3]);
+                    pojo.setRole_id((Integer) result[4]);
+                    pojo.setRole_name((String) result[5]);
+                    pojo.setMobile_number((BigInteger) result[6]);
+                    pojo.setState_id((Integer) result[7]);
+                    pojo.setState_name((String) result[8]);
+                    pojo.setDistrict_id((Integer) result[9]);
+                    pojo.setDistrict_name((String) result[10]);
+                    pojo.setBeat_id((Integer) result[11]);
+                    pojo.setBeat_name((String) result[12]);
+                    usersDetails.add(pojo);
+                }
+
+                model.addAttribute("usersDetails", usersDetails);
+                System.out.println(usersDetails.toString());
+                return "viewUser";
             }
 
-            model.addAttribute("usersDetails", usersDetails);
-            System.out.println(usersDetails.toString());
-            return "viewUser";
+
+
+
         }
     }
 
     //updateUser
     @RequestMapping(value = "/updateUser/{user_id}/{role_id_old}", method = RequestMethod.GET)
-    public String updateUser(@PathVariable("user_id")Integer user_id, @PathVariable("role_id_old")Integer role_id_old, Model model) throws Exception {
+    public String updateUser(@PathVariable("user_id")Integer user_id, @PathVariable("role_id_old")Integer role_id_old, Model model, HttpServletRequest request) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
 
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
 
-            List<Object[]> users = userRepository.getSpecificUserViaUserRoleId(user_id,role_id_old);
-            List<UsersDetials> usersDetails = new ArrayList<>();
+            if(user==null){
+                return "login";
+            }else{
 
-            for (Object[] result : users) {
-                UsersDetials pojo = new UsersDetials();
-                pojo.setUser_id((Integer) result[0]);
-                pojo.setFirst_name((String) result[1]);
-                pojo.setLast_name((String) result[2]);
-                pojo.setUsername((String) result[3]);
-                pojo.setRole_id((Integer) result[4]);
-                pojo.setRole_name((String) result[5]);
-                pojo.setMobile_number((BigInteger) result[6]);
-                pojo.setState_id((Integer) result[7]);
-                pojo.setState_name((String) result[8]);
-                pojo.setDistrict_id((Integer) result[9]);
-                pojo.setDistrict_name((String) result[10]);
-                pojo.setBeat_id((Integer) result[11]);
-                pojo.setBeat_name((String) result[12]);
-                pojo.setRank((String) result[13]);
-                pojo.setSodpo_id((Integer) result[14]);
-                pojo.setPs_id((Integer) result[15]);
 
-                usersDetails.add(pojo);
+                List<Object[]> users = userRepository.getSpecificUserViaUserRoleId(user_id,role_id_old);
+                List<UsersDetials> usersDetails = new ArrayList<>();
+
+                for (Object[] result : users) {
+                    UsersDetials pojo = new UsersDetials();
+                    pojo.setUser_id((Integer) result[0]);
+                    pojo.setFirst_name((String) result[1]);
+                    pojo.setLast_name((String) result[2]);
+                    pojo.setUsername((String) result[3]);
+                    pojo.setRole_id((Integer) result[4]);
+                    pojo.setRole_name((String) result[5]);
+                    pojo.setMobile_number((BigInteger) result[6]);
+                    pojo.setState_id((Integer) result[7]);
+                    pojo.setState_name((String) result[8]);
+                    pojo.setDistrict_id((Integer) result[9]);
+                    pojo.setDistrict_name((String) result[10]);
+                    pojo.setBeat_id((Integer) result[11]);
+                    pojo.setBeat_name((String) result[12]);
+                    pojo.setRank((String) result[13]);
+                    pojo.setSodpo_id((Integer) result[14]);
+                    pojo.setPs_id((Integer) result[15]);
+
+                    usersDetails.add(pojo);
+                }
+
+                model.addAttribute("usersDetails", usersDetails.get(0));
+                model.addAttribute("userRoleIdOld", role_id_old);
+                model.addAttribute("updateUser", new UpdateUser());
+                System.out.println(usersDetails.get(0).toString());
+                return "updateUser";
             }
 
-            model.addAttribute("usersDetails", usersDetails.get(0));
-            model.addAttribute("userRoleIdOld", role_id_old);
-            model.addAttribute("updateUser", new UpdateUser());
-            System.out.println(usersDetails.get(0).toString());
-            return "updateUser";
+
         }
     }
 
@@ -237,13 +261,26 @@ public class UserController {
 
 
     @RequestMapping(value = "/createRole", method = RequestMethod.GET)
-    public String createRole(Model model) {
+    public String createRole(Model model, HttpServletRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
-            model.addAttribute("rolesForm", new RolesForm());
-            return "createrole";
+
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+
+
+                model.addAttribute("rolesForm", new RolesForm());
+                return "createrole";
+            }
+
+
+
         }
     }
 
@@ -280,14 +317,25 @@ public class UserController {
 
 
     @RequestMapping(value = "/createUser", method = RequestMethod.GET)
-    public String createUser(Model model) {
+    public String createUser(Model model,HttpServletRequest request) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
-            model.addAttribute("registerUser", new RegisterUser());
-            return "createuser";
+
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+                model.addAttribute("registerUser", new RegisterUser());
+                return "createuser";
+            }
+
+
+
         }
 
 

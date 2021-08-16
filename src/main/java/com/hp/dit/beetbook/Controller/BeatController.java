@@ -2,8 +2,10 @@ package com.hp.dit.beetbook.Controller;
 
 import com.hp.dit.beetbook.entities.BeatMaster;
 import com.hp.dit.beetbook.entities.DistrictMaster;
+import com.hp.dit.beetbook.form.activebeat.ActiveBeat;
 import com.hp.dit.beetbook.form.beat.BeatForm;
 import com.hp.dit.beetbook.form.district.DistrictForm;
+import com.hp.dit.beetbook.modals.LoggedInUserSession;
 import com.hp.dit.beetbook.repositories.beats.BeatRepository;
 import com.hp.dit.beetbook.repositories.districtRepository.DistrictRepository;
 import com.hp.dit.beetbook.validators.DistrictValidator;
@@ -38,13 +40,25 @@ public class BeatController {
     BeatRepository beatRepository;
 
     @RequestMapping(value = "/createbeat", method = RequestMethod.GET)
-    public String createDistrict(Model model) {
+    public String createDistrict(Model model,HttpServletRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
-            model.addAttribute("beatForm", new BeatForm());
-            return "createbeat";
+
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+
+                model.addAttribute("beatForm", new BeatForm());
+                return "createbeat";
+            }
+
+
+
         }
     }
 
@@ -105,20 +119,34 @@ public class BeatController {
 
     //viewbeat
     @RequestMapping(value = "/viewbeat", method = RequestMethod.GET)
-    public String viewbeat(Model model) throws Exception {
+    public String viewbeat(Model model,HttpServletRequest request) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
-            List<BeatMaster> beats = beatRepository.getAllBeats();
-            model.addAttribute("beats", beats);
-            return "viewbeat";
+
+
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+
+                List<BeatMaster> beats = beatRepository.getAllBeats();
+                model.addAttribute("beats", beats);
+                return "viewbeat";
+            }
+
+
+
+
         }
     }
 
     //updateBeat beatId
     @RequestMapping(value = "/updateBeat/{beatId}", method = RequestMethod.GET)
-    public String updateDistrict(@PathVariable("beatId")Integer beat_Id, Model model) throws Exception {
+    public String updateDistrict(@PathVariable("beatId")Integer beat_Id, Model model, HttpServletRequest request) throws Exception {
 
         System.out.println(beat_Id);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -126,11 +154,20 @@ public class BeatController {
             return "login";
         } else {
 
-            BeatMaster beatDetails =beatRepository.getBeatViaId(beat_Id);
-            System.out.println(beatDetails.toString());
-            model.addAttribute("beat_to_update", beatDetails);
-            model.addAttribute("beatForm", new BeatForm());
-            return "updatebeat";
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+
+                BeatMaster beatDetails =beatRepository.getBeatViaId(beat_Id);
+                System.out.println(beatDetails.toString());
+                model.addAttribute("beat_to_update", beatDetails);
+                model.addAttribute("beatForm", new BeatForm());
+                return "updatebeat";
+            }
+
 
         }
     }

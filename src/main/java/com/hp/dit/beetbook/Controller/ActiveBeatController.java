@@ -1,6 +1,7 @@
 package com.hp.dit.beetbook.Controller;
 
 import com.hp.dit.beetbook.form.activebeat.ActiveBeat;
+import com.hp.dit.beetbook.modals.LoggedInUserSession;
 import com.hp.dit.beetbook.modals.RolesModal;
 import com.hp.dit.beetbook.modals.activeBeatModal.ActiveBeatModal;
 import com.hp.dit.beetbook.repositories.userlocationlogs.UserLocationLogsRepository;
@@ -35,13 +36,25 @@ public class ActiveBeatController {
     private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
     @RequestMapping(value = "/activeBeat", method = RequestMethod.GET)
-    public String saveRole(Model model) {
+    public String saveRole(Model model,HttpServletRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
-            model.addAttribute("activeBeat", new ActiveBeat());
-            return "activebeat";
+
+
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+
+
+                model.addAttribute("activeBeat", new ActiveBeat());
+                return "activebeat";
+            }
+
         }
     }
 
@@ -58,33 +71,39 @@ public class ActiveBeatController {
             }
             try {
 
-                List<Object[]> data = userLocationLogsRepository.getActiveBeats(activeBeatForm.getToDate());
-                System.out.println(data.toString());
+                LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+                System.out.println(user);
 
-                if (!data.isEmpty()) {
-                    List<ActiveBeatModal> activeBeatModal = new ArrayList<>();
+                if(user==null){
+                    return "login";
+                }else{
+                    List<Object[]> data = userLocationLogsRepository.getActiveBeats(activeBeatForm.getToDate());
+                    System.out.println(data.toString());
+
+                    if (!data.isEmpty()) {
+                        List<ActiveBeatModal> activeBeatModal = new ArrayList<>();
 
 
-                    for (Object[] result : data) {
-                        ActiveBeatModal pojo = new ActiveBeatModal();
-                        pojo.setBeatId((Integer) result[0]);
-                        pojo.setUsername((String) result[1]);
-                        pojo.setUserId((Integer) result[2]);
-                        pojo.setRoleId((Integer) result[3]);
-                        pojo.setMobile((BigInteger) result[4]);
-                        pojo.setBeatName((String) result[5]);
-                        pojo.setPoliceStationName((String) result[6]);
-                        pojo.setDate((String) result[7]);
-                        activeBeatModal.add(pojo);
+                        for (Object[] result : data) {
+                            ActiveBeatModal pojo = new ActiveBeatModal();
+                            pojo.setBeatId((Integer) result[0]);
+                            pojo.setUsername((String) result[1]);
+                            pojo.setUserId((Integer) result[2]);
+                            pojo.setRoleId((Integer) result[3]);
+                            pojo.setMobile((BigInteger) result[4]);
+                            pojo.setBeatName((String) result[5]);
+                            pojo.setPoliceStationName((String) result[6]);
+                            pojo.setDate((String) result[7]);
+                            activeBeatModal.add(pojo);
+                        }
+                        model.addAttribute("activeBeats", activeBeatModal);
+                        activeBeatForm.setToDate(activeBeatForm.getToDate());
+                        return "activebeat";
+                    } else {
+                        model.addAttribute("serverError", "No Data Found");
+                        return "activebeat";
                     }
-                    model.addAttribute("activeBeats", activeBeatModal);
-                    activeBeatForm.setToDate(activeBeatForm.getToDate());
-                    return "activebeat";
-                } else {
-                    model.addAttribute("serverError", "No Data Found");
-                    return "activebeat";
                 }
-
 
             } catch (Exception ex) {
                 model.addAttribute("serverError", ex.toString());

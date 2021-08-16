@@ -108,15 +108,10 @@ public class HomeController {
             }
             //Get the User Data and Set Set the Data in Session
             List<LoggedInUserSession> data = userRepository.getUserGeoData(username);
-            //Save the Object in Session
             request.getSession().setAttribute("UserData", data.get(0));
 
-         //   if(authority_.equalsIgnoreCase("REVENUE")  || authority_.equalsIgnoreCase("CASHIER")){
-           //     return "redirect:/twoStepVerification";
-           // }else{
-                return "homepage_new";
-           // }
-           // return "redirect:/twoStepVerification";
+
+                return "redirect:/dashboard";
 
 
         }
@@ -144,16 +139,19 @@ public class HomeController {
                 authority_ = authority.getAuthority().toString();
                 System.out.println(authority.getAuthority().toString());
             }
-            //Get the User Data and Set Set the Data in Session
-            List<LoggedInUserSession> data = userRepository.getUserGeoData(username);
-            //Save the Object in Session
-            request.getSession().setAttribute("UserData", data.get(0));
 
-            //   if(authority_.equalsIgnoreCase("REVENUE")  || authority_.equalsIgnoreCase("CASHIER")){
-            //     return "redirect:/twoStepVerification";
-            // }else{
-            return "homepage_new";
-            // }
+           LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+                return "homepage_new";
+            }
+
+
+
+
 
 
         }
@@ -168,121 +166,6 @@ public class HomeController {
         return "login";
     }
 
-
-    @RequestMapping(value = "/showIdCards", method = RequestMethod.GET)
-    public String showIdCardList(Model model, HttpServletRequest request) {
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "login";
-        } else {
-
-            request.getSession().setAttribute("successMessage", "");
-
-            String authority_ = null;
-
-            Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-
-            for (GrantedAuthority authority : authorities) {
-                authority_ = authority.getAuthority().toString();
-                System.out.println(authority.getAuthority().toString());
-            }
-
-            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
-            System.out.println(user.toString());
-
-            if (user != null) {
-
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                LocalDate localDate = LocalDate.now();
-                System.out.println(dtf.format(localDate).toString());
-
-                showIdCardList date = new showIdCardList();
-                    model.addAttribute("showIdCardList", date);
-                    date.setDate(dtf.format(localDate).toString());
-                    model.addAttribute("stateId", user.getStateId());
-                    model.addAttribute("districtId", user.getDistrictId());
-                   // model.addAttribute("barrierId", user.getBarrierId());
-
-
-                    return "showidcards";
-
-
-            }else{
-                return "errorPage";
-            }
-
-
-        }
-    }
-
-    //approvedCardList   approvedCards
-    @RequestMapping(value = "/approvedCardList", method = RequestMethod.GET)
-    public String approvedCardList(@ModelAttribute("showIdCardList") showIdCardList idcard, BindingResult bindingResult, Model model, HttpServletRequest request) {
-        // generateIdCardValidator.validate(idcard, bindingResult);
-
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "login";
-        } else {
-
-            request.getSession().setAttribute("successMessage", "");
-
-            String authority_ = null;
-
-            Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-
-            for (GrantedAuthority authority : authorities) {
-                authority_ = authority.getAuthority().toString();
-                System.out.println(authority.getAuthority().toString());
-            }
-
-            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
-            System.out.println(user.toString());
-
-            if (user != null) {
-
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                LocalDate localDate = LocalDate.now();
-                System.out.println(dtf.format(localDate).toString());
-
-                showIdCardList date = new showIdCardList();
-                model.addAttribute("showIdCardList", date);
-                date.setDate(dtf.format(localDate).toString());
-                model.addAttribute("stateId", user.getStateId());
-                model.addAttribute("districtId", user.getDistrictId());
-               // model.addAttribute("barrierId", user.getBarrierId());
-
-
-                return "approvedCards";
-
-
-            }else{
-                return "errorPage";
-            }
-
-
-        }
-
-    }
-
-
-
-
-
-
-    @RequestMapping(value = "/searchId", method = RequestMethod.GET)
-    public String searchIdCard(Model model) {
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "login";
-        } else {
-            model.addAttribute("searchId", new SearchID());
-            return "searchid";
-        }
-    }
 
 
 }

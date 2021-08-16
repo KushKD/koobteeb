@@ -1,9 +1,12 @@
 package com.hp.dit.beetbook.Controller;
 
+import com.hp.dit.beetbook.entities.ModuleMaster;
 import com.hp.dit.beetbook.entities.PinMaster;
 import com.hp.dit.beetbook.entities.StatesMaster;
+import com.hp.dit.beetbook.form.module.ModuleForm;
 import com.hp.dit.beetbook.form.pin.PinForm;
 import com.hp.dit.beetbook.form.state.UpdateState;
+import com.hp.dit.beetbook.modals.LoggedInUserSession;
 import com.hp.dit.beetbook.repositories.pin.PinRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -31,31 +34,55 @@ public class PinController {
     PinRepository pinRepository;
 
     @RequestMapping(value = "/viewpin", method = RequestMethod.GET)
-    public String viewStates(Model model) throws Exception {
+    public String viewStates(Model model,HttpServletRequest request) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
-            List<PinMaster> pindata = pinRepository.findAllActivePins();
-            model.addAttribute("pindata", pindata);
-            return "viewpin";
+
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+
+                List<PinMaster> pindata = pinRepository.findAllActivePins();
+                model.addAttribute("pindata", pindata);
+                return "viewpin";
+            }
+
+
+
         }
     }
 
 
     @RequestMapping(value = "/updatePin/{state_id}", method = RequestMethod.GET)
-    public String updatePin(@PathVariable("state_id")Integer state_id, Model model) throws Exception {
+    public String updatePin(@PathVariable("state_id")Integer state_id, Model model,HttpServletRequest request) throws Exception {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
 
-            PinMaster pinData = pinRepository.getPinViaId(state_id);
-            System.out.println(pinData.toString());
-            model.addAttribute("pin_to_update", pinData);
-            model.addAttribute("pinForm", new PinForm());
-            return "updatepin";
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+
+                PinMaster pinData = pinRepository.getPinViaId(state_id);
+                System.out.println(pinData.toString());
+                model.addAttribute("pin_to_update", pinData);
+                model.addAttribute("pinForm", new PinForm());
+                return "updatepin";
+            }
+
+
+
+
 
         }
 

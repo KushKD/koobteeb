@@ -1,8 +1,11 @@
 package com.hp.dit.beetbook.Controller;
 
 
+import com.hp.dit.beetbook.entities.BeatMaster;
 import com.hp.dit.beetbook.entities.DistrictMaster;
+import com.hp.dit.beetbook.form.beat.BeatForm;
 import com.hp.dit.beetbook.form.district.DistrictForm;
+import com.hp.dit.beetbook.modals.LoggedInUserSession;
 import com.hp.dit.beetbook.repositories.districtRepository.DistrictRepository;
 import com.hp.dit.beetbook.validators.DistrictValidator;
 import com.hp.dit.beetbook.validators.DistrictValidatorUpdate;
@@ -117,7 +120,7 @@ public class DistrictsController {
 
 
     @RequestMapping(value = "/updateDistrict/{district_id}", method = RequestMethod.GET)
-    public String updateDistrict(@PathVariable("district_id")Integer district_id, Model model) throws Exception {
+    public String updateDistrict(@PathVariable("district_id")Integer district_id, Model model,HttpServletRequest request) throws Exception {
 
         System.out.println(district_id);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -125,11 +128,21 @@ public class DistrictsController {
             return "login";
         } else {
 
-            DistrictMaster district =districtRepository.getDistrictViaId(district_id);
-            System.out.println(district.toString());
-            model.addAttribute("district_to_update", district);
-            model.addAttribute("districtForm", new DistrictForm());
-            return "updateDistrict";
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+
+                DistrictMaster district =districtRepository.getDistrictViaId(district_id);
+                System.out.println(district.toString());
+                model.addAttribute("district_to_update", district);
+                model.addAttribute("districtForm", new DistrictForm());
+                return "updateDistrict";
+            }
+
+
 
         }
     }

@@ -5,6 +5,7 @@ import com.hp.dit.beetbook.entities.ModuleRoleMappingMaster;
 import com.hp.dit.beetbook.entities.RolesEntity;
 import com.hp.dit.beetbook.form.module.ModuleForm;
 import com.hp.dit.beetbook.form.modulerole.ModuleRoleForm;
+import com.hp.dit.beetbook.modals.LoggedInUserSession;
 import com.hp.dit.beetbook.modals.moduleRole.ModuleRoleList;
 import com.hp.dit.beetbook.repositories.rolemodule.RoleModuleRepository;
 import com.hp.dit.beetbook.validators.ModuleRoleValidator;
@@ -45,13 +46,24 @@ public class ModuleRoleMapping {
     ModuleRoleValidatorUpdate moduleRoleValidatorUpdate;
 
     @RequestMapping(value = "/createmodulerolemapping", method = RequestMethod.GET)
-    public String createDistrict(Model model) {
+    public String createDistrict(Model model ,HttpServletRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
-            model.addAttribute("moduleRoleForm", new ModuleRoleForm());
-            return "createmodulerolemapping";
+
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+                model.addAttribute("moduleRoleForm", new ModuleRoleForm());
+                return "createmodulerolemapping";
+            }
+
+
+
         }
     }
 
@@ -100,21 +112,32 @@ public class ModuleRoleMapping {
     }
 
     @RequestMapping(value = "/viewmodulerolemapping", method = RequestMethod.GET)
-    public String viewModule(Model model) throws Exception {
+    public String viewModule(Model model,HttpServletRequest request) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
-            List<ModuleRoleList> modulesroles = roleModuleRepository.getAllActiveModulesViaRoles();
-            System.out.println(modulesroles.toString());
-            model.addAttribute("modulesroles", modulesroles);
-            return "viewmodulerolemapping";
+
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+
+                List<ModuleRoleList> modulesroles = roleModuleRepository.getAllActiveModulesViaRoles();
+                System.out.println(modulesroles.toString());
+                model.addAttribute("modulesroles", modulesroles);
+                return "viewmodulerolemapping";
+            }
+
+
         }
     }
 
     //updateModuleRoleEntity
     @RequestMapping(value = "/updatemodulerolemapping/{district_id}", method = RequestMethod.GET)
-    public String updateDistrict(@PathVariable("district_id")Integer module_id, Model model) throws Exception {
+    public String updateDistrict(@PathVariable("district_id")Integer module_id, Model model,HttpServletRequest request) throws Exception {
 
         System.out.println(module_id);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -122,11 +145,21 @@ public class ModuleRoleMapping {
             return "login";
         } else {
 
-            ModuleRoleList module =roleModuleRepository.getModuleRoleViaId(module_id);
-            System.out.println(module.toString());
-            model.addAttribute("module_to_update", module);
-            model.addAttribute("moduleRoleForm", new ModuleRoleForm());
-            return "updatemodulerolemapping";
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+
+                ModuleRoleList module =roleModuleRepository.getModuleRoleViaId(module_id);
+                System.out.println(module.toString());
+                model.addAttribute("module_to_update", module);
+                model.addAttribute("moduleRoleForm", new ModuleRoleForm());
+                return "updatemodulerolemapping";
+            }
+
+
 
         }
     }

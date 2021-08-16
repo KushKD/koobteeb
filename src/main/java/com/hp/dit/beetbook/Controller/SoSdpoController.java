@@ -1,12 +1,14 @@
 package com.hp.dit.beetbook.Controller;
 
 
+import com.hp.dit.beetbook.entities.PinMaster;
 import com.hp.dit.beetbook.entities.S0SdpoMaster;
 import com.hp.dit.beetbook.entities.StatesMaster;
 import com.hp.dit.beetbook.form.sosdpo.SoSdpoForm;
 import com.hp.dit.beetbook.form.sosdpo.SoSdpoUpdate;
 import com.hp.dit.beetbook.form.state.StateForm;
 import com.hp.dit.beetbook.form.state.UpdateState;
+import com.hp.dit.beetbook.modals.LoggedInUserSession;
 import com.hp.dit.beetbook.repositories.sosdpo.SoSdpoRepository;
 import com.hp.dit.beetbook.repositories.stateRepository.StateRepository;
 import com.hp.dit.beetbook.validators.SoSdpoValidator;
@@ -47,13 +49,25 @@ public class SoSdpoController {
     SoSdpoValidatorUpdate soSdpoValidatorUpdate;
 
     @RequestMapping(value = "/createsoSdpo", method = RequestMethod.GET)
-          public String createSoSDPO(Model model) {
+          public String createSoSDPO(Model model,HttpServletRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
-            model.addAttribute("soSdpoForm", new SoSdpoForm());
-            return "createSoSdpo";
+
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+
+                model.addAttribute("soSdpoForm", new SoSdpoForm());
+                return "createSoSdpo";
+            }
+
+
+
         }
           }
 
@@ -96,31 +110,55 @@ public class SoSdpoController {
 
 
     @RequestMapping(value = "/viewsoSdpo", method = RequestMethod.GET)
-    public String viewSoSDPO(Model model) throws Exception {
+    public String viewSoSDPO(Model model,HttpServletRequest request) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
-            List<S0SdpoMaster> sosdpoList = soSdpoRepository.getAllSOSdpo();
-            model.addAttribute("sosdpo", sosdpoList);
-            return "viewSoSdpo";
+
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+
+                List<S0SdpoMaster> sosdpoList = soSdpoRepository.getAllSOSdpo();
+                model.addAttribute("sosdpo", sosdpoList);
+                return "viewSoSdpo";
+            }
+
+
+
         }
     }
 
 
     @RequestMapping(value = "/updateSoSdpo/{sosdpoId}", method = RequestMethod.GET)
-    public String updateSoSDPO(@PathVariable("sosdpoId")Integer id, Model model) throws Exception {
+    public String updateSoSDPO(@PathVariable("sosdpoId")Integer id, Model model,HttpServletRequest request) throws Exception {
 
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
                 return "login";
             } else {
 
-                S0SdpoMaster so_sdpo = soSdpoRepository.getAllSOSdpoViaId(id);
-                System.out.println(so_sdpo.toString());
-                model.addAttribute("sosdpo_to_update", so_sdpo);
-                model.addAttribute("soSdpoUpdate", new SoSdpoUpdate());
-                return "updateSoSdpo";
+                LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+                System.out.println(user);
+
+                if(user==null){
+                    return "login";
+                }else{
+
+                    S0SdpoMaster so_sdpo = soSdpoRepository.getAllSOSdpoViaId(id);
+                    System.out.println(so_sdpo.toString());
+                    model.addAttribute("sosdpo_to_update", so_sdpo);
+                    model.addAttribute("soSdpoUpdate", new SoSdpoUpdate());
+                    return "updateSoSdpo";
+                }
+
+
+
+
 
             }
 

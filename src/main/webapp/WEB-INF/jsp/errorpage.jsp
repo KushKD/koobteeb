@@ -43,8 +43,7 @@ padding:10px;
         </tr>
     </table>
 
-   <%session.invalidate();%>
-
+   <% session.invalidate();%>
 </main>
 </div>
 </div>

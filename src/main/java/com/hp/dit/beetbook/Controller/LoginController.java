@@ -22,6 +22,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class LoginController {
@@ -46,9 +47,14 @@ public class LoginController {
 
 
     @RequestMapping(value =  "/logout" , method = RequestMethod.GET)
-    public String logout(Model model) {
+    public String logout(Model model,HttpServletRequest request) {
         System.out.println("Logout Successful");
       //  model.addAttribute("login", new Lo());
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+
         return "login";
     }
 }

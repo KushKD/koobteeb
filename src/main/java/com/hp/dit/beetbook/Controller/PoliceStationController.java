@@ -1,8 +1,10 @@
 package com.hp.dit.beetbook.Controller;
 
+import com.hp.dit.beetbook.entities.PinMaster;
 import com.hp.dit.beetbook.entities.PoliceStationMaster;
 import com.hp.dit.beetbook.entities.StatesMaster;
 import com.hp.dit.beetbook.form.policestation.PSForm;
+import com.hp.dit.beetbook.modals.LoggedInUserSession;
 import com.hp.dit.beetbook.repositories.policestationRepository.PSRepository;
 import com.hp.dit.beetbook.validators.PoliceStationUpdateValidator;
 import com.hp.dit.beetbook.validators.PoliceStationValidator;
@@ -38,13 +40,25 @@ public class PoliceStationController {
     PoliceStationUpdateValidator policeStationUpdateValidator;
 
     @RequestMapping(value = "/createps", method = RequestMethod.GET)
-    public String createPS(Model model) {
+    public String createPS(Model model,HttpServletRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
-            model.addAttribute("pSForm", new PSForm());
-            return "createPs";
+
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+
+                model.addAttribute("pSForm", new PSForm());
+                return "createPs";
+            }
+
+
+
         }
     }
 
@@ -88,30 +102,54 @@ public class PoliceStationController {
 
 
     @RequestMapping(value = "/viewps", method = RequestMethod.GET)
-    public String viewStates(Model model) throws Exception {
+    public String viewStates(Model model,HttpServletRequest request) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
-            List<PoliceStationMaster> states = psRepository.getAllPoliceStation();
-            model.addAttribute("police_stations", states);
-            return "viewPs";
+
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+
+                List<PoliceStationMaster> states = psRepository.getAllPoliceStation();
+                model.addAttribute("police_stations", states);
+                return "viewPs";
+            }
+
+
+
         }
     }
 
     @RequestMapping(value = "/updatePs/{psId}", method = RequestMethod.GET)
-    public String updateState(@PathVariable("psId")Integer id, Model model) throws Exception {
+    public String updateState(@PathVariable("psId")Integer id, Model model,HttpServletRequest request) throws Exception {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
 
-            PoliceStationMaster state = psRepository.getPoliceStationViaId(id);
-            System.out.println(state.toString());
-            model.addAttribute("ps_to_update", state);
-            model.addAttribute("pSForm", new PSForm());
-            return "updatePs";
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+
+
+                PoliceStationMaster state = psRepository.getPoliceStationViaId(id);
+                System.out.println(state.toString());
+                model.addAttribute("ps_to_update", state);
+                model.addAttribute("pSForm", new PSForm());
+                return "updatePs";
+            }
+
+
+
 
         }
 

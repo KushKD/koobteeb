@@ -78,10 +78,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
         http.authorizeRequests()
+                .antMatchers("/resources/**").denyAll()
                 .antMatchers(Constants.permitAll).permitAll()
                 .antMatchers("/downloadFile/**").permitAll()
                 .antMatchers("/resources/**").permitAll()
                 .antMatchers("/admin/**").hasAnyRole("ADMIN")
+                .antMatchers("/index").hasAnyRole("ADMIN","SUPER ADMIN")
                 .antMatchers("/createuser/**").hasAnyRole("ADMIN")
                 .antMatchers("/saveuser/").hasAnyRole("ADMIN")
                 .antMatchers("/createrole/").hasAnyRole("ADMIN")
@@ -95,7 +97,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logout().logoutSuccessHandler(logoutSuccessHandler())
                 .clearAuthentication(true)
                 .invalidateHttpSession(true)
-                .deleteCookies(Constants.JSESSIONID)
+                .deleteCookies(Constants.JSESSIONID,Constants.headerNameXXSRF)
                 .and()
                 .sessionManagement()
                 .maximumSessions(1)

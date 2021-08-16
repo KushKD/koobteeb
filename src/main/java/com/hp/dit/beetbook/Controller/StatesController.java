@@ -1,9 +1,12 @@
 package com.hp.dit.beetbook.Controller;
 
 
+import com.hp.dit.beetbook.entities.S0SdpoMaster;
 import com.hp.dit.beetbook.entities.StatesMaster;
+import com.hp.dit.beetbook.form.sosdpo.SoSdpoUpdate;
 import com.hp.dit.beetbook.form.state.StateForm;
 import com.hp.dit.beetbook.form.state.UpdateState;
+import com.hp.dit.beetbook.modals.LoggedInUserSession;
 import com.hp.dit.beetbook.repositories.stateRepository.StateRepository;
 import com.hp.dit.beetbook.validators.StateValidator;
 import com.hp.dit.beetbook.validators.StateValidatorUpdate;
@@ -39,13 +42,24 @@ public class StatesController {
     StateRepository stateRepository;
 
     @RequestMapping(value = "/createState", method = RequestMethod.GET)
-          public String createState(Model model) {
+          public String createState(Model model,HttpServletRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
-            model.addAttribute("stateForm", new StateForm());
-            return "createState";
+
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+                model.addAttribute("stateForm", new StateForm());
+                return "createState";
+            }
+
+
+
         }
           }
 
@@ -88,31 +102,53 @@ public class StatesController {
 
 
     @RequestMapping(value = "/viewStates", method = RequestMethod.GET)
-    public String viewStates(Model model) {
+    public String viewStates(Model model,HttpServletRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
-            List<StatesMaster> states = stateRepository.getAllStates();
-            model.addAttribute("states", states);
-            return "viewStates";
+
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+
+                List<StatesMaster> states = stateRepository.getAllStates();
+                model.addAttribute("states", states);
+                return "viewStates";
+            }
+
+
+
         }
     }
 
 
     @RequestMapping(value = "/updateState/{state_id}", method = RequestMethod.GET)
-    public String updateState(@PathVariable("state_id")Integer state_id, Model model) {
+    public String updateState(@PathVariable("state_id")Integer state_id, Model model,HttpServletRequest request) {
 
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
                 return "login";
             } else {
 
-                StatesMaster state = stateRepository.getStateViaStateId(state_id);
-                System.out.println(state.toString());
-                model.addAttribute("state_to_update", state);
-                model.addAttribute("updateState", new UpdateState());
-                return "updateState";
+                LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+                System.out.println(user);
+
+                if(user==null){
+                    return "login";
+                }else{
+
+                    StatesMaster state = stateRepository.getStateViaStateId(state_id);
+                    System.out.println(state.toString());
+                    model.addAttribute("state_to_update", state);
+                    model.addAttribute("updateState", new UpdateState());
+                    return "updateState";
+                }
+
+
 
             }
 

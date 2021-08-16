@@ -1,7 +1,10 @@
 package com.hp.dit.beetbook.Controller;
 
+import com.hp.dit.beetbook.entities.StatesMaster;
 import com.hp.dit.beetbook.entities.SubModuleMaster;
+import com.hp.dit.beetbook.form.state.UpdateState;
 import com.hp.dit.beetbook.form.submodule.SubModuleForm;
+import com.hp.dit.beetbook.modals.LoggedInUserSession;
 import com.hp.dit.beetbook.repositories.submodules.SubModuleRepository;
 import com.hp.dit.beetbook.services.FileStorageService;
 import com.hp.dit.beetbook.validators.ModuleValidator;
@@ -41,13 +44,26 @@ public class SubModuleController {
 
 
     @RequestMapping(value = "/createsubmodule", method = RequestMethod.GET)
-    public String createDistrict(Model model) {
+    public String createDistrict(Model model,HttpServletRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
-            model.addAttribute("subModuleForm", new SubModuleForm());
-            return "createsubmodule";
+
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+
+                model.addAttribute("subModuleForm", new SubModuleForm());
+                return "createsubmodule";
+            }
+
+
+
+
         }
     }
 
@@ -106,20 +122,33 @@ public class SubModuleController {
     }
 
     @RequestMapping(value = "/viewsubmodule", method = RequestMethod.GET)
-    public String viewModule(Model model) throws Exception {
+    public String viewModule(Model model,HttpServletRequest request) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
-            List<SubModuleMaster> modules = subModuleRepository.getAllSubModules();
-            model.addAttribute("submodules", modules);
-            return "viewsubmodule";
+
+
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+
+                List<SubModuleMaster> modules = subModuleRepository.getAllSubModules();
+                model.addAttribute("submodules", modules);
+                return "viewsubmodule";
+            }
+
+
+
         }
     }
 
     //updateModule
     @RequestMapping(value = "/updatesubModule/{district_id}", method = RequestMethod.GET)
-    public String updateDistrict(@PathVariable("district_id")Integer submodule_id, Model model) throws Exception {
+    public String updateDistrict(@PathVariable("district_id")Integer submodule_id, Model model,HttpServletRequest request) throws Exception {
 
         System.out.println(submodule_id);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -127,11 +156,22 @@ public class SubModuleController {
             return "login";
         } else {
 
-            SubModuleMaster submodule = subModuleRepository.getSubModuleViaId(submodule_id);
-            System.out.println(submodule.toString());
-            model.addAttribute("submodule_to_update", submodule);
-            model.addAttribute("subModuleForm", new SubModuleForm());
-            return "updatesubmodule";
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+
+
+                SubModuleMaster submodule = subModuleRepository.getSubModuleViaId(submodule_id);
+                System.out.println(submodule.toString());
+                model.addAttribute("submodule_to_update", submodule);
+                model.addAttribute("subModuleForm", new SubModuleForm());
+                return "updatesubmodule";
+            }
+
+
 
         }
     }

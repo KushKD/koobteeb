@@ -4,6 +4,7 @@ import com.hp.dit.beetbook.entities.DistrictMaster;
 import com.hp.dit.beetbook.entities.ModuleMaster;
 import com.hp.dit.beetbook.form.district.DistrictForm;
 import com.hp.dit.beetbook.form.module.ModuleForm;
+import com.hp.dit.beetbook.modals.LoggedInUserSession;
 import com.hp.dit.beetbook.repositories.modules.ModuleRepository;
 import com.hp.dit.beetbook.services.FileStorageService;
 import com.hp.dit.beetbook.validators.ModuleValidator;
@@ -47,13 +48,24 @@ public class ModuleController {
 
 
     @RequestMapping(value = "/createmodule", method = RequestMethod.GET)
-    public String createDistrict(Model model) {
+    public String createDistrict(Model model, HttpServletRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
-            model.addAttribute("moduleForm", new ModuleForm());
-            return "createmodule";
+
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+
+                model.addAttribute("moduleForm", new ModuleForm());
+                return "createmodule";
+            }
+
+
         }
     }
 
@@ -111,20 +123,32 @@ public class ModuleController {
     }
 
     @RequestMapping(value = "/viewmodule", method = RequestMethod.GET)
-    public String viewModule(Model model) throws Exception {
+    public String viewModule(Model model, HttpServletRequest request) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
-            List<ModuleMaster> modules = moduleRepository.getAllModules();
-            model.addAttribute("modules", modules);
-            return "viewmodule";
+
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+
+                List<ModuleMaster> modules = moduleRepository.getAllModules();
+                model.addAttribute("modules", modules);
+                return "viewmodule";
+            }
+
+
+
         }
     }
 
     //updateModule
     @RequestMapping(value = "/updateModule/{district_id}", method = RequestMethod.GET)
-    public String updateDistrict(@PathVariable("district_id")Integer module_id, Model model) throws Exception {
+    public String updateDistrict(@PathVariable("district_id")Integer module_id, Model model, HttpServletRequest request) throws Exception {
 
         System.out.println(module_id);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -132,11 +156,23 @@ public class ModuleController {
             return "login";
         } else {
 
-            ModuleMaster module =moduleRepository.getModuleViaId(module_id);
-            System.out.println(module.toString());
-            model.addAttribute("module_to_update", module);
-            model.addAttribute("moduleForm", new ModuleForm());
-            return "updatemodule";
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+
+                ModuleMaster module =moduleRepository.getModuleViaId(module_id);
+                System.out.println(module.toString());
+                model.addAttribute("module_to_update", module);
+                model.addAttribute("moduleForm", new ModuleForm());
+                return "updatemodule";
+            }
+
+
+
+
 
         }
     }
