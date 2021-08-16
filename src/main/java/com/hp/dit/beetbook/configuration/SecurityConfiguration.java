@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfToken;
@@ -60,15 +61,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+        http.addFilterBefore(new SameSiteFilter(), UsernamePasswordAuthenticationFilter.class);
         http.headers().addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN));
         http.csrf()
                 .csrfTokenRepository(csrfTokenRepository()).and()
                 .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
-       // http.csrf().ignoringAntMatchers(Constants.nocrf, Constants.permitPaymentResponse);
-        //http.csrf().ignoringAntMatchers(Constants.nocrf, Constants.permitApi);
         http.csrf().ignoringAntMatchers("/nocsrf", "/api/**");
         http.csrf().ignoringAntMatchers("/nocsrf", "/ajax/**");
         http.headers().frameOptions().sameOrigin();
+
 //        http.headers()
 //                .xssProtection()
 //                .and()
@@ -100,6 +101,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .maximumSessions(1)
                 .and()
                 .invalidSessionUrl(Constants.loginController);
+
 
 
     }
