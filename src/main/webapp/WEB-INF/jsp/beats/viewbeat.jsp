@@ -1,58 +1,55 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/bootstrapd.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/script.js"></script>
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 <script src="${pageContext.request.contextPath}/resources/js/plugins/pace.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/plugins/bootstrap-datepicker.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/plugins/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/plugins/dataTables.bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css"/>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.spring-friendly.js"></script>
 <main class="app-content">
+   <h2 class="form-signin-heading">Beat Master</h2>
 
-<h2 class="form-signin-heading">Beat Master</h2>
+   <div class="md-12" style="background-color:#FFFFFF">
+           <table id="sampleTable" class="table">
+               <thead>
+                   <tr>
+                     <th>Beat Name</th>
+                     <th>Beat Id</th>
+                     <th> Active/Inactive</th>
+                     <th> Created Date</th>
+                     <th> Action</th>
+                   </tr>
+               </thead>
+           </table>
+       </div>
 
-	<c:if test="${not empty beats}">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="tile">
-					<div class="tile-body">
-						<div class="table-responsive">
-							<table class="table table-hover table-bordered" id="sampleTable">
-								<thead>
-									<tr>
-										<th>S.No</th>
-										<th>Beat Name</th>
-										<th>Beat Id</th>
-										<th>Update</th>
+</main>
 
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach items="${beats}" var="beat" varStatus="loopCounter">
-										<tr>
-											<td>
-												<c:out value="${loopCounter.count}"/>
-											</td>
-											<td>${beat.beatName}</td>
-											<td>${beat.beatId}</td>
-
-
-											<td>
-												<a href="${pageContext.request.contextPath}/updateBeat/${beat.beatId}" class="button button-success" ;>Update</a>
-											</td>
-
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<div></div>
-				</div>
-			</c:if>
-		</main>
+<script>
+   $('table#sampleTable').DataTable({
+       ajax: '/apidataTable/allbeats',
+       serverSide: true,
+       columns: [
+           {
+               data: 'beatName'
+           },
+           {
+               data: 'beatId'
+           },
+           {
+               data: 'active'
+           },
+           {
+                          data: 'createdDate'
+            },
+            {
+                   data: 'beatId',
+                   render: function (data) { return '<div class="btn-group"><a href="${pageContext.request.contextPath}/updateBeat/${"'+data+'"}" class="btn btn-success" ;>Update</a></div>' }
 
 
+             }
+       ]
+   });
 
-<script type="text/javascript">
-   $('#sampleTable').DataTable();
-   </script>
+    $(".dataTables_wrapper").css("width","100%");
+</script>
