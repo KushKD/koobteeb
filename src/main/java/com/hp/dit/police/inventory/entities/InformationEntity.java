@@ -35,10 +35,6 @@ public class InformationEntity {
 	@Column(name="module_id")
 	private Integer moduleId;
 
-	@OneToOne()
-	@JoinColumn(name="submodule_id")
-	private SubModuleMaster submoduleId;
-
 	@Column(name="user_id")
 	private Integer userId;
 
@@ -222,13 +218,7 @@ public class InformationEntity {
 		this.moduleId = moduleId;
 	}
 
-	public SubModuleMaster getSubmoduleId() {
-		return submoduleId;
-	}
 
-	public void setSubmoduleId(SubModuleMaster submoduleId) {
-		this.submoduleId = submoduleId;
-	}
 
 	public Integer getUserId() {
 		return userId;
@@ -568,7 +558,6 @@ public class InformationEntity {
 				", psId=" + psId +
 				", beatId=" + beatId +
 				", moduleId=" + moduleId +
-				", submoduleId=" + submoduleId +
 				", userId=" + userId +
 				", roleId=" + roleId +
 				", name='" + name + '\'' +

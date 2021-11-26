@@ -1,7 +1,6 @@
 package com.hp.dit.police.inventory.Controller;
 
 import com.hp.dit.police.inventory.entities.InformationEntity;
-import com.hp.dit.police.inventory.entities.SubModuleMaster;
 import com.hp.dit.police.inventory.form.ViewInformationWebForm;
 import com.hp.dit.police.inventory.form.viewdata.ViewData;
 import com.hp.dit.police.inventory.modals.LoggedInUserSession;
@@ -149,7 +148,6 @@ public class ViewDataController  {
             model.addAttribute("sodpo_id", information.getSosdpoId());
             model.addAttribute("ps_id", information.getPsId());
             model.addAttribute("beat_id", information.getBeatId());
-            model.addAttribute("submodule_id", information.getSubmoduleId().getSubmoduleId());
             model.addAttribute("information", information);
             model.addAttribute("user", user);
 
@@ -195,12 +193,7 @@ public class ViewDataController  {
                 System.out.println(form.getBeatId());
                 information.setBeatId(form.getBeatId());
             }
-            if(Utilities.ifEmptyField(Integer.toString(form.getSubmoduleId()))){
-                System.out.println(form.getSubmoduleId());
-                SubModuleMaster subModuleMaster = new SubModuleMaster();
-                subModuleMaster.setSubmoduleId(form.getSubmoduleId());
-                information.setSubmoduleId(subModuleMaster);
-            }
+
             if(Utilities.ifEmptyField(form.getName())){
                 System.out.println(form.getName());
                 information.setName(form.getName());
@@ -360,7 +353,6 @@ public class ViewDataController  {
             model.addAttribute("sodpo_id", newEntity.getSosdpoId());
             model.addAttribute("ps_id", newEntity.getPsId());
             model.addAttribute("beat_id", newEntity.getBeatId());
-            model.addAttribute("submodule_id", newEntity.getSubmoduleId().getSubmoduleId());
             model.addAttribute("information", newEntity);
             model.addAttribute("user", user);
             model.addAttribute("viewInformationWebForm", new ViewInformationWebForm());

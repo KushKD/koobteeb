@@ -10,11 +10,9 @@ import com.hp.dit.police.inventory.modals.beats.BeatsNameId;
 import com.hp.dit.police.inventory.repositories.RolesRepository;
 import com.hp.dit.police.inventory.repositories.beats.BeatRepository;
 import com.hp.dit.police.inventory.repositories.districtRepository.DistrictRepository;
-import com.hp.dit.police.inventory.repositories.modules.ModuleRepository;
 import com.hp.dit.police.inventory.repositories.policestationRepository.PSRepository;
 import com.hp.dit.police.inventory.repositories.sosdpo.SoSdpoRepository;
 import com.hp.dit.police.inventory.repositories.stateRepository.StateRepository;
-import com.hp.dit.police.inventory.repositories.submodules.SubModuleRepository;
 import com.hp.dit.police.inventory.repositories.user.UserRepository;
 import com.hp.dit.police.inventory.utilities.Constants;
 import org.slf4j.Logger;
@@ -52,11 +50,7 @@ public class AjaxContoller {
     @Autowired
     BeatRepository beatRepository;
 
-    @Autowired
-    ModuleRepository moduleRepository;
 
-    @Autowired
-    SubModuleRepository subModuleRepository;
 
 
 
@@ -115,29 +109,6 @@ public class AjaxContoller {
     }
 
 
-    @RequestMapping(value = "/ajax/getModules", method = RequestMethod.GET,  produces="application/json")
-    public @ResponseBody
-    String getModules() throws Exception {
-        Map<String, Object> map = null;
-        List<ModuleMaster> modules = moduleRepository.getAllActiveModules();
-
-        map = new HashMap<String, Object>();
-        map.put(Constants.keyResponse, modules);
-        map.put(Constants.keyMessage, Constants.valueMessage);
-        map.put(Constants.keyStatus, HttpStatus.OK);
-
-        ObjectMapper Obj = new ObjectMapper();
-        String jsonStr = null;
-        jsonStr = Obj.writeValueAsString(map);
-        logger.info(jsonStr);
-
-        return jsonStr;
-
-
-    }
-
-
-
 
 
 
@@ -160,29 +131,6 @@ public class AjaxContoller {
         return jsonStr;
 
     }
-
-
-    @RequestMapping(value = "/ajax/getSubModules", method = RequestMethod.GET,  produces="application/json")
-    public @ResponseBody
-    String getSubModules() throws Exception {
-        Map<String, Object> map = null;
-        List<SubModuleMaster> subModules = subModuleRepository.getAllActiveSubModules();
-
-        map = new HashMap<String, Object>();
-        map.put(Constants.keyResponse, subModules);
-        map.put(Constants.keyMessage, Constants.valueMessage);
-        map.put(Constants.keyStatus, HttpStatus.OK);
-
-        ObjectMapper Obj = new ObjectMapper();
-        String jsonStr = null;
-        jsonStr = Obj.writeValueAsString(map);
-        logger.info(jsonStr);
-
-        return jsonStr;
-
-    }
-
-
 
 
 

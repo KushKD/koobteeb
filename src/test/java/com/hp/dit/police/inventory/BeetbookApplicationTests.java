@@ -290,29 +290,8 @@ class BeetbookApplicationTests {
 
     }
 
-    @Test
-    @Transactional
-    @Rollback(value = false)
-    void checkPin() throws Exception  {
-            EncryptDecrypt ED = new EncryptDecrypt();
-        String districts = apiController.checkPin();
-        System.out.println("===Districts===");
-        System.out.println(districts);
-        System.out.println(ED.decrypt(districts));
 
-    }
 
-    @Test
-    @Transactional
-    @Rollback(value = false)
-    void getModules() throws Exception  {
-        EncryptDecrypt ED = new EncryptDecrypt();
-        String modules = apiController.getModules(ED.encrypt("4"));
-        System.out.println("===Modules===");
-        System.out.println(modules);
-        System.out.println(ED.decrypt(modules));
-
-    }
 
     @Test
     @Transactional
@@ -349,31 +328,9 @@ class BeetbookApplicationTests {
 
     }
 
-    //getSubModules
-    @Test
-    @Transactional
-    @Rollback(value = false)
-    void getSubModules() throws Exception  {
-        EncryptDecrypt ED = new EncryptDecrypt();
-        String modules = apiController.getSubModules(ED.encrypt("2"));
-        System.out.println("===Sub Modules===");
-        System.out.println(modules);
-        System.out.println(ED.decrypt(modules));
-
-    }
 
 
-    @Test
-    @Transactional
-    @Rollback(value = false)
-    void getOptions() throws Exception  {
-        EncryptDecrypt ED = new EncryptDecrypt();
-        String modules = apiController.getSubModulesOptions(ED.encrypt("2"));
-        System.out.println("===Sub Modules Options===");
-        System.out.println(modules);
-        System.out.println(ED.decrypt(modules));
 
-    }
 
     String json = "{\n" +
             "  \"stateId\": 9,\n" +
