@@ -12,8 +12,8 @@
 	<artifactId>beetbook</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>beetbook</name>
-	<description>Himachal Pradesh Police department Beet Book</description>
+	<name>Police_Inventory</name>
+	<description>Himachal Pradesh Police department (Inventory)</description>
 	<properties>
 		<java.version>1.8</java.version>
 		<deploy.wildfly.host>127.0.0.1</deploy.wildfly.host>
