@@ -23,7 +23,7 @@ public class PoliceStationMaster implements Serializable {
     @Column(name = "district_id")
     private Integer districtId;
 
-    @Column(name = "sosdpo_id")
+    @Column(name = "policeline_id")
     private Integer sosdpoId;
 
     @Column(name = "active")

@@ -37,6 +37,9 @@ public class DistrictRepositoryCustomImpl implements DistrictRepositoryCustom {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<DistrictMaster> cq = cb.createQuery(DistrictMaster.class);
         Root<DistrictMaster> book = cq.from(DistrictMaster.class);
+        Predicate active = cb.equal(book.get("active"), true);
+        Predicate deleted = cb.equal(book.get("deleted"), false);
+        cq.where(active,deleted);
         TypedQuery<DistrictMaster> query =  entityManager.createQuery(cq);
         return query.getResultList();
     }

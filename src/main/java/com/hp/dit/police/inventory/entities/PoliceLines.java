@@ -5,18 +5,18 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "mst_sosdpo")
-public class S0SdpoMaster implements Serializable {
+@Table(name = "mst_policelines")
+public class PoliceLines implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "mst_sosdpo_sosdpo_id_seq", strategy = GenerationType.AUTO)
-    @SequenceGenerator(name = "mst_sosdpo_sosdpo_id_seq", sequenceName = "public.mst_sosdpo_sosdpo_id_seq", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(generator = "mst_policelines_policeline_id_seq", strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "mst_policelines_policeline_id_seq", sequenceName = "public.mst_policelines_policeline_id_seq", initialValue = 1, allocationSize = 1)
 
-    @Column(name="sosdpo_id")
-    private Integer sosdpoId;
+    @Column(name="policeline_id")
+    private Integer policelineId;
 
-    @Column(name="sosdpo_name")
-    private String sosdpoName;
+    @Column(name="policeline_name")
+    private String policelineName;
 
     @Column(name="is_active")
     private boolean isActive;
@@ -33,20 +33,20 @@ public class S0SdpoMaster implements Serializable {
     private Date updatedOn;
 
 
-    public Integer getSosdpoId() {
-        return sosdpoId;
+    public Integer getPolicelineId() {
+        return policelineId;
     }
 
-    public void setSosdpoId(Integer sosdpoId) {
-        this.sosdpoId = sosdpoId;
+    public void setPolicelineId(Integer policelineId) {
+        this.policelineId = policelineId;
     }
 
-    public String getSosdpoName() {
-        return sosdpoName;
+    public String getPolicelineName() {
+        return policelineName;
     }
 
-    public void setSosdpoName(String sosdpoName) {
-        this.sosdpoName = sosdpoName;
+    public void setPolicelineName(String policelineName) {
+        this.policelineName = policelineName;
     }
 
     public boolean isActive() {
@@ -81,11 +81,12 @@ public class S0SdpoMaster implements Serializable {
         this.updatedOn = updatedOn;
     }
 
+
     @Override
     public String toString() {
-        return "S0SdpoMaster{" +
-                "sosdpoId=" + sosdpoId +
-                ", sosdpoName='" + sosdpoName + '\'' +
+        return "PoliceLines{" +
+                "policelineId=" + policelineId +
+                ", policelineName='" + policelineName + '\'' +
                 ", isActive=" + isActive +
                 ", isDeleted=" + isDeleted +
                 ", createdDate=" + createdDate +

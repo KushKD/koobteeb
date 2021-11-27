@@ -4,25 +4,26 @@ import java.io.Serializable;
 
 public class SoSdpoUpdate implements Serializable {
 
-    private String soSdpoId;
-    private String soSdpoName;
+    private String policelineId;
+    private String policelineName;
     private String soSdpoActive;
     private String soSdpoDeleted;
 
-    public String getSoSdpoId() {
-        return soSdpoId;
+
+    public String getPolicelineId() {
+        return policelineId;
     }
 
-    public void setSoSdpoId(String soSdpoId) {
-        this.soSdpoId = soSdpoId;
+    public void setPolicelineId(String policelineId) {
+        this.policelineId = policelineId;
     }
 
-    public String getSoSdpoName() {
-        return soSdpoName;
+    public String getPolicelineName() {
+        return policelineName;
     }
 
-    public void setSoSdpoName(String soSdpoName) {
-        this.soSdpoName = soSdpoName;
+    public void setPolicelineName(String policelineName) {
+        this.policelineName = policelineName;
     }
 
     public String getSoSdpoActive() {
@@ -44,8 +45,8 @@ public class SoSdpoUpdate implements Serializable {
     @Override
     public String toString() {
         return "SoSdpoUpdate{" +
-                "soSdpoId='" + soSdpoId + '\'' +
-                ", soSdpoName='" + soSdpoName + '\'' +
+                "policelineId='" + policelineId + '\'' +
+                ", policelineName='" + policelineName + '\'' +
                 ", soSdpoActive='" + soSdpoActive + '\'' +
                 ", soSdpoDeleted='" + soSdpoDeleted + '\'' +
                 '}';

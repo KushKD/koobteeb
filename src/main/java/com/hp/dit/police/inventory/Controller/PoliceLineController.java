@@ -1,13 +1,13 @@
 package com.hp.dit.police.inventory.Controller;
 
 
-import com.hp.dit.police.inventory.entities.S0SdpoMaster;
+import com.hp.dit.police.inventory.entities.PoliceLines;
 import com.hp.dit.police.inventory.form.sosdpo.SoSdpoForm;
 import com.hp.dit.police.inventory.form.sosdpo.SoSdpoUpdate;
 import com.hp.dit.police.inventory.modals.LoggedInUserSession;
-import com.hp.dit.police.inventory.repositories.sosdpo.SoSdpoRepository;
-import com.hp.dit.police.inventory.validators.SoSdpoValidator;
-import com.hp.dit.police.inventory.validators.SoSdpoValidatorUpdate;
+import com.hp.dit.police.inventory.repositories.policelines.PoliceLinesRepository;
+import com.hp.dit.police.inventory.validators.PoliceLinesValidator;
+import com.hp.dit.police.inventory.validators.PoliceLinesValidatorUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,18 +28,18 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-public class SoSdpoController {
+public class PoliceLineController {
 
 
 
     @Autowired
-    SoSdpoRepository soSdpoRepository;
+    PoliceLinesRepository policeLinesRepository;
 
     @Autowired
-    SoSdpoValidator soSdpoValidator;
+    PoliceLinesValidator policeLinesValidator;
 
     @Autowired
-    SoSdpoValidatorUpdate soSdpoValidatorUpdate;
+    PoliceLinesValidatorUpdate policeLinesValidatorUpdate;
 
     @RequestMapping(value = "/createsoSdpo", method = RequestMethod.GET)
           public String createSoSDPO(Model model,HttpServletRequest request) {
@@ -69,27 +69,27 @@ public class SoSdpoController {
           @Transactional
           @RequestMapping(value = "/savesosdpo", method = RequestMethod.POST)
           public String saveSoSDPO(@ModelAttribute("soSdpoForm") SoSdpoForm form, BindingResult bindingResult, Model model, HttpServletRequest request) throws IOException {
-              soSdpoValidator.validate(form, bindingResult);
+              policeLinesValidator.validate(form, bindingResult);
               Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
               if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
                   return "login";
               } else {
-                  S0SdpoMaster savedState = null;
+                  PoliceLines savedState = null;
                   if (bindingResult.hasErrors()) {
                       return "createSoSdpo";
                   }
 
                   try {
-                      S0SdpoMaster sodpo = new S0SdpoMaster();
-                      sodpo.setSosdpoName(form.getSoSdpo().toString());
+                      PoliceLines sodpo = new PoliceLines();
+                      sodpo.setPolicelineName(form.getSoSdpo().toString());
                       sodpo.setActive(true);
                       sodpo.setDeleted(false);
                       Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                       Date date = new Date(timestamp.getTime());
                       sodpo.setCreatedDate(date);
-                      savedState = soSdpoRepository.save(sodpo);
+                      savedState = policeLinesRepository.save(sodpo);
                       form.setSoSdpo("");
-                      request.getSession().setAttribute("successMessage", "SO SDPO Saved Successfully. Generated SO SDPO Id is:- " + savedState.getSosdpoId());
+                      request.getSession().setAttribute("successMessage", "SO SDPO Saved Successfully. Generated SO SDPO Id is:- " + savedState.getPolicelineId());
 
                       return "createSoSdpo";
                   } catch (Exception ex) {
@@ -116,7 +116,7 @@ public class SoSdpoController {
                 return "login";
             }else{
 
-                List<S0SdpoMaster> sosdpoList = soSdpoRepository.getAllSOSdpo();
+                List<PoliceLines> sosdpoList = policeLinesRepository.getAllSOSdpo();
                 model.addAttribute("sosdpo", sosdpoList);
                 return "viewSoSdpo";
             }
@@ -127,8 +127,8 @@ public class SoSdpoController {
     }
 
 
-    @RequestMapping(value = "/updateSoSdpo/{sosdpoId}", method = RequestMethod.GET)
-    public String updateSoSDPO(@PathVariable("sosdpoId")Integer id, Model model,HttpServletRequest request) throws Exception {
+    @RequestMapping(value = "/updateSoSdpo/{policelineId}", method = RequestMethod.GET)
+    public String updateSoSDPO(@PathVariable("policelineId")Integer id, Model model,HttpServletRequest request) throws Exception {
 
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
@@ -142,7 +142,7 @@ public class SoSdpoController {
                     return "login";
                 }else{
 
-                    S0SdpoMaster so_sdpo = soSdpoRepository.getAllSOSdpoViaId(id);
+                    PoliceLines so_sdpo = policeLinesRepository.getAllSOSdpoViaId(id);
                     System.out.println(so_sdpo.toString());
                     model.addAttribute("sosdpo_to_update", so_sdpo);
                     model.addAttribute("soSdpoUpdate", new SoSdpoUpdate());
@@ -162,13 +162,13 @@ public class SoSdpoController {
     @Transactional
     @RequestMapping(value = "/updateSoSDPOEntity", method = RequestMethod.POST)
     public String updateSoSDPOEntity(@ModelAttribute("soSdpoUpdate") SoSdpoUpdate form, BindingResult bindingResult, Model model, HttpServletRequest request) throws IOException {
-        soSdpoValidatorUpdate.validate(form, bindingResult);
+        policeLinesValidatorUpdate.validate(form, bindingResult);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
-            S0SdpoMaster savedState = null;
+            PoliceLines savedState = null;
             if (bindingResult.hasErrors()) {
                 return "createSoSdpo";
             }
@@ -177,12 +177,12 @@ public class SoSdpoController {
 
                 //Get State Data via ID
 
-                S0SdpoMaster updateSoSdpo = new S0SdpoMaster();
+                PoliceLines updateSoSdpo = new PoliceLines();
 
-                updateSoSdpo = soSdpoRepository.getAllSOSdpoViaId(Integer.parseInt(form.getSoSdpoId()));
+                updateSoSdpo = policeLinesRepository.getAllSOSdpoViaId(Integer.parseInt(form.getPolicelineId()));
 
-                updateSoSdpo.setSosdpoName(form.getSoSdpoName().toString());
-                updateSoSdpo.setSosdpoId(Integer.parseInt(form.getSoSdpoId()));
+                updateSoSdpo.setPolicelineName(form.getPolicelineName().toString());
+                updateSoSdpo.setPolicelineId(Integer.parseInt(form.getPolicelineId()));
 
                 if (form.getSoSdpoActive().equalsIgnoreCase("T")) {
                     updateSoSdpo.setActive(true);
@@ -198,8 +198,8 @@ public class SoSdpoController {
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                 Date date = new Date(timestamp.getTime());
                 updateSoSdpo.setUpdatedOn(date);
-                savedState = soSdpoRepository.save(updateSoSdpo);
-                form.setSoSdpoName("");
+                savedState = policeLinesRepository.save(updateSoSdpo);
+                form.setPolicelineId("");
                 request.getSession().setAttribute("successMessage", "So/SDPO Updated.");
 
                 return "redirect:/viewsoSdpo";

@@ -7,7 +7,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 @Component
-public class SoSdpoValidatorUpdate implements Validator {
+public class PoliceLinesValidatorUpdate implements Validator {
 
 
     @Override
@@ -19,7 +19,7 @@ public class SoSdpoValidatorUpdate implements Validator {
     public void validate(Object o, Errors errors) {
         SoSdpoUpdate user = (SoSdpoUpdate) o;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "soSdpoName", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "policelineName", "NotEmpty");
 
 
     }

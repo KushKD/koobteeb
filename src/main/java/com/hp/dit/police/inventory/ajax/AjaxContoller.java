@@ -11,7 +11,7 @@ import com.hp.dit.police.inventory.repositories.RolesRepository;
 import com.hp.dit.police.inventory.repositories.beats.BeatRepository;
 import com.hp.dit.police.inventory.repositories.districtRepository.DistrictRepository;
 import com.hp.dit.police.inventory.repositories.policestationRepository.PSRepository;
-import com.hp.dit.police.inventory.repositories.sosdpo.SoSdpoRepository;
+import com.hp.dit.police.inventory.repositories.policelines.PoliceLinesRepository;
 import com.hp.dit.police.inventory.repositories.stateRepository.StateRepository;
 import com.hp.dit.police.inventory.repositories.user.UserRepository;
 import com.hp.dit.police.inventory.utilities.Constants;
@@ -42,7 +42,7 @@ public class AjaxContoller {
     DistrictRepository districtRepository;
 
     @Autowired
-    SoSdpoRepository soSdpoRepository;
+    PoliceLinesRepository policeLinesRepository;
 
     @Autowired
     PSRepository psRepository;
@@ -116,7 +116,7 @@ public class AjaxContoller {
     public @ResponseBody
     String getSOSDPO() throws Exception {
         Map<String, Object> map = null;
-        List<S0SdpoMaster> states = soSdpoRepository.getAllActiveSOSdo();
+        List<PoliceLines> states = policeLinesRepository.getAllActiveSOSdo();
 
         map = new HashMap<String, Object>();
         map.put(Constants.keyResponse, states);

@@ -4,7 +4,7 @@
 			<script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
 			<main class="app-content">
 				<form:form method="POST" modelAttribute="soSdpoUpdate" action="${pageContext.request.contextPath}/updateSoSDPOEntity" class="form-signin">
-					<h2 class="form-signin-heading">Update State</h2>
+					<h2 class="form-signin-heading">Update Police Line</h2>
 					<c:if test="${not empty successMessage}">
 						<div id="serverError" class="successMessage">${successMessage}</div>
 					</c:if>
@@ -12,16 +12,16 @@
 					<c:if test="${not empty serverError}">
 						<div id="serverError" class="plErroMessage">${serverError}</div>
 					</c:if>
-					<spring:bind path="soSdpoId">
+					<spring:bind path="policelineId">
 						<div class="form-group ${status.error ? 'has-error' : ''}">
-							<form:input type="text" autocomplete="off"  oncopy="return false" onpaste="return false" path="soSdpoId" readonly="true" value="${sosdpo_to_update.sosdpoId}" class="form-control" autofocus="true"></form:input>
-							<form:errors path="soSdpoId"></form:errors>
+							<form:input type="text" autocomplete="off"  oncopy="return false" onpaste="return false" path="policelineId" readonly="true" value="${sosdpo_to_update.policelineId}" class="form-control" autofocus="true"></form:input>
+							<form:errors path="policelineId"></form:errors>
 						</div>
 					</spring:bind>
-					<spring:bind path="soSdpoName">
+					<spring:bind path="policelineName">
 						<div class="form-group ${status.error ? 'has-error' : ''}">
-							<form:input type="text" autocomplete="off"  oncopy="return false" onpaste="return false" path="soSdpoName" class="form-control" value="${sosdpo_to_update.sosdpoName}" autofocus="true"></form:input>
-							<form:errors path="soSdpoName"></form:errors>
+							<form:input type="text" autocomplete="off"  oncopy="return false" onpaste="return false" path="policelineName" class="form-control" value="${sosdpo_to_update.policelineName}" autofocus="true"></form:input>
+							<form:errors path="policelineName"></form:errors>
 						</div>
 					</spring:bind>
 					<spring:bind path="soSdpoActive">

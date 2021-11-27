@@ -8,7 +8,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/plugins/dataTables.bootstrap.min.js"></script>
 <main class="app-content">
 
-<h2 class="form-signin-heading">SOs /SDPOs Master</h2>
+<h2 class="form-signin-heading">Police Line</h2>
 
 	<c:if test="${not empty sosdpo}">
 		<div class="row">
@@ -32,12 +32,12 @@
 											<td>
 												<c:out value="${loopCounter.count}"/>
 											</td>
-											<td>${sosdpo.sosdpoName}</td>
-											<td>${sosdpo.sosdpoId}</td>
+											<td>${sosdpo.policelineName}</td>
+											<td>${sosdpo.policelineId}</td>
 
 
 											<td>
-												<a href="${pageContext.request.contextPath}/updateSoSdpo/${sosdpo.sosdpoId}" class="button button-success" ;>Update</a>
+												<a href="${pageContext.request.contextPath}/updateSoSdpo/${sosdpo.policelineId}" class="button button-success" ;>Update</a>
 											</td>
 
 										</tr>

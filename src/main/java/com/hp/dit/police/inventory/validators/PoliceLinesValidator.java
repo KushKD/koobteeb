@@ -1,7 +1,7 @@
 package com.hp.dit.police.inventory.validators;
 
 import com.hp.dit.police.inventory.form.sosdpo.SoSdpoForm;
-import com.hp.dit.police.inventory.repositories.sosdpo.SoSdpoRepository;
+import com.hp.dit.police.inventory.repositories.policelines.PoliceLinesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -9,10 +9,10 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 @Component
-public class SoSdpoValidator implements Validator {
+public class PoliceLinesValidator implements Validator {
 
     @Autowired
-    SoSdpoRepository soSdpoRepository;
+    PoliceLinesRepository policeLinesRepository;
 
     @Override
     public boolean supports(Class<?> aClass) {
@@ -26,7 +26,7 @@ public class SoSdpoValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "soSdpo", "NotEmpty");
 
 
-        if (soSdpoRepository.sdpoCount(user.getSoSdpo()) >0) {
+        if (policeLinesRepository.sdpoCount(user.getSoSdpo()) >0) {
             errors.rejectValue("soSdpo", "Duplicate.SoSdpoForm.soSdpo");
         }
 

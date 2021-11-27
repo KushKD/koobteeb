@@ -19,7 +19,7 @@ import com.hp.dit.police.inventory.repositories.beats.BeatRepository;
 import com.hp.dit.police.inventory.repositories.districtRepository.DistrictRepository;
 import com.hp.dit.police.inventory.repositories.information.InformationRepository;
 import com.hp.dit.police.inventory.repositories.policestationRepository.PSRepository;
-import com.hp.dit.police.inventory.repositories.sosdpo.SoSdpoRepository;
+import com.hp.dit.police.inventory.repositories.policelines.PoliceLinesRepository;
 import com.hp.dit.police.inventory.repositories.stateRepository.StateRepository;
 import com.hp.dit.police.inventory.repositories.user.UserRepository;
 import com.hp.dit.police.inventory.repositories.userlocationlogs.UserLocationLogsRepository;
@@ -78,7 +78,7 @@ public class API {
     private FileStorageService fileStorageService;
 
     @Autowired
-    private SoSdpoRepository soSdpoRepository;
+    private PoliceLinesRepository policeLinesRepository;
 
     @Autowired
     private RolesRepository rolesRepository;
@@ -241,7 +241,7 @@ public class API {
         String jsonStr = null;
 
         try {
-            List<S0SdpoMaster> states = soSdpoRepository.getAllActiveSOSdo();
+            List<PoliceLines> states = policeLinesRepository.getAllActiveSOSdo();
             if (!states.isEmpty()) {
                 map = new HashMap<String, Object>();
                 map.put(Constants.keyResponse, states);
