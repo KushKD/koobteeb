@@ -24,6 +24,9 @@ public class PoliceLinesRepositoryCustomImpl implements PoliceLinesRepositoryCus
         CriteriaQuery<PoliceLines> cq = cb.createQuery(PoliceLines.class);
         Root<PoliceLines> book = cq.from(PoliceLines.class);
         TypedQuery<PoliceLines> query =  entityManager.createQuery(cq);
+        Predicate isActive_ = cb.equal(book.get("isActive"), true);
+        Predicate isDeleted_ = cb.equal(book.get("isDeleted"), false);
+        cq.where(isActive_,isDeleted_);
         return query.getResultList();
     }
 

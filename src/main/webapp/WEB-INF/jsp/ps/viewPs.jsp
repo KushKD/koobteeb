@@ -8,7 +8,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/plugins/dataTables.bootstrap.min.js"></script>
 <main class="app-content">
 
-<h2 class="form-signin-heading">Police Stations Master</h2>
+<h2 class="form-signin-heading">View Police Stations </h2>
 
 	<c:if test="${not empty police_stations}">
 		<div class="row">

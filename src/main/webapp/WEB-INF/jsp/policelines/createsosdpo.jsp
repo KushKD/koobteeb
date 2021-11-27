@@ -8,7 +8,7 @@
 <main class="app-content">
 
         <form:form method="POST" modelAttribute="soSdpoForm" action="${pageContext.request.contextPath}/savesosdpo" class="form-signin">
-            <h2 class="form-signin-heading">Create So/SDPO </h2>
+            <h2 class="form-signin-heading">Create Police Line </h2>
              <c:if test="${not empty successMessage}">
                     <div id="serverError" class="successMessage">${successMessage}</div>
                 </c:if>

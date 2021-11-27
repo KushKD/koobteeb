@@ -48,23 +48,23 @@
     </definition>
 
 
-    <!-- SO SDPO -->
+    <!-- policelines  -->
 
     <definition name="createSoSdpo" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/sosdpo/createsosdpo.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/policelines/createsosdpo.jsp" />
     </definition>
 
 
     <definition name="updateSoSdpo" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/sosdpo/updatesosdpo.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/policelines/updatesosdpo.jsp" />
     </definition>
 
 
     <definition name="viewSoSdpo" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/sosdpo/viewsosdpo.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/policelines/viewsosdpo.jsp" />
     </definition>
 
-    <!-- SO SDPO Ends-->
+    <!--policelines Ends-->
 
     <!-- Police Station -->
 

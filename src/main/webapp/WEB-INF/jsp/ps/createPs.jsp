@@ -41,7 +41,7 @@
       </spring:bind>
       <spring:bind path="sosdpoId">
          <div class="form-group  ${status.error ? 'has-error' : ''}">
-            <form:label path="sosdpoId" for="roles">Select SO /SDPO </form:label>
+            <form:label path="sosdpoId" for="roles">Select Police Line </form:label>
             <form:select path="sosdpoId" name="sosdpoId" class="form-control" autocomplete="off"  oncopy="return false" onpaste="return false" id="sosdpoId"></form:select>
             <form:errors path="sosdpoId"></form:errors>
          </div>

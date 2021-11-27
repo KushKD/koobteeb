@@ -365,9 +365,9 @@ function getSOSDPO() {
 			selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
 			for (i = 0; i < json_.RESPONSE.length; i++) {
 				if (document.getElementById('bid') != null && document.getElementById('bid').value == json_.RESPONSE[i].barrierTypeId) {
-					selectRole.append("<option selected value=" + json_.RESPONSE[i].sosdpoId + " >" + json_.RESPONSE[i].sosdpoName + "</option>")
+					selectRole.append("<option selected value=" + json_.RESPONSE[i].policelineId + " >" + json_.RESPONSE[i].policelineName + "</option>")
 				} else {
-					selectRole.append("<option value=" + json_.RESPONSE[i].sosdpoId + " >" + json_.RESPONSE[i].sosdpoName + "</option>")
+					selectRole.append("<option value=" + json_.RESPONSE[i].policelineId + " >" + json_.RESPONSE[i].policelineName + "</option>")
 				}
 			}
 
@@ -396,9 +396,9 @@ function getSOSDPOUpdate() {
 			selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
 			for (i = 0; i < json_.RESPONSE.length; i++) {
 				if (document.getElementById('sosid') != null && document.getElementById('sosid').value == json_.RESPONSE[i].sosdpoId) {
-					selectRole.append("<option selected value=" + json_.RESPONSE[i].sosdpoId + " >" + json_.RESPONSE[i].sosdpoName + "</option>")
+					selectRole.append("<option selected value=" + json_.RESPONSE[i].policelineId + " >" + json_.RESPONSE[i].policelineName + "</option>")
 				} else {
-					selectRole.append("<option value=" + json_.RESPONSE[i].sosdpoId + " >" + json_.RESPONSE[i].sosdpoName + "</option>")
+					selectRole.append("<option value=" + json_.RESPONSE[i].policelineId + " >" + json_.RESPONSE[i].policelineName + "</option>")
 				}
 			}
 
