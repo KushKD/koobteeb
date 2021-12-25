@@ -96,14 +96,14 @@
     <!-- Beat Ends -->
 
 
-    <definition name="updateSoSdpo" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/sosdpo/updatesosdpo.jsp" />
-    </definition>
+<!--    <definition name="updateSoSdpo" extends="baselayoutdashboard">-->
+<!--        <put-attribute name="content" value="/WEB-INF/jsp/sosdpo/updatesosdpo.jsp" />-->
+<!--    </definition>-->
 
 
-    <definition name="viewSoSdpo" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/sosdpo/viewsosdpo.jsp" />
-    </definition>
+<!--    <definition name="viewSoSdpo" extends="baselayoutdashboard">-->
+<!--        <put-attribute name="content" value="/WEB-INF/jsp/sosdpo/viewsosdpo.jsp" />-->
+<!--    </definition>-->
     <!-- Police Station -->
 
 

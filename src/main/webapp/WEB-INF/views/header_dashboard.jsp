@@ -86,13 +86,32 @@
                         </sec:authorize>
 
    <sec:authorize access="hasAuthority('SUPER ADMIN')">
-                      <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">Beat Master</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+                      <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">Category Master</span><i class="treeview-indicator fa fa-angle-right"></i></a>
                         <ul class="treeview-menu">
-                        <li><a class="treeview-item" href="${pageContext.request.contextPath}/createbeat" ><i class="icon fa fa-circle-o"></i> Create Beat</a></li>
-                          <li><a class="treeview-item" href="${pageContext.request.contextPath}/viewbeat"><i class="icon fa fa-circle-o"></i> Update Beat</a></li>
+                        <li><a class="treeview-item" href="${pageContext.request.contextPath}/createbeat" ><i class="icon fa fa-circle-o"></i> Create Category</a></li>
+                          <li><a class="treeview-item" href="${pageContext.request.contextPath}/viewbeat"><i class="icon fa fa-circle-o"></i> Update Category</a></li>
                         </ul>
                       </li>
                           </sec:authorize>
+
+
+   <sec:authorize access="hasAuthority('SUPER ADMIN')">
+                      <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label"> Sub Category Master</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+                        <ul class="treeview-menu">
+                        <li><a class="treeview-item" href="${pageContext.request.contextPath}/createbeat" ><i class="icon fa fa-circle-o"></i> Create Sub Category</a></li>
+                          <li><a class="treeview-item" href="${pageContext.request.contextPath}/viewbeat"><i class="icon fa fa-circle-o"></i> Update Sub Category</a></li>
+                        </ul>
+                      </li>
+                          </sec:authorize>
+
+    <sec:authorize access="hasAuthority('SUPER ADMIN')">
+                         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label"> Add Item</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+                           <ul class="treeview-menu">
+                           <li><a class="treeview-item" href="${pageContext.request.contextPath}/createbeat" ><i class="icon fa fa-circle-o"></i> Add Item</a></li>
+                             <li><a class="treeview-item" href="${pageContext.request.contextPath}/viewbeat"><i class="icon fa fa-circle-o"></i> Update Item</a></li>
+                           </ul>
+                         </li>
+                             </sec:authorize>
 
 
         <sec:authorize access="hasAuthority('SUPER ADMIN')">
@@ -104,38 +123,6 @@
           </ul>
         </li>
         </sec:authorize>
-
-
-
-
-
-
-
-
-
-
-
-                 <sec:authorize access="hasAuthority('SUPER ADMIN')">
-                                <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">Active Beat</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-                                  <ul class="treeview-menu">
-                                  <li><a class="treeview-item" href="${pageContext.request.contextPath}/activeBeat"><i class="icon fa fa-circle-o"></i> View Active Beats</a></li>
-                                  </ul>
-                                </li>
-                                </sec:authorize>
-
-
-                    <sec:authorize access="hasAuthority('SUPER ADMIN')">
-                                                    <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">View Data</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-                                                      <ul class="treeview-menu">
-                                                      <li><a class="treeview-item" href="${pageContext.request.contextPath}/viewData"><i class="icon fa fa-circle-o"></i> View Data </a></li>
-                                                      </ul>
-                                                    </li>
-                                                    </sec:authorize>
-
-
-
-
-
 
 
       </ul>

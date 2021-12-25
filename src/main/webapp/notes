@@ -341,3 +341,25 @@ SELECT ST_AsGeoJSON(beat_geometry) from  mst_beat WHERE ps_id=1
    ST_GeomFromText('POINT(76.6934887 30.7350626)',4326)::geography,
    40000 -- DISTANCE IN METERS
  );
+
+ -- Category
+ CREATE TABLE mst_category (
+     category_id serial PRIMARY KEY  NOT NULL,
+     category_name character varying(100) NOT NULL,
+     is_active boolean DEFAULT true NOT NULL,
+     is_deleted boolean DEFAULT false NOT NULL,
+     created_on timestamp without time zone DEFAULT ('now'::text)::date NOT NULL
+
+ );
+
+ -- Sub Category
+  CREATE TABLE mst_subcategory (
+      subcategory_id serial PRIMARY KEY  NOT NULL,
+      subcategory_name character varying(100) NOT NULL,
+      category_id INTEGER NOT NULL,
+      is_active boolean DEFAULT true NOT NULL,
+      is_deleted boolean DEFAULT false NOT NULL,
+      created_on timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
+      FOREIGN KEY (category_id) REFERENCES mst_state(mst_category),
+
+  );
