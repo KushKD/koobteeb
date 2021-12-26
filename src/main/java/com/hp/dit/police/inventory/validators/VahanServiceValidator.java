@@ -1,7 +1,6 @@
 package com.hp.dit.police.inventory.validators;
 
 import com.hp.dit.police.inventory.CustomLogin.CustomUserService;
-import com.hp.dit.police.inventory.form.VahanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

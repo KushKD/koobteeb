@@ -1,6 +1,5 @@
 package com.hp.dit.police.inventory.validators;
 
-import com.hp.dit.police.inventory.form.SearchID;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
