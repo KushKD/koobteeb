@@ -1,7 +1,6 @@
 package com.hp.dit.police.inventory.utilities;
 
 
-import com.hp.dit.police.inventory.modals.SaarthiObject;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -83,67 +82,7 @@ public class Utilities {
         }
     }
 
-    public static SaarthiObject parseJson(String data) {
-        SaarthiObject object = null;
-        if (data != null) {
-            object = new SaarthiObject();
-            JsonObject o = new JsonParser().parse(data).getAsJsonObject();
-            System.out.println(o.toString());
 
-            if (o.getAsJsonObject().get("name") instanceof JsonNull) {
-                object.setDlLicName("");
-            } else {
-                object.setDlLicName(o.getAsJsonObject().get("name").getAsString());
-            }
-
-            if (o.getAsJsonObject().get("dlLicnum") instanceof JsonNull) {
-                object.setDlLicNum("");
-            } else {
-                object.setDlLicNum(o.getAsJsonObject().get("dlLicnum").getAsString());
-            }
-
-            if (o.getAsJsonObject().get("status") instanceof JsonNull) {
-                object.setDlLicStatus("");
-            } else {
-                object.setDlLicStatus(o.getAsJsonObject().get("status").getAsString());
-            }
-
-            if (o.getAsJsonObject().get("dlNonTransValdTill") instanceof JsonNull) {
-                object.setDlNonTransValidTill("");
-            } else {
-                object.setDlNonTransValidTill(o.getAsJsonObject().get("dlNonTransValdTill").getAsString());
-            }
-
-            if (o.getAsJsonObject().get("errorcode") instanceof JsonNull) {
-                object.setErrorCode(-1);
-            } else {
-                object.setErrorCode(o.getAsJsonObject().get("errorcode").getAsInt());
-            }
-
-            if (o.getAsJsonObject().get("errormsg") instanceof JsonNull) {
-                object.setErrorMessage("");
-            } else {
-                object.setErrorMessage(o.getAsJsonObject().get("errormsg").getAsString());
-            }
-
-            if (o.getAsJsonObject().get("issuing_Authority") instanceof JsonNull) {
-                object.setIssuing_authority("");
-            } else {
-                object.setIssuing_authority(o.getAsJsonObject().get("issuing_Authority").getAsString());
-            }
-
-            if (o.getAsJsonObject().get("dlTransValdTill") instanceof JsonNull) {
-                object.setDlTransValidTill("");
-            } else {
-                object.setDlTransValidTill(o.getAsJsonObject().get("dlTransValdTill").getAsString());
-            }
-
-
-        }
-
-
-        return object;
-    }
 
 
 }

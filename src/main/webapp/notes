@@ -214,79 +214,8 @@ CREATE TABLE user_location_logs(
 
 -- java -cp x.jar service.App
 
---
-CREATE TABLE mst_submoduleoption (
-    option_id serial PRIMARY KEY  NOT NULL,
-    option_name character varying(255) NOT NULL,
-    submodule_id INTEGER NOT NULL,
-    active boolean DEFAULT true NOT NULL,
-    createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
-    lastmodifieddate timestamp without time zone,
-	FOREIGN KEY (submodule_id) REFERENCES mst_submodule(submodule_id)
-);
 
 
--- THE BEAST
-CREATE TABLE information(
-    id SERIAL PRIMARY KEY NOT NULL,
-    state_id INTEGER NOT NULL,
-    district_id INTEGER NOT NULL,
-	sosdpo_id INTEGER NOT NULL,
-	ps_id INTEGER NOT NULL,
-	beat_id INTEGER NOT NULL,
-	module_id INTEGER NOT NULL,
-	submodule_id INTEGER NOT NULL,
-	user_id INTEGER NOT NULL,
-	role_id INTEGER NOT NULL,
-	name character varying(255) ,
-	owner_name character varying(255) ,
-	owner_nametwo character varying(255),
-	photo character varying(255),
-	photo_id character varying(255),
-	contact_numberone character varying(15),
-	contact_numbertwo character varying(15),
-	helpline_number character varying(15),
-    landline_number character varying(15),
-	option_id INTEGER ,
-	cctv character varying(15),
-	number_idols character varying(15),
-	number_securitypersons character varying(15),
-	email_id character varying(50),
-	facbook_id character varying(50),
-	present_address character varying(100),
-	permanent_address character varying(100),
-	fir_no character varying(20),
-	fir_details character varying(255),
-	licencee_no character varying(50),
-	licencee_name character varying(50),
-	details character varying(255),
-	other character varying(255),
-	checking_date_sho character varying(15),
-	total_population character varying(15),
-	period_fair character varying(15),
-	authority character varying(20),
-	duration_parole character varying(20),
-	id_proof character varying(50),
-	section character varying(50),
-	special_reported_cases character varying(50),
-    extra_one character varying(255),
-	extra_two character varying(255),
-    latitude DOUBLE PRECISION NOT NULL,
-    longitude DOUBLE PRECISION NOT NULL,
-    location_points geometry NOT NULL,
-    active boolean DEFAULT true NOT NULL,
-    createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
-    lastmodifieddate timestamp without time zone,
-	 FOREIGN KEY (state_id) REFERENCES mst_state(state_id),
-     FOREIGN KEY (district_id) REFERENCES mst_district(district_id),
-     FOREIGN KEY (sosdpo_id) REFERENCES mst_sosdpo(sosdpo_id),
-     FOREIGN KEY (ps_id) REFERENCES mst_policestation(ps_id),
-     FOREIGN KEY (beat_id) REFERENCES mst_beat(beat_id),
-     FOREIGN KEY (module_id) REFERENCES mst_module(module_id),
-     FOREIGN KEY (user_id) REFERENCES users(user_id),
-     FOREIGN KEY (role_id) REFERENCES roles(role_id),
-     FOREIGN KEY (submodule_id) REFERENCES mst_submodule(submodule_id)
-)
 
 
 
@@ -363,3 +292,33 @@ SELECT ST_AsGeoJSON(beat_geometry) from  mst_beat WHERE ps_id=1
       FOREIGN KEY (category_id) REFERENCES mst_state(mst_category),
 
   );
+
+   -- Units
+   CREATE TABLE mst_units (
+       unit_id serial PRIMARY KEY  NOT NULL,
+       unit_name character varying(100) NOT NULL,
+       unit_desc character varying(100) NOT NULL,
+       is_active boolean DEFAULT true NOT NULL,
+       is_deleted boolean DEFAULT false NOT NULL,
+       created_on timestamp without time zone DEFAULT ('now'::text)::date NOT NULL
+
+   );
+
+  CREATE TABLE mst_item (
+      items_id serial PRIMARY KEY  NOT NULL,
+      category_id Integer NOT NULL,
+      subcategory_id Integer NOT NULL,
+      items_name character varying(255) NOT NULL,
+      unit_id Integer NOT NULL,
+      items_desc character varying(255) NOT NULL,
+      items_receivedfrom character varying(255) NOT NULL,
+      active boolean DEFAULT true NOT NULL,
+      deleted boolean DEFAULT false NOT NULL,
+      createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
+      lastmodifieddate timestamp without time zone,
+      FOREIGN KEY (category_id) REFERENCES mst_category(category_id),
+      FOREIGN KEY (subcategory_id) REFERENCES mst_subcategory(subcategory_id),
+      FOREIGN KEY (unit_id) REFERENCES mst_units(unit_id)
+  );
+
+

@@ -2,7 +2,6 @@ package com.hp.dit.police.inventory.repositories.user;
 
 import com.hp.dit.police.inventory.entities.UserEntity;
 import com.hp.dit.police.inventory.modals.LoggedInUserSession;
-import com.hp.dit.police.inventory.modals.RevenueUserDetails;
 import com.hp.dit.police.inventory.modals.UsePoJo;
 import org.springframework.stereotype.Service;
 
@@ -124,21 +123,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         return query.getSingleResult();
     }
 
-    @Override
-    public RevenueUserDetails getRevenueUserPhoneNumber(Integer userId) {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<RevenueUserDetails> cq = cb.createQuery(RevenueUserDetails.class);
-        Root<UserEntity> book = cq.from(UserEntity.class);
-        Predicate isActive_ = cb.equal(book.get("active"), true);
-        Predicate userId_ = cb.equal(book.get("userId"), userId);
-        cq.where(isActive_,userId_);
-        cq.multiselect(
-                book.get("firstName"),
-                book.get("lastName"),
-                book.get("mobileNumber")).distinct(true);
-        TypedQuery<RevenueUserDetails> query =  entityManager.createQuery(cq);
-        return query.getSingleResult();
-    }
+
 
 
 }

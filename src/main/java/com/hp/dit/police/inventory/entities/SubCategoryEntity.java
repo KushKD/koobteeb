@@ -1,5 +1,8 @@
 package com.hp.dit.police.inventory.entities;
 
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -14,10 +17,10 @@ public class SubCategoryEntity implements Serializable {
     @Column(name = "subcategory_id")
     private Integer subCategoryId;
 
-
-    @OneToOne
-    @JoinColumn(name="category_id" )
-    private Integer categoryId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="category_id", updatable = false )
+    @LazyToOne(LazyToOneOption.NO_PROXY)
+    private CategoryEntity categoryID;
 
     @Column(name = "subcategory_name")
     private String subCategoryName;
@@ -40,12 +43,12 @@ public class SubCategoryEntity implements Serializable {
         this.subCategoryId = subCategoryId;
     }
 
-    public Integer getCategoryId() {
-        return categoryId;
+    public CategoryEntity getCategoryID() {
+        return categoryID;
     }
 
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
+    public void setCategoryID(CategoryEntity categoryID) {
+        this.categoryID = categoryID;
     }
 
     public String getSubCategoryName() {
@@ -84,7 +87,7 @@ public class SubCategoryEntity implements Serializable {
     public String toString() {
         return "SubCategoryEntity{" +
                 "subCategoryId=" + subCategoryId +
-                ", categoryId=" + categoryId +
+                ", categoryID=" + categoryID +
                 ", subCategoryName='" + subCategoryName + '\'' +
                 ", active=" + active +
                 ", deleted=" + deleted +

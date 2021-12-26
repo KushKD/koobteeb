@@ -2,7 +2,6 @@ package com.hp.dit.police.inventory.repositories.user;
 
 import com.hp.dit.police.inventory.entities.UserEntity;
 import com.hp.dit.police.inventory.modals.LoggedInUserSession;
-import com.hp.dit.police.inventory.modals.RevenueUserDetails;
 import com.hp.dit.police.inventory.modals.UsePoJo;
 import org.springframework.stereotype.Repository;
 
@@ -17,6 +16,6 @@ public interface UserRepositoryCustom {
     UsePoJo apiLogin(Integer StateId, Integer DistrictId, Integer sosdpoid, Integer psid, Integer beatid, String username, String password );
     UsePoJo apiLoginSho(Integer StateId, Integer DistrictId, Integer sosdpoid, Integer beatid, String username, String password );
 
-    RevenueUserDetails getRevenueUserPhoneNumber(Integer userId);
+   // RevenueUserDetails getRevenueUserPhoneNumber(Integer userId);
 
 }
