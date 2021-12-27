@@ -46,6 +46,15 @@
       <ul class="app-menu">
         <li><a class="app-menu__item active" href="${pageContext.request.contextPath}/dashboard"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a></li>
 
+ <sec:authorize access="hasAuthority('SUPER ADMIN')">
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">User Master</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+          <ul class="treeview-menu">
+          <li><a class="treeview-item" href="${pageContext.request.contextPath}/createRole" ><i class="icon fa fa-circle-o"></i> Create Role</a></li>
+          <li><a class="treeview-item" href="${pageContext.request.contextPath}/createUser"><i class="icon fa fa-circle-o"></i> Create User</a></li>
+           <li><a class="treeview-item" href="${pageContext.request.contextPath}/viewUsers"><i class="icon fa fa-circle-o"></i> Update Users</a></li>
+          </ul>
+        </li>
+        </sec:authorize>
 
         <sec:authorize access="hasAuthority('SUPER ADMIN')">
                 <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">States Master</span><i class="treeview-indicator fa fa-angle-right"></i></a>
@@ -126,15 +135,7 @@
                              </sec:authorize>
 
 
-        <sec:authorize access="hasAuthority('SUPER ADMIN')">
-        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">User Master</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-          <ul class="treeview-menu">
-          <li><a class="treeview-item" href="${pageContext.request.contextPath}/createRole" ><i class="icon fa fa-circle-o"></i> Create Role</a></li>
-          <li><a class="treeview-item" href="${pageContext.request.contextPath}/createUser"><i class="icon fa fa-circle-o"></i> Create User</a></li>
-           <li><a class="treeview-item" href="${pageContext.request.contextPath}/viewUsers"><i class="icon fa fa-circle-o"></i> Update Users</a></li>
-          </ul>
-        </li>
-        </sec:authorize>
+
 
 
       </ul>
