@@ -4,7 +4,6 @@ import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
 
 import javax.persistence.*;
-import java.time.Instant;
 import java.util.Date;
 
 @Table(name = "mst_item")
@@ -19,7 +18,7 @@ public class ItemsEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="category_id", updatable = false )
     @LazyToOne(LazyToOneOption.NO_PROXY)
-    private CategoryEntity categoryID;
+    private StoreEntity categoryID;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "subcategory_id", updatable = false)
@@ -62,11 +61,11 @@ public class ItemsEntity {
         this.itemId = itemId;
     }
 
-    public CategoryEntity getCategoryID() {
+    public StoreEntity getCategoryID() {
         return categoryID;
     }
 
-    public void setCategoryID(CategoryEntity categoryID) {
+    public void setCategoryID(StoreEntity categoryID) {
         this.categoryID = categoryID;
     }
 

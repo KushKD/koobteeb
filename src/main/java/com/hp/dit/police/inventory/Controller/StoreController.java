@@ -1,12 +1,12 @@
 package com.hp.dit.police.inventory.Controller;
 
-import com.hp.dit.police.inventory.entities.CategoryEntity;
-import com.hp.dit.police.inventory.form.category.CategoryForm;
-import com.hp.dit.police.inventory.form.category.UpdateCategory;
+import com.hp.dit.police.inventory.entities.StoreEntity;
+import com.hp.dit.police.inventory.form.store.StoreForm;
+import com.hp.dit.police.inventory.form.store.UpdateStore;
 import com.hp.dit.police.inventory.modals.LoggedInUserSession;
-import com.hp.dit.police.inventory.repositories.category.CategoryRepository;
-import com.hp.dit.police.inventory.validators.CategoryValidator;
-import com.hp.dit.police.inventory.validators.CategoryValidatorUpdate;
+import com.hp.dit.police.inventory.repositories.store.StoreRepository;
+import com.hp.dit.police.inventory.validators.StoreValidator;
+import com.hp.dit.police.inventory.validators.StoreValidatorUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -27,16 +27,16 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-public class CategoryController {
+public class StoreController {
 
     @Autowired
-    CategoryRepository categoryRepository;
+    StoreRepository categoryRepository;
 
     @Autowired
-    CategoryValidator categoryValidator;
+    StoreValidator storeValidator;
 
     @Autowired
-    CategoryValidatorUpdate categoryValidatorUpdate;
+    StoreValidatorUpdate storeValidatorUpdate;
 
     @RequestMapping(value = "/createCategory", method = RequestMethod.GET)
     public String createCategory(Model model, HttpServletRequest request) {
@@ -51,7 +51,7 @@ public class CategoryController {
             if (user == null) {
                 return "login";
             } else {
-                model.addAttribute("categoryForm", new CategoryForm());
+                model.addAttribute("categoryForm", new StoreForm());
                 return "createCategory";
             }
 
@@ -61,20 +61,20 @@ public class CategoryController {
 
     @Transactional
     @RequestMapping(value = "/saveCategory", method = RequestMethod.POST)
-    public String saveState(@ModelAttribute("categoryForm") CategoryForm form, BindingResult bindingResult, Model model, HttpServletRequest request) throws IOException {
-        categoryValidator.validate(form, bindingResult);
+    public String saveState(@ModelAttribute("categoryForm") StoreForm form, BindingResult bindingResult, Model model, HttpServletRequest request) throws IOException {
+        storeValidator.validate(form, bindingResult);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
-            CategoryEntity savedCategory = null;
+            StoreEntity savedCategory = null;
             if (bindingResult.hasErrors()) {
                 return "createCategory";
             }
 
             try {
-                CategoryEntity category = new CategoryEntity();
-                category.setCategoryName(form.getCategoryName().toString());
+                StoreEntity category = new StoreEntity();
+                category.setStoreName(form.getCategoryName().toString());
                 category.setActive(true);
                 category.setDeleted(false);
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -82,7 +82,7 @@ public class CategoryController {
                 category.setCreatedOn(date);
                 savedCategory = categoryRepository.save(category);
                 form.setCategoryName("");
-                request.getSession().setAttribute("successMessage", "Category Saved Successfully. Generated State Id is:- " + savedCategory.getCategoryID());
+                request.getSession().setAttribute("successMessage", "Category Saved Successfully. Generated State Id is:- " + savedCategory.getStoreID());
 
                 return "createCategory";
             } catch (Exception ex) {
@@ -108,7 +108,7 @@ public class CategoryController {
                 return "login";
             } else {
 
-                List<CategoryEntity> categories = categoryRepository.getAllCategories();
+                List<StoreEntity> categories = categoryRepository.getAllCategories();
                 model.addAttribute("categories", categories);
                 return "viewCategory";
             }
@@ -132,10 +132,10 @@ public class CategoryController {
                 return "login";
             } else {
 
-                CategoryEntity category = categoryRepository.getCategoryViaCategoryId(category_id);
+                StoreEntity category = categoryRepository.getCategoryViaCategoryId(category_id);
                 System.out.println(category.toString());
                 model.addAttribute("category_to_update", category);
-                model.addAttribute("updateCategory", new UpdateCategory());
+                model.addAttribute("updateCategory", new UpdateStore());
                 return "updateCategory";
             }
 
@@ -146,14 +146,14 @@ public class CategoryController {
 
     @Transactional
     @RequestMapping(value = "/updateCategoryEntity", method = RequestMethod.POST)
-    public String updateStateEntry(@ModelAttribute("updateCategory") UpdateCategory form, BindingResult bindingResult, Model model, HttpServletRequest request) throws IOException {
-        categoryValidatorUpdate.validate(form, bindingResult);
+    public String updateStateEntry(@ModelAttribute("updateCategory") UpdateStore form, BindingResult bindingResult, Model model, HttpServletRequest request) throws IOException {
+        storeValidatorUpdate.validate(form, bindingResult);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
-            CategoryEntity savedCategory = null;
+            StoreEntity savedCategory = null;
             if (bindingResult.hasErrors()) {
                 return "createState";
             }
@@ -161,12 +161,12 @@ public class CategoryController {
             try {
 
 
-                CategoryEntity category = new CategoryEntity();
+                StoreEntity category = new StoreEntity();
 
                 category = categoryRepository.getCategoryViaCategoryId(Integer.parseInt(form.getCategoryId()));
 
-                category.setCategoryName(form.getCategoryName().toString());
-                category.setCategoryID(Integer.parseInt(form.getCategoryId()));
+                category.setStoreName(form.getCategoryName().toString());
+                category.setStoreID(Integer.parseInt(form.getCategoryId()));
 
                 if (form.getActive().equalsIgnoreCase("T")) {
                     category.setActive(true);

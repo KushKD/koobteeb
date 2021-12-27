@@ -1,9 +1,8 @@
 package com.hp.dit.police.inventory.validators;
 
-import com.hp.dit.police.inventory.form.category.UpdateCategory;
-import com.hp.dit.police.inventory.form.state.UpdateState;
+import com.hp.dit.police.inventory.form.store.StoreForm;
 import com.hp.dit.police.inventory.form.user.RegisterUser;
-import com.hp.dit.police.inventory.repositories.stateRepository.StateRepository;
+import com.hp.dit.police.inventory.repositories.store.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -11,10 +10,10 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 @Component
-public class CategoryValidatorUpdate implements Validator {
+public class StoreValidator implements Validator {
 
     @Autowired
-    StateRepository stateRepository;
+    StoreRepository categoryRepository;
 
     @Override
     public boolean supports(Class<?> aClass) {
@@ -23,9 +22,14 @@ public class CategoryValidatorUpdate implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
-        UpdateCategory user = (UpdateCategory) o;
+        StoreForm user = (StoreForm) o;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "categoryName", "NotEmpty");
+
+
+        if (categoryRepository.categoryCount(user.getCategoryName()) >0) {
+            errors.rejectValue("categoryName", "Duplicate.CategoryForm.categoryName");
+        }
 
 
     }

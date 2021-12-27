@@ -1,8 +1,8 @@
-package com.hp.dit.police.inventory.form.category;
+package com.hp.dit.police.inventory.form.store;
 
 import java.io.Serializable;
 
-public class UpdateCategory  implements Serializable {
+public class UpdateStore implements Serializable {
 
     private String categoryId;
     private String  categoryName;

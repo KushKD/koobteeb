@@ -114,22 +114,37 @@
 
     <!-- Category -->
     <definition name="createCategory" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/category/createcategory.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/store/createcategory.jsp" />
     </definition>
 
 
     <definition name="updateCategory" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/category/updatecategory.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/store/updatecategory.jsp" />
     </definition>
 
 
     <definition name="viewCategory" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/category/viewcategory.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/store/viewcategory.jsp" />
     </definition>
     <!-- Category Ends-->
 
 
+<!-- ITM Category createItemCategory -->
+    <definition name="createItemCategory" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/itemcat/createitemcat.jsp" />
+    </definition>
 
+
+    <definition name="updateItemCategory" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/itemcat/updateitemcat.jsp" />
+    </definition>
+
+
+    <definition name="viewItemCategory" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/itemcat/viewitemcat.jsp" />
+    </definition>
+
+    <!-- ITM Category Ends createItemCategory -->
 
 
 

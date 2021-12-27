@@ -1,7 +1,5 @@
-package com.hp.dit.police.inventory.repositories.category;
-import com.hp.dit.police.inventory.entities.CategoryEntity;
-import com.hp.dit.police.inventory.entities.StatesMaster;
-import com.hp.dit.police.inventory.modals.CategoryModal;
+package com.hp.dit.police.inventory.repositories.store;
+import com.hp.dit.police.inventory.entities.StoreEntity;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -14,7 +12,7 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Service
-public class CategoryRepositoryCustomImpl implements CategoryRepositoryCustom {
+public class StoreRepositoryCustomImpl implements StoreRepositoryCustom {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -23,14 +21,14 @@ public class CategoryRepositoryCustomImpl implements CategoryRepositoryCustom {
 
 
     @Override
-    public List<CategoryEntity> getAllCategories() {
+    public List<StoreEntity> getAllCategories() {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<CategoryEntity> cq = cb.createQuery(CategoryEntity.class);
-        Root<CategoryEntity> book = cq.from(CategoryEntity.class);
+        CriteriaQuery<StoreEntity> cq = cb.createQuery(StoreEntity.class);
+        Root<StoreEntity> book = cq.from(StoreEntity.class);
        //Predicate isActive_ = cb.equal(book.get("active"), true);
        // Predicate isDeleted_ = cb.equal(book.get("deleted"), false);
         //cq.where(isActive_,isDeleted_);
-        TypedQuery<CategoryEntity> query =  entityManager.createQuery(cq);
+        TypedQuery<StoreEntity> query =  entityManager.createQuery(cq);
         return query.getResultList();
     }
 
@@ -38,7 +36,7 @@ public class CategoryRepositoryCustomImpl implements CategoryRepositoryCustom {
     public Integer categoryCount(String CategoryName) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
-        Root<CategoryEntity> book = cq.from(CategoryEntity.class);
+        Root<StoreEntity> book = cq.from(StoreEntity.class);
         Predicate isActive_ = cb.equal(book.get("active"), true);
         Predicate isDeleted_ = cb.equal(book.get("deleted"), false);
         Predicate categoryName = cb.equal(book.get("categoryName"), CategoryName);
@@ -48,13 +46,13 @@ public class CategoryRepositoryCustomImpl implements CategoryRepositoryCustom {
     }
 
     @Override
-    public CategoryEntity getCategoryViaCategoryId(Integer categoryId_) {
+    public StoreEntity getCategoryViaCategoryId(Integer categoryId_) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<CategoryEntity> cq = cb.createQuery(CategoryEntity.class);
-        Root<CategoryEntity> book = cq.from(CategoryEntity.class);
+        CriteriaQuery<StoreEntity> cq = cb.createQuery(StoreEntity.class);
+        Root<StoreEntity> book = cq.from(StoreEntity.class);
         Predicate categoryId = cb.equal(book.get("categoryID"), categoryId_);
         cq.where(categoryId);
-        TypedQuery<CategoryEntity> query =  entityManager.createQuery(cq);
+        TypedQuery<StoreEntity> query =  entityManager.createQuery(cq);
         return query.getResultList().get(0);
     }
 }

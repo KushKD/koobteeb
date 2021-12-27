@@ -5,17 +5,17 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name="mst_category")
-public class CategoryEntity implements Serializable {
+@Table(name="mst_store")
+public class StoreEntity implements Serializable {
 
     @Id
     @GeneratedValue(generator = "mst_category_category_id_seq", strategy = GenerationType.AUTO)
     @SequenceGenerator(name = "mst_category_category_id_seq", sequenceName = "public.mst_category_category_id_seq", initialValue = 1, allocationSize = 1)
-    @Column(name = "category_id")
-    private Integer categoryID;
+    @Column(name = "store_id")
+    private Integer storeID;
 
-    @Column(name = "category_name")
-    private String categoryName;
+    @Column(name = "store_name")
+    private String storeName;
 
     @Column(name = "is_active")
     private Boolean active;
@@ -27,20 +27,20 @@ public class CategoryEntity implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdOn;
 
-    public Integer getCategoryID() {
-        return categoryID;
+    public Integer getStoreID() {
+        return storeID;
     }
 
-    public void setCategoryID(Integer categoryID) {
-        this.categoryID = categoryID;
+    public void setStoreID(Integer storeID) {
+        this.storeID = storeID;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public String getStoreName() {
+        return storeName;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 
     public Boolean getActive() {
@@ -69,9 +69,9 @@ public class CategoryEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "CategoryEntity{" +
-                "categoryID=" + categoryID +
-                ", categoryName='" + categoryName + '\'' +
+        return "StoreEntity{" +
+                "storeID=" + storeID +
+                ", storeName='" + storeName + '\'' +
                 ", active=" + active +
                 ", deleted=" + deleted +
                 ", createdOn=" + createdOn +

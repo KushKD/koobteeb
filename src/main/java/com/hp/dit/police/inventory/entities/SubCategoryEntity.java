@@ -8,19 +8,19 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name="mst_subcategory")
+@Table(name="mst_itemcat")
 public class SubCategoryEntity implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "mst_subcategory_subcategory_id_seq", strategy = GenerationType.AUTO)
-    @SequenceGenerator(name = "mst_subcategory_subcategory_id_seq", sequenceName = "public.mst_subcategory_subcategory_id_seq", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(generator = "mst_itemcat_itemcat_id_seq", strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "mst_itemcat_itemcat_id_seq", sequenceName = "public.mst_itemcat_itemcat_id_seq", initialValue = 1, allocationSize = 1)
     @Column(name = "subcategory_id")
     private Integer subCategoryId;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="category_id", updatable = false )
     @LazyToOne(LazyToOneOption.NO_PROXY)
-    private CategoryEntity categoryID;
+    private StoreEntity categoryID;
 
     @Column(name = "subcategory_name")
     private String subCategoryName;
@@ -43,11 +43,11 @@ public class SubCategoryEntity implements Serializable {
         this.subCategoryId = subCategoryId;
     }
 
-    public CategoryEntity getCategoryID() {
+    public StoreEntity getCategoryID() {
         return categoryID;
     }
 
-    public void setCategoryID(CategoryEntity categoryID) {
+    public void setCategoryID(StoreEntity categoryID) {
         this.categoryID = categoryID;
     }
 

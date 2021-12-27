@@ -1,8 +1,8 @@
-package com.hp.dit.police.inventory.form.category;
+package com.hp.dit.police.inventory.form.store;
 
 import java.io.Serializable;
 
-public class CategoryForm implements Serializable {
+public class StoreForm implements Serializable {
 
     private String categoryName;
 
