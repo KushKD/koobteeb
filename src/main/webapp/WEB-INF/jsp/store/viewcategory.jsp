@@ -34,8 +34,8 @@
 											<td>
 												<c:out value="${loopCounter.count}"/>
 											</td>
-											<td>${category.categoryName}</td>
-											<td>${category.categoryID}</td>
+											<td>${category.storeName}</td>
+											<td>${category.storeID}</td>
 											<c:if test="${category.active}">
 											<td class="btn-success text-center" style="color:#FFFFFF">Currently Active</td>
 											</c:if>
@@ -44,7 +44,7 @@
                                             </c:if>
 
 											<td>
-												<a href="${pageContext.request.contextPath}/updateCategory/${category.categoryID}" class="button button-success" ;>Update</a>
+												<a href="${pageContext.request.contextPath}/updateCategory/${category.storeID}" class="button button-success" ;>Update</a>
 											</td>
 
 										</tr>

@@ -4,25 +4,25 @@ import java.io.Serializable;
 
 public class UpdateStore implements Serializable {
 
-    private String categoryId;
-    private String  categoryName;
+    private String storeId;
+    private String  storeName;
     private String active;
     private String deleted;
 
-    public String getCategoryId() {
-        return categoryId;
+    public String getStoreId() {
+        return storeId;
     }
 
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
+    public void setStoreId(String storeId) {
+        this.storeId = storeId;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public String getStoreName() {
+        return storeName;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 
     public String getActive() {
@@ -43,9 +43,9 @@ public class UpdateStore implements Serializable {
 
     @Override
     public String toString() {
-        return "UpdateCategory{" +
-                "categoryId='" + categoryId + '\'' +
-                ", categoryName='" + categoryName + '\'' +
+        return "UpdateStore{" +
+                "storeId='" + storeId + '\'' +
+                ", storeName='" + storeName + '\'' +
                 ", active='" + active + '\'' +
                 ", deleted='" + deleted + '\'' +
                 '}';

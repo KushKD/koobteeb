@@ -9,8 +9,8 @@ import java.util.Date;
 public class StoreEntity implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "mst_category_category_id_seq", strategy = GenerationType.AUTO)
-    @SequenceGenerator(name = "mst_category_category_id_seq", sequenceName = "public.mst_category_category_id_seq", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(generator = "mst_store_store_id_seq", strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "mst_store_store_id_seq", sequenceName = "public.mst_store_store_id_seq", initialValue = 1, allocationSize = 1)
     @Column(name = "store_id")
     private Integer storeID;
 

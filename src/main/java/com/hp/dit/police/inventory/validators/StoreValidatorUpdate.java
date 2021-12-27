@@ -24,7 +24,7 @@ public class StoreValidatorUpdate implements Validator {
     public void validate(Object o, Errors errors) {
         UpdateStore user = (UpdateStore) o;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "categoryName", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "storeName", "NotEmpty");
 
 
     }

@@ -28,7 +28,7 @@ public class StoreValidator implements Validator {
 
 
         if (categoryRepository.categoryCount(user.getCategoryName()) >0) {
-            errors.rejectValue("categoryName", "Duplicate.CategoryForm.categoryName");
+            errors.rejectValue("categoryName", "Duplicate.StoreForm.categoryName");
         }
 
 

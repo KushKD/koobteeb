@@ -135,7 +135,7 @@ public class StoreController {
                 StoreEntity category = categoryRepository.getCategoryViaCategoryId(category_id);
                 System.out.println(category.toString());
                 model.addAttribute("category_to_update", category);
-                model.addAttribute("updateCategory", new UpdateStore());
+                model.addAttribute("updateStore", new UpdateStore());
                 return "updateCategory";
             }
 
@@ -146,7 +146,7 @@ public class StoreController {
 
     @Transactional
     @RequestMapping(value = "/updateCategoryEntity", method = RequestMethod.POST)
-    public String updateStateEntry(@ModelAttribute("updateCategory") UpdateStore form, BindingResult bindingResult, Model model, HttpServletRequest request) throws IOException {
+    public String updateStateEntry(@ModelAttribute("updateStore") UpdateStore form, BindingResult bindingResult, Model model, HttpServletRequest request) throws IOException {
         storeValidatorUpdate.validate(form, bindingResult);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -163,10 +163,10 @@ public class StoreController {
 
                 StoreEntity category = new StoreEntity();
 
-                category = categoryRepository.getCategoryViaCategoryId(Integer.parseInt(form.getCategoryId()));
+                category = categoryRepository.getCategoryViaCategoryId(Integer.parseInt(form.getStoreId()));
 
-                category.setStoreName(form.getCategoryName().toString());
-                category.setStoreID(Integer.parseInt(form.getCategoryId()));
+                category.setStoreName(form.getStoreName().toString());
+                category.setStoreID(Integer.parseInt(form.getStoreId()));
 
                 if (form.getActive().equalsIgnoreCase("T")) {
                     category.setActive(true);
@@ -183,7 +183,7 @@ public class StoreController {
                 Date date = new Date(timestamp.getTime());
                 category.setCreatedOn(date);
                 savedCategory = categoryRepository.save(category);
-                form.setCategoryName("");
+                form.setStoreName("");
                 request.getSession().setAttribute("successMessage", "Category Updated.");
 
                 return "redirect:/viewCategory";

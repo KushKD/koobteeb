@@ -39,7 +39,7 @@ public class StoreRepositoryCustomImpl implements StoreRepositoryCustom {
         Root<StoreEntity> book = cq.from(StoreEntity.class);
         Predicate isActive_ = cb.equal(book.get("active"), true);
         Predicate isDeleted_ = cb.equal(book.get("deleted"), false);
-        Predicate categoryName = cb.equal(book.get("categoryName"), CategoryName);
+        Predicate categoryName = cb.equal(book.get("storeName"), CategoryName);
         cq.where(isActive_,isDeleted_,categoryName);
         cq.select(cb.count(book)).where(isActive_,isDeleted_,categoryName);
         return Math.toIntExact(entityManager.createQuery(cq).getSingleResult());
@@ -50,7 +50,7 @@ public class StoreRepositoryCustomImpl implements StoreRepositoryCustom {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<StoreEntity> cq = cb.createQuery(StoreEntity.class);
         Root<StoreEntity> book = cq.from(StoreEntity.class);
-        Predicate categoryId = cb.equal(book.get("categoryID"), categoryId_);
+        Predicate categoryId = cb.equal(book.get("storeID"), categoryId_);
         cq.where(categoryId);
         TypedQuery<StoreEntity> query =  entityManager.createQuery(cq);
         return query.getResultList().get(0);
