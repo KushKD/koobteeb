@@ -146,6 +146,22 @@
 
     <!-- ITM Category Ends createItemCategory -->
 
+    <!-- Units Start -->
+    <definition name="createUnit" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/units/createunit.jsp" />
+    </definition>
+
+
+    <definition name="updateUnit" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/units/updateunit.jsp" />
+    </definition>
+
+
+    <definition name="viewUnits" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/units/viewunit.jsp" />
+    </definition>
+    <!-- Unit Ends -->
+
 
 
 

@@ -1,10 +1,10 @@
-package com.hp.dit.police.inventory.form.state;
+package com.hp.dit.police.inventory.form.units;
 
 import java.io.Serializable;
 
-public class StateForm implements Serializable {
+public class UnitForm implements Serializable {
 
-    private String stateName;
+    private String unitName;
     private String unitDescription;
 
     public String getUnitDescription() {
@@ -15,18 +15,18 @@ public class StateForm implements Serializable {
         this.unitDescription = unitDescription;
     }
 
-    public String getStateName() {
-        return stateName;
+    public String getUnitName() {
+        return unitName;
     }
 
-    public void setStateName(String stateName) {
-        this.stateName = stateName;
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
     }
 
     @Override
     public String toString() {
-        return "StateForm{" +
-                "stateName='" + stateName + '\'' +
+        return "UnitForm{" +
+                "unitName='" + unitName + '\'' +
                 ", unitDescription='" + unitDescription + '\'' +
                 '}';
     }

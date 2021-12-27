@@ -94,6 +94,16 @@
                       </li>
                           </sec:authorize>
 
+   <sec:authorize access="hasAuthority('SUPER ADMIN')">
+          <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label"> Units Master</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+            <li><a class="treeview-item" href="${pageContext.request.contextPath}/createUnit" ><i class="icon fa fa-circle-o"></i> Create Unit</a></li>
+              <li><a class="treeview-item" href="${pageContext.request.contextPath}/viewUnits"><i class="icon fa fa-circle-o"></i> Update Unit</a></li>
+            </ul>
+          </li>
+   </sec:authorize>
+
+
 
    <sec:authorize access="hasAuthority('SUPER ADMIN')">
                       <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label"> Item Category</span><i class="treeview-indicator fa fa-angle-right"></i></a>
@@ -103,6 +113,8 @@
                         </ul>
                       </li>
                           </sec:authorize>
+
+
 
     <sec:authorize access="hasAuthority('SUPER ADMIN')">
                          <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label"> Add Item</span><i class="treeview-indicator fa fa-angle-right"></i></a>
