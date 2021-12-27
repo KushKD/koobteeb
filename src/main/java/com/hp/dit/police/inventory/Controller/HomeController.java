@@ -36,8 +36,7 @@ public class HomeController {
     @Autowired
     private RoleValidator roleValidator;
 
-    @Autowired
-    private GenerateIdCardValidator generateIdCardValidator;
+
 
     @Autowired
     private CustomUserService userService;
@@ -54,9 +53,6 @@ public class HomeController {
     @Autowired
     private UserRepository userRepository;
 
-
-    @Autowired
-    private SearchIdCardValidator searchIdCardValidator;
 
 
 

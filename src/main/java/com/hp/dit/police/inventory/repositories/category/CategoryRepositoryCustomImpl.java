@@ -1,5 +1,6 @@
 package com.hp.dit.police.inventory.repositories.category;
 import com.hp.dit.police.inventory.entities.CategoryEntity;
+import com.hp.dit.police.inventory.entities.StatesMaster;
 import com.hp.dit.police.inventory.modals.CategoryModal;
 import org.springframework.stereotype.Service;
 
@@ -19,34 +20,41 @@ public class CategoryRepositoryCustomImpl implements CategoryRepositoryCustom {
     private EntityManager entityManager;
 
 
+
+
     @Override
-    public List<CategoryModal> getCategories() {
+    public List<CategoryEntity> getAllCategories() {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<CategoryModal> cq = cb.createQuery(CategoryModal.class);
+        CriteriaQuery<CategoryEntity> cq = cb.createQuery(CategoryEntity.class);
         Root<CategoryEntity> book = cq.from(CategoryEntity.class);
-        Predicate isActive_ = cb.equal(book.get("active"), true);
-        cq.where(isActive_);
-        cq.multiselect(book.get("categoryID"), book.get("categoryName")).distinct(true);
-        TypedQuery<CategoryModal> query =  entityManager.createQuery(cq);
+       //Predicate isActive_ = cb.equal(book.get("active"), true);
+       // Predicate isDeleted_ = cb.equal(book.get("deleted"), false);
+        //cq.where(isActive_,isDeleted_);
+        TypedQuery<CategoryEntity> query =  entityManager.createQuery(cq);
         return query.getResultList();
     }
 
     @Override
-    public Boolean checkCategory(String rolenmae) {
+    public Integer categoryCount(String CategoryName) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<CategoryEntity> book = cq.from(CategoryEntity.class);
         Predicate isActive_ = cb.equal(book.get("active"), true);
-        Predicate category = cb.equal(book.get("categoryName"), rolenmae);
-        cq.where(isActive_,category);
-        cq.select(cb.count(book)).where(isActive_,category) ;
-        TypedQuery<Long> query =  entityManager.createQuery(cq);
-        if(Math.toIntExact(entityManager.createQuery(cq).getSingleResult())>0){
-            return true;
-        }else{
-            return false;
-        }
+        Predicate isDeleted_ = cb.equal(book.get("deleted"), false);
+        Predicate categoryName = cb.equal(book.get("categoryName"), CategoryName);
+        cq.where(isActive_,isDeleted_,categoryName);
+        cq.select(cb.count(book)).where(isActive_,isDeleted_,categoryName);
+        return Math.toIntExact(entityManager.createQuery(cq).getSingleResult());
+    }
 
-
+    @Override
+    public CategoryEntity getCategoryViaCategoryId(Integer categoryId_) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<CategoryEntity> cq = cb.createQuery(CategoryEntity.class);
+        Root<CategoryEntity> book = cq.from(CategoryEntity.class);
+        Predicate categoryId = cb.equal(book.get("categoryID"), categoryId_);
+        cq.where(categoryId);
+        TypedQuery<CategoryEntity> query =  entityManager.createQuery(cq);
+        return query.getResultList().get(0);
     }
 }

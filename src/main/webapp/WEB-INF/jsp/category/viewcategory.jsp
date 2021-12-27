@@ -8,9 +8,9 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/plugins/dataTables.bootstrap.min.js"></script>
 <main class="app-content">
 
-<h2 class="form-signin-heading">Barriers Master</h2>
+<h2 class="form-signin-heading">Store Master</h2>
 
-	<c:if test="${not empty barriers}">
+	<c:if test="${not empty categories}">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="tile">
@@ -20,24 +20,31 @@
 								<thead>
 									<tr>
 										<th>S.No</th>
-										<th>Barrier Name</th>
-										<th>Barrier Id</th>
+										<th>Store Name</th>
+										<th>Store Id</th>
+										<th>Active</th>
+
 										<th>Update</th>
 
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach items="${barriers}" var="barrier" varStatus="loopCounter">
+									<c:forEach items="${categories}" var="category" varStatus="loopCounter">
 										<tr>
 											<td>
 												<c:out value="${loopCounter.count}"/>
 											</td>
-											<td>${barrier.barrierName}</td>
-											<td>${barrier.barrierId}</td>
-
+											<td>${category.categoryName}</td>
+											<td>${category.categoryID}</td>
+											<c:if test="${category.active}">
+											<td class="btn-success text-center" style="color:#FFFFFF">Currently Active</td>
+											</c:if>
+											<c:if test="${not category.active}">
+                                            <td class="btn-danger text-center" style="color:#FFFFFF">Not Active</td>
+                                            </c:if>
 
 											<td>
-												<a href="${pageContext.request.contextPath}/updateBarrier/${barrier.barrierId}" class="button button-success" ;>Update</a>
+												<a href="${pageContext.request.contextPath}/updateCategory/${category.categoryID}" class="button button-success" ;>Update</a>
 											</td>
 
 										</tr>

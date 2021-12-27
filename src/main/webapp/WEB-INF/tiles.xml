@@ -81,30 +81,7 @@
     </definition>
     <!-- Police End -->
 
-    <!-- Beat Starts -->
-    <definition name="createbeat" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/beats/createbeat.jsp" />
-    </definition>
 
-    <definition name="viewbeat" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/beats/viewbeat.jsp" />
-    </definition>
-
-    <definition name="updatebeat" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/beats/updatebeat.jsp" />
-    </definition>
-    <!-- Beat Ends -->
-
-
-<!--    <definition name="updateSoSdpo" extends="baselayoutdashboard">-->
-<!--        <put-attribute name="content" value="/WEB-INF/jsp/sosdpo/updatesosdpo.jsp" />-->
-<!--    </definition>-->
-
-
-<!--    <definition name="viewSoSdpo" extends="baselayoutdashboard">-->
-<!--        <put-attribute name="content" value="/WEB-INF/jsp/sosdpo/viewsosdpo.jsp" />-->
-<!--    </definition>-->
-    <!-- Police Station -->
 
 
     <!-- Districts -->
@@ -133,71 +110,32 @@
     <definition name="updateUser" extends="baselayoutdashboard">
         <put-attribute name="content" value="/WEB-INF/jsp/userRegistration/updateuser.jsp" />
     </definition>
-
-
     <!-- Users End-->
 
-   <!--Module MAster -->
-    <definition name="createmodule" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/module/createmodule.jsp" />
-    </definition>
-
-    <definition name="viewmodule" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/module/viewmodule.jsp" />
+    <!-- Category -->
+    <definition name="createCategory" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/category/createcategory.jsp" />
     </definition>
 
 
-    <definition name="updatemodule" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/module/updatemodule.jsp" />
-    </definition>
-
-    <!--Module MAster Ends -->
-
-    <!-- Sub Module -->
-    <definition name="createsubmodule" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/submodule/createsubmodule.jsp" />
-    </definition>
-
-    <definition name="viewsubmodule" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/submodule/viewsubmodule.jsp" />
+    <definition name="updateCategory" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/category/updatecategory.jsp" />
     </definition>
 
 
-    <definition name="updatesubmodule" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/submodule/updatesubmodule.jsp" />
+    <definition name="viewCategory" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/category/viewcategory.jsp" />
     </definition>
-    <!-- Sub Module -->
-
-    <!-- Pin -->
-    <definition name="viewpin" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/pin/viewpin.jsp" />
-    </definition>
+    <!-- Category Ends-->
 
 
-    <definition name="updatepin" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/pin/updatepin.jsp" />
-    </definition>
-    <!-- Pin Ends -->
-
-    <!-- Module Role Mapping -->
-    <definition name="createmodulerolemapping" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/modulerole/createmodulerolemapping.jsp" />
-    </definition>
-
-    <definition name="viewmodulerolemapping" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/modulerole/viewmodulerolemapping.jsp" />
-    </definition>
 
 
-    <definition name="updatemodulerolemapping" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/modulerole/updatemodulerolemapping.jsp" />
-    </definition>
-    <!-- Module Role Mapping Ends -->
 
 
-    <definition name="twoStepVerification" extends="baselayoutdashboardnonav">
-        <put-attribute name="content" value="/WEB-INF/jsp/verification/twoStepVerification.jsp" />
-    </definition>
+
+
+
 
 
     <definition name="createuser" extends="baselayoutdashboard">
@@ -209,71 +147,12 @@
         <put-attribute name="content" value="/WEB-INF/jsp/rolesmaster.jsp" />
     </definition>
 
-    <definition name="showidcards" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/showIdCardList/showidcardlist.jsp" />
-    </definition>
-
-    <definition name="vehicleOwnerDetails" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/ownerdetails/userDetails.jsp" />
-    </definition>
 
 
     <definition name="login" extends="baselayoutdashboardnonav">
         <put-attribute name="content" value="/WEB-INF/jsp/loginn.jsp" />
     </definition>
 
-<!-- Earlier working
-    <definition name="login" extends="baselayoutdashboardnonav">
-        <put-attribute name="content" value="/WEB-INF/jsp/loginn.jsp" />
-    </definition>  -->
-
-    <definition name="verifylogin" extends="baselayoutdashboardnonav">
-        <put-attribute name="content" value="/WEB-INF/jsp/verifylogin.jsp" />
-    </definition>
-
-
-    <definition name="searchid" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/searchIdcard.jsp" />
-    </definition>
-
-    <definition name="reports" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/reports/reportsPage.jsp" />
-    </definition>
-
-    <definition name="applereports" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/reports/appleboxes.jsp" />
-    </definition>
-
-
-    <definition name="formbvehicles" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/reports/formbvehicles.jsp" />
-    </definition>
-
-    <definition name="vahanDetails" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/vahanDetails.jsp" />
-    </definition>
-
-    <definition name="sarthiDetail" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/sarthiDetails.jsp" />
-    </definition>
-
-
-
-    <definition name="approvedCards" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/showIdCardList/approvedIdCards.jsp" />
-    </definition>
-
-    <definition name="activebeat" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/activebeat/activeBeat.jsp" />
-    </definition>
-
-    <definition name="viewData" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/viewdata/viewdata.jsp" />
-    </definition>
-
-    <definition name="viewInformation" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/viewinformation/viewInformation.jsp" />
-    </definition>
 
 
 

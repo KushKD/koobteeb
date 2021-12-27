@@ -86,10 +86,10 @@
                         </sec:authorize>
 
    <sec:authorize access="hasAuthority('SUPER ADMIN')">
-                      <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">Category Master</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+                      <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">Store Master</span><i class="treeview-indicator fa fa-angle-right"></i></a>
                         <ul class="treeview-menu">
-                        <li><a class="treeview-item" href="${pageContext.request.contextPath}/createbeat" ><i class="icon fa fa-circle-o"></i> Create Category</a></li>
-                          <li><a class="treeview-item" href="${pageContext.request.contextPath}/viewbeat"><i class="icon fa fa-circle-o"></i> Update Category</a></li>
+                        <li><a class="treeview-item" href="${pageContext.request.contextPath}/createCategory" ><i class="icon fa fa-circle-o"></i> Create Store</a></li>
+                          <li><a class="treeview-item" href="${pageContext.request.contextPath}/viewCategory"><i class="icon fa fa-circle-o"></i> Update Store</a></li>
                         </ul>
                       </li>
                           </sec:authorize>

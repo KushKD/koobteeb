@@ -3,8 +3,8 @@
 		<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 			<script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
 			<main class="app-content">
-				<form:form method="POST" modelAttribute="pinForm" action="${pageContext.request.contextPath}/updatePinEntity" class="form-signin">
-					<h2 class="form-signin-heading">Update Pin</h2>
+				<form:form method="POST" modelAttribute="updateCategory" action="${pageContext.request.contextPath}/updateCategoryEntity" class="form-signin">
+					<h2 class="form-signin-heading">Update Store</h2>
 					<c:if test="${not empty successMessage}">
 						<div id="serverError" class="successMessage">${successMessage}</div>
 					</c:if>
@@ -12,38 +12,38 @@
 					<c:if test="${not empty serverError}">
 						<div id="serverError" class="plErroMessage">${serverError}</div>
 					</c:if>
-					<spring:bind path="pinId">
+					<spring:bind path="categoryId">
 						<div class="form-group ${status.error ? 'has-error' : ''}">
-							<form:input type="text" autocomplete="off"  oncopy="return false" onpaste="return false" path="pinId" readonly="true" value="${pin_to_update.pinId}" class="form-control" autofocus="true"></form:input>
-							<form:errors path="pinId"></form:errors>
+							<form:input type="text" autocomplete="off"  oncopy="return false" onpaste="return false" path="categoryId" readonly="true" value="${category_to_update.categoryID}" class="form-control" autofocus="true"></form:input>
+							<form:errors path="categoryId"></form:errors>
 						</div>
 					</spring:bind>
-					<spring:bind path="pin">
+					<spring:bind path="categoryName">
 						<div class="form-group ${status.error ? 'has-error' : ''}">
-							<form:input type="text" autocomplete="off"  oncopy="return false" maxlength="6" onpaste="return false" path="pin" class="form-control" value="${pin_to_update.pin}" autofocus="true"></form:input>
-							<form:errors path="pin"></form:errors>
+							<form:input type="text" autocomplete="off"  oncopy="return false" onpaste="return false" path="categoryName" class="form-control" value="${category_to_update.categoryName}" autofocus="true"></form:input>
+							<form:errors path="categoryName"></form:errors>
 						</div>
 					</spring:bind>
-					<spring:bind path="stateIsActive">
+					<spring:bind path="active">
 						 <div class="form-group ${status.error ? 'has-error' : ''}">
-                                                            <form:label  path="stateIsActive" > Is Active </form:label>
-                                                            <form:select  path="stateIsActive" class="form-control" id="earlierService" autocomplete="off"  oncopy="return false" onpaste="return false">
+                                                            <form:label  path="active" > Is Active </form:label>
+                                                            <form:select  path="active" class="form-control" id="earlierService" autocomplete="off"  oncopy="return false" onpaste="return false">
                                                                <form:option value=""> --Select-- </form:option>
                                                                <form:option value="T"> Yes </form:option>
                                                                <form:option value="F"> No </form:option>
                                                             </form:select>
-                                                            <form:errors  style="color:red;" path="stateIsActive"></form:errors>
+                                                            <form:errors  style="color:red;" path="active"></form:errors>
                                                          </div>
 					</spring:bind>
-					<spring:bind path="stateIsDeleted">
+					<spring:bind path="deleted">
 						 <div class="form-group ${status.error ? 'has-error' : ''}">
-                                                                                    <form:label  path="stateIsDeleted" > Is Deleted </form:label>
-                                                                                    <form:select  path="stateIsDeleted" class="form-control" id="earlierService" autocomplete="off"  oncopy="return false" onpaste="return false">
+                                                                                    <form:label  path="deleted" > Is Deleted </form:label>
+                                                                                    <form:select  path="deleted" class="form-control" id="earlierService" autocomplete="off"  oncopy="return false" onpaste="return false">
                                                                                        <form:option value=""> --Select-- </form:option>
                                                                                        <form:option value="T"> Yes </form:option>
                                                                                        <form:option value="F"> No </form:option>
                                                                                     </form:select>
-                                                                                    <form:errors  style="color:red;" path="stateIsDeleted"></form:errors>
+                                                                                    <form:errors  style="color:red;" path="deleted"></form:errors>
                                                                                  </div>
 					</spring:bind>
 					<button class="btn btn-lg btn-primary btn-block" type="submit">Update</button>
