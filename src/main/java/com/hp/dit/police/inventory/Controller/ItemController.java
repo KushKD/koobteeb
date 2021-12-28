@@ -4,6 +4,7 @@ import com.hp.dit.police.inventory.entities.*;
 import com.hp.dit.police.inventory.form.itemcat.ItemCatForm;
 import com.hp.dit.police.inventory.form.itemcat.UpdateItemCat;
 import com.hp.dit.police.inventory.form.items.ItemForm;
+import com.hp.dit.police.inventory.modals.ItemList;
 import com.hp.dit.police.inventory.modals.LoggedInUserSession;
 import com.hp.dit.police.inventory.repositories.itemcategory.ItemCategoryRepository;
 import com.hp.dit.police.inventory.repositories.items.ItemsRepository;
@@ -45,6 +46,7 @@ public class ItemController {
 
     @RequestMapping(value = "/createItem", method = RequestMethod.GET)
     public String createPS(Model model,HttpServletRequest request) {
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
@@ -138,6 +140,31 @@ public class ItemController {
                 request.getSession().setAttribute("successMessage", ex.getLocalizedMessage());
                 return "createItem";
             }
+        }
+    }
+
+    //View Items
+    @RequestMapping(value = "/viewItem", method = RequestMethod.GET)
+    public String viewStates(Model model,HttpServletRequest request) throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "login";
+        } else {
+
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+
+                List<ItemList> categories = itemsRepository.getAllItemsSelectedColumns();
+                model.addAttribute("item_category", categories);
+                return "viewItem";
+            }
+
+
+
         }
     }
 

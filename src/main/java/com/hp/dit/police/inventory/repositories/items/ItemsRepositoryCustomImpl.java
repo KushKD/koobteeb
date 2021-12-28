@@ -2,6 +2,9 @@ package com.hp.dit.police.inventory.repositories.items;
 
 import com.hp.dit.police.inventory.entities.CategoryItemsEntity;
 import com.hp.dit.police.inventory.entities.ItemsEntity;
+import com.hp.dit.police.inventory.entities.UserEntity;
+import com.hp.dit.police.inventory.modals.ItemList;
+import com.hp.dit.police.inventory.modals.LoggedInUserSession;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +32,21 @@ public class ItemsRepositoryCustomImpl implements ItemsRepositoryCustom  {
         // Predicate isDeleted_ = cb.equal(book.get("deleted"), false);
         //cq.where(isActive_,isDeleted_);
         TypedQuery<ItemsEntity> query =  entityManager.createQuery(cq);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<ItemList> getAllItemsSelectedColumns() {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<ItemList> cq = cb.createQuery(ItemList.class);
+        Root<ItemsEntity> book = cq.from(ItemsEntity.class);
+        cq.multiselect(
+                book.get("itemsName"),
+                book.get("quantity"),
+                book.get("itemsLetterno"),
+                book.get("active"),
+                book.get("store").<String>get("storeName"));
+        TypedQuery<ItemList> query =  entityManager.createQuery(cq);
         return query.getResultList();
     }
 
