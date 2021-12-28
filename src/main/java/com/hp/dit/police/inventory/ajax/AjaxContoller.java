@@ -2,15 +2,15 @@ package com.hp.dit.police.inventory.ajax;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hp.dit.police.inventory.entities.DistrictMaster;
-import com.hp.dit.police.inventory.entities.PoliceLines;
-import com.hp.dit.police.inventory.entities.PoliceStationMaster;
-import com.hp.dit.police.inventory.entities.StatesMaster;
+import com.hp.dit.police.inventory.entities.*;
 import com.hp.dit.police.inventory.repositories.RolesRepository;
 import com.hp.dit.police.inventory.repositories.districtRepository.DistrictRepository;
+import com.hp.dit.police.inventory.repositories.itemcategory.ItemCategoryRepository;
 import com.hp.dit.police.inventory.repositories.policelines.PoliceLinesRepository;
 import com.hp.dit.police.inventory.repositories.policestationRepository.PSRepository;
 import com.hp.dit.police.inventory.repositories.stateRepository.StateRepository;
+import com.hp.dit.police.inventory.repositories.store.StoreRepository;
+import com.hp.dit.police.inventory.repositories.units.UnitsRepository;
 import com.hp.dit.police.inventory.repositories.user.UserRepository;
 import com.hp.dit.police.inventory.utilities.Constants;
 import org.slf4j.Logger;
@@ -47,6 +47,15 @@ public class AjaxContoller {
 
     @Autowired
     PSRepository psRepository;
+
+    @Autowired
+    UnitsRepository unitsRepository;
+
+    @Autowired
+    StoreRepository storeRepository;
+
+    @Autowired
+    ItemCategoryRepository itemCategoryRepository;
 
 
 
@@ -101,6 +110,68 @@ public class AjaxContoller {
     }
 
 
+    //getUnits
+    @RequestMapping(value = "/ajax/getUnits", method = RequestMethod.GET,  produces="application/json")
+    public @ResponseBody
+    String getUnits() throws Exception {
+        Map<String, Object> map = null;
+        List<UnitsEntity> states = unitsRepository.getAllActiveUnits();
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, states);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+
+        ObjectMapper Obj = new ObjectMapper();
+        String jsonStr = null;
+        jsonStr = Obj.writeValueAsString(map);
+        logger.info(jsonStr);
+
+        return jsonStr;
+
+    }
+
+    //getStores
+    @RequestMapping(value = "/ajax/getStores", method = RequestMethod.GET,  produces="application/json")
+    public @ResponseBody
+    String getStores() throws Exception {
+        Map<String, Object> map = null;
+        List<StoreEntity> states = storeRepository.getAllCategories();
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, states);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+
+        ObjectMapper Obj = new ObjectMapper();
+        String jsonStr = null;
+        jsonStr = Obj.writeValueAsString(map);
+        logger.info(jsonStr);
+
+        return jsonStr;
+
+    }
+
+    //getCategory
+    @RequestMapping(value = "/ajax/getCategory", method = RequestMethod.GET,  produces="application/json")
+    public @ResponseBody
+    String getCategory() throws Exception {
+        Map<String, Object> map = null;
+        List<CategoryItemsEntity> states = itemCategoryRepository.getAllActiveCategories();
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, states);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+
+        ObjectMapper Obj = new ObjectMapper();
+        String jsonStr = null;
+        jsonStr = Obj.writeValueAsString(map);
+        logger.info(jsonStr);
+
+        return jsonStr;
+
+    }
 
 
 

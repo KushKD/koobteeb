@@ -10,6 +10,7 @@ import java.util.List;
 public interface UnitsRepositoryCustom {
 
     List<UnitsEntity> getAllUnits();
+    List<UnitsEntity> getAllActiveUnits();
     Integer unitCount(String unitName);
     UnitsEntity getUnitViaUnitId(Integer unitId);
 }

@@ -32,6 +32,17 @@ public class UnitsRepositoryCustomImpl implements UnitsRepositoryCustom {
     }
 
     @Override
+    public List<UnitsEntity> getAllActiveUnits() {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<UnitsEntity> cq = cb.createQuery(UnitsEntity.class);
+        Root<UnitsEntity> book = cq.from(UnitsEntity.class);
+        Predicate unitId = cb.equal(book.get("active"), true);
+        cq.where(unitId);
+        TypedQuery<UnitsEntity> query =  entityManager.createQuery(cq);
+        return query.getResultList();
+    }
+
+    @Override
     public Integer unitCount(String unitName) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);

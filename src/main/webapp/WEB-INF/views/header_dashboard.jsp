@@ -128,8 +128,8 @@
     <sec:authorize access="hasAuthority('SUPER ADMIN')">
                          <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label"> Add Item</span><i class="treeview-indicator fa fa-angle-right"></i></a>
                            <ul class="treeview-menu">
-                           <li><a class="treeview-item" href="${pageContext.request.contextPath}/createbeat" ><i class="icon fa fa-circle-o"></i> Add Item</a></li>
-                             <li><a class="treeview-item" href="${pageContext.request.contextPath}/viewbeat"><i class="icon fa fa-circle-o"></i> Update Item</a></li>
+                           <li><a class="treeview-item" href="${pageContext.request.contextPath}/createItem" ><i class="icon fa fa-circle-o"></i> Add Item</a></li>
+                             <li><a class="treeview-item" href="${pageContext.request.contextPath}/viewItem"><i class="icon fa fa-circle-o"></i> Update Item</a></li>
                            </ul>
                          </li>
                              </sec:authorize>

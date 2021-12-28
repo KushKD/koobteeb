@@ -381,6 +381,134 @@ function getSOSDPO() {
 
 }
 
+//getPoliceLines
+function getPoliceLines() {
+	$.ajax({
+		type: "GET",
+		url: formURL + "/ajax/getsospdo",
+		success: function(data) {
+			//Tomcat
+			var json_ = JSON.parse(JSON.stringify(data));
+			//Jboss
+			//var json_ = JSON.parse(data);
+			console.log(json_);
+			var selectRole = $('#policelineId'); // the state select element
+			selectRole.find('option').remove();
+			selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+			for (i = 0; i < json_.RESPONSE.length; i++) {
+				if (document.getElementById('bid') != null && document.getElementById('bid').value == json_.RESPONSE[i].barrierTypeId) {
+					selectRole.append("<option selected value=" + json_.RESPONSE[i].policelineId + " >" + json_.RESPONSE[i].policelineName + "</option>")
+				} else {
+					selectRole.append("<option value=" + json_.RESPONSE[i].policelineId + " >" + json_.RESPONSE[i].policelineName + "</option>")
+				}
+			}
+
+		},
+		error: function(data) {
+			console.log(data)
+		}
+
+	});
+
+
+}
+
+//getUnits
+function getUnits() {
+	$.ajax({
+		type: "GET",
+		url: formURL + "/ajax/getUnits",
+		success: function(data) {
+			//Tomcat
+			var json_ = JSON.parse(JSON.stringify(data));
+			//Jboss
+			//var json_ = JSON.parse(data);
+			console.log(json_);
+			var selectRole = $('#unitId'); // the state select element
+			selectRole.find('option').remove();
+			selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+			for (i = 0; i < json_.RESPONSE.length; i++) {
+				if (document.getElementById('bid') != null && document.getElementById('bid').value == json_.RESPONSE[i].barrierTypeId) {
+					selectRole.append("<option selected value=" + json_.RESPONSE[i].unitId + " >" + json_.RESPONSE[i].unitName + "</option>")
+				} else {
+					selectRole.append("<option value=" + json_.RESPONSE[i].unitId + " >" + json_.RESPONSE[i].unitName + "</option>")
+				}
+			}
+
+		},
+		error: function(data) {
+			console.log(data)
+		}
+
+	});
+
+
+}
+
+//getStores
+function getStores() {
+	$.ajax({
+		type: "GET",
+		url: formURL + "/ajax/getStores",
+		success: function(data) {
+			//Tomcat
+			var json_ = JSON.parse(JSON.stringify(data));
+			//Jboss
+			//var json_ = JSON.parse(data);
+			console.log(json_);
+			var selectRole = $('#storeId'); // the state select element
+			selectRole.find('option').remove();
+			selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+			for (i = 0; i < json_.RESPONSE.length; i++) {
+				if (document.getElementById('bid') != null && document.getElementById('bid').value == json_.RESPONSE[i].barrierTypeId) {
+					selectRole.append("<option selected value=" + json_.RESPONSE[i].storeID + " >" + json_.RESPONSE[i].storeName + "</option>")
+				} else {
+					selectRole.append("<option value=" + json_.RESPONSE[i].storeID + " >" + json_.RESPONSE[i].storeName + "</option>")
+				}
+			}
+
+		},
+		error: function(data) {
+			console.log(data)
+		}
+
+	});
+
+
+}
+
+//getCategory
+function getCategory() {
+	$.ajax({
+		type: "GET",
+		url: formURL + "/ajax/getCategory",
+		success: function(data) {
+			//Tomcat
+			var json_ = JSON.parse(JSON.stringify(data));
+			//Jboss
+			//var json_ = JSON.parse(data);
+			console.log(json_);
+			var selectRole = $('#categoryId'); // the state select element
+			selectRole.find('option').remove();
+			selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+			for (i = 0; i < json_.RESPONSE.length; i++) {
+				if (document.getElementById('bid') != null && document.getElementById('bid').value == json_.RESPONSE[i].barrierTypeId) {
+					selectRole.append("<option selected value=" + json_.RESPONSE[i].categoryId + " >" + json_.RESPONSE[i].categoryName + "</option>")
+				} else {
+					selectRole.append("<option value=" + json_.RESPONSE[i].categoryId + " >" + json_.RESPONSE[i].categoryName + "</option>")
+				}
+			}
+
+		},
+		error: function(data) {
+			console.log(data)
+		}
+
+	});
+
+
+}
+
 function getSOSDPOUpdate() {
 	$.ajax({
 		type: "GET",

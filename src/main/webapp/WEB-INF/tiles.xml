@@ -141,7 +141,7 @@
 
 
     <definition name="viewItemCategory" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/itemcat/viewitemcat.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/itemcat/viewcategory.jsp" />
     </definition>
 
     <!-- ITM Category Ends createItemCategory -->
@@ -161,6 +161,22 @@
         <put-attribute name="content" value="/WEB-INF/jsp/units/viewunit.jsp" />
     </definition>
     <!-- Unit Ends -->
+
+    <!-- Items Section -->
+    <definition name="createItem" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/items/createitem.jsp" />
+    </definition>
+
+
+    <definition name="updateItem" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/items/updateitem.jsp" />
+    </definition>
+
+
+    <definition name="viewItem" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/items/viewitem.jsp" />
+    </definition>
+    <!-- Items Section Ends -->
 
 
 

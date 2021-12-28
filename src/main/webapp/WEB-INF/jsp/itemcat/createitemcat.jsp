@@ -7,7 +7,7 @@
 
 <main class="app-content">
 
-        <form:form method="POST" modelAttribute="categoryForm" action="${pageContext.request.contextPath}/saveCategory" class="form-signin">
+        <form:form method="POST" modelAttribute="itemCatForm" action="${pageContext.request.contextPath}/saveItemCategory" class="form-signin">
             <h2 class="form-signin-heading">Create Item Category</h2>
              <c:if test="${not empty successMessage}">
                     <div id="serverError" class="successMessage">${successMessage}</div>
@@ -18,11 +18,19 @@
                 </c:if>
             <spring:bind path="categoryName">
                 <div class="form-group ${status.error ? 'has-error' : ''}">
-                    <form:input type="text" autocomplete="off"  oncopy="return false" onpaste="return false" path="categoryName" class="form-control" placeholder="Enter Store Name"
+                    <form:input type="text" autocomplete="off"  oncopy="return false" onpaste="return false" path="categoryName" class="form-control" placeholder="Enter Category Name"
                                 autofocus="true"></form:input>
                     <form:errors  path="categoryName"></form:errors>
                 </div>
             </spring:bind>
+
+            <spring:bind path="categoryDesc">
+                            <div class="form-group ${status.error ? 'has-error' : ''}">
+                                <form:input type="text" autocomplete="off"  oncopy="return false" onpaste="return false" path="categoryDesc" class="form-control" placeholder="Enter Category Description"
+                                            autofocus="true"></form:input>
+                                <form:errors  path="categoryDesc"></form:errors>
+                            </div>
+                        </spring:bind>
 
 
             <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>

@@ -13,6 +13,7 @@ import java.util.List;
 public interface ItemCategoryRepositoryCustom  {
 
     List<CategoryItemsEntity> getAllCategories();
+    List<CategoryItemsEntity> getAllActiveCategories();
     Integer categoryCount(String CategoryName);
     CategoryItemsEntity getCategoryViaCategoryId(Integer categoryId);
 

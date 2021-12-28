@@ -321,4 +321,37 @@ SELECT ST_AsGeoJSON(beat_geometry) from  mst_beat WHERE ps_id=1
       FOREIGN KEY (unit_id) REFERENCES mst_units(unit_id)
   );
 
+  CREATE TABLE mst_policelines (
+      policeline_id serial PRIMARY KEY  NOT NULL,
+      policeline_name character varying(100) NOT NULL,
+      is_active boolean DEFAULT true NOT NULL,
+      is_deleted boolean DEFAULT false NOT NULL,
+      created_on timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
+      lastmodifieddate timestamp without time zone,
+
+  );
+
+CREATE TABLE mst_item (
+      items_id serial PRIMARY KEY  NOT NULL,
+      items_name character varying(255) NOT NULL,
+	  policeline_id Integer NOT NULL,
+	  ps_id Integer NOT NULL,
+      store_id Integer NOT NULL,
+      category_id Integer NOT NULL,
+      unit_id Integer NOT NULL,
+	  quantity Integer NOT NULL,
+      items_desc character varying(255) NOT NULL,
+      items_letterrefno character varying(255) NOT NULL,
+	  items_letterrefdoc character varying(255) NOT NULL,
+      active boolean DEFAULT true NOT NULL,
+      deleted boolean DEFAULT false NOT NULL,
+      createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
+      lastmodifieddate timestamp without time zone,
+      FOREIGN KEY (store_id) REFERENCES mst_store(store_id),
+      FOREIGN KEY (category_id) REFERENCES mst_categoryitems(category_id),
+      FOREIGN KEY (unit_id) REFERENCES mst_units(unit_id),
+	FOREIGN KEY (policeline_id) REFERENCES mst_policelines(policeline_id),
+	FOREIGN KEY (ps_id) REFERENCES mst_policestation(ps_id)
+  );
+
 

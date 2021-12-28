@@ -12,6 +12,7 @@ public interface StoreRepositoryCustom {
 
    // @Cacheable
     List<StoreEntity> getAllCategories();
+    List<StoreEntity> getAllActiveCategories();
     Integer categoryCount(String CategoryName);
     StoreEntity getCategoryViaCategoryId(Integer categoryId);
 }

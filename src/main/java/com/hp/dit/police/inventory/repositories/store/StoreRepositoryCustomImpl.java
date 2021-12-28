@@ -33,6 +33,17 @@ public class StoreRepositoryCustomImpl implements StoreRepositoryCustom {
     }
 
     @Override
+    public List<StoreEntity> getAllActiveCategories() {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<StoreEntity> cq = cb.createQuery(StoreEntity.class);
+        Root<StoreEntity> book = cq.from(StoreEntity.class);
+        Predicate isActive_ = cb.equal(book.get("active"), true);
+        cq.where(isActive_);
+        TypedQuery<StoreEntity> query =  entityManager.createQuery(cq);
+        return query.getResultList();
+    }
+
+    @Override
     public Integer categoryCount(String CategoryName) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
