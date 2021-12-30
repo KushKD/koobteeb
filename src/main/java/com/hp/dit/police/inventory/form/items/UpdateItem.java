@@ -4,7 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
 
-public class ItemForm implements Serializable {
+public class UpdateItem implements Serializable {
 
     private String itemsId;
     private String itemsName;

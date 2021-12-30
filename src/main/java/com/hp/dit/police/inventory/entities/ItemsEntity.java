@@ -19,33 +19,22 @@ public class ItemsEntity {
     @Column(name = "items_name")
     private String itemsName;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "policeline_id")
-    @LazyToOne(LazyToOneOption.NO_PROXY)
-    private PoliceLines policeLines;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ps_id")
-    @LazyToOne(LazyToOneOption.NO_PROXY)
-    private PoliceStationMaster policeStationMaster;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
-    @LazyToOne(LazyToOneOption.NO_PROXY)
+    //@LazyToOne(LazyToOneOption.NO_PROXY)
     private StoreEntity store;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
-    @LazyToOne(LazyToOneOption.NO_PROXY)
+   // @LazyToOne(LazyToOneOption.NO_PROXY)
     private CategoryItemsEntity categoryItemsEntity;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "unit_id")
-    @LazyToOne(LazyToOneOption.NO_PROXY)
+   // @LazyToOne(LazyToOneOption.NO_PROXY)
     private UnitsEntity units;
 
-    @Column(name = "quantity")
-    private Integer quantity;
 
     @Column(name = "items_desc")
     private String itemsDesc;
@@ -86,22 +75,6 @@ public class ItemsEntity {
         this.itemsName = itemsName;
     }
 
-    public PoliceLines getPoliceLines() {
-        return policeLines;
-    }
-
-    public void setPoliceLines(PoliceLines policeLines) {
-        this.policeLines = policeLines;
-    }
-
-    public PoliceStationMaster getPoliceStationMaster() {
-        return policeStationMaster;
-    }
-
-    public void setPoliceStationMaster(PoliceStationMaster policeStationMaster) {
-        this.policeStationMaster = policeStationMaster;
-    }
-
     public StoreEntity getStore() {
         return store;
     }
@@ -124,14 +97,6 @@ public class ItemsEntity {
 
     public void setUnits(UnitsEntity units) {
         this.units = units;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
     }
 
     public String getItemsDesc() {
@@ -195,12 +160,9 @@ public class ItemsEntity {
         return "ItemsEntity{" +
                 "itemsId=" + itemsId +
                 ", itemsName='" + itemsName + '\'' +
-                ", policeLines=" + policeLines +
-                ", policeStationMaster=" + policeStationMaster +
                 ", store=" + store +
                 ", categoryItemsEntity=" + categoryItemsEntity +
                 ", units=" + units +
-                ", quantity='" + quantity + '\'' +
                 ", itemsDesc='" + itemsDesc + '\'' +
                 ", itemsLetterdoc='" + itemsLetterdoc + '\'' +
                 ", itemsLetterno='" + itemsLetterno + '\'' +

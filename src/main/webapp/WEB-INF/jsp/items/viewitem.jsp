@@ -8,9 +8,9 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/plugins/dataTables.bootstrap.min.js"></script>
 <main class="app-content">
 
-<h2 class="form-signin-heading">Item Category Master</h2>
+<h2 class="form-signin-heading">Item Master</h2>
 
-	<c:if test="${not empty item_category}">
+	<c:if test="${not empty item}">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="tile">
@@ -20,8 +20,10 @@
 								<thead>
 									<tr>
 										<th>S.No</th>
-										<th>Category Name</th>
-										<th>Category Id</th>
+										<th>Item Id</th>
+										<th>Item Name</th>
+										<th>Store</th>
+										<th>Letter Number</th>
 										<th>Active</th>
 
 										<th>Update</th>
@@ -29,22 +31,24 @@
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach items="${item_category}" var="category" varStatus="loopCounter">
+									<c:forEach items="${item}" var="item" varStatus="loopCounter">
 										<tr>
 											<td>
 												<c:out value="${loopCounter.count}"/>
 											</td>
-											<td>${category.categoryName}</td>
-											<td>${category.categoryId}</td>
-											<c:if test="${category.active}">
+											<td>${item.itemId}</td>
+											<td>${item.itemName}</td>
+											 <td>${item.storeName}</td>
+											 <td>${item.itemsLetterdoc}</td>
+											<c:if test="${item.active}">
 											<td class="btn-success text-center" style="color:#FFFFFF">Currently Active</td>
 											</c:if>
-											<c:if test="${not category.active}">
+											<c:if test="${not item.active}">
                                             <td class="btn-danger text-center" style="color:#FFFFFF">Not Active</td>
                                             </c:if>
 
 											<td>
-												<a href="${pageContext.request.contextPath}/updateItemCategory/${category.categoryId}" class="button button-success" ;>Update</a>
+												<a href="${pageContext.request.contextPath}/updateItem/${item.itemId}" class="button button-success" ;>Update</a>
 											</td>
 
 										</tr>

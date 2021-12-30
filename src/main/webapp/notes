@@ -331,6 +331,20 @@ SELECT ST_AsGeoJSON(beat_geometry) from  mst_beat WHERE ps_id=1
 
   );
 
+  -- Stock In
+  CREATE TABLE mst_stockin (
+        stockin_id serial PRIMARY KEY  NOT NULL,
+        policeline_id Integer NOT NULL,
+        items_id Integer NOT NULL,
+        quantity Integer NOT NULL,
+        user_id Integer NOT NULL,
+        created_on timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
+        FOREIGN KEY (policeline_id) REFERENCES mst_policelines(policeline_id),
+        FOREIGN KEY (items_id) REFERENCES mst_item(items_id),
+        FOREIGN KEY (user_id) REFERENCES users(user_id)
+
+    );
+
 CREATE TABLE mst_item (
       items_id serial PRIMARY KEY  NOT NULL,
       items_name character varying(255) NOT NULL,

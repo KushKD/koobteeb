@@ -3,9 +3,11 @@ package com.hp.dit.police.inventory.ajax;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hp.dit.police.inventory.entities.*;
+import com.hp.dit.police.inventory.modals.ItemListAjax;
 import com.hp.dit.police.inventory.repositories.RolesRepository;
 import com.hp.dit.police.inventory.repositories.districtRepository.DistrictRepository;
 import com.hp.dit.police.inventory.repositories.itemcategory.ItemCategoryRepository;
+import com.hp.dit.police.inventory.repositories.items.ItemsRepository;
 import com.hp.dit.police.inventory.repositories.policelines.PoliceLinesRepository;
 import com.hp.dit.police.inventory.repositories.policestationRepository.PSRepository;
 import com.hp.dit.police.inventory.repositories.stateRepository.StateRepository;
@@ -56,6 +58,10 @@ public class AjaxContoller {
 
     @Autowired
     ItemCategoryRepository itemCategoryRepository;
+
+    @Autowired
+    ItemsRepository itemsRepository;
+
 
 
 
@@ -136,7 +142,7 @@ public class AjaxContoller {
     public @ResponseBody
     String getStores() throws Exception {
         Map<String, Object> map = null;
-        List<StoreEntity> states = storeRepository.getAllCategories();
+        List<StoreEntity> states = storeRepository.getAllActiveCategories();
 
         map = new HashMap<String, Object>();
         map.put(Constants.keyResponse, states);
@@ -225,6 +231,28 @@ public class AjaxContoller {
 
         map = new HashMap<String, Object>();
         map.put(Constants.keyResponse, districts);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+
+        ObjectMapper Obj = new ObjectMapper();
+        String jsonStr = null;
+        jsonStr = Obj.writeValueAsString(map);
+        logger.info(jsonStr);
+        return jsonStr;
+
+
+    }
+
+    //getItemsViaCatStore
+    @RequestMapping(value = "/ajax/getItemsViaCatStore", method = RequestMethod.GET,  produces="application/json")
+    public @ResponseBody
+    String getItemsViaCatStore(@RequestParam(value = "cid", required = true) String cid
+    ,@RequestParam(value = "sid", required = true) String sid) throws Exception {
+        Map<String, Object> map = null;
+        List<ItemListAjax> items = itemsRepository.getAllItemsViaStoreandCategory(Integer.parseInt(cid), Integer.parseInt(sid));
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, items);
         map.put(Constants.keyMessage, Constants.valueMessage);
         map.put(Constants.keyStatus, HttpStatus.OK);
 

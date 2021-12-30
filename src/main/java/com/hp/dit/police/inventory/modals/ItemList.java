@@ -4,18 +4,34 @@ import java.io.Serializable;
 
 public class ItemList implements Serializable {
 
+    private Integer itemId;
     private String itemsName;
-    private Integer quantity;
     private String itemsLetterdoc;
     private Boolean active;
     private String storeName;
 
-    public ItemList(String itemsName, Integer quantity, String itemsLetterdoc, Boolean active, String storeName) {
+    public ItemList(Integer itemId,String itemsName, String itemsLetterdoc, Boolean active, String storeName) {
+        this.itemId = itemId;
         this.itemsName = itemsName;
-        this.quantity = quantity;
         this.itemsLetterdoc = itemsLetterdoc;
         this.active = active;
         this.storeName = storeName;
+    }
+
+    public Integer getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(Integer itemId) {
+        this.itemId = itemId;
+    }
+
+    public String getItemsName() {
+        return itemsName;
+    }
+
+    public void setItemsName(String itemsName) {
+        this.itemsName = itemsName;
     }
 
     public String getItemName() {
@@ -26,13 +42,6 @@ public class ItemList implements Serializable {
         this.itemsName = itemName;
     }
 
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
 
     public String getItemsLetterdoc() {
         return itemsLetterdoc;
@@ -61,8 +70,8 @@ public class ItemList implements Serializable {
     @Override
     public String toString() {
         return "ItemList{" +
-                "itemName='" + itemsName + '\'' +
-                ", quantity=" + quantity +
+                "itemId=" + itemId +
+                ", itemsName='" + itemsName + '\'' +
                 ", itemsLetterdoc='" + itemsLetterdoc + '\'' +
                 ", active=" + active +
                 ", storeName='" + storeName + '\'' +

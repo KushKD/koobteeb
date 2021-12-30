@@ -58,6 +58,20 @@
       </sec:authorize>
 
 
+      <sec:authorize access="hasAnyAuthority('SUPER ADMIN','ADMIN')">
+               <div class="col-md-6 col-lg-3">
+                  <div class="widget-small danger coloured-icon">
+                     <i class="icon fa fa-users fa-3x"></i>
+                     <div class="info">
+                        <a href="${pageContext.request.contextPath}/stockIn" style=" text-decoration: none !important;">
+                           <h4>Stock In Register</h4>
+                        </a>
+                     </div>
+                  </div>
+               </div>
+            </sec:authorize>
+
+
    </div>
    </div>
 

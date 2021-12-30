@@ -413,6 +413,9 @@ function getPoliceLines() {
 
 }
 
+//getItems
+
+
 //getUnits
 function getUnits() {
 	$.ajax({
@@ -429,6 +432,37 @@ function getUnits() {
 			selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
 			for (i = 0; i < json_.RESPONSE.length; i++) {
 				if (document.getElementById('bid') != null && document.getElementById('bid').value == json_.RESPONSE[i].barrierTypeId) {
+					selectRole.append("<option selected value=" + json_.RESPONSE[i].unitId + " >" + json_.RESPONSE[i].unitName + "</option>")
+				} else {
+					selectRole.append("<option value=" + json_.RESPONSE[i].unitId + " >" + json_.RESPONSE[i].unitName + "</option>")
+				}
+			}
+
+		},
+		error: function(data) {
+			console.log(data)
+		}
+
+	});
+
+
+}
+
+function getUnitsOnLoad(unitid) {
+	$.ajax({
+		type: "GET",
+		url: formURL + "/ajax/getUnits",
+		success: function(data) {
+			//Tomcat
+			var json_ = JSON.parse(JSON.stringify(data));
+			//Jboss
+			//var json_ = JSON.parse(data);
+			console.log(json_);
+			var selectRole = $('#unitId'); // the state select element
+			selectRole.find('option').remove();
+			selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+			for (i = 0; i < json_.RESPONSE.length; i++) {
+				if (document.getElementById('unitid') != null && document.getElementById('unitid').value == json_.RESPONSE[i].unitId) {
 					selectRole.append("<option selected value=" + json_.RESPONSE[i].unitId + " >" + json_.RESPONSE[i].unitName + "</option>")
 				} else {
 					selectRole.append("<option value=" + json_.RESPONSE[i].unitId + " >" + json_.RESPONSE[i].unitName + "</option>")
@@ -477,6 +511,39 @@ function getStores() {
 
 }
 
+function getStoresUpdated(storeid) {
+	$.ajax({
+		type: "GET",
+		url: formURL + "/ajax/getStores",
+		success: function(data) {
+			//Tomcat
+			var json_ = JSON.parse(JSON.stringify(data));
+			//Jboss
+			//var json_ = JSON.parse(data);
+			console.log(json_);
+			var selectRole = $('#storeId'); // the state select element
+			selectRole.find('option').remove();
+			selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+			for (i = 0; i < json_.RESPONSE.length; i++) {
+				if (document.getElementById('storeid') != null && document.getElementById('storeid').value == json_.RESPONSE[i].storeID) {
+					selectRole.append("<option selected value=" + json_.RESPONSE[i].storeID + " >" + json_.RESPONSE[i].storeName + "</option>")
+				} else {
+					selectRole.append("<option value=" + json_.RESPONSE[i].storeID + " >" + json_.RESPONSE[i].storeName + "</option>")
+				}
+			}
+
+		},
+		error: function(data) {
+			console.log(data)
+		}
+
+	});
+
+
+}
+
+
+
 //getCategory
 function getCategory() {
 	$.ajax({
@@ -493,6 +560,37 @@ function getCategory() {
 			selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
 			for (i = 0; i < json_.RESPONSE.length; i++) {
 				if (document.getElementById('bid') != null && document.getElementById('bid').value == json_.RESPONSE[i].barrierTypeId) {
+					selectRole.append("<option selected value=" + json_.RESPONSE[i].categoryId + " >" + json_.RESPONSE[i].categoryName + "</option>")
+				} else {
+					selectRole.append("<option value=" + json_.RESPONSE[i].categoryId + " >" + json_.RESPONSE[i].categoryName + "</option>")
+				}
+			}
+
+		},
+		error: function(data) {
+			console.log(data)
+		}
+
+	});
+
+
+}
+
+function getCategoryUpdated(catid) {
+	$.ajax({
+		type: "GET",
+		url: formURL + "/ajax/getCategory",
+		success: function(data) {
+			//Tomcat
+			var json_ = JSON.parse(JSON.stringify(data));
+			//Jboss
+			//var json_ = JSON.parse(data);
+			console.log(json_);
+			var selectRole = $('#categoryId'); // the state select element
+			selectRole.find('option').remove();
+			selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+			for (i = 0; i < json_.RESPONSE.length; i++) {
+				if (document.getElementById('catid') != null && document.getElementById('catid').value == json_.RESPONSE[i].categoryId) {
 					selectRole.append("<option selected value=" + json_.RESPONSE[i].categoryId + " >" + json_.RESPONSE[i].categoryName + "</option>")
 				} else {
 					selectRole.append("<option value=" + json_.RESPONSE[i].categoryId + " >" + json_.RESPONSE[i].categoryName + "</option>")

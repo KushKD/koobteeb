@@ -180,6 +180,18 @@
 
 
 
+    <!-- stockIn Section -->
+    <definition name="stockIn" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/stockinout/stockin.jsp" />
+    </definition>
+
+
+    <definition name="stockOut" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/stockinout/stockout.jsp" />
+    </definition>
+
+    <!-- stockIn Section Ends -->
+
 
 
 
