@@ -20,19 +20,16 @@ public class ItemsEntity {
     private String itemsName;
 
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id")
-    //@LazyToOne(LazyToOneOption.NO_PROXY)
+    @OneToOne
+    @JoinColumn(name = "store_id",updatable = false)
     private StoreEntity store;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
-   // @LazyToOne(LazyToOneOption.NO_PROXY)
+    @OneToOne
+    @JoinColumn(name = "category_id",updatable = false)
     private CategoryItemsEntity categoryItemsEntity;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "unit_id")
-   // @LazyToOne(LazyToOneOption.NO_PROXY)
+    @OneToOne
+    @JoinColumn(name = "unit_id",updatable = false)
     private UnitsEntity units;
 
 

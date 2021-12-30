@@ -25,9 +25,8 @@ public class StockInEntity {
     @Column(name = "quantity")
     private Integer quantity;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
+    @Column(name = "user_id")
+    private Integer userId;
 
     @Column(name = "created_on")
     @Temporal(TemporalType.TIMESTAMP)
@@ -65,12 +64,12 @@ public class StockInEntity {
         this.quantity = quantity;
     }
 
-    public UserEntity getUser() {
-        return user;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser(UserEntity user) {
-        this.user = user;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Date getCreatedDate() {
@@ -88,7 +87,7 @@ public class StockInEntity {
                 ", policeLines=" + policeLines +
                 ", items=" + items +
                 ", quantity=" + quantity +
-                ", user=" + user +
+                ", userId=" + userId +
                 ", createdDate=" + createdDate +
                 '}';
     }

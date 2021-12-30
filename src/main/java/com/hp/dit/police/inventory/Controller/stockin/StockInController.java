@@ -1,4 +1,4 @@
-package com.hp.dit.police.inventory.Controller;
+package com.hp.dit.police.inventory.Controller.stockin;
 
 import com.hp.dit.police.inventory.entities.*;
 import com.hp.dit.police.inventory.form.stockregister.StockinForm;
@@ -86,9 +86,7 @@ public class StockInController {
                 LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
                 System.out.println(user);
 
-                UserEntity userEntity =  new UserEntity();
-                userEntity.setUserId(user.getUserId());
-                stockin.setUser(userEntity);
+                stockin.setUserId(user.getUserId().intValue());
 
                 entitySaved = stockInRepository.save(stockin);
                 form.setQuantity("");
@@ -118,15 +116,11 @@ public class StockInController {
             if(user==null){
                 return "login";
             }else{
-               // List<BeatMaster> beats = beatRepository.getAllBeats();
-               // model.addAttribute("beats", beats);
                 return "stockInView";
             }
-
-
-
-
         }
     }
+
+
 
 }

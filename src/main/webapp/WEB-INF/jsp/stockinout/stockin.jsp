@@ -4,7 +4,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
 <main class="app-content">
    <form:form method="POST" modelAttribute="stockinForm" action="${pageContext.request.contextPath}/saveStockinItem"  class="form-signin">
-      <h2 class="form-signin-heading">Add Item</h2>
+      <h2 class="form-signin-heading">Add Item to Police Line (Stock In)</h2>
       <c:if test="${not empty successMessage}">
          <div id="serverError" class="successMessage">${successMessage}</div>
       </c:if>
@@ -77,7 +77,7 @@
 
     var e = document.getElementById("storeId");
     var storeId = e.options[e.selectedIndex].value ;
-    alert("Selected Value: "+storeId);
+   // alert("Selected Value: "+storeId);
 
     $.ajax({
     		type: "GET",

@@ -17,19 +17,21 @@
 
 <main class="app-content">
 
-<h2 class="form-signin-heading">Districts Master</h2>
+<h2 class="form-signin-heading">View Items in Police Line </h2>
 
-
+<br>
 		<div class="row">
 			<div class="container">
-                    <table id="districts" class="table table-bordered">
+                    <table id="stockin" class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>District ID</th>
-                                <th>District Name</th>
-                                <th>State Name</th>
-                                <th>Active</th>
-                                <th>Update</th>
+                                <th>Stock In ID</th>
+                                <th>Police Line Name</th>
+                                <th>Item Name</th>
+                                <th>Quantity</th>
+                                <th>Units</th>
+                                <th>Stock Entered Date</th>
+                                <th>View Details</th>
                             </tr>
                         </thead>
                     </table>
@@ -42,10 +44,10 @@
 
 <script type="text/javascript">
 
-           $('table#districts').DataTable({
+           $('table#stockin').DataTable({
                ajax: {
                    contentType: 'application/json',
-                   url: '/api/districts',
+                   url: '/api/stokin',
                    type: 'POST',
                    data: function (d) {
                        return JSON.stringify(d);
@@ -54,29 +56,31 @@
                serverSide: true,
                columns: [
                    {
-                       data: 'districtId'
+                       data: 'stockId'
                    },
                    {
-                       data: 'districtName'
+                       data: 'policeLines.policelineName'
                    },
                    {
-                       data: 'stateEntity.stateName',
-                   },
-                   {
-                       data: 'active',
-                      render: function (data) {
-                      console.log(data);
-                      if(data == true){
-                      return '<div class="btn-group btn btn-success ">'+data+'</div>'
-                      }else{
-                       return '<div class="btn-group btn btn-danger ">'+data+'</div>'
-                      }
-
-                      }
+                       data: 'items.itemsName',
                    },{
-                        data: 'districtId',
-                        render: function (data) { return '<div class="btn-group"><a href="${pageContext.request.contextPath}/updateDistrict/${"'+data+'"}" class="btn btn-success" ;>Update</a></div>' }
-                     }
+                                            data: 'quantity'
+                                        },
+                   {
+                       data: 'items.units.unitName'
+
+                   },{
+                        data: 'createdDate',
+                        render: function(data){
+                        var d = new Date(data).toString();
+                        var index = d.lastIndexOf(':') +3
+                        console.log(d.substring(0, index))
+                        return d.substring(0, index);}
+                          },
+                   {
+                                           data: 'stockId',
+                                           render: function (data) { return '<div class="btn-group"><a href="${pageContext.request.contextPath}/updateDistrict/${"'+data+'"}" class="btn btn-success" ;>View Details</a></div>' }
+                                        }
                ]
            });
 
