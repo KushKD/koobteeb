@@ -103,4 +103,30 @@ public class StockInController {
 
 
     }
+
+    @RequestMapping(value = "/stockInView", method = RequestMethod.GET)
+    public String viewbeat(Model model,HttpServletRequest request) throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "login";
+        } else {
+
+
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+               // List<BeatMaster> beats = beatRepository.getAllBeats();
+               // model.addAttribute("beats", beats);
+                return "stockInView";
+            }
+
+
+
+
+        }
+    }
+
 }
