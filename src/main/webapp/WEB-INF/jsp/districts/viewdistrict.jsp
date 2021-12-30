@@ -6,54 +6,81 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/plugins/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/plugins/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/plugins/dataTables.bootstrap.min.js"></script>
+
+
+<style>
+.app-content {
+ background-color: #FFFFFF;
+}
+</style>
+
+
 <main class="app-content">
 
 <h2 class="form-signin-heading">Districts Master</h2>
 
-	<c:if test="${not empty districts}">
+
 		<div class="row">
-			<div class="col-md-12">
-				<div class="tile">
-					<div class="tile-body">
-						<div class="table-responsive">
-							<table class="table table-hover table-bordered" id="sampleTable">
-								<thead>
-									<tr>
-										<th>S.No</th>
-										<th>District Name</th>
-										<th>District Id</th>
-
-										<th>Update</th>
-
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach items="${districts}" var="district" varStatus="loopCounter">
-										<tr>
-											<td>
-												<c:out value="${loopCounter.count}"/>
-											</td>
-											<td>${district.districtName}</td>
-											<td>${district.districtId}</td>
-
-
-											<td>
-												<a href="${pageContext.request.contextPath}/updateDistrict/${district.districtId}" class="button button-success" ;>Update</a>
-											</td>
-
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<div></div>
+			<div class="container">
+                    <table id="districts" class="table">
+                        <thead>
+                            <tr>
+                                <th>District ID</th>
+                                <th>District Name</th>
+                                <th>State Name</th>
+                                <th>Active</th>
+                                <th>Update</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
 				</div>
-			</c:if>
+
 		</main>
 
 
 
 <script type="text/javascript">
-   $('#sampleTable').DataTable();
+
+           $('table#districts').DataTable({
+               ajax: {
+                   contentType: 'application/json',
+                   url: '/api/districts',
+                   type: 'POST',
+                   data: function (d) {
+                       return JSON.stringify(d);
+                   }
+               },
+               serverSide: true,
+               columns: [
+                   {
+                       data: 'districtId'
+                   },
+                   {
+                       data: 'districtName'
+                   },
+                   {
+                       data: 'stateEntity.stateName',
+                   },
+                   {
+                       data: 'active',
+                      render: function (data) {
+                      console.log(data);
+                      if(data == true){
+                      return '<div class="btn-group btn btn-success ">'+data+'</div>'
+                      }else{
+                       return '<div class="btn-group btn btn-danger ">'+data+'</div>'
+                      }
+
+                      }
+                   },{
+                        data: 'districtId',
+                        render: function (data) { return '<div class="btn-group"><a href="${pageContext.request.contextPath}/updateDistrict/${"'+data+'"}" class="btn btn-success" ;>Update</a></div>' }
+                     }
+               ]
+           });
+
+
+
+
    </script>

@@ -1,6 +1,7 @@
 package com.hp.dit.police.inventory.repositories.districtRepository;
 
 import com.hp.dit.police.inventory.entities.DistrictMaster;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -41,7 +42,7 @@ public class DistrictRepositoryCustomImpl implements DistrictRepositoryCustom {
         Predicate deleted = cb.equal(book.get("deleted"), false);
         cq.where(active,deleted);
         TypedQuery<DistrictMaster> query =  entityManager.createQuery(cq);
-        return query.getResultList();
+        return  query.getResultList();
     }
 
     @Override

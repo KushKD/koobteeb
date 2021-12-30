@@ -1,26 +1,27 @@
-package com.hp.dit.police.inventory.Controller;
+package com.hp.dit.police.inventory.Controller.districts;
 
 
 import com.hp.dit.police.inventory.entities.DistrictMaster;
+import com.hp.dit.police.inventory.entities.StatesMaster;
 import com.hp.dit.police.inventory.form.district.DistrictForm;
 import com.hp.dit.police.inventory.modals.LoggedInUserSession;
 import com.hp.dit.police.inventory.repositories.districtRepository.DistrictRepository;
 import com.hp.dit.police.inventory.validators.DistrictValidator;
 import com.hp.dit.police.inventory.validators.DistrictValidatorUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -39,6 +40,10 @@ public class DistrictsController {
 
     @Autowired
     DistrictRepository districtRepository;
+
+
+
+
 
     @RequestMapping(value = "/createDistrict", method = RequestMethod.GET)
           public String createDistrict(Model model) {
@@ -82,7 +87,9 @@ public class DistrictsController {
                           district.setDeleted(false);
                       }
 
-                      district.setStateID(Integer.parseInt(form.getStateId()));
+                      StatesMaster statesMaster = new StatesMaster();
+                      statesMaster.setStateID(Integer.parseInt(form.getStateId()));
+                      district.setStateEntity(statesMaster);
 
 
                       Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -90,7 +97,7 @@ public class DistrictsController {
                       district.setCreatedDate(date);
                       savedistrict = districtRepository.save(district);
                       form.setDistrictName("");
-                      request.getSession().setAttribute("successMessage", "District Saved Successfully. Generated State Id is:- " + savedistrict.getStateID());
+                      request.getSession().setAttribute("successMessage", "District Saved Successfully. Generated State Id is:- " + savedistrict.getDistrictId());
 
                       return "createDistrict";
                   } catch (Exception ex) {
@@ -110,8 +117,8 @@ public class DistrictsController {
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
-            List<DistrictMaster> districts = districtRepository.getAllDistricts();
-            model.addAttribute("districts", districts);
+           // List<DistrictMaster> districts = districtRepository.getAllDistricts();
+           // model.addAttribute("districts", districts);
             return "viewDistrict";
         }
     }
@@ -171,7 +178,9 @@ public class DistrictsController {
                 master.setDistrictName(form.getDistrictName());
                 master.setDistrictId(Integer.parseInt(form.getDistrictId()));
 
-                master.setStateID(Integer.parseInt(form.getStateId()));
+                StatesMaster statesMaster = new StatesMaster();
+                statesMaster.setStateID(Integer.parseInt(form.getStateId()));
+                master.setStateEntity(statesMaster);
 
                 if (form.getDistrictIsActive().equalsIgnoreCase("T")) {
                     master.setActive(true);

@@ -3,6 +3,7 @@ package com.hp.dit.police.inventory.repositories.districtRepository;
 import com.hp.dit.police.inventory.entities.DistrictMaster;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

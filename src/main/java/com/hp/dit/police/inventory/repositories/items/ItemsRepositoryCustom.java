@@ -14,8 +14,8 @@ public interface ItemsRepositoryCustom {
 
     List<ItemsEntity> getAllItems();
     List<ItemList> getAllItemsSelectedColumns();
-    List<ItemListAjax>getAllItemsViaStoreandCategory(Integer cid, Integer sid);
     List<ItemsEntity> getAllActiveItems();
+    List<ItemListAjax> getAllItemsViaStoreandCategory(Integer cid, Integer sid);
     Integer itemCount(String itemName);
     ItemsEntity getItemViaItemId(Integer categoryId);
 }
