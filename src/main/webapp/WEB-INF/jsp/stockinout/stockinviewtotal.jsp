@@ -8,7 +8,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/plugins/dataTables.bootstrap.min.js"></script>
 <main class="app-content">
 
-<h2 class="form-signin-heading">Item Master</h2>
+<h2 class="form-signin-heading">Stock In</h2>
 
 	<c:if test="${not empty item}">
 		<div class="row">
@@ -20,12 +20,10 @@
 								<thead>
 									<tr>
 										<th>S.No</th>
-										<th>Item Id</th>
-										<th>Item Name</th>
 										<th>Store</th>
-										<th>Letter Number</th>
-										<th>Active</th>
-										<th>Update</th>
+										<th>Item Name</th>
+										<th>Total</th>
+										<th>Action</th>
 
 									</tr>
 								</thead>
@@ -35,19 +33,13 @@
 											<td>
 												<c:out value="${loopCounter.count}"/>
 											</td>
-											<td>${item.itemId}</td>
-											<td>${item.itemsName}</td>
-											 <td>${item.storeName}</td>
-											 <td>${item.itemsLetterdoc}</td>
-											<c:if test="${item.active}">
-											<td class="btn-success text-center" style="color:#FFFFFF">Currently Active</td>
-											</c:if>
-											<c:if test="${not item.active}">
-                                            <td class="btn-danger text-center" style="color:#FFFFFF">Not Active</td>
-                                            </c:if>
+											<td>${item.storeName}</td>
+											 <td>${item.itemName}</td>
+											 <td class="btn-warning text-center" style="color:#FFFFFF">${item.sum}</td>
 
-											<td>
-												<a href="${pageContext.request.contextPath}/updateItem/${item.itemId}" class="button button-success" ;>Update</a>
+
+											<td class="btn-success text-center" style="color:#FFFFFF">
+												<a href="${pageContext.request.contextPath}/stockInView/${item.itemId}"  style="text-decoration:none;color:#FFFFFF;">View Details</a>
 											</td>
 
 										</tr>

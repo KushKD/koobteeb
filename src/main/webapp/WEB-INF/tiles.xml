@@ -194,6 +194,11 @@
         <put-attribute name="content" value="/WEB-INF/jsp/stockinout/stockout.jsp" />
     </definition>
 
+
+    <definition name="stockInViewTotal" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/stockinout/stockinviewtotal.jsp" />
+    </definition>
+
     <!-- stockIn Section Ends -->
 
 

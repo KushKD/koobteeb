@@ -1,4 +1,6 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrapd.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/script.js"></script>
@@ -19,6 +21,7 @@
 
 <h2 class="form-signin-heading">View Items in Police Line </h2>
 
+item_id
 <br>
 		<div class="row">
 			<div class="container">
@@ -37,7 +40,9 @@
                     </table>
                 </div>
 				</div>
-
+<c:if test="${not empty item_id}">
+  <input class="form-control col-md-6"  id="itemid" type="hidden" value="${item_id}"  />
+   </c:if>
 		</main>
 
 
@@ -78,7 +83,7 @@
                         return d.substring(0, index);}
                           },
                    {
-                                           data: 'stockId',
+                                           data: 'items.itemsId',
                                            render: function (data) { return '<div class="btn-group"><a href="${pageContext.request.contextPath}/updateDistrict/${"'+data+'"}" class="btn btn-success" ;>View Details</a></div>' }
                                         }
                ]
