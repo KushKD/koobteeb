@@ -1,27 +1,18 @@
 package com.hp.dit.police.inventory.Controller.stockin;
 
-import com.hp.dit.police.inventory.entities.CategoryItemsEntity;
-import com.hp.dit.police.inventory.entities.DistrictMaster;
 import com.hp.dit.police.inventory.entities.StockInEntity;
-import com.hp.dit.police.inventory.entities.StoreEntity;
-import com.hp.dit.police.inventory.modals.ItemGroupWiseTotal;
-import com.hp.dit.police.inventory.repositories.districtRepository.DistrictRepository;
 import com.hp.dit.police.inventory.repositories.stockin.StockInRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 public class StockInRestController {
@@ -34,6 +25,7 @@ public class StockInRestController {
 
     @RequestMapping(value = "/api/stokin", method = RequestMethod.POST)
     public DataTablesOutput<StockInEntity> listPOST(@Valid @RequestBody DataTablesInput input) {
+        System.out.println(input);
         return stockInRepository.findAll(input);
     }
 //@RequestParam(value = "id", required = true) String id
