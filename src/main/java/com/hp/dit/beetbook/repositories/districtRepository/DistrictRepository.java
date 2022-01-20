@@ -2,6 +2,7 @@ package com.hp.dit.beetbook.repositories.districtRepository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.datatables.repository.DataTablesRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -11,6 +12,6 @@ import com.hp.dit.beetbook.entities.DistrictMaster;
 
 
 @Repository
-public interface DistrictRepository extends CrudRepository<DistrictMaster, Integer>, DistrictRepositoryCustom {
+public interface DistrictRepository extends DataTablesRepository <DistrictMaster, Integer>, DistrictRepositoryCustom {
 
 }

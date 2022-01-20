@@ -63,7 +63,7 @@
 					<c:remove var="successMessage" scope="session" /> </form:form>
 				</div>
 				<c:if test="${not empty district_to_update.stateID}">
-                		<input class="form-control col-md-6"  id="did" type="hidden" value="${district_to_update.stateID}"  />
+                		<input class="form-control col-md-6"  id="did" type="hidden" value="${district_to_update.stateID.stateID}"  />
                 	</c:if>
 			</main>
 

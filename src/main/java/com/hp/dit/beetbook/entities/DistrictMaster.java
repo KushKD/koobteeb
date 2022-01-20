@@ -23,13 +23,9 @@ public class DistrictMaster implements Serializable {
 	@Column(name = "is_active")
 	private Boolean active;
 
-	@Column(name = "state_id")
-	private Integer stateID;
-
-//    @OneToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name="state_id", updatable = false )
-//    @LazyToOne(LazyToOneOption.NO_PROXY)
-//    private StatesMaster stateEntity;
+	@OneToOne
+	@JoinColumn(name = "state_id")
+	private StatesMaster stateID;
 
 	@Column(name = "is_deleted")
 	private Boolean deleted;
@@ -54,11 +50,11 @@ public class DistrictMaster implements Serializable {
 		return active;
 	}
 
-	public Integer getStateID() {
+	public StatesMaster getStateID() {
 		return stateID;
 	}
 
-	public void setStateID(Integer stateID) {
+	public void setStateID(StatesMaster stateID) {
 		this.stateID = stateID;
 	}
 

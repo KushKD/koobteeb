@@ -19,10 +19,10 @@ public class S0SdpoMaster implements Serializable {
     private String sosdpoName;
 
     @Column(name="is_active")
-    private boolean isActive;
+    private boolean active;
 
     @Column(name="is_deleted")
-    private boolean isDeleted;
+    private boolean deleted;
 
     @Column(name = "created_on")
     @Temporal(TemporalType.TIMESTAMP)
@@ -50,19 +50,19 @@ public class S0SdpoMaster implements Serializable {
     }
 
     public boolean isActive() {
-        return isActive;
+        return active;
     }
 
     public void setActive(boolean active) {
-        isActive = active;
+        this.active = active;
     }
 
     public boolean isDeleted() {
-        return isDeleted;
+        return deleted;
     }
 
     public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
+        this.deleted = deleted;
     }
 
     public Date getCreatedDate() {
@@ -86,8 +86,8 @@ public class S0SdpoMaster implements Serializable {
         return "S0SdpoMaster{" +
                 "sosdpoId=" + sosdpoId +
                 ", sosdpoName='" + sosdpoName + '\'' +
-                ", isActive=" + isActive +
-                ", isDeleted=" + isDeleted +
+                ", active=" + active +
+                ", deleted=" + deleted +
                 ", createdDate=" + createdDate +
                 ", updatedOn=" + updatedOn +
                 '}';

@@ -1,4 +1,4 @@
-package com.hp.dit.beetbook.Controller;
+package com.hp.dit.beetbook.Controller.beat;
 
 import com.hp.dit.beetbook.entities.BeatMaster;
 import com.hp.dit.beetbook.entities.DistrictMaster;

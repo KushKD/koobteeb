@@ -1,4 +1,4 @@
-package com.hp.dit.beetbook.Controller;
+package com.hp.dit.beetbook.Controller.sosdpo;
 
 
 import com.hp.dit.beetbook.entities.PinMaster;
@@ -123,8 +123,6 @@ public class SoSdpoController {
                 return "login";
             }else{
 
-                List<S0SdpoMaster> sosdpoList = soSdpoRepository.getAllSOSdpo();
-                model.addAttribute("sosdpo", sosdpoList);
                 return "viewSoSdpo";
             }
 

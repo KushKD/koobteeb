@@ -1,4 +1,4 @@
-package com.hp.dit.beetbook.Controller;
+package com.hp.dit.beetbook.Controller.states;
 
 
 import com.hp.dit.beetbook.entities.S0SdpoMaster;
@@ -115,8 +115,8 @@ public class StatesController {
                 return "login";
             }else{
 
-                List<StatesMaster> states = stateRepository.getAllStates();
-                model.addAttribute("states", states);
+               // List<StatesMaster> states = stateRepository.getCompleteListStates();
+               // model.addAttribute("states", states);
                 return "viewStates";
             }
 
@@ -195,7 +195,9 @@ public class StatesController {
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                 Date date = new Date(timestamp.getTime());
                 state.setUpdatedOn(date);
+
                 savedState = stateRepository.save(state);
+                System.out.println("savedState \t"+ savedState.toString());
                 form.setStateName("");
                 request.getSession().setAttribute("successMessage", "State Updated.");
 

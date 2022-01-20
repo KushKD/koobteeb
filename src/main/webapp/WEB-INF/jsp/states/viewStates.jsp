@@ -1,4 +1,6 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrapd.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/script.js"></script>
@@ -6,54 +8,66 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/plugins/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/plugins/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/plugins/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.spring-friendly.js"></script>
+<style>
+   .app-content {
+   background-color: #FFFFFF;
+   }
+</style>
 <main class="app-content">
-
-<h2 class="form-signin-heading">States Master</h2>
-
-	<c:if test="${not empty states}">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="tile">
-					<div class="tile-body">
-						<div class="table-responsive">
-							<table class="table table-hover table-bordered" id="sampleTable">
-								<thead>
-									<tr>
-										<th>S.No</th>
-										<th>State Name</th>
-										<th>State Id</th>
-
-										<th>Update</th>
-
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach items="${states}" var="state" varStatus="loopCounter">
-										<tr>
-											<td>
-												<c:out value="${loopCounter.count}"/>
-											</td>
-											<td>${state.stateName}</td>
-											<td>${state.stateID}</td>
+   <div class="row" style="box-shadow: 0 0 8px 2px #888; padding:10px;">
+      <div class="container">
+      <h2 class="form-signin-heading">State Master</h2>
+         <table id="sampleTable" class="table table-striped table-bordered">
+            <thead>
+               <tr>
+                  <th>State Id</th>
+                  <th>State Name</th>
+                  <th> Active/Inactive</th>
+                  <th> Action</th>
+               </tr>
+            </thead>
+         </table>
+      </div>
+   </div>
+</main>
 
 
-											<td>
-												<a href="${pageContext.request.contextPath}/updateState/${state.stateID}" class="button button-success" ;>Update</a>
-											</td>
+<script>
+	$('table#sampleTable').DataTable({
+		ajax: '/apidataTable/allStates',
+		serverSide: true,
+		columns: [
 
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<div></div>
-				</div>
-			</c:if>
-		</main>
+			{
+				data: 'stateID'
+			},
+			{
+				data: 'stateName'
+			},
+
+			{
+				data: 'active',
+				render: function (data) {
+					console.log(data);
+					if (data == true) {
+						return '<div class="button-group btn btn-success" style="width:100%">' + data + '</div>'
+					} else {
+						return '<div class="button-group btn btn-danger" style="width:100%">' + data + '</div>'
+					}
+				}
+			},
 
 
+			{
+				data: 'stateID',
+				render: function (data) {
+					return '<div class="btn-group"><a href="${pageContext.request.contextPath}/updateState/${"' + data + '"}" class="btn btn-primary" ;>Update</a></div>'
+				}
 
-<script type="text/javascript">
-   $('#sampleTable').DataTable();
-   </script>
+
+			}
+		]
+	});
+
+</script>

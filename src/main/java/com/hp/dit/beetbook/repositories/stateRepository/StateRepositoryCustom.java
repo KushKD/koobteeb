@@ -9,13 +9,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-@CacheConfig(cacheNames = "states_")
+//@CacheConfig(cacheNames = "states_")
 public interface StateRepositoryCustom {
 
-
-    @Cacheable
     List<StatesMaster> getAllStates();
-
     List<StatesMaster> getCompleteListStates();
     StatesMaster getStateViaStateId(Integer stateID);
     List<StateModal> getHimachalState();

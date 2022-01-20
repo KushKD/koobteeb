@@ -1,8 +1,9 @@
-package com.hp.dit.beetbook.Controller;
+package com.hp.dit.beetbook.Controller.districts;
 
 
 import com.hp.dit.beetbook.entities.BeatMaster;
 import com.hp.dit.beetbook.entities.DistrictMaster;
+import com.hp.dit.beetbook.entities.StatesMaster;
 import com.hp.dit.beetbook.form.beat.BeatForm;
 import com.hp.dit.beetbook.form.district.DistrictForm;
 import com.hp.dit.beetbook.modals.LoggedInUserSession;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -84,7 +86,9 @@ public class DistrictsController {
                           district.setDeleted(false);
                       }
 
-                      district.setStateID(Integer.parseInt(form.getStateId()));
+                      StatesMaster statesMaster = new StatesMaster();
+                      statesMaster.setStateID(Integer.parseInt(form.getStateId()));
+                      district.setStateID(statesMaster);
 
 
                       Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -112,8 +116,6 @@ public class DistrictsController {
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
-            List<DistrictMaster> districts = districtRepository.getAllDistricts();
-            model.addAttribute("districts", districts);
             return "viewDistrict";
         }
     }
@@ -173,7 +175,9 @@ public class DistrictsController {
                 master.setDistrictName(form.getDistrictName());
                 master.setDistrictId(Integer.parseInt(form.getDistrictId()));
 
-                master.setStateID(Integer.parseInt(form.getStateId()));
+                StatesMaster statesMaster = new StatesMaster();
+                statesMaster.setStateID(Integer.parseInt(form.getStateId()));
+                master.setStateID(statesMaster);
 
                 if (form.getDistrictIsActive().equalsIgnoreCase("T")) {
                     master.setActive(true);

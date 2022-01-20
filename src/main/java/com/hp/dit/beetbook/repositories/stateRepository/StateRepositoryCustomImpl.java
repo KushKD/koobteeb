@@ -26,8 +26,8 @@ public class StateRepositoryCustomImpl implements StateRepositoryCustom{
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<StatesMaster> cq = cb.createQuery(StatesMaster.class);
         Root<StatesMaster> book = cq.from(StatesMaster.class);
-        Predicate isActive_ = cb.equal(book.get("isActive"), true);
-        Predicate isDeleted_ = cb.equal(book.get("isDeleted"), false);
+        Predicate isActive_ = cb.equal(book.get("active"), true);
+        Predicate isDeleted_ = cb.equal(book.get("deleted"), false);
         cq.where(isActive_,isDeleted_);
         TypedQuery<StatesMaster> query =  entityManager.createQuery(cq);
         return query.getResultList();
@@ -58,8 +58,8 @@ public class StateRepositoryCustomImpl implements StateRepositoryCustom{
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<StateModal> cq = cb.createQuery(StateModal.class);
         Root<StatesMaster> book = cq.from(StatesMaster.class);
-         Predicate isActive_ = cb.equal(book.get("isActive"), true);
-        Predicate isDeleted_ = cb.equal(book.get("isDeleted"), false);
+         Predicate isActive_ = cb.equal(book.get("active"), true);
+        Predicate isDeleted_ = cb.equal(book.get("deleted"), false);
         Predicate stateId = cb.equal(book.get("stateID"), Constants.stateID);
         cq.where(isActive_,isDeleted_,stateId);
         cq.multiselect(book.get("stateID"), book.get("stateName")).distinct(true);
@@ -72,8 +72,8 @@ public class StateRepositoryCustomImpl implements StateRepositoryCustom{
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<StatesMaster> book = cq.from(StatesMaster.class);
-        Predicate isActive_ = cb.equal(book.get("isActive"), true);
-        Predicate isDeleted_ = cb.equal(book.get("isDeleted"), false);
+        Predicate isActive_ = cb.equal(book.get("active"), true);
+        Predicate isDeleted_ = cb.equal(book.get("deleted"), false);
         Predicate stateName = cb.equal(book.get("stateName"), StateName);
         cq.where(isActive_,isDeleted_,stateName);
         cq.select(cb.count(book)).where(isActive_,isDeleted_,stateName);
