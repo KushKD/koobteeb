@@ -12,24 +12,24 @@ public class BeatForm implements Serializable {
     private String sosdpoId;
     private String isActive;
     private String isDeleted;
-    private String latitude;
-    private String longitude;
+    //private String latitude;
+    //private String longitude;
 
-    public String getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
-    }
-
-    public String getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
+//    public String getLatitude() {
+//        return latitude;
+//    }
+//
+//    public void setLatitude(String latitude) {
+//        this.latitude = latitude;
+//    }
+//
+//    public String getLongitude() {
+//        return longitude;
+//    }
+//
+//    public void setLongitude(String longitude) {
+//        this.longitude = longitude;
+//    }
 
     public String getBeatId() {
         return beatId;
@@ -106,8 +106,8 @@ public class BeatForm implements Serializable {
                 ", sosdpoId='" + sosdpoId + '\'' +
                 ", isActive='" + isActive + '\'' +
                 ", isDeleted='" + isDeleted + '\'' +
-                ", latitude='" + latitude + '\'' +
-                ", longitude='" + longitude + '\'' +
+               // ", latitude='" + latitude + '\'' +
+               // ", longitude='" + longitude + '\'' +
                 '}';
     }
 }

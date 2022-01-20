@@ -2,6 +2,7 @@ package com.hp.dit.beetbook.Controller;
 
 import com.hp.dit.beetbook.entities.BeatMaster;
 import com.hp.dit.beetbook.entities.DistrictMaster;
+import com.hp.dit.beetbook.entities.StatesMaster;
 import com.hp.dit.beetbook.form.activebeat.ActiveBeat;
 import com.hp.dit.beetbook.form.beat.BeatForm;
 import com.hp.dit.beetbook.form.district.DistrictForm;
@@ -92,13 +93,19 @@ public class BeatController {
                     beat.setDeleted(false);
                 }
 
-                beat.setStateID(Integer.parseInt(form.getStateId()));
-                beat.setDistrictId(Integer.parseInt(form.getDistrictId()));
+                StatesMaster stateId = new StatesMaster();
+                stateId.setStateID(Integer.parseInt(form.getStateId()));
+                beat.setStateID(stateId);
+
+                DistrictMaster districtMaster = new DistrictMaster();
+                districtMaster.setDistrictId(Integer.parseInt(form.getDistrictId()));
+                beat.setDistrictId(districtMaster);
+
                 beat.setSosdpoId(Integer.parseInt(form.getSosdpoId()));
                 beat.setPsId(Integer.parseInt(form.getPsId()));
 
-                beat.setLatitude(Double.parseDouble(form.getLatitude()));
-                beat.setLongitude(Double.parseDouble(form.getLongitude()));
+               // beat.setLatitude(Double.parseDouble(form.getLatitude()));
+               // beat.setLongitude(Double.parseDouble(form.getLongitude()));
 
 
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -203,23 +210,32 @@ public class BeatController {
                     beat.setDeleted(false);
                 }
 
-                beat.setStateID(Integer.parseInt(form.getStateId()));
-                beat.setDistrictId(Integer.parseInt(form.getDistrictId()));
+                StatesMaster stateId = new StatesMaster();
+                stateId.setStateID(Integer.parseInt(form.getStateId()));
+                beat.setStateID(stateId);
+
+                DistrictMaster districtMaster = new DistrictMaster();
+                districtMaster.setDistrictId(Integer.parseInt(form.getDistrictId()));
+                beat.setDistrictId(districtMaster);
+
+
+
+
                 beat.setSosdpoId(Integer.parseInt(form.getSosdpoId()));
                 beat.setPsId(Integer.parseInt(form.getPsId()));
 
-                beat.setLatitude(Double.parseDouble(form.getLatitude()));
-                beat.setLongitude(Double.parseDouble(form.getLongitude()));
+               // beat.setLatitude(Double.parseDouble(form.getLatitude()));
+               // beat.setLongitude(Double.parseDouble(form.getLongitude()));
 
                 GeometryFactory geometryFactory = new GeometryFactory();
 
-                Coordinate coordinate = new Coordinate();
-                coordinate.x = beat.getLongitude();
-                coordinate.y = beat.getLatitude();
-
-                Point myPoint = geometryFactory.createPoint(coordinate);
-                myPoint.setSRID(4326);
-                beat.setBeatGeometry(myPoint);
+//                Coordinate coordinate = new Coordinate();
+//                coordinate.x = beat.getLongitude();
+//                coordinate.y = beat.getLatitude();
+//
+//                Point myPoint = geometryFactory.createPoint(coordinate);
+//                myPoint.setSRID(4326);
+//                beat.setBeatGeometry(myPoint);
 
 
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());

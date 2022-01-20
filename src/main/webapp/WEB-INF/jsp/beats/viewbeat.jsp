@@ -1,55 +1,83 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrapd.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/script.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/plugins/pace.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css"/>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/plugins/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/plugins/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/plugins/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.spring-friendly.js"></script>
+<style>
+   .app-content {
+   background-color: #FFFFFF;
+   }
+</style>
 <main class="app-content">
-   <h2 class="form-signin-heading">Beat Master</h2>
-
-   <div class="md-12" style="background-color:#FFFFFF">
-           <table id="sampleTable" class="table">
-               <thead>
-                   <tr>
-                     <th>Beat Name</th>
-                     <th>Beat Id</th>
-                     <th> Active/Inactive</th>
-                     <th> Created Date</th>
-                     <th> Action</th>
-                   </tr>
-               </thead>
-           </table>
-       </div>
-
+   <div class="row" style="box-shadow: 0 0 8px 2px #888; padding:10px;">
+      <div class="container">
+      <h2 class="form-signin-heading">Beat Master</h2>
+         <table id="sampleTable" class="table table-striped table-bordered">
+            <thead>
+               <tr>
+                  <th>Beat Id</th>
+                  <th>Beat Name</th>
+                  <th>District Name</th>
+                  <th>State Name</th>
+                  <th> Active/Inactive</th>
+                  <th> Action</th>
+               </tr>
+            </thead>
+         </table>
+      </div>
+   </div>
 </main>
 
+
 <script>
-   $('table#sampleTable').DataTable({
-       ajax: '/apidataTable/allbeats',
-       serverSide: true,
-       columns: [
-           {
-               data: 'beatName'
-           },
-           {
-               data: 'beatId'
-           },
-           {
-               data: 'active'
-           },
-           {
-                          data: 'createdDate'
-            },
-            {
-                   data: 'beatId',
-                   render: function (data) { return '<div class="btn-group"><a href="${pageContext.request.contextPath}/updateBeat/${"'+data+'"}" class="btn btn-success" ;>Update</a></div>' }
+	$('table#sampleTable').DataTable({
+		ajax: '/apidataTable/allbeats',
+		serverSide: true,
+		columns: [
+
+			{
+				data: 'beatId'
+			},
+			{
+				data: 'beatName'
+			},
+
+			{
+				data: 'districtId.districtName'
+			},
+			{
+				data: 'stateID.stateName',
+			},
 
 
-             }
-       ]
-   });
+			{
+				data: 'active',
+				render: function (data) {
+					console.log(data);
+					if (data == true) {
+						return '<div class="button-group btn btn-success" style="width:100%">' + data + '</div>'
+					} else {
+						return '<div class="button-group btn btn-danger" style="width:100%">' + data + '</div>'
+					}
+				}
+			},
 
-    $(".dataTables_wrapper").css("width","100%");
+
+			{
+				data: 'beatId',
+				render: function (data) {
+					return '<div class="btn-group"><a href="${pageContext.request.contextPath}/updateBeat/${"' + data + '"}" class="btn btn-primary" ;>Update</a></div>'
+				}
+
+
+			}
+		]
+	});
+
 </script>

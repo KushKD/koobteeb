@@ -21,11 +21,13 @@ public class BeatMaster implements Serializable {
     @Column(name = "beat_name")
     private String beatName;
 
-    @Column(name = "state_id")
-    private Integer stateID;
+    @OneToOne()
+    @JoinColumn(name = "state_id")
+    private StatesMaster stateID;
 
-    @Column(name = "district_id")
-    private Integer districtId;
+    @OneToOne()
+    @JoinColumn(name = "district_id")
+    private DistrictMaster districtId;
 
     @Column(name = "sosdpo_id")
     private Integer sosdpoId;
@@ -41,11 +43,12 @@ public class BeatMaster implements Serializable {
     private Boolean deleted;
 
 
-    @Column(name = "latitude")
-    private Double latitude;
 
-    @Column(name = "longitude")
-    private Double longitude;
+//    @Column(name = "latitude")
+//    private Double latitude;
+//
+//    @Column(name = "longitude")
+//    private Double longitude;
 
     @Column(name = "createddate")
     @Temporal(TemporalType.TIMESTAMP)
@@ -56,33 +59,33 @@ public class BeatMaster implements Serializable {
     private Date updatedOn;
 
 
-    @Column(nullable = false, name="beat_geometry" ,columnDefinition = "geometry(Point,4326)")
-    @JsonDeserialize(as = Point.class)
-    private Geometry  beatGeometry;
+//    @Column(nullable = false, name="beat_geometry" ,columnDefinition = "geometry(Point,4326)")
+//    @JsonDeserialize(as = Point.class)
+//    private Geometry  beatGeometry;
 
-    public Geometry getBeatGeometry() {
-        return beatGeometry;
-    }
-
-    public void setBeatGeometry(Geometry beatGeometry) {
-        this.beatGeometry = beatGeometry;
-    }
-
-    public Double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
-
-    public Double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
-    }
+//    public Geometry getBeatGeometry() {
+//        return beatGeometry;
+//    }
+//
+//    public void setBeatGeometry(Geometry beatGeometry) {
+//        this.beatGeometry = beatGeometry;
+//    }
+//
+//    public Double getLatitude() {
+//        return latitude;
+//    }
+//
+//    public void setLatitude(Double latitude) {
+//        this.latitude = latitude;
+//    }
+//
+//    public Double getLongitude() {
+//        return longitude;
+//    }
+//
+//    public void setLongitude(Double longitude) {
+//        this.longitude = longitude;
+//    }
 
     public Integer getBeatId() {
         return beatId;
@@ -100,19 +103,19 @@ public class BeatMaster implements Serializable {
         this.beatName = beatName;
     }
 
-    public Integer getStateID() {
+    public StatesMaster getStateID() {
         return stateID;
     }
 
-    public void setStateID(Integer stateID) {
+    public void setStateID(StatesMaster stateID) {
         this.stateID = stateID;
     }
 
-    public Integer getDistrictId() {
+    public DistrictMaster getDistrictId() {
         return districtId;
     }
 
-    public void setDistrictId(Integer districtId) {
+    public void setDistrictId(DistrictMaster districtId) {
         this.districtId = districtId;
     }
 
@@ -175,11 +178,8 @@ public class BeatMaster implements Serializable {
                 ", psId=" + psId +
                 ", active=" + active +
                 ", deleted=" + deleted +
-                ", latitude=" + latitude +
-                ", longitude=" + longitude +
                 ", createdDate=" + createdDate +
                 ", updatedOn=" + updatedOn +
-                ", beatGeometry=" + beatGeometry +
                 '}';
     }
 }

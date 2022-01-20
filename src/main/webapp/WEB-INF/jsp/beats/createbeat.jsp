@@ -26,19 +26,7 @@
          </div>
       </spring:bind>
 
-      <spring:bind path="latitude">
-               <div class="form-group ${status.error ? 'has-error' : ''}">
-                  <form:input type="text" path="latitude" class="form-control"  autocomplete="off"   placeholder="Latitude"></form:input>
-                  <form:errors path="latitude"></form:errors>
-               </div>
-            </spring:bind>
 
-             <spring:bind path="longitude">
-                           <div class="form-group ${status.error ? 'has-error' : ''}">
-                              <form:input type="text" path="longitude" class="form-control"  autocomplete="off"   placeholder="longitude"></form:input>
-                              <form:errors path="longitude"></form:errors>
-                           </div>
-                        </spring:bind>
 
       <spring:bind path="stateId">
          <div class="form-group  ${status.error ? 'has-error' : ''}">

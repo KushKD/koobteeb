@@ -26,19 +26,7 @@
          </div>
       </spring:bind>
 
-      <spring:bind path="latitude">
-                     <div class="form-group ${status.error ? 'has-error' : ''}">
-                        <form:input type="text" path="latitude" class="form-control" value="${beat_to_update.latitude}" autocomplete="off"   placeholder="Latitude"></form:input>
-                        <form:errors path="latitude"></form:errors>
-                     </div>
-                  </spring:bind>
 
-                   <spring:bind path="longitude">
-                                 <div class="form-group ${status.error ? 'has-error' : ''}">
-                                    <form:input type="text" path="longitude" class="form-control" value="${beat_to_update.longitude}" autocomplete="off"   placeholder="longitude"></form:input>
-                                    <form:errors path="longitude"></form:errors>
-                                 </div>
-                              </spring:bind>
 
 
       <spring:bind path="stateId">
@@ -97,8 +85,8 @@
       <c:remove var="successMessage" scope="session" />
    </form:form>
    </div>
-   <input class="form-control col-md-6"  id="did" type="hidden" value="${beat_to_update.stateID}"  />
-      <input class="form-control col-md-6"  id="sid" type="hidden" value="${beat_to_update.districtId}"  />
+   <input class="form-control col-md-6"  id="did" type="hidden" value="${beat_to_update.stateID.stateID}"  />
+      <input class="form-control col-md-6"  id="sid" type="hidden" value="${beat_to_update.districtId.districtId}"  />
       <input class="form-control col-md-6"  id="sosid" type="hidden" value="${beat_to_update.sosdpoId}"  />
        <input class="form-control col-md-6"  id="psid" type="hidden" value="${beat_to_update.psId}"  />
 </main>
