@@ -17,7 +17,7 @@
    </div>
 
  <div class="row">
-    <sec:authorize access="hasAnyAuthority('SUPER ADMIN','ADMIN')">
+    <sec:authorize access="hasAnyAuthority('SUPER ADMIN')">
       <div class="col-md-6 col-lg-3">
          <div class="widget-small primary coloured-icon">
             <i class="icon fa fa-id-badge fa-3x"></i>
@@ -29,7 +29,7 @@
          </div>
       </div>
       </sec:authorize>
-       <sec:authorize access="hasAnyAuthority('SUPER ADMIN','ADMIN')">
+       <sec:authorize access="hasAnyAuthority('SUPER ADMIN')">
             <div class="col-md-6 col-lg-3">
                <div class="widget-small primary coloured-icon">
                   <i class="icon fa fa-id-badge fa-3x"></i>
@@ -41,7 +41,7 @@
                </div>
             </div>
             </sec:authorize>
-        <sec:authorize access="hasAnyAuthority('SUPER ADMIN','ADMIN')">
+        <sec:authorize access="hasAnyAuthority('SUPER ADMIN')">
       <div class="col-md-6 col-lg-3">
          <div class="widget-small info coloured-icon">
             <i class="icon fa fa-search fa-3x"></i>
@@ -54,7 +54,7 @@
       </div>
       </sec:authorize>
 
-        <sec:authorize access="hasAnyAuthority('SUPER ADMIN','ADMIN')">
+        <sec:authorize access="hasAnyAuthority('SUPER ADMIN')">
             <div class="col-md-6 col-lg-3">
                <div class="widget-small info coloured-icon">
                   <i class="icon fa fa-search fa-3x"></i>
@@ -67,7 +67,7 @@
             </div>
             </sec:authorize>
 
-      <sec:authorize access="hasAnyAuthority('SUPER ADMIN','ADMIN')">
+      <sec:authorize access="hasAnyAuthority('SUPER ADMIN')">
          <div class="col-md-6 col-lg-3">
             <div class="widget-small warning coloured-icon">
                <i class="icon fa fa-user fa-3x"></i>
@@ -79,7 +79,7 @@
             </div>
          </div>
       </sec:authorize>
-       <sec:authorize access="hasAnyAuthority('SUPER ADMIN','ADMIN')">
+       <sec:authorize access="hasAnyAuthority('SUPER ADMIN')">
                <div class="col-md-6 col-lg-3">
                   <div class="widget-small warning coloured-icon">
                      <i class="icon fa fa-inr fa-3x"></i>
@@ -91,7 +91,7 @@
                   </div>
                </div>
             </sec:authorize>
-            <sec:authorize access="hasAnyAuthority('SUPER ADMIN','ADMIN')">
+            <sec:authorize access="hasAnyAuthority('SUPER ADMIN')">
                            <div class="col-md-6 col-lg-3">
                               <div class="widget-small warning coloured-icon">
                                  <i class="icon fa fa-money fa-3x"></i>
@@ -103,7 +103,7 @@
                               </div>
                            </div>
                         </sec:authorize>
-      <sec:authorize access="hasAnyAuthority('SUPER ADMIN','ADMIN')">
+      <sec:authorize access="hasAnyAuthority('SUPER ADMIN')">
          <div class="col-md-6 col-lg-3">
             <div class="widget-small danger coloured-icon">
                <i class="icon fa fa-file-excel-o fa-3x"></i>
