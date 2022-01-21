@@ -19,8 +19,9 @@ public class SubModuleMaster {
     @Column(name = "submodule_icon")
     private String subiconName;
 
-    @Column(name = "module_id")
-    private Integer moduleId;
+    @OneToOne
+    @JoinColumn(name = "module_id")
+    private ModuleMaster moduleId;
 
     @Column(name = "active")
     private Boolean active;
@@ -60,11 +61,11 @@ public class SubModuleMaster {
         this.subiconName = subiconName;
     }
 
-    public Integer getModuleId() {
+    public ModuleMaster getModuleId() {
         return moduleId;
     }
 
-    public void setModuleId(Integer moduleId) {
+    public void setModuleId(ModuleMaster moduleId) {
         this.moduleId = moduleId;
     }
 

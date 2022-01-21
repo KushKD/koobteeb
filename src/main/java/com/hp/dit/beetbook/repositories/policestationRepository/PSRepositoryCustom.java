@@ -9,11 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-@CacheConfig(cacheNames = "policeStation")
 public interface PSRepositoryCustom {
-
-
-
     List<PoliceStationMaster> getAllPoliceStation() throws Exception;
     PoliceStationMaster getPoliceStationViaId(Integer districtId) throws Exception;
     Integer psCount(String so_sdpo);

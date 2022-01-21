@@ -46,9 +46,6 @@ public class SubModuleRepositoryCustomImpl implements SubModuleRepositoryCustom 
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<SubModuleMaster> cq = cb.createQuery(SubModuleMaster.class);
         Root<SubModuleMaster> book = cq.from(SubModuleMaster.class);
-        Predicate isActive_ = cb.equal(book.get("active"), true);
-        Predicate isDeleted_ = cb.equal(book.get("deleted"), false);
-        cq.where(isActive_,isDeleted_);
         TypedQuery<SubModuleMaster> query =  entityManager.createQuery(cq);
         return query.getResultList();
     }

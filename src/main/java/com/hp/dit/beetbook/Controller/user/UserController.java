@@ -1,4 +1,4 @@
-package com.hp.dit.beetbook.Controller;
+package com.hp.dit.beetbook.Controller.user;
 
 import com.hp.dit.beetbook.CustomLogin.CustomUserService;
 import com.hp.dit.beetbook.entities.RolesEntity;
@@ -81,30 +81,6 @@ public class UserController {
             if(user==null){
                 return "login";
             }else{
-
-                List<Object[]> users = userRepository.getUsersDetails();
-                List<UsersDetials> usersDetails = new ArrayList<>();
-
-                for (Object[] result : users) {
-                    UsersDetials pojo = new UsersDetials();
-                    pojo.setUser_id((Integer) result[0]);
-                    pojo.setFirst_name((String) result[1]);
-                    pojo.setLast_name((String) result[2]);
-                    pojo.setUsername((String) result[3]);
-                    pojo.setRole_id((Integer) result[4]);
-                    pojo.setRole_name((String) result[5]);
-                    pojo.setMobile_number((BigInteger) result[6]);
-                    pojo.setState_id((Integer) result[7]);
-                    pojo.setState_name((String) result[8]);
-                    pojo.setDistrict_id((Integer) result[9]);
-                    pojo.setDistrict_name((String) result[10]);
-                    pojo.setBeat_id((Integer) result[11]);
-                    pojo.setBeat_name((String) result[12]);
-                    usersDetails.add(pojo);
-                }
-
-                model.addAttribute("usersDetails", usersDetails);
-                System.out.println(usersDetails.toString());
                 return "viewUser";
             }
 
@@ -115,8 +91,8 @@ public class UserController {
     }
 
     //updateUser
-    @RequestMapping(value = "/updateUser/{user_id}/{role_id_old}", method = RequestMethod.GET)
-    public String updateUser(@PathVariable("user_id")Integer user_id, @PathVariable("role_id_old")Integer role_id_old, Model model, HttpServletRequest request) throws Exception {
+    @RequestMapping(value = "/updateUser/{user_id}", method = RequestMethod.GET)
+    public String updateUser(@PathVariable("user_id")Integer user_id, Model model, HttpServletRequest request) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
@@ -130,7 +106,7 @@ public class UserController {
             }else{
 
 
-                List<Object[]> users = userRepository.getSpecificUserViaUserRoleId(user_id,role_id_old);
+                List<Object[]> users = userRepository.getSpecificUserViaUserRoleId(user_id);
                 List<UsersDetials> usersDetails = new ArrayList<>();
 
                 for (Object[] result : users) {
@@ -156,7 +132,7 @@ public class UserController {
                 }
 
                 model.addAttribute("usersDetails", usersDetails.get(0));
-                model.addAttribute("userRoleIdOld", role_id_old);
+                model.addAttribute("userRoleIdOld", usersDetails.get(0).getRole_id());
                 model.addAttribute("updateUser", new UpdateUser());
                 System.out.println(usersDetails.get(0).toString());
                 return "updateUser";

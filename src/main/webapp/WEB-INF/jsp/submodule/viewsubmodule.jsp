@@ -1,4 +1,6 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrapd.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/script.js"></script>
@@ -6,52 +8,81 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/plugins/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/plugins/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/plugins/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.spring-friendly.js"></script>
+<style>
+   .app-content {
+   background-color: #FFFFFF;
+   }
+</style>
 <main class="app-content">
-
-<h2 class="form-signin-heading">Sub Module Master</h2>
-
-	<c:if test="${not empty submodules}">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="tile">
-					<div class="tile-body">
-						<div class="table-responsive">
-							<table class="table table-hover table-bordered" id="sampleTable">
-								<thead>
-									<tr>
-										<th>S.No</th>
-										<th>Sub Module Name</th>
-										<th>Sub Module Id</th>
-										<th>Sub Module Image</th>
-										<th>Update</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach items="${submodules}" var="submodule" varStatus="loopCounter">
-										<tr>
-											<td>
-												<c:out value="${loopCounter.count}"/>
-											</td>
-											<td>${submodule.submoduleName}</td>
-											<td>${submodule.submoduleId}</td>
-											<td> <a style="text-decoration:none;" href="${pageContext.request.contextPath}/downloadFile/${submodule.subiconName}" targer="_blank">${submodule.subiconName}</a></td>
-											<td>
-												<a href="${pageContext.request.contextPath}/updatesubModule/${submodule.submoduleId}" class="button button-success" ;>Update</a>
-											</td>
-
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<div></div>
-				</div>
-			</c:if>
-		</main>
+   <div class="row" style="box-shadow: 0 0 8px 2px #888; padding:10px;">
+      <div class="container">
+      <h2 class="form-signin-heading">Sub Module Master</h2>
+         <table id="sampleTable" class="table table-striped table-bordered">
+            <thead>
+               <tr>
+                  <th>Sub Module Id</th>
+                  <th>Sub Module Name</th>
+                  <th>Sub Module Image</th>
+                   <th>Module Name</th>
+                  <th> Active/Inactive</th>
+                  <th> Action</th>
+               </tr>
+            </thead>
+         </table>
+      </div>
+   </div>
+</main>
 
 
+<script>
 
-<script type="text/javascript">
-   $('#sampleTable').DataTable();
-   </script>
+
+	$('table#sampleTable').DataTable({
+		ajax:  '/apidataTable/allSubModules',
+		serverSide: true,
+		columns: [
+
+			{
+				data: 'submoduleId'
+			},
+			{
+				data: 'submoduleName'
+			},
+			{
+            				data: 'subiconName',
+            				render: function (data) {
+                            					return '<div class="btn-group"><a href="${pageContext.request.contextPath}/downloadFile/${"' + data + '"}" class="btn btn-warning" ;>'+data+'</a></div>'
+                            				}
+            			},
+
+{
+				data: 'moduleId.moduleName'
+			},
+
+
+			{
+				data: 'active',
+				render: function (data) {
+					console.log(data);
+					if (data == true) {
+						return '<div class="button-group btn btn-success" style="width:100%">' + data + '</div>'
+					} else {
+						return '<div class="button-group btn btn-danger" style="width:100%">' + data + '</div>'
+					}
+				}
+			},
+
+
+			{
+				data: 'submoduleId',
+				render: function (data) {
+					return '<div class="btn-group"><a href="${pageContext.request.contextPath}/updatesubModule/${"' + data + '"}" class="btn btn-primary" ;>Update</a></div>'
+				}
+
+
+			}
+		]
+	});
+
+</script>

@@ -26,8 +26,8 @@ public class RolesEntity   {
 //    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //    @JoinTable(name = "user_role_mapping", joinColumns = @JoinColumn(name = "roleId", referencedColumnName = "role_id"),
 //                                           inverseJoinColumns = @JoinColumn(name = "userId", referencedColumnName = "user_id"))
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<UserEntity> users;
+//    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<UserEntity> users;
 
 	public int getRoleId() {
 		return roleId;
@@ -61,21 +61,22 @@ public class RolesEntity   {
 		this.active = active;
 	}
 
-	public List<UserEntity> getUsers() {
-		return users;
-	}
+//	public List<UserEntity> getUsers() {
+//		return users;
+//	}
+//
+//	public void setUsers(List<UserEntity> users) {
+//		this.users = users;
+//	}
 
-	public void setUsers(List<UserEntity> users) {
-		this.users = users;
-	}
 
 	@Override
 	public String toString() {
-		return "RolesEntity [roleId=" + roleId + ", roleName=" + roleName + ", roleDescription=" + roleDescription
-				+ ", active=" + active + ", users=" + users + "]";
+		return "RolesEntity{" +
+				"roleId=" + roleId +
+				", roleName='" + roleName + '\'' +
+				", roleDescription='" + roleDescription + '\'' +
+				", active=" + active +
+				'}';
 	}
-	
-	
-
-    
 }

@@ -35,9 +35,9 @@ public class PSRepositoryCustomImpl implements PSRepositoryCustom {
         CriteriaQuery<PoliceStationMaster> cq = cb.createQuery(PoliceStationMaster.class);
         Root<PoliceStationMaster> book = cq.from(PoliceStationMaster.class);
         Predicate id = cb.equal(book.get("psId"), psid);
-        Predicate active = cb.equal(book.get("active"), true);
-        Predicate deleted = cb.equal(book.get("deleted"), false);
-        cq.where(id,active,deleted);
+       // Predicate active = cb.equal(book.get("active"), true);
+       // Predicate deleted = cb.equal(book.get("deleted"), false);
+        cq.where(id);
         TypedQuery<PoliceStationMaster> query =  entityManager.createQuery(cq);
         return query.getResultList().get(0);
     }

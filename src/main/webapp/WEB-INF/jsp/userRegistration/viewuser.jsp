@@ -1,4 +1,6 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrapd.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/script.js"></script>
@@ -6,59 +8,90 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/plugins/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/plugins/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/plugins/dataTables.bootstrap.min.js"></script>
-<main class="app-content">
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.spring-friendly.js"></script>
+<style>
+   .app-content {
+   background-color: #FFFFFF;
+   }
+</style>
+<main class="app-content" style="box-shadow: 0 0 8px 2px #888;">
+   <div class="row" >
+      <div class="container">
+      <h2 class="form-signin-heading">User Master</h2>
+         <table id="sampleTable" class="table table-responsive table-striped table-bordered">
+            <thead>
+               <tr>
+                  <th>User Id</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Mobile Number</th>
+                  <th>Beat Name</th>
+                  <th>Police Station Name</th>
+                  <th>SO/SDPO</th>
 
-<h2 class="form-signin-heading">Registered Users</h2>
-
-	<c:if test="${not empty usersDetails}">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="tile">
-					<div class="tile-body">
-						<div class="table-responsive">
-							<table class="table table-hover table-bordered" id="sampleTable">
-								<thead>
-									<tr>
-										<th>S.No</th>
-										<th>Name</th>
-										<th>Username</th>
-										<th>District</th>
-										<th>Beat</th>
-										<th>Role Name</th>
-										<th>Mobile Number</th>
-										<th>Update</th>
-
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach items="${usersDetails}" var="user" varStatus="loopCounter">
-										<tr>
-											<td>
-												<c:out value="${loopCounter.count}"/>
-											</td>
-											<td>${user.first_name} ${user.last_name}</td>
-											<td>${user.username}</td>
-											<td>${user.district_name}</td>
-											<td>${user.beat_name}</td>
-											<td>${user.role_name}</td>
-											<td>${user.mobile_number}</td>
-											<td>
-												<a href="${pageContext.request.contextPath}/updateUser/${user.user_id}/${user.role_id}" class="button button-success" ;>Update</a>
-											</td>
-
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<div></div>
-				</div>
-			</c:if>
-		</main>
+                  <th> Active/Inactive</th>
+                  <th> Action</th>
+               </tr>
+            </thead>
+         </table>
+      </div>
+   </div>
+</main>
 
 
+<script>
 
-<script type="text/javascript">
-   $('#sampleTable').DataTable();
-   </script>
+
+	$('table#sampleTable').DataTable({
+		ajax: '/apidataTable/getUsers',
+		serverSide: true,
+		columns: [
+
+			{
+				data: 'userId'
+			},
+			{
+				data: 'firstName'
+			},
+			{
+				data: 'lastName'
+			},
+			{
+				data: 'mobileNumber'
+			},
+			{
+				data: 'beatId.beatName'
+			},
+			{
+				data: 'psId.psName'
+			},
+			{
+				data: 'sosdpoId.sosdpoName'
+			},
+
+
+			{
+				data: 'active',
+				render: function (data) {
+					console.log(data);
+					if (data == true) {
+						return '<div class="button-group btn btn-success" style="width:100%">' + data + '</div>'
+					} else {
+						return '<div class="button-group btn btn-danger" style="width:100%">' + data + '</div>'
+					}
+				}
+			},
+
+
+			{
+				data: 'userId',
+				render: function (data) {
+					return '<div class="btn-group"><a href="${pageContext.request.contextPath}/updateUser/${"' + data + '"}" class="btn btn-primary" ;>Update</a></div>'
+				}
+
+
+			}
+		]
+	});
+
+</script>

@@ -72,7 +72,7 @@
       <c:remove var="successMessage" scope="session" />
    </form:form>
    </div>
-    <input class="form-control col-md-6"  id="mid" type="hidden" value="${submodule_to_update.moduleId}"  />
+    <input class="form-control col-md-6"  id="mid" type="hidden" value="${submodule_to_update.moduleId.moduleId}"  />
 </main>
 <script type="text/javascript">
 

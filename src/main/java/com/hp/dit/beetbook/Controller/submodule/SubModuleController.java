@@ -1,5 +1,6 @@
-package com.hp.dit.beetbook.Controller;
+package com.hp.dit.beetbook.Controller.submodule;
 
+import com.hp.dit.beetbook.entities.ModuleMaster;
 import com.hp.dit.beetbook.entities.StatesMaster;
 import com.hp.dit.beetbook.entities.SubModuleMaster;
 import com.hp.dit.beetbook.form.state.UpdateState;
@@ -82,7 +83,10 @@ public class SubModuleController {
             SubModuleMaster submodule = new SubModuleMaster();
             SubModuleMaster savedModule = null;
             submodule.setSubmoduleName(submoduleForm.getSubmoduleName().toString());
-            submodule.setModuleId(Integer.parseInt(submoduleForm.getModuleId()));
+
+            ModuleMaster moduleMaster  = new ModuleMaster();
+            moduleMaster.setModuleId(Integer.parseInt(submoduleForm.getModuleId()));
+            submodule.setModuleId(moduleMaster);
 
             if (submoduleForm.getIsActive().equalsIgnoreCase("T")) {
                 submodule.setActive(true);
@@ -196,7 +200,11 @@ public class SubModuleController {
             moduleToUpdate = subModuleRepository.getSubModuleViaId(Integer.parseInt(submoduleForm.getSubmoduleId()));
 
             moduleToUpdate.setSubmoduleName(submoduleForm.getSubmoduleName().toString());
-            moduleToUpdate.setModuleId(Integer.parseInt(submoduleForm.getModuleId()));
+
+            ModuleMaster moduleMaster  = new ModuleMaster();
+            moduleMaster.setModuleId(Integer.parseInt(submoduleForm.getModuleId()));
+            moduleToUpdate.setModuleId(moduleMaster);
+
 
             if (submoduleForm.getIsActive().equalsIgnoreCase("T")) {
                 moduleToUpdate.setActive(true);

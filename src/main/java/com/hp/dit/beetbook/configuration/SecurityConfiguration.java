@@ -81,6 +81,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/resources/**").denyAll()
                 .antMatchers(Constants.permitAll).permitAll()
+                .antMatchers(Constants.permitApiDatatable).permitAll()
                 .antMatchers("/downloadFile/**").permitAll()
                 .antMatchers("/resources/**").permitAll()
                 .antMatchers("/admin/**").hasAnyRole("ADMIN")

@@ -54,6 +54,7 @@ public class Constants {
     public static final String permitAll = "/**";
     public static final String permitDownloadFile = "/downloadFile/**";
     public static final String permitApi = "/api/**";
+    public static final String permitApiDatatable = "/apidataTable/**";
     public static final String denyPermitResourcesFonts = "/resources/css/fonts";
 
     /**

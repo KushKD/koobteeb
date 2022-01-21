@@ -1,4 +1,4 @@
-package com.hp.dit.beetbook.Controller;
+package com.hp.dit.beetbook.Controller.module;
 
 import com.hp.dit.beetbook.entities.DistrictMaster;
 import com.hp.dit.beetbook.entities.ModuleMaster;
@@ -135,9 +135,6 @@ public class ModuleController {
             if(user==null){
                 return "login";
             }else{
-
-                List<ModuleMaster> modules = moduleRepository.getAllModules();
-                model.addAttribute("modules", modules);
                 return "viewmodule";
             }
 

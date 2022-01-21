@@ -73,9 +73,9 @@
       <c:remove var="successMessage" scope="session" />
    </form:form>
    </div>
-   <input class="form-control col-md-6"  id="did" type="hidden" value="${ps_to_update.stateID}"  />
-      <input class="form-control col-md-6"  id="sid" type="hidden" value="${ps_to_update.districtId}"  />
-      <input class="form-control col-md-6"  id="sosid" type="hidden" value="${ps_to_update.sosdpoId}"  />
+   <input class="form-control col-md-6"  id="did" type="hidden" value="${ps_to_update.stateID.stateID}"  />
+      <input class="form-control col-md-6"  id="sid" type="hidden" value="${ps_to_update.districtId.districtId}"  />
+      <input class="form-control col-md-6"  id="sosid" type="hidden" value="${ps_to_update.sosdpoId.sosdpoId}"  />
 </main>
 <script type="text/javascript">
 

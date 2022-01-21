@@ -1,4 +1,4 @@
-package com.hp.dit.beetbook.Controller;
+package com.hp.dit.beetbook.Controller.modulerole;
 
 import com.hp.dit.beetbook.entities.ModuleMaster;
 import com.hp.dit.beetbook.entities.ModuleRoleMappingMaster;
@@ -125,9 +125,6 @@ public class ModuleRoleMapping {
                 return "login";
             }else{
 
-                List<ModuleRoleList> modulesroles = roleModuleRepository.getAllActiveModulesViaRoles();
-                System.out.println(modulesroles.toString());
-                model.addAttribute("modulesroles", modulesroles);
                 return "viewmodulerolemapping";
             }
 

@@ -1,8 +1,6 @@
-package com.hp.dit.beetbook.Controller;
+package com.hp.dit.beetbook.Controller.policestation;
 
-import com.hp.dit.beetbook.entities.PinMaster;
-import com.hp.dit.beetbook.entities.PoliceStationMaster;
-import com.hp.dit.beetbook.entities.StatesMaster;
+import com.hp.dit.beetbook.entities.*;
 import com.hp.dit.beetbook.form.policestation.PSForm;
 import com.hp.dit.beetbook.modals.LoggedInUserSession;
 import com.hp.dit.beetbook.repositories.policestationRepository.PSRepository;
@@ -80,9 +78,20 @@ public class PoliceStationController {
                 PoliceStationMaster ps = new PoliceStationMaster();
                 ps.setPsName(form.getPsName().toString());
                 ps.setActive(true);
-                ps.setStateID(Integer.parseInt(form.getStateId()));
-                ps.setDistrictId(Integer.parseInt(form.getDistrictId()));
-                ps.setSosdpoId(Integer.parseInt(form.getSosdpoId()));
+
+                StatesMaster state = new StatesMaster();
+                state.setStateID(Integer.parseInt(form.getStateId()));
+                ps.setStateID(state);
+
+                DistrictMaster district = new DistrictMaster();
+                district.setDistrictId(Integer.parseInt(form.getDistrictId()));
+                ps.setDistrictId(district);
+
+
+                S0SdpoMaster sosdpo = new S0SdpoMaster();
+                sosdpo.setSosdpoId(Integer.parseInt(form.getSosdpoId()));
+                ps.setSosdpoId(sosdpo);
+
                 ps.setDeleted(false);
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                 Date date = new Date(timestamp.getTime());
@@ -114,9 +123,6 @@ public class PoliceStationController {
             if(user==null){
                 return "login";
             }else{
-
-                List<PoliceStationMaster> states = psRepository.getAllPoliceStation();
-                model.addAttribute("police_stations", states);
                 return "viewPs";
             }
 
@@ -179,9 +185,20 @@ public class PoliceStationController {
                 ps = psRepository.getPoliceStationViaId(Integer.parseInt(form.getPsId()));
 
                 ps.setPsName(form.getPsName().toString());
-                ps.setStateID(Integer.parseInt(form.getStateId()));
-                ps.setDistrictId(Integer.parseInt(form.getDistrictId()));
-                ps.setSosdpoId(Integer.parseInt(form.getSosdpoId()));
+
+                StatesMaster state = new StatesMaster();
+                state.setStateID(Integer.parseInt(form.getStateId()));
+                ps.setStateID(state);
+
+                DistrictMaster district = new DistrictMaster();
+                district.setDistrictId(Integer.parseInt(form.getDistrictId()));
+                ps.setDistrictId(district);
+
+
+                S0SdpoMaster sosdpo = new S0SdpoMaster();
+                sosdpo.setSosdpoId(Integer.parseInt(form.getSosdpoId()));
+                ps.setSosdpoId(sosdpo);
+
 
 
                 if (form.getIsActive().equalsIgnoreCase("T")) {

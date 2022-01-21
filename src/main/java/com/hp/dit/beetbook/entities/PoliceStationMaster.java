@@ -17,14 +17,17 @@ public class PoliceStationMaster implements Serializable {
     @Column(name = "ps_name")
     private String psName;
 
-    @Column(name = "state_id")
-    private Integer stateID;
+    @OneToOne
+    @JoinColumn(name = "state_id")
+    private StatesMaster stateID;
 
-    @Column(name = "district_id")
-    private Integer districtId;
+    @OneToOne
+    @JoinColumn(name = "district_id")
+    private DistrictMaster districtId;
 
-    @Column(name = "sosdpo_id")
-    private Integer sosdpoId;
+    @OneToOne
+    @JoinColumn(name = "sosdpo_id")
+    private S0SdpoMaster sosdpoId;
 
     @Column(name = "active")
     private Boolean active;
@@ -39,6 +42,7 @@ public class PoliceStationMaster implements Serializable {
     @Column(name = "lastmodifieddate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOn;
+
 
     public Integer getPsId() {
         return psId;
@@ -56,27 +60,27 @@ public class PoliceStationMaster implements Serializable {
         this.psName = psName;
     }
 
-    public Integer getStateID() {
+    public StatesMaster getStateID() {
         return stateID;
     }
 
-    public void setStateID(Integer stateID) {
+    public void setStateID(StatesMaster stateID) {
         this.stateID = stateID;
     }
 
-    public Integer getDistrictId() {
+    public DistrictMaster getDistrictId() {
         return districtId;
     }
 
-    public void setDistrictId(Integer districtId) {
+    public void setDistrictId(DistrictMaster districtId) {
         this.districtId = districtId;
     }
 
-    public Integer getSosdpoId() {
+    public S0SdpoMaster getSosdpoId() {
         return sosdpoId;
     }
 
-    public void setSosdpoId(Integer sosdpoId) {
+    public void setSosdpoId(S0SdpoMaster sosdpoId) {
         this.sosdpoId = sosdpoId;
     }
 

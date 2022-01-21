@@ -24,8 +24,8 @@ public interface UserRepository extends CrudRepository<UserEntity,Long>, UserRep
 	List<Object[]> getUsersDetails();
 
 
-	@Query(value="SELECT u.user_id, u.first_name, u.last_name, u.username,urm.role_id, r.role_name, u.mobile_number, u.state_id,state.state_name, u.district_id,district.district_name ,u.beat_id, beat.beat_name ,u.rank, u.sosdpo_id, u.ps_id FROM users as u INNER JOIN user_role_mapping as urm on urm.user_id = u.user_id INNER JOIN roles as r on r.role_id = urm.role_id INNER JOIN mst_state as state on state.state_id = u.state_id INNER JOIN mst_district as district on district.district_id = u.district_id INNER JOIN mst_beat as beat on beat.beat_id = u.beat_id WHERE u.user_id =:userId AND urm.role_id =:roleId", nativeQuery = true)
-	List<Object[]> getSpecificUserViaUserRoleId(@Param("userId")  Integer userId, @Param("roleId") Integer role_id);
+	@Query(value="SELECT u.user_id, u.first_name, u.last_name, u.username,urm.role_id, r.role_name, u.mobile_number, u.state_id,state.state_name, u.district_id,district.district_name ,u.beat_id, beat.beat_name ,u.rank, u.sosdpo_id, u.ps_id FROM users as u INNER JOIN user_role_mapping as urm on urm.user_id = u.user_id INNER JOIN roles as r on r.role_id = urm.role_id INNER JOIN mst_state as state on state.state_id = u.state_id INNER JOIN mst_district as district on district.district_id = u.district_id INNER JOIN mst_beat as beat on beat.beat_id = u.beat_id WHERE u.user_id =:userId ", nativeQuery = true)
+	List<Object[]> getSpecificUserViaUserRoleId(@Param("userId")  Integer userId);
 
 
 

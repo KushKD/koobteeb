@@ -138,54 +138,54 @@
 
 
 		<!--         JBoss Logging and Server Configurations  Starts-->
-		<!--                <dependency>-->
-		<!--                    <groupId>org.jboss.logging</groupId>-->
-		<!--                    <artifactId>jboss-logging</artifactId>-->
-		<!--                    <version>3.0.0.CR1</version>-->
-		<!--                    <scope>provided</scope>-->
-		<!--                </dependency>-->
+<!--		                <dependency>-->
+<!--		                    <groupId>org.jboss.logging</groupId>-->
+<!--		                    <artifactId>jboss-logging</artifactId>-->
+<!--		                    <version>3.0.0.CR1</version>-->
+<!--		                    <scope>provided</scope>-->
+<!--		                </dependency>-->
 
-		<!--                <dependency>-->
-		<!--                    <groupId>org.springframework.boot</groupId>-->
-		<!--                    <artifactId>spring-boot-starter-test</artifactId>-->
-		<!--                    <exclusions>-->
-		<!--                        <exclusion>-->
-		<!--                            <artifactId>commons-logging</artifactId>-->
-		<!--                            <groupId>commons-logging</groupId>-->
-		<!--                        </exclusion>-->
-		<!--                    </exclusions>-->
-		<!--                    <scope>test</scope>-->
-		<!--                </dependency>-->
+<!--		                <dependency>-->
+<!--		                    <groupId>org.springframework.boot</groupId>-->
+<!--		                    <artifactId>spring-boot-starter-test</artifactId>-->
+<!--		                    <exclusions>-->
+<!--		                        <exclusion>-->
+<!--		                            <artifactId>commons-logging</artifactId>-->
+<!--		                            <groupId>commons-logging</groupId>-->
+<!--		                        </exclusion>-->
+<!--		                    </exclusions>-->
+<!--		                    <scope>test</scope>-->
+<!--		                </dependency>-->
 
-		<!--        <dependency>-->
-		<!--            <groupId>com.fasterxml.jackson.core</groupId>-->
-		<!--            <artifactId>jackson-databind</artifactId>-->
-		<!--            <version>2.5.2</version>-->
-		<!--        </dependency>-->
+<!--		        <dependency>-->
+<!--		            <groupId>com.fasterxml.jackson.core</groupId>-->
+<!--		            <artifactId>jackson-databind</artifactId>-->
+<!--		            <version>2.5.2</version>-->
+<!--		        </dependency>-->
 
-		<!--        <dependency>-->
-		<!--            <groupId>com.fasterxml.jackson.core</groupId>-->
-		<!--            <artifactId>jackson-core</artifactId>-->
-		<!--            <version>2.5.2</version>-->
-		<!--        </dependency>-->
+<!--		        <dependency>-->
+<!--		            <groupId>com.fasterxml.jackson.core</groupId>-->
+<!--		            <artifactId>jackson-core</artifactId>-->
+<!--		            <version>2.5.2</version>-->
+<!--		        </dependency>-->
 
-		<!--        <dependency>-->
-		<!--            <groupId>com.fasterxml.jackson.core</groupId>-->
-		<!--            <artifactId>jackson-annotations</artifactId>-->
-		<!--            <version>2.5.2</version>-->
-		<!--        </dependency>-->
+<!--		        <dependency>-->
+<!--		            <groupId>com.fasterxml.jackson.core</groupId>-->
+<!--		            <artifactId>jackson-annotations</artifactId>-->
+<!--		            <version>2.5.2</version>-->
+<!--		        </dependency>-->
 
-		<!--        <dependency>-->
-		<!--            <groupId>com.fasterxml.jackson.jaxrs</groupId>-->
-		<!--            <artifactId>jackson-jaxrs-json-provider</artifactId>-->
-		<!--            <version>2.5.2</version>-->
-		<!--        </dependency>-->
+<!--		        <dependency>-->
+<!--		            <groupId>com.fasterxml.jackson.jaxrs</groupId>-->
+<!--		            <artifactId>jackson-jaxrs-json-provider</artifactId>-->
+<!--		            <version>2.5.2</version>-->
+<!--		        </dependency>-->
 
-		<!--        <dependency>-->
-		<!--            <groupId>com.fasterxml.jackson.module</groupId>-->
-		<!--            <artifactId>jackson-module-jaxb-annotations</artifactId>-->
-		<!--            <version>2.5.2</version>-->
-		<!--        </dependency>-->
+<!--		        <dependency>-->
+<!--		            <groupId>com.fasterxml.jackson.module</groupId>-->
+<!--		            <artifactId>jackson-module-jaxb-annotations</artifactId>-->
+<!--		            <version>2.5.2</version>-->
+<!--		        </dependency>-->
 		<!--        &lt;!&ndash; JBoss Logging and Server Configurations  Ends&ndash;&gt;-->
 
 		<dependency>
@@ -263,26 +263,26 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<!-- WildFly Configuration -->
-			<!--            <plugin>-->
-			<!--                <groupId>org.wildfly.plugins</groupId>-->
-			<!--                <artifactId>wildfly-maven-plugin</artifactId>-->
-			<!--                <version>2.0.2.Final</version>-->
-			<!--                <executions>-->
-			<!--                    <execution>-->
-			<!--                        <phase>install</phase>-->
-			<!--                        <goals>-->
-			<!--                            <goal>deploy</goal>-->
-			<!--                        </goals>-->
-			<!--                    </execution>-->
-			<!--                </executions>-->
-			<!--                <configuration>-->
-			<!--                    <filename>${project.build.finalName}.war</filename>-->
-			<!--                    <hostname>${deploy.wildfly.host}</hostname>-->
-			<!--                    <port>${deploy.wildfly.port}</port>-->
-			<!--                    <username>${deploy.wildfly.username}</username>-->
-			<!--                    <password>${deploy.wildfly.password}</password>-->
-			<!--                </configuration>-->
-			<!--            </plugin>-->
+<!--			            <plugin>-->
+<!--			                <groupId>org.wildfly.plugins</groupId>-->
+<!--			                <artifactId>wildfly-maven-plugin</artifactId>-->
+<!--			                <version>2.0.2.Final</version>-->
+<!--			                <executions>-->
+<!--			                    <execution>-->
+<!--			                        <phase>install</phase>-->
+<!--			                        <goals>-->
+<!--			                            <goal>deploy</goal>-->
+<!--			                        </goals>-->
+<!--			                    </execution>-->
+<!--			                </executions>-->
+<!--			                <configuration>-->
+<!--			                    <filename>${project.build.finalName}.war</filename>-->
+<!--			                    <hostname>${deploy.wildfly.host}</hostname>-->
+<!--			                    <port>${deploy.wildfly.port}</port>-->
+<!--			                    <username>${deploy.wildfly.username}</username>-->
+<!--			                    <password>${deploy.wildfly.password}</password>-->
+<!--			                </configuration>-->
+<!--			            </plugin>-->
 		</plugins>
 	</build>
 

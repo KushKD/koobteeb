@@ -43,9 +43,9 @@ public class RoleModuleRepositoryCustomImpl implements RoleModuleRepositoryCusto
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<ModuleRoleList> cq = cb.createQuery(ModuleRoleList.class);
         Root<ModuleRoleMappingMaster> book = cq.from(ModuleRoleMappingMaster.class);
-        Predicate isActive_ = cb.equal(book.get("active"), true);
+      //  Predicate isActive_ = cb.equal(book.get("active"), true);
         Predicate id_ = cb.equal(book.get("id"), id);
-        cq.where(isActive_,id_);
+        cq.where(id_);
         cq.multiselect(book.get("id"),
                 book.get("moduleId").<String>get("moduleName"),
                 book.get("roleId").<String>get("roleName"),
@@ -60,11 +60,11 @@ public class RoleModuleRepositoryCustomImpl implements RoleModuleRepositoryCusto
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<ModuleRoleMappingMaster> book = cq.from(ModuleRoleMappingMaster.class);
-        Predicate isActive_ = cb.equal(book.get("active"), true);
+       // Predicate isActive_ = cb.equal(book.get("active"), true);
         Predicate moduleId = cb.equal(book.get("moduleId").<Integer>get("moduleId"), module_id);
         Predicate roleId = cb.equal(book.get("roleId").<Integer>get("roleId"), role_id);
-        cq.where(isActive_,moduleId,roleId);
-        cq.select(cb.count(book)).where(isActive_,moduleId,roleId);
+        cq.where(moduleId,roleId);
+        cq.select(cb.count(book)).where(moduleId,roleId);
         return Math.toIntExact(entityManager.createQuery(cq).getSingleResult());
     }
 
@@ -73,10 +73,10 @@ public class RoleModuleRepositoryCustomImpl implements RoleModuleRepositoryCusto
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<ModuleRoleMappingMaster> cq = cb.createQuery(ModuleRoleMappingMaster.class);
         Root<ModuleRoleMappingMaster> book = cq.from(ModuleRoleMappingMaster.class);
-        Predicate isActive_ = cb.equal(book.get("active"), true);
+       // Predicate isActive_ = cb.equal(book.get("active"), true);
         Predicate id_ = cb.equal(book.get("id"), module_role_id);
 
-        cq.where(id_,isActive_);
+        cq.where(id_);
         TypedQuery<ModuleRoleMappingMaster> query =  entityManager.createQuery(cq);
         return query.getResultList().get(0);
     }

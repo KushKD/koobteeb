@@ -14,15 +14,9 @@ public class ModuleRoleMappingMaster {
     @Column(name="id")
     private int id;
 
-//    @Column(name="module_id")
-//    private Integer moduleId;
-
 	@OneToOne
 	@JoinColumn(name="module_id")
 	private ModuleMaster moduleId;
-
-//    @Column(name="role_id")
-//    private Integer roleId;
 
 	@OneToOne
 	@JoinColumn(name="role_id")
