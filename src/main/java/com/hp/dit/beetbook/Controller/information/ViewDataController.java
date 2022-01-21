@@ -1,6 +1,9 @@
-package com.hp.dit.beetbook.Controller;
+package com.hp.dit.beetbook.Controller.information;
 
+import com.hp.dit.beetbook.Controller.HomeController;
+import com.hp.dit.beetbook.entities.BeatMaster;
 import com.hp.dit.beetbook.entities.InformationEntity;
+import com.hp.dit.beetbook.entities.PoliceStationMaster;
 import com.hp.dit.beetbook.entities.SubModuleMaster;
 import com.hp.dit.beetbook.form.ViewInformationWebForm;
 import com.hp.dit.beetbook.form.viewdata.ViewData;
@@ -50,6 +53,30 @@ public class ViewDataController  {
         } else {
             model.addAttribute("viewData", new ViewData());
             return "viewData";
+        }
+    }
+
+    //viewCompleteData
+    @RequestMapping(value = "/viewCompleteData", method = RequestMethod.GET)
+    public String viewCompleteData(Model model,HttpServletRequest request) throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "login";
+        } else {
+
+
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+                return "viewCompleteData";
+            }
+
+
+
+
         }
     }
 
@@ -147,8 +174,8 @@ public class ViewDataController  {
             model.addAttribute("state_id", information.getStateId());
             model.addAttribute("district_id", information.getDistrictId());
             model.addAttribute("sodpo_id", information.getSosdpoId());
-            model.addAttribute("ps_id", information.getPsId());
-            model.addAttribute("beat_id", information.getBeatId());
+            model.addAttribute("ps_id", information.getPsId().getPsId());
+            model.addAttribute("beat_id", information.getBeatId().getBeatId());
             model.addAttribute("submodule_id", information.getSubmoduleId().getSubmoduleId());
             model.addAttribute("information", information);
             model.addAttribute("user", user);
@@ -189,11 +216,15 @@ public class ViewDataController  {
             }
             if(Utilities.ifEmptyField(Integer.toString(form.getPsId()))){
                 System.out.println(form.getPsId());
-                information.setPsId(form.getPsId());
+                PoliceStationMaster policeStationMaster = new PoliceStationMaster();
+                policeStationMaster.setPsId(form.getPsId());
+                information.setPsId(policeStationMaster);
             }
             if(Utilities.ifEmptyField(Integer.toString(form.getBeatId()))){
                 System.out.println(form.getBeatId());
-                information.setBeatId(form.getBeatId());
+                BeatMaster beat = new BeatMaster();
+                beat.setBeatId(form.getBeatId());
+                information.setBeatId(beat);
             }
             if(Utilities.ifEmptyField(Integer.toString(form.getSubmoduleId()))){
                 System.out.println(form.getSubmoduleId());

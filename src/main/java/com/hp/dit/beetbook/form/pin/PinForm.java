@@ -6,8 +6,26 @@ public class PinForm implements Serializable {
 
     private String pinId;
     private String pin;
+    private String stateId;
+    private String districtId;
     private String stateIsActive;
     private String stateIsDeleted;
+
+    public String getStateId() {
+        return stateId;
+    }
+
+    public void setStateId(String stateId) {
+        this.stateId = stateId;
+    }
+
+    public String getDistrictId() {
+        return districtId;
+    }
+
+    public void setDistrictId(String districtId) {
+        this.districtId = districtId;
+    }
 
     public String getPinId() {
         return pinId;
@@ -46,6 +64,8 @@ public class PinForm implements Serializable {
         return "PinForm{" +
                 "pinId='" + pinId + '\'' +
                 ", pin='" + pin + '\'' +
+                ", stateId='" + stateId + '\'' +
+                ", districtId='" + districtId + '\'' +
                 ", stateIsActive='" + stateIsActive + '\'' +
                 ", stateIsDeleted='" + stateIsDeleted + '\'' +
                 '}';

@@ -19,6 +19,14 @@ public class PinMaster implements Serializable {
     @Column(name = "pin")
     private Integer pin;
 
+    @OneToOne
+    @JoinColumn(name = "state_id")
+    private StatesMaster stateID;
+
+    @OneToOne
+    @JoinColumn(name = "district_id")
+    private DistrictMaster districtId;
+
     @Column(name = "active")
     private Boolean active;
 
@@ -47,6 +55,22 @@ public class PinMaster implements Serializable {
 
     public void setPin(Integer pin) {
         this.pin = pin;
+    }
+
+    public StatesMaster getStateID() {
+        return stateID;
+    }
+
+    public void setStateID(StatesMaster stateID) {
+        this.stateID = stateID;
+    }
+
+    public DistrictMaster getDistrictId() {
+        return districtId;
+    }
+
+    public void setDistrictId(DistrictMaster districtId) {
+        this.districtId = districtId;
     }
 
     public Boolean getActive() {
@@ -85,7 +109,9 @@ public class PinMaster implements Serializable {
     public String toString() {
         return "PinMaster{" +
                 "pinId=" + pinId +
-                ", pin='" + pin + '\'' +
+                ", pin=" + pin +
+                ", stateID=" + stateID +
+                ", districtId=" + districtId +
                 ", active=" + active +
                 ", deleted=" + deleted +
                 ", createdDate=" + createdDate +

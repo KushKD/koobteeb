@@ -17,14 +17,15 @@
 <main class="app-content">
    <div class="row" style="box-shadow: 0 0 8px 2px #888; padding:10px;">
       <div class="container">
-      <h2 class="form-signin-heading">Pin Master</h2>
+      <h2 class="form-signin-heading">All Entries</h2>
          <table id="sampleTable" class="table table-striped table-bordered">
             <thead>
                <tr>
-                  <th>Pin Id</th>
-                  <th>Pin</th>
-                  <th>District Name</th>
-                  <th>State Name</th>
+                  <th> Id</th>
+                  <th>Name</th>
+                  <th>Sub Module Name</th>
+                  <th>Beat Name</th>
+                  <th>Police Station Name</th>
                   <th> Active/Inactive</th>
                   <th> Action</th>
                </tr>
@@ -36,26 +37,25 @@
 
 
 <script>
-
-
 	$('table#sampleTable').DataTable({
-		ajax:  '/apidataTable/allPins',
+		ajax: '/apidataTable/allInformation',
 		serverSide: true,
 		columns: [
 
 			{
-				data: 'pinId'
+				data: 'id'
 			},
 			{
-				data: 'pin'
-			},
-
-
-			{
-				data: 'districtId.districtName'
+				data: 'name'
 			},
 			{
-				data: 'stateID.stateName',
+				data: 'submoduleId.submoduleName'
+			},
+			{
+				data: 'beatId.beatName'
+			},
+			{
+				data: 'psId.psName'
 			},
 
 
@@ -73,9 +73,9 @@
 
 
 			{
-				data: 'pinId',
+				data: 'id',
 				render: function (data) {
-					return '<div class="btn-group"><a href="${pageContext.request.contextPath}/updatePin/${"' + data + '"}" class="btn btn-primary" ;>Update</a></div>'
+					return '<div class="btn-group"><a href="${pageContext.request.contextPath}/updateInformation/${"' + data + '"}" class="btn btn-primary" ;>Update</a></div>'
 				}
 
 

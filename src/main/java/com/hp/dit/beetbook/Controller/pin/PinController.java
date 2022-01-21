@@ -1,5 +1,6 @@
-package com.hp.dit.beetbook.Controller;
+package com.hp.dit.beetbook.Controller.pin;
 
+import com.hp.dit.beetbook.entities.DistrictMaster;
 import com.hp.dit.beetbook.entities.ModuleMaster;
 import com.hp.dit.beetbook.entities.PinMaster;
 import com.hp.dit.beetbook.entities.StatesMaster;
@@ -47,8 +48,6 @@ public class PinController {
                 return "login";
             }else{
 
-                List<PinMaster> pindata = pinRepository.findAllActivePins();
-                model.addAttribute("pindata", pindata);
                 return "viewpin";
             }
 
@@ -111,6 +110,15 @@ public class PinController {
                 pin = pinRepository.getPinViaId(Integer.parseInt(form.getPinId()));
 
                 pin.setPin(Integer.parseInt(form.getPin()));
+
+                StatesMaster statesMaster = new StatesMaster();
+                statesMaster.setStateID(Integer.parseInt(form.getStateId()));
+                pin.setStateID(statesMaster);
+
+                DistrictMaster districtMaster = new DistrictMaster();
+                districtMaster.setDistrictId(Integer.parseInt(form.getDistrictId()));
+                pin.setDistrictId(districtMaster);
+
 
                 if (form.getStateIsActive().equalsIgnoreCase("T")) {
                     pin.setActive(true);

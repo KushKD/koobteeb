@@ -39,9 +39,7 @@ public class PinRepositoryCustomImpl implements PinRepositoryCustom {
         CriteriaQuery<PinMaster> cq = cb.createQuery(PinMaster.class);
         Root<PinMaster> book = cq.from(PinMaster.class);
         Predicate id = cb.equal(book.get("pinId"), pin_id);
-        Predicate active = cb.equal(book.get("active"), true);
-        Predicate deleted = cb.equal(book.get("deleted"), false);
-        cq.where(id,active,deleted);
+        cq.where(id);
         TypedQuery<PinMaster> query =  entityManager.createQuery(cq);
         return query.getResultList().get(0);
     }

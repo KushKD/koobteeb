@@ -18,6 +18,20 @@
 							<form:errors path="pinId"></form:errors>
 						</div>
 					</spring:bind>
+					 <spring:bind path="stateId">
+                             <div class="form-group  ${status.error ? 'has-error' : ''}">
+                                <form:label path="stateId" for="roles">Select State</form:label>
+                                <form:select path="stateId" name="stateId" class="form-control" autocomplete="off"  oncopy="return false" onpaste="return false" id="states" onchange="getDistrictsViaStates(this.value)"></form:select>
+                                <form:errors path="stateId"></form:errors>
+                             </div>
+                          </spring:bind>
+					 <spring:bind path="districtId">
+                             <div class="form-group  ${status.error ? 'has-error' : ''}">
+                                <form:label path="districtId" for="roles">Select District</form:label>
+                                <form:select path="districtId" name="districtId" class="form-control" autocomplete="off"  oncopy="return false" onpaste="return false" id="districts"></form:select>
+                                <form:errors path="districtId"></form:errors>
+                             </div>
+                          </spring:bind>
 					<spring:bind path="pin">
 						<div class="form-group ${status.error ? 'has-error' : ''}">
 							<form:input type="text" autocomplete="off"  oncopy="return false" maxlength="6" onpaste="return false" path="pin" class="form-control" value="${pin_to_update.pin}" autofocus="true"></form:input>
@@ -50,4 +64,31 @@
 					<c:remove var="successMessage" scope="session" />
 					</form:form>
 				</div>
+				<input class="form-control col-md-6"  id="did" type="hidden" value="${pin_to_update.stateID.stateID}"  />
+                      <input class="form-control col-md-6"  id="sid" type="hidden" value="${pin_to_update.districtId.districtId}"  />
 			</main>
+
+
+<script type="text/javascript">
+
+ function getStatesOnLoad(){
+             if(document.getElementById('did') != null && document.getElementById('did').value  != null ){
+                     getStatesUpdate(document.getElementById('did').value);
+                     }
+                 }
+
+  function getdistrictsOnLoad(){
+               if(document.getElementById('sid') != null && document.getElementById('sid').value  != null ){
+                       getdistrictsUpdate(document.getElementById('did').value);
+                       }
+                   }
+
+
+
+   $(document).ready(function() {
+    getStatesOnLoad();
+    getdistrictsOnLoad();
+   });
+
+
+</script>

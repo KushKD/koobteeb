@@ -6,11 +6,10 @@ import org.locationtech.jts.geom.Point;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name="information")
-public class InformationEntity {
+public class AllInformationEntity {
 
     @Id
     @GeneratedValue(generator = "information_id_seq", strategy = GenerationType.AUTO)
@@ -157,9 +156,6 @@ public class InformationEntity {
 	@Column(name = "longitude")
 	private Double longitude;
 
-	@Column(nullable = false, name="location_points" ,columnDefinition = "geometry(Point,4326)")
-	@JsonDeserialize(as = Point.class)
-	private Geometry locationPoints;
 
 	@Column(name = "active")
 	private Boolean active;
@@ -533,13 +529,7 @@ public class InformationEntity {
 		this.longitude = longitude;
 	}
 
-	public Geometry getLocationPoints() {
-		return locationPoints;
-	}
 
-	public void setLocationPoints(Geometry locationPoints) {
-		this.locationPoints = locationPoints;
-	}
 
 	public Boolean getActive() {
 		return active;
@@ -613,7 +603,6 @@ public class InformationEntity {
 				", extraTwo='" + extraTwo + '\'' +
 				", latitude=" + latitude +
 				", longitude=" + longitude +
-				", locationPoints=" + locationPoints +
 				", active=" + active +
 				", createdDate=" + createdDate +
 				", updatedOn=" + updatedOn +
