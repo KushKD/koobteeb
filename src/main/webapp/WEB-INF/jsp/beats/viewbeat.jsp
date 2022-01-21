@@ -37,27 +37,8 @@
 
 <script>
 
-function getContextPath() {
-	return window.location.pathname.substring(0, window.location.pathname.indexOf("/", 0)); //2  0
-}
-
-//Tomcat
-function getContextPathTwo() {
-	return window.location.pathname.substring(0, window.location.pathname.indexOf("/", 0));
-}
-
-
-var formURL = getContextPath();
-var formURL_Two = getContextPathTwo();
-alert(formURL);
-console.log(formURL);
-console.log(formURL_Two);
-console.log(formURL_Two+'/apidataTable/allbeats');
-console.log(formURL+'/apidataTable/allbeats');
-
-
 	$('table#sampleTable').DataTable({
-		ajax: formURL +'/apidataTable/allbeats',
+		ajax: '/apidataTable/allbeats',
 		serverSide: true,
 		columns: [
 
