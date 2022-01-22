@@ -17,18 +17,17 @@
 <main class="app-content">
    <div class="row" style="box-shadow: 0 0 8px 2px #888; padding:10px;">
       <div class="container">
-      <h2 class="form-signin-heading">All Entries</h2>
+      <h2 class="form-signin-heading">Officer Login Logs</h2>
          <table id="sampleTable" class="table table-striped table-bordered">
             <thead>
                <tr>
-                  <th> Id</th>
-                  <th>Name</th>
-                  <th>Sub Module Name</th>
+                  <th>Id</th>
+                  <th>User Name</th>
+                  <th>Mobile Number</th>
                   <th>Beat Name</th>
                   <th>Police Station Name</th>
-                  <th>Uploaded By</th>
-                  <th> Data Creation Date</th>
-                  <th> Action</th>
+                  <th>Date</th>
+
                </tr>
             </thead>
          </table>
@@ -38,52 +37,38 @@
 
 
 <script>
+
 	$('table#sampleTable').DataTable({
-		ajax: '/apidataTable/allInformation',
+		ajax: '/apidataTable/allLogs',
 		serverSide: true,
 		columns: [
 
 			{
-				data: 'id'
+				data: 'logsId'
 			},
 			{
-				data: 'name'
+				data: 'userId.username'
+			},
+            {
+				data: 'userId.mobileNumber'
 			},
 			{
-				data: 'submoduleId.submoduleName'
+				data: 'userId.beatId.beatName'
 			},
 			{
-				data: 'beatId.beatName'
+				data: 'userId.psId.psName',
 			},
-			{
-				data: 'psId.psName'
-			},
-			{
-            	data: 'userId.username'
-           },
-           {
-                       	data: 'createdDate',
-                       	render: function (data) {
-                               const d = new Date( data );
-                               date = d.getHours() + ":" + d.getMinutes() + ", " + d.toDateString();
+            {
+            	data: 'createdDate',
+            	render: function (data) {
+                    const d = new Date( data );
+                    date = d.getHours() + ":" + d.getMinutes() + ", " + d.toDateString();
 
-                                   return '<div class="button-group btn btn-warning" style="width:100%">' + date + '</div>'
+                        return '<div class="button-group btn btn-success" style="width:100%">' + date + '</div>'
 
-                           }
-                       },
+                }
+            }
 
-
-
-
-
-			{
-				data: 'id',
-				render: function (data) {
-					return '<div class="btn-group"><a href="${pageContext.request.contextPath}/updateInformation/${"' + data + '"}" class="btn btn-primary" ;>Update</a></div>'
-				}
-
-
-			}
 		]
 	});
 

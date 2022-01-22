@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hp.dit.beetbook.entities.*;
 import com.hp.dit.beetbook.modals.*;
 import com.hp.dit.beetbook.modals.beats.BeatsNameId;
+import com.hp.dit.beetbook.modals.usersviabeat.UsersViaBeat;
 import com.hp.dit.beetbook.repositories.RolesRepository;
 import com.hp.dit.beetbook.repositories.beats.BeatRepository;
 import com.hp.dit.beetbook.repositories.districtRepository.DistrictRepository;
@@ -15,6 +16,8 @@ import com.hp.dit.beetbook.repositories.sosdpo.SoSdpoRepository;
 import com.hp.dit.beetbook.repositories.stateRepository.StateRepository;
 import com.hp.dit.beetbook.repositories.submodules.SubModuleRepository;
 import com.hp.dit.beetbook.repositories.user.UserRepository;
+import com.hp.dit.beetbook.repositories.userdatatable.UserDatatableRepository;
+import com.hp.dit.beetbook.repositories.userdatatable.UserDatatableRepositoryCustom;
 import com.hp.dit.beetbook.utilities.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,6 +59,9 @@ public class AjaxContoller {
 
     @Autowired
     SubModuleRepository subModuleRepository;
+
+    @Autowired
+    UserDatatableRepository userDatatableRepository;
 
 
 
@@ -272,83 +278,26 @@ public class AjaxContoller {
     }
 
 
-    /**
-     ###################### ID Card Generation Type Reports ##########################
-     */
-
-
-
-
-
-
-    //getAllRevenueUsers
-    @RequestMapping(value = "/ajax/getAllRevenueUsers", method = RequestMethod.GET,  produces="application/json")
+    @RequestMapping(value = "/ajax/getUsers", method = RequestMethod.GET,  produces="application/json")
     public @ResponseBody
-    String getAllRevenueUsers(
-
-            @RequestParam(value = "stateId", required = true) String stateId,
-            @RequestParam(value = "districtId", required = true) String districtId,
-            @RequestParam(value = "barrierId", required = true) String barrierId
-    ) throws Exception {
-
-
+    String getUsers(@RequestParam(value = "id", required = true) String id) throws Exception {
         Map<String, Object> map = null;
-        logger.info("stateId" + stateId);
-        logger.info("districtID" + districtId);
-        logger.info("barrierId" + barrierId);
 
-        System.out.println("stateId" + stateId + "districtID" + districtId + "barrierId" + barrierId);
+        List<UsersViaBeat> users = userDatatableRepository.getActiveUsersViaBeat(Integer.parseInt(id));
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, users);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
 
-        try {
-
-            List<Object[]> items = userRepository.getRevenueUsersViaBarrier(
-
-                    Integer.parseInt(stateId),
-                    Integer.parseInt(districtId),
-                    Integer.parseInt(barrierId), "REVENUE");
-
-            List<RUsersPojo> modelRole = new ArrayList<>();
-
-
-            for (Object[] result : items) {
-                RUsersPojo pojo = new RUsersPojo();
-                pojo.setUserName((String) result[0]);
-                pojo.setUserId((Integer) result[1]);
-                modelRole.add(pojo);
-            }
-
-            map = new HashMap<String, Object>();
-            map.put(Constants.keyResponse, modelRole);
-            map.put(Constants.keyMessage, Constants.valueMessage);
-            map.put(Constants.keyStatus, HttpStatus.OK);
-
-            ObjectMapper Obj = new ObjectMapper();
-            String jsonStr = null;
-            jsonStr = Obj.writeValueAsString(map);
-            logger.info(jsonStr);
-            return jsonStr;
-
-        } catch (Exception ex) {
-            map = new HashMap<String, Object>();
-            map.put(Constants.keyResponse, ex.getLocalizedMessage());
-            map.put(Constants.keyMessage, Constants.valueMessage);
-            map.put(Constants.keyStatus, HttpStatus.OK);
-            //return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-
-            ObjectMapper Obj = new ObjectMapper();
-            String jsonStr = null;
-            jsonStr = Obj.writeValueAsString(map);
-            logger.info(jsonStr);
-
-            return  jsonStr;
-
-        }
-
+        ObjectMapper Obj = new ObjectMapper();
+        String jsonStr = null;
+        jsonStr = Obj.writeValueAsString(map);
+        logger.info(jsonStr);
+        System.out.println(jsonStr);
+        return jsonStr;
 
 
     }
-
-    //getOptionsViaSubModuleId
 
 
 }

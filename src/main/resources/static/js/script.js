@@ -752,37 +752,26 @@ function loadBarriers(id) {
 
 }
 
-function getUsers() {
-
-	var stateID = $("#states :selected").val()
-	var districtID = $("#districts :selected").val()
-	var barrierId = $("#barriers :selected").val()
-
+function getUsers(id) {
 	$.ajax({
 		type: "GET",
-		url: formURL + "/ajax/getAllRevenueUsers",
+		url: formURL + "/ajax/getUsers",
 		data: {
-
-			"stateId": stateID,
-			"districtId": districtID,
-			"barrierId": barrierId
+			"id": id
 		},
 		success: function(data) {
 			var json_ = JSON.parse(JSON.stringify(data));
-			//Jboss
-			//var json_ = JSON.parse(data);
-
 			console.log(json_);
-			var selectRole = $("#users");
+			var selectRole = $('#users');
 			selectRole.find('option').remove();
-			selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+			selectRole.append("<option value=" + 0 + " >" + "---Select User ---" + "</option>")
 			for (i = 0; i < json_.RESPONSE.length; i++) {
-				if (document.getElementById('uid') != null && document.getElementById('uid').value == json_.RESPONSE[i].role_id) {
-					selectRole.append("<option selected value=" + json_.RESPONSE[i].userId + " >" + json_.RESPONSE[i].userName + "</option>")
-				} else {
-					selectRole.append("<option value=" + json_.RESPONSE[i].userId + " >" + json_.RESPONSE[i].userName + "</option>")
-				}
-			}
+			if (document.getElementById('uid') != null && document.getElementById('uid').value == json_.RESPONSE[i].userId) {
+								selectRole.append("<option selected value=" + json_.RESPONSE[i].userId + " >" + json_.RESPONSE[i].username + "</option>");
+            				} else {
+            					selectRole.append("<option value=" + json_.RESPONSE[i].userId + " >" + json_.RESPONSE[i].username + "</option>")
+            				}
+			};
 
 		},
 		error: function(data) {
@@ -790,186 +779,7 @@ function getUsers() {
 		}
 
 	});
+
+
 }
 
-
-function getUsersAll() {
-
-	var stateID = $("#states :selected").val()
-	var districtID = $("#districts :selected").val()
-	var barrierId = $("#barriers :selected").val()
-
-	$.ajax({
-		type: "GET",
-		url: formURL + "/ajax/getAllRevenueUsers",
-		data: {
-
-			"stateId": stateID,
-			"districtId": districtID,
-			"barrierId": barrierId
-		},
-		success: function(data) {
-			var json_ = JSON.parse(JSON.stringify(data));
-			//Jboss
-			//var json_ = JSON.parse(data);
-
-			console.log(json_);
-			var selectRole = $("#users");
-			selectRole.find('option').remove();
-			selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
-			selectRole.append("<option value=" + 999 + " >" + "All" + "</option>")
-			for (i = 0; i < json_.RESPONSE.length; i++) {
-				if (document.getElementById('uid') != null && document.getElementById('uid').value == json_.RESPONSE[i].role_id) {
-					selectRole.append("<option selected value=" + json_.RESPONSE[i].userId + " >" + json_.RESPONSE[i].userName + "</option>")
-				} else {
-					selectRole.append("<option value=" + json_.RESPONSE[i].userId + " >" + json_.RESPONSE[i].userName + "</option>")
-				}
-			}
-
-		},
-		error: function(data) {
-			console.log(data)
-		}
-
-	});
-}
-
-
-
-//getUsersOnLoad
-function getUsersOnReLoad(did, sid, bid) {
-
-	var stateID = did;
-
-	var districtID = sid;
-	var barrierId = bid;
-
-	$.ajax({
-		type: "GET",
-		url: formURL + "/ajax/getAllRevenueUsers",
-		data: {
-
-			"stateId": stateID,
-			"districtId": districtID,
-			"barrierId": barrierId
-		},
-		success: function(data) {
-			var json_ = JSON.parse(JSON.stringify(data));
-			//Jboss
-			//var json_ = JSON.parse(data);
-
-			console.log(json_);
-			var selectRole = $("#users");
-			selectRole.find('option').remove();
-			selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
-			selectRole.append("<option value=" + 999 + " >" + "All" + "</option>")
-			for (i = 0; i < json_.RESPONSE.length; i++) {
-				if (document.getElementById('uid') != null && document.getElementById('uid').value == json_.RESPONSE[i].userId) {
-					selectRole.append("<option selected value=" + json_.RESPONSE[i].userId + " >" + json_.RESPONSE[i].userName + "</option>")
-				} else {
-					selectRole.append("<option value=" + json_.RESPONSE[i].userId + " >" + json_.RESPONSE[i].userName + "</option>")
-				}
-			}
-
-		},
-		error: function(data) {
-			console.log(data)
-		}
-
-	});
-}
-
-function sendOtp(uid, amount,barrierId) {
-
- $('#otpmessage').html("One Time Password has been sent to the respective User.");
- $('#sendotp').text("Resend OTP");
-
-	var revenueUserId = uid;
-	var amountDeposited = amount;
-	var barrierID = barrierId;
-
-	 document.getElementById('amount').value = amountDeposited;
-
-	$.ajax({
-		type: "GET",
-		url: formURL + "/ajax/getOtpCashier",
-		data: {
-
-			"uid": revenueUserId,
-			"amount": amountDeposited,
-			"barrier_id": barrierId
-		},
-		success: function(data) {
-
-		var selectRole = $("#otpmessage");
-			var json_ = JSON.parse(JSON.stringify(data));
-			//Jboss
-			//var json_ = JSON.parse(data);
-
-			console.log(json_);
-
-        if(json_.STATUS === "OK"){
-        $('#otpmessage').html(json_.RESPONSE);
-        $('#verifyOTPRow').show();
-
-
-
-
-        }else{
-         $('#otpmessage').html(json_.RESPONSE);
-         $('#verifyOTPRow').hide();
-        }
-
-
-		},
-		error: function(data) {
-			console.log(data)
-			//$('#otpmessage').html(json_.RESPONSE);
-		}
-		
-
-	});
-}
-
-
-
-
-function sendOtp_TwoStep(uid,mobileNumber) {
-
- $('#otpmessage').html("One Time Password has been sent to the respective User.");
- $("#enterotp").value = "";
-
-	$.ajax({
-		type: "GET",
-		url: formURL + "/ajax/getOtpTwoStep",
-		data: {
-
-			"uid": uid,
-			"mobileNumber": mobileNumber
-		},
-		success: function(data) {
-
-		var selectRole = $("#otpmessage");
-			var json_ = JSON.parse(JSON.stringify(data));
-			//Jboss
-			//var json_ = JSON.parse(data);
-
-			console.log(json_);
-
-        if(json_.STATUS === "OK"){
-        $('#otpmessage').html(json_.RESPONSE);
-
-
-        }else{
-         $('#otpmessage').html(json_.RESPONSE);
-        }
-
-
-		},
-		error: function(data) {
-			console.log(data)
-		}
-
-
-	});
-}

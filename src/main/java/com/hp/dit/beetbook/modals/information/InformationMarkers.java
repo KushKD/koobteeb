@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class InformationMarkers implements Serializable {
 
+
     private Integer id;
     private Double latitude;
     private Double longitude;
@@ -16,6 +17,7 @@ public class InformationMarkers implements Serializable {
     private String subMoculeIcon;
     private Date createdDate;
 
+    // int, double, double, java.lang.String, java.lang.String, java.lang.String, int, int, java.lang.String
 
     public InformationMarkers(Integer id, Double latitude, Double longitude, String name, String photo, String subModuleName, Integer subModuleId, Integer moduleId, String subMoculeIcon, Date createdDate) {
         this.id = id;

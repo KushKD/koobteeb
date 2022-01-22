@@ -4,6 +4,7 @@ import com.hp.dit.beetbook.entities.DistrictMaster;
 import com.hp.dit.beetbook.entities.InformationEntity;
 import com.hp.dit.beetbook.modals.information.InformationMarkers;
 import com.hp.dit.beetbook.modals.information.InformationViaId;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -13,6 +14,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -236,5 +238,31 @@ public class InformationRepositoryCustomImpl implements InformationRepositoryCus
                 book.get("longitude"));
         TypedQuery<InformationViaId> query =  entityManager.createQuery(cq);
         return query.getResultList().get(0);
+    }
+
+    @Override
+    public List<InformationMarkers> getUploadedInformationByOfficialDateWise(Integer userId, String toDate) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<InformationMarkers> cq = cb.createQuery(InformationMarkers.class);
+        Root<InformationEntity> book = cq.from(InformationEntity.class);
+        Predicate userId_ = cb.equal(book.get("userId"), userId);
+        Predicate active = cb.equal(book.get("active"), true);
+        Predicate dateTOCheck = cb.equal(cb.function("to_char",String.class, book.get("createdDate"), cb.literal("DD/MM/YYYY")), toDate);
+
+        cq.where(userId_,active,dateTOCheck).orderBy(cb.desc(book.get("createdDate")));
+        cq.multiselect(
+                book.get("id"),
+                book.get("latitude"),
+                book.get("longitude"),
+                book.get("name"),
+                book.get("photo"),
+                book.get("submoduleId").<String>get("submoduleName"),
+                book.get("submoduleId").<Integer>get("submoduleId"),
+                book.get("moduleId"),
+                book.get("submoduleId").<String>get("subiconName"),
+                book.get("createdDate")
+        ).distinct(true);
+        TypedQuery<InformationMarkers> query =  entityManager.createQuery(cq).setMaxResults(50);
+        return query.getResultList();
     }
 }

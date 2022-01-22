@@ -195,10 +195,6 @@
     <!-- Module Role Mapping Ends -->
 
 
-    <definition name="twoStepVerification" extends="baselayoutdashboardnonav">
-        <put-attribute name="content" value="/WEB-INF/jsp/verification/twoStepVerification.jsp" />
-    </definition>
-
 
     <definition name="createuser" extends="baselayoutdashboard">
         <put-attribute name="content" value="/WEB-INF/jsp/userRegistration/registration.jsp" />
@@ -209,9 +205,6 @@
         <put-attribute name="content" value="/WEB-INF/jsp/rolesmaster.jsp" />
     </definition>
 
-    <definition name="showidcards" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/showIdCardList/showidcardlist.jsp" />
-    </definition>
 
     <definition name="vehicleOwnerDetails" extends="baselayoutdashboard">
         <put-attribute name="content" value="/WEB-INF/jsp/ownerdetails/userDetails.jsp" />
@@ -222,46 +215,7 @@
         <put-attribute name="content" value="/WEB-INF/jsp/loginn.jsp" />
     </definition>
 
-<!-- Earlier working
-    <definition name="login" extends="baselayoutdashboardnonav">
-        <put-attribute name="content" value="/WEB-INF/jsp/loginn.jsp" />
-    </definition>  -->
-
-    <definition name="verifylogin" extends="baselayoutdashboardnonav">
-        <put-attribute name="content" value="/WEB-INF/jsp/verifylogin.jsp" />
-    </definition>
-
-
-    <definition name="searchid" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/searchIdcard.jsp" />
-    </definition>
-
-    <definition name="reports" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/reports/reportsPage.jsp" />
-    </definition>
-
-    <definition name="applereports" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/reports/appleboxes.jsp" />
-    </definition>
-
-
-    <definition name="formbvehicles" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/reports/formbvehicles.jsp" />
-    </definition>
-
-    <definition name="vahanDetails" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/vahanDetails.jsp" />
-    </definition>
-
-    <definition name="sarthiDetail" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/sarthiDetails.jsp" />
-    </definition>
-
-
-
-    <definition name="approvedCards" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/showIdCardList/approvedIdCards.jsp" />
-    </definition>
+<!-- View Information -->
 
     <definition name="activebeat" extends="baselayoutdashboard">
         <put-attribute name="content" value="/WEB-INF/jsp/activebeat/activeBeat.jsp" />
@@ -275,10 +229,29 @@
         <put-attribute name="content" value="/WEB-INF/jsp/viewdata/viewCompleteData.jsp" />
     </definition>
 
+    <!-- View Information ends -->
+
+    <!-- View Activity  -->
+
+
+    <definition name="dailyActivity" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/dailyactivity/dailyActivity.jsp" />
+    </definition>
+
+    <definition name="dailyActivityMaps" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/dailyactivity/dailyActivityMaps.jsp" />
+    </definition>
+
+    <!-- View Activity ends -->
+
 
 
     <definition name="viewInformation" extends="baselayoutdashboard">
         <put-attribute name="content" value="/WEB-INF/jsp/viewinformation/viewInformation.jsp" />
+    </definition>
+
+    <definition name="beatOfficerLogs" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/beatofficerlogs/beatOfficerLogs.jsp" />
     </definition>
 
 

@@ -20,8 +20,9 @@ public interface InformationRepositoryCustom {
     //getInformationViaId
     InformationViaId getInformationViaId(Integer id);
     InformationEntity getCompleteInformationViaId(Integer id);
-
     InformationViaId getInformationViaId(Integer id,Integer moduleId, Integer SubmoduleId);
+
+    List<InformationMarkers> getUploadedInformationByOfficialDateWise(Integer userId,String toDate);
 
 
 

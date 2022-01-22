@@ -116,6 +116,50 @@
          </div>
       </sec:authorize>
 
+       <sec:authorize access="hasAnyAuthority('SUPER ADMIN')">
+               <div class="col-md-6 col-lg-3">
+                  <div class="widget-small danger coloured-icon">
+                     <i class="icon fa fa-file-excel-o fa-3x"></i>
+                     <div class="info">
+                        <a href="${pageContext.request.contextPath}/beatOfficerLogs" style=" text-decoration: none !important;">
+                           <h4>View Officer Login Logs</h4>
+                        </a>
+                     </div>
+                  </div>
+               </div>
+            </sec:authorize>
+
+       <sec:authorize access="hasAnyAuthority('SUPER ADMIN')">
+                      <div class="col-md-6 col-lg-3">
+                         <div class="widget-small danger coloured-icon">
+                            <i class="icon fa fa-file-excel-o fa-3x"></i>
+                            <div class="info">
+                               <a href="${pageContext.request.contextPath}/dailyActivity" style=" text-decoration: none !important;">
+                                  <h4>View Daily Activity</h4>
+                               </a>
+                            </div>
+                         </div>
+                      </div>
+                   </sec:authorize>
+
+
+
+        <sec:authorize access="hasAnyAuthority('SUPER ADMIN')">
+                             <div class="col-md-6 col-lg-3">
+                                <div class="widget-small danger coloured-icon">
+                                   <i class="icon fa fa-file-excel-o fa-3x"></i>
+                                   <div class="info">
+                                      <a href="${pageContext.request.contextPath}/dailyActivityMaps" style=" text-decoration: none !important;">
+                                         <h4>View Daily Activity Maps</h4>
+                                      </a>
+                                   </div>
+                                </div>
+                             </div>
+                          </sec:authorize>
+
+
+
+
 
    </div>
    </div>

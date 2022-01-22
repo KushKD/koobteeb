@@ -45,8 +45,9 @@ public class AllInformationEntity {
 	@JoinColumn(name="submodule_id")
 	private SubModuleMaster submoduleId;
 
-	@Column(name="user_id")
-	private Integer userId;
+	@OneToOne
+	@JoinColumn(name="user_id")
+	private UserDatatableEntity userId;
 
 	@Column(name="role_id")
 	private Integer roleId;
@@ -233,11 +234,11 @@ public class AllInformationEntity {
 		this.submoduleId = submoduleId;
 	}
 
-	public Integer getUserId() {
+	public UserDatatableEntity getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(UserDatatableEntity userId) {
 		this.userId = userId;
 	}
 

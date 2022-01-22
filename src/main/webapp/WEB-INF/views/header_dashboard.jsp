@@ -147,7 +147,16 @@
                   <ul class="treeview-menu">
                      <li><a class="treeview-item" href="${pageContext.request.contextPath}/viewData"><i class="icon fa fa-circle-o"></i> View Data via Selection </a></li>
                       <li><a class="treeview-item" href="${pageContext.request.contextPath}/viewCompleteData"><i class="icon fa fa-circle-o"></i> View Complete Data </a></li>
-
+                      <li><a class="treeview-item" href="${pageContext.request.contextPath}/beatOfficerLogs"><i class="icon fa fa-circle-o"></i> View Beat Officer Logs </a></li>
+                  </ul>
+               </li>
+            </sec:authorize>
+            <sec:authorize access="hasAuthority('SUPER ADMIN')">
+               <li class="treeview">
+                  <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">Daily Activity</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+                  <ul class="treeview-menu">
+                     <li><a class="treeview-item" href="${pageContext.request.contextPath}/dailyActivity"><i class="icon fa fa-circle-o"></i> Officer Daily Activity </a></li>
+                      <li><a class="treeview-item" href="${pageContext.request.contextPath}/dailyActivityMaps"><i class="icon fa fa-circle-o"></i> Officer Daily Activity (Maps) </a></li>
                   </ul>
                </li>
             </sec:authorize>
