@@ -14,6 +14,62 @@
           width: 100%;
           /* The width is the width of the web page */
         }
+
+
+        #propertymap .gm-style-iw{
+            box-shadow:none;
+            color:#515151;
+            font-family: "Georgia", "Open Sans", Sans-serif;
+            text-align: center;
+            width: 100% !important;
+            border-radius: 0;
+            left: 0 !important;
+            top: 20px !important;
+        }
+
+         #propertymap .gm-style > div > div > div > div > div > div > div {
+            background: none!important;
+        }
+
+        .gm-style > div > div > div > div > div > div > div:nth-child(2) {
+             box-shadow: none!important;
+        }
+         #propertymap .gm-style-iw > div > div{
+            background: #FFF!important;
+        }
+
+         #propertymap .gm-style-iw a{
+            text-decoration: none;
+        }
+
+         #propertymap .gm-style-iw > div{
+            width: 245px !important
+        }
+
+         #propertymap .gm-style-iw .img_wrapper {
+            height: 150px;
+            overflow: hidden;
+            width: 100%;
+            text-align: center;
+            margin: 0px auto;
+        }
+
+         #propertymap .gm-style-iw .img_wrapper > img {
+            width: 100%;
+            height:auto;
+        }
+
+         #propertymap .gm-style-iw .property_content_wrap {
+            padding: 0px 20px;
+        }
+
+         #propertymap .gm-style-iw .property_title{
+            min-height: auto;
+        }
+
+
+
+
         </style>
 
 
@@ -99,7 +155,7 @@
 						<form:errors  path="date"></form:errors>
 					</div>
 				</spring:bind>
-				<button class="btn btn-lg btn-primary btn-block" onclick="alert('We are Here');">Submit</button>
+				<button class="btn btn-lg btn-primary btn-block">Submit</button>
 				 <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
 				<c:remove var="successMessage" scope="session" />
 			</div>
@@ -124,7 +180,7 @@
 
 		</main>
 
-           <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_KdD9Dys8-WFmjSG3gyTjaHTKLnBsoqA&callback=initMap&libraries=&v=weekly" async  > </script>
+           <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDsFa0sl8ykZ1dPr1atULmlixkOuzqOT8A&callback=initMap&libraries=&v=weekly" async  > </script>
 
 
 
@@ -201,45 +257,76 @@ function getUserIDLoad(){
 
    <script>
 
+   var markersOnMap = null;
+
    var dataServer = document.getElementById('data');
 
-   if(dataServer.innerHTML!= null){
-   var json_ = JSON.parse(JSON.stringify(dataServer.innerHTML));
-   console.log("Data is:- "+json_);
-// Initialize and add the map
-           function initMap() {
-             // The location of Uluru
-             const uluru = { lat: 31.0703868, lng: 77.1869349 };
-             // The map, centered at Uluru
-             const map = new google.maps.Map(document.getElementById("map"), {
-               zoom: 12,
-               center: uluru,
-             });
-             // The marker, positioned at Uluru
-             const marker = new google.maps.Marker({
-               position: uluru,
-               map: map,
-             });
-           }
+   if (dataServer.innerHTML != null) {
+       var json_ = JSON.parse(JSON.stringify(dataServer.innerHTML));
+       markersOnMap = json_;
+       console.log(markersOnMap);
 
-   }else{
-        //alert("Empty")
-           // Initialize and add the map
-           function initMap() {
-             // The location of Uluru
-             const uluru = { lat: 31.0703868, lng: 77.1869349 };
-             // The map, centered at Uluru
-             const map = new google.maps.Map(document.getElementById("map"), {
+function initMap() {
+
+function getContextPath() {
+	return window.location.pathname.substring(0, window.location.pathname.indexOf("/", 0)); //2  0
+}
+
+var formURL = getContextPath()+"/downloadFile/";
+
+           // The location of Uluru
+           const uluru = {
+               lat: 31.0703868,
+               lng: 77.1869349
+           };
+           // The map, centered at Uluru
+           const map = new google.maps.Map(document.getElementById("map"), {
                zoom: 12,
                center: uluru,
-             });
-             // The marker, positioned at Uluru
-             const marker = new google.maps.Marker({
-               position: uluru,
-               map: map,
-             });
-           }
+               mapTypeId: google.maps.MapTypeId.ROADMAP
+           });
+
+            var infowindow = new google.maps.InfoWindow();
+
+               var marker, i;
+
+        for (i = 0; i < JSON.parse(markersOnMap).length; i++) {
+
+        marker = new google.maps.Marker({
+                position: new google.maps.LatLng(JSON.parse(markersOnMap)[i].latitude, JSON.parse(markersOnMap)[i].longitude),
+                map: map
+
+              });
+
+              content = "<div class='map_info_wrapper' style='width:350px'>"+
+                  "<div style='width:130px; float:left'>"+
+                  "<img src=" + formURL+ JSON.parse(markersOnMap)[i].subMoculeIcon + "width='130'/>"+
+
+                  "</div>"+
+                  "<div style='width:200px;float:left;padding-left:20px'>"+
+                  "<h6 style='font-size:150%;color:black'>" +JSON.parse(markersOnMap)[i].subModuleName+ "</h6>"+
+                  "<p style='font-size:150%;color:blue'>"+JSON.parse(markersOnMap)[i].name+"</p>"+
+                  "</div>"
+                  "</div>";
+
+              google.maps.event.addListener(marker, 'click', (function(marker ,content, i) {
+                              return function() {
+                                infowindow.setContent(content);
+                                infowindow.open(map, marker);
+                              }
+                            })(marker , content , i));
+
+            }
+
+
+       }
+
+
+   } else {
+       alert("No Data Available");
+
    }
 
 
-         </script>
+
+   </script>
