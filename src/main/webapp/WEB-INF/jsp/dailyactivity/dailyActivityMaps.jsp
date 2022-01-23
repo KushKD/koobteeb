@@ -258,72 +258,69 @@ function getUserIDLoad(){
    <script>
 
    var markersOnMap = null;
-
    var dataServer = document.getElementById('data');
 
    if (dataServer.innerHTML != null) {
-       var json_ = JSON.parse(JSON.stringify(dataServer.innerHTML));
-       markersOnMap = json_;
-       console.log(markersOnMap);
+   	var json_ = JSON.parse(JSON.stringify(dataServer.innerHTML));
+   	markersOnMap = json_;
+   	console.log(markersOnMap);
 
-function initMap() {
+   	function initMap() {
+   		function getContextPath() {
+   			return window.location.pathname.substring(0, window.location.pathname.indexOf("/", 0)); //2  0
+   		}
 
-function getContextPath() {
-	return window.location.pathname.substring(0, window.location.pathname.indexOf("/", 0)); //2  0
-}
+   		var formURL = getContextPath() + "/downloadFile/";
 
-var formURL = getContextPath()+"/downloadFile/";
+   		const uluru = {
+   			lat: 31.0703868,
+   			lng: 77.1869349
+   		};
 
-           // The location of Uluru
-           const uluru = {
-               lat: 31.0703868,
-               lng: 77.1869349
-           };
-           // The map, centered at Uluru
-           const map = new google.maps.Map(document.getElementById("map"), {
-               zoom: 12,
-               center: uluru,
-               mapTypeId: google.maps.MapTypeId.ROADMAP
-           });
+   		const map = new google.maps.Map(document.getElementById("map"), {
+   			zoom: 12,
+   			center: uluru,
+   			mapTypeId: google.maps.MapTypeId.ROADMAP
+   		});
 
-            var infowindow = new google.maps.InfoWindow();
+   		var infowindow = new google.maps.InfoWindow();
 
-               var marker, i;
+   		var marker, i;
 
-        for (i = 0; i < JSON.parse(markersOnMap).length; i++) {
+   		for (i = 0; i < JSON.parse(markersOnMap).length; i++) {
 
-        marker = new google.maps.Marker({
-                position: new google.maps.LatLng(JSON.parse(markersOnMap)[i].latitude, JSON.parse(markersOnMap)[i].longitude),
-                map: map
+   			marker = new google.maps.Marker({
+   				position: new google.maps.LatLng(JSON.parse(markersOnMap)[i].latitude, JSON.parse(markersOnMap)[i].longitude),
+   				map: map
 
-              });
+   			});
 
-              content = "<div class='map_info_wrapper' style='width:350px'>"+
-                  "<div style='width:130px; float:left'>"+
-                  "<img src=" + formURL+ JSON.parse(markersOnMap)[i].subMoculeIcon + "width='130'/>"+
+   			content = "<div class='map_info_wrapper' style='width:350px'>" +
+   				"<div style='width:130px; float:left'>" +
+   				"<img src=" + formURL + JSON.parse(markersOnMap)[i].subMoculeIcon + "width='130'/>" +
 
-                  "</div>"+
-                  "<div style='width:200px;float:left;padding-left:20px'>"+
-                  "<h6 style='font-size:150%;color:black'>" +JSON.parse(markersOnMap)[i].subModuleName+ "</h6>"+
-                  "<p style='font-size:150%;color:blue'>"+JSON.parse(markersOnMap)[i].name+"</p>"+
-                  "</div>"
-                  "</div>";
+   				"</div>" +
+   				"<div style='width:200px;float:left;padding-left:20px'>" +
+   				"<h6 style='font-size:150%;color:black'>" + JSON.parse(markersOnMap)[i].subModuleName + "</h6>" +
+   				"<p style='font-size:150%;color:blue'>" + JSON.parse(markersOnMap)[i].name + "</p>" +
+   				"</div>"
+   			"</div>";
 
-              google.maps.event.addListener(marker, 'click', (function(marker ,content, i) {
-                              return function() {
-                                infowindow.setContent(content);
-                                infowindow.open(map, marker);
-                              }
-                            })(marker , content , i));
+   			google.maps.event.addListener(marker, 'click', (function(marker, content, i) {
+   				return function() {
+   					infowindow.setContent(content);
+   					infowindow.open(map, marker);
+   				}
+   			})(marker, content, i));
 
-            }
+   		}
 
 
-       }
+   	}
 
 
    } else {
-       alert("No Data Available");
+   	alert("No Data Available");
 
    }
 
