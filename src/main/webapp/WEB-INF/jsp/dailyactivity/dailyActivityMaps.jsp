@@ -297,7 +297,7 @@ function getUserIDLoad(){
 
    			content = "<div class='map_info_wrapper' style='width:350px'>" +
    				"<div style='width:130px; float:left'>" +
-   				"<img src=" + formURL + JSON.parse(markersOnMap)[i].subMoculeIcon + "width='130'/>" +
+   				"<img src=" + formURL + JSON.parse(markersOnMap)[i].subMoculeIcon + " width='130'/>" +
 
    				"</div>" +
    				"<div style='width:200px;float:left;padding-left:20px'>" +
