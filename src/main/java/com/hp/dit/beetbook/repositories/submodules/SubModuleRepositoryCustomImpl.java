@@ -86,7 +86,7 @@ public class SubModuleRepositoryCustomImpl implements SubModuleRepositoryCustom 
         cq.multiselect(
                 book.get("submoduleId"),
                 book.get("submoduleName"),
-                book.get("moduleId"),
+                book.get("moduleId").<Integer>get("moduleId"),
                 book.get("subiconName")
         ).distinct(true);
         TypedQuery<SubModuleRoleList> query =  entityManager.createQuery(cq);

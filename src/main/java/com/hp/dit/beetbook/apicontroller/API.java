@@ -45,6 +45,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -73,6 +75,7 @@ public class API {
 
     @Autowired
     DistrictRepository districtRepository;
+
     @Autowired
     UserRepository userRepository;
 
@@ -1234,9 +1237,9 @@ public class API {
      * saveInformation
      */
     @Transactional
-    @RequestMapping(value = "/api/saveInformation", method = RequestMethod.POST, consumes = "text/plain", produces = "text/plain")
-    @ResponseBody
-    public String saveInformation(@RequestBody String indormation) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, JsonProcessingException {
+    @RequestMapping(value = "/api/saveInformation", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = "text/plain")
+    public String saveInformation(@RequestParam(required = true, value = "jsondata") String information,
+                                  @RequestParam(required = true, value = "files") MultipartFile[] files) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, JsonProcessingException {
         Map<String, Object> map = null;
         String info = null, jsonStr = null;
         EncryptDecrypt ED = new EncryptDecrypt();
@@ -1246,13 +1249,35 @@ public class API {
         InformationEntity informationToSave = new InformationEntity();
         InformationEntity informationSaved = null;
 
-        if (indormation != null && !indormation.isEmpty()) {
-            logger.info("Information ID:-\t" + indormation);
-            info = ED.decrypt(indormation);
+        if (information != null && !information.isEmpty() && files != null ) {
+            logger.info("Information ID:-\t" + information);
+            info = ED.decrypt(information);
             logger.info("Information Decrypt ID:-\t" + info);
 
             try {
                 informationToSave = objectMapper.readValue(info, InformationEntity.class);
+                logger.info("Data To be Saved" + informationToSave);
+
+                //Save Files
+                List<MultipartFile> fileNames = Arrays.asList(files);
+                logger.info("file1 Size:-" + fileNames.size());
+
+                for (int i = 0; i < fileNames.size(); i++) {
+
+                    logger.info("file Name:-" + i + "\t" + fileNames.get(i).getName());
+                    logger.info("file Size:-" + i + "\t" + fileNames.get(i).getSize());
+                    logger.info("file Content Type:-" + i + "\t" + fileNames.get(i).getContentType());
+                    logger.info("\t \n");
+                    String fileName = fileStorageService.storeFile(fileNames.get(i));
+                }
+                String fileDownloadUri_fileOne = ServletUriComponentsBuilder.fromCurrentContextPath()
+                        .path("/downloadFile/")
+                        .path(informationToSave.getPhoto())
+                        .toUriString();
+
+                logger.info("File One URL :- \t" + fileDownloadUri_fileOne);
+
+
 
                 informationToSave.setActive(true);
                 GeometryFactory geometryFactory = new GeometryFactory();

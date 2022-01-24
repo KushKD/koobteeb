@@ -15,7 +15,7 @@ import java.util.List;
 public interface ModuleRepository extends DataTablesRepository<ModuleMaster, Integer>, ModuleRepositoryCustom {
 
 
-    @Query(value = "SELECT module.module_id, module.module_name,module.module_icon, module.active FROM mst_module as module INNER JOIN module_role_mapping as mrm ON mrm.module_id = module.module_id WHERE role_id =:roleId ORDER BY module_id ASC", nativeQuery = true)
+    @Query(value = "SELECT module.module_id, module.module_name,module.module_icon, module.active FROM mst_module as module INNER JOIN module_role_mapping as mrm ON mrm.module_id = module.module_id WHERE role_id =:roleId AND module.active = true ORDER BY module_id ASC", nativeQuery = true)
     List<Object[]> getModulesViaRoleId(@Param("roleId")Integer userId);
 
 }

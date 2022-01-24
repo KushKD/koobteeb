@@ -62,10 +62,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
      //   http.addFilterBefore(new SameSiteFilter(), UsernamePasswordAuthenticationFilter.class);
+        //Working Earlier
         http.headers().addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN));
-        http.csrf()
-                .csrfTokenRepository(csrfTokenRepository()).and()
-                .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
+        http.csrf() .csrfTokenRepository(csrfTokenRepository()) .and().addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
+
         http.csrf().ignoringAntMatchers("/nocsrf", "/api/**");
         http.csrf().ignoringAntMatchers("/nocsrf", "/apidataTable/**");
         http.csrf().ignoringAntMatchers("/nocsrf", "/ajax/**");
