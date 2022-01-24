@@ -858,46 +858,70 @@ public class API {
 
 
 
-    @RequestMapping(value = "/api/checkPin", method = RequestMethod.GET, produces = Constants.ProducesPlainText)
-    public String checkPin() throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, JsonProcessingException {
+    @RequestMapping(value = "/api/checkPin", method = RequestMethod.GET, produces = Constants.ProducesPlainText, consumes = Constants.ProducesPlainText)
+    public String checkPin(@RequestBody String data) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, JsonProcessingException {
         Map<String, Object> map = null;
-        String state_id = null, jsonStr = null;
+        String district_id = null, pin = null, jsonStr = null;
         EncryptDecrypt ED = new EncryptDecrypt();
         ObjectMapper Obj = null;
 
+        if (data != null && !data.isEmpty()) {
+            logger.info("data ID:-\t" + data);
+            jsonStr = ED.decrypt(data);
 
-            try {
-                PinMaster pinDetails = pinRepository.findActivePins();
-                if (pinDetails!=null) {
-                    map = new HashMap<String, Object>();
-                    map.put(Constants.keyResponse, pinDetails);
-                    map.put(Constants.keyMessage, "Request Successful. Data Found Successfully.");
-                    map.put(Constants.keyStatus, HttpStatus.OK.value());
-                    Obj = new ObjectMapper();
-                    jsonStr = Obj.writeValueAsString(map);
-                    logger.info(jsonStr);
-                    logger.info(ED.encrypt(jsonStr));
-                    return ED.encrypt(jsonStr);
-                } else {
-                    map = new HashMap<String, Object>();
-                    map.put(Constants.keyResponse, "");
-                    map.put(Constants.keyMessage, "Request Successful. No Data Found.");
-                    map.put(Constants.keyStatus, HttpStatus.NO_CONTENT.value());
-                    Obj = new ObjectMapper();
-                    jsonStr = Obj.writeValueAsString(map);
-                    logger.info(jsonStr);
-                    return ED.encrypt(jsonStr);
-                }
-            } catch (Exception ex) {
+        try {
+            JsonObject jsonObject = new JsonParser().parse(jsonStr).getAsJsonObject();
+            System.out.println(jsonObject.toString());
+            logger.info("API:: User Data is (Json Object ):- " + jsonObject);
+            district_id = jsonObject.getAsJsonObject().get("districtId").getAsString();
+            pin = jsonObject.getAsJsonObject().get("pin").getAsString();
+
+            logger.info("districtId:- " + district_id);
+            logger.info("pin:- " + pin);
+
+
+            PinMaster pinDetails = pinRepository.findActivePins(district_id,pin);
+            if (pinDetails != null) {
                 map = new HashMap<String, Object>();
-                map.put(Constants.keyResponse, ex.getLocalizedMessage().toString());
-                map.put(Constants.keyMessage, "Server was unable to process the Request. Please try again Later.");
-                map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+                map.put(Constants.keyResponse, pinDetails);
+                map.put(Constants.keyMessage, "Request Successful. Data Found Successfully.");
+                map.put(Constants.keyStatus, HttpStatus.OK.value());
+                Obj = new ObjectMapper();
+                jsonStr = Obj.writeValueAsString(map);
+                logger.info(jsonStr);
+                logger.info(ED.encrypt(jsonStr));
+                return ED.encrypt(jsonStr);
+            } else {
+                map = new HashMap<String, Object>();
+                map.put(Constants.keyResponse, "");
+                map.put(Constants.keyMessage, "Request Successful. No Data Found.");
+                map.put(Constants.keyStatus, HttpStatus.NO_CONTENT.value());
                 Obj = new ObjectMapper();
                 jsonStr = Obj.writeValueAsString(map);
                 logger.info(jsonStr);
                 return ED.encrypt(jsonStr);
             }
+        } catch (Exception ex) {
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, ex.getLocalizedMessage().toString());
+            map.put(Constants.keyMessage, "Server was unable to process the Request. Please try again Later.");
+            map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+            Obj = new ObjectMapper();
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+            return ED.encrypt(jsonStr);
+        }
+    }else {
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, "Data Passed not in valid format");
+            map.put(Constants.keyMessage, "Request Successful. Data Found Successfully.");
+            map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+            Obj = new ObjectMapper();
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+            logger.info(ED.encrypt(jsonStr));
+            return ED.encrypt(jsonStr);
+        }
 
 
 

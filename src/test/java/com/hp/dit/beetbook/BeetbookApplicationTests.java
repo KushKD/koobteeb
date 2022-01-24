@@ -300,7 +300,11 @@ class BeetbookApplicationTests {
     @Rollback(value = false)
     void checkPin() throws Exception  {
             EncryptDecrypt ED = new EncryptDecrypt();
-        String districts = apiController.checkPin();
+        JsonObject jsonObjecttwo = new JsonObject();
+        jsonObjecttwo.addProperty("districtId", "206");
+        jsonObjecttwo.addProperty("pin", "123457");
+        System.out.println(ED.encrypt(jsonObjecttwo.toString()));
+        String districts = apiController.checkPin(ED.encrypt(jsonObjecttwo.toString()));
         System.out.println("===Districts===");
         System.out.println(districts);
         System.out.println(ED.decrypt(districts));
