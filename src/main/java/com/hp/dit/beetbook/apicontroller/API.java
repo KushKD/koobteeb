@@ -858,7 +858,7 @@ public class API {
 
 
 
-    @RequestMapping(value = "/api/checkPin", method = RequestMethod.GET, produces = Constants.ProducesPlainText, consumes = Constants.ProducesPlainText)
+    @RequestMapping(value = "/api/checkPin", method = RequestMethod.POST, produces = Constants.ProducesPlainText, consumes = Constants.ProducesPlainText)
     public String checkPin(@RequestBody String data) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, JsonProcessingException {
         Map<String, Object> map = null;
         String district_id = null, pin = null, jsonStr = null;

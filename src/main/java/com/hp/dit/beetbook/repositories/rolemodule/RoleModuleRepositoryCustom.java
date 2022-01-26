@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-@CacheConfig(cacheNames = "modules_roles_")
+//@CacheConfig(cacheNames = "modules_roles_")
 public interface RoleModuleRepositoryCustom {
 
 

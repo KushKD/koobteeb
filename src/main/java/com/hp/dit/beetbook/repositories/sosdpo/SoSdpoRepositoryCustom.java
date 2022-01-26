@@ -9,11 +9,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-@CacheConfig(cacheNames = "sosdpo_")
+//@CacheConfig(cacheNames = "sosdpo_")
 public interface SoSdpoRepositoryCustom {
 
 
-    @Cacheable
+    //@Cacheable
     List<S0SdpoMaster> getAllSOSdpo() throws Exception;
     S0SdpoMaster getAllSOSdpoViaId(Integer districtId) throws Exception;
     Integer sdpoCount(String so_sdpo);

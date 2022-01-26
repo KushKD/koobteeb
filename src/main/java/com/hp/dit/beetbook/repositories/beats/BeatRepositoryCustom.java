@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-@CacheConfig(cacheNames = "beats_")
+//@CacheConfig(cacheNames = "beats_")
 public interface BeatRepositoryCustom {
 
 

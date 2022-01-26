@@ -8,13 +8,13 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-@CacheConfig(cacheNames = "districts_")
+//@CacheConfig(cacheNames = "districts_")
 public interface DistrictRepositoryCustom {
 
-    @Cacheable
+   // @Cacheable
     List<DistrictMaster> findDistrictByStateId(Integer stateId) throws Exception;
 
-    @Cacheable
+   // @Cacheable
     List<DistrictMaster> getAllDistricts() throws Exception;
 
 

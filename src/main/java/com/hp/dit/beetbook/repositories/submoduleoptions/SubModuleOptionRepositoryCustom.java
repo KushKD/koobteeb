@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-@CacheConfig(cacheNames = "submodules_")
+//@CacheConfig(cacheNames = "submodules_")
 public interface SubModuleOptionRepositoryCustom {
 
 

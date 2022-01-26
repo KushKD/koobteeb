@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-@CacheConfig(cacheNames = "pin")
+//@CacheConfig(cacheNames = "pin")
 public interface PinRepositoryCustom {
 
     List<PinMaster> findAllActivePins() throws Exception;
