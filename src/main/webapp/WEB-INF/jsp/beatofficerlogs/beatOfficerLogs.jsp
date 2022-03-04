@@ -41,6 +41,7 @@
 	$('table#sampleTable').DataTable({
 		ajax: '/apidataTable/allLogs',
 		serverSide: true,
+		order: [[ 5, "desc" ]],
 		columns: [
 
 			{

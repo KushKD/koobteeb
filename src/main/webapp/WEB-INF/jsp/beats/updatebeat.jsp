@@ -88,7 +88,7 @@
    <input class="form-control col-md-6"  id="did" type="hidden" value="${beat_to_update.stateID.stateID}"  />
       <input class="form-control col-md-6"  id="sid" type="hidden" value="${beat_to_update.districtId.districtId}"  />
       <input class="form-control col-md-6"  id="sosid" type="hidden" value="${beat_to_update.sosdpoId}"  />
-       <input class="form-control col-md-6"  id="psid" type="hidden" value="${beat_to_update.psId}"  />
+       <input class="form-control col-md-6"  id="psid" type="hidden" value="${beat_to_update.psId.psId}"  />
 </main>
 <script type="text/javascript">
 

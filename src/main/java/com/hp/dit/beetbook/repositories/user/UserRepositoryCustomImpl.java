@@ -1,6 +1,7 @@
 package com.hp.dit.beetbook.repositories.user;
 
 import com.hp.dit.beetbook.entities.UserEntity;
+import com.hp.dit.beetbook.modals.InformationAddedUser;
 import com.hp.dit.beetbook.modals.LoggedInUserSession;
 import com.hp.dit.beetbook.modals.RevenueUserDetails;
 import com.hp.dit.beetbook.modals.UsePoJo;
@@ -137,6 +138,24 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
                 book.get("lastName"),
                 book.get("mobileNumber")).distinct(true);
         TypedQuery<RevenueUserDetails> query =  entityManager.createQuery(cq);
+        return query.getSingleResult();
+    }
+
+    @Override
+    public InformationAddedUser getUserByUserId(Integer userId) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<InformationAddedUser> cq = cb.createQuery(InformationAddedUser.class);
+        Root<UserEntity> book = cq.from(UserEntity.class);
+        Predicate isActive_ = cb.equal(book.get("active"), true);
+        Predicate userId_ = cb.equal(book.get("userId"), userId);
+        cq.where(isActive_,userId_);
+        cq.multiselect(
+                book.get("username"),
+                book.get("firstName"),
+                book.get("lastName"),
+                book.get("rank"),
+                book.get("mobileNumber"));
+        TypedQuery<InformationAddedUser> query =  entityManager.createQuery(cq);
         return query.getSingleResult();
     }
 

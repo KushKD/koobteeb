@@ -1,15 +1,14 @@
 package com.hp.dit.beetbook.Controller.information;
 
 import com.hp.dit.beetbook.Controller.HomeController;
-import com.hp.dit.beetbook.entities.BeatMaster;
-import com.hp.dit.beetbook.entities.InformationEntity;
-import com.hp.dit.beetbook.entities.PoliceStationMaster;
-import com.hp.dit.beetbook.entities.SubModuleMaster;
+import com.hp.dit.beetbook.entities.*;
 import com.hp.dit.beetbook.form.ViewInformationWebForm;
 import com.hp.dit.beetbook.form.viewdata.ViewData;
+import com.hp.dit.beetbook.modals.InformationAddedUser;
 import com.hp.dit.beetbook.modals.LoggedInUserSession;
 import com.hp.dit.beetbook.modals.information.InformationMarkerWeb;
 import com.hp.dit.beetbook.repositories.information.InformationRepository;
+import com.hp.dit.beetbook.repositories.user.UserRepository;
 import com.hp.dit.beetbook.utilities.Utilities;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
@@ -40,6 +39,9 @@ public class ViewDataController  {
 
     @Autowired
     InformationRepository informationRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
 
 
@@ -168,13 +170,19 @@ public class ViewDataController  {
             System.out.println(information.toString());
 
 
-            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
-            System.out.println(user.toString());
+
+
+           // LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+           // System.out.println(user.toString());
+
+            InformationAddedUser user = userRepository.getUserByUserId(information.getUserId());
+            //getUserByUserId();
 
             model.addAttribute("state_id", information.getStateId());
             model.addAttribute("district_id", information.getDistrictId());
             model.addAttribute("sodpo_id", information.getSosdpoId());
             model.addAttribute("ps_id", information.getPsId().getPsId());
+            System.out.println("PsID====" + Integer.toString(information.getPsId().getPsId()));
             model.addAttribute("beat_id", information.getBeatId().getBeatId());
             model.addAttribute("submodule_id", information.getSubmoduleId().getSubmoduleId());
             model.addAttribute("information", information);
@@ -380,7 +388,7 @@ public class ViewDataController  {
             Date date = new Date(timestamp.getTime());
             information.setUpdatedOn(date);
 
-            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            InformationAddedUser user = userRepository.getUserByUserId(information.getUserId());
             System.out.println(user.toString());
 
             InformationEntity newEntity = new InformationEntity();
@@ -389,7 +397,7 @@ public class ViewDataController  {
             model.addAttribute("state_id", newEntity.getStateId());
             model.addAttribute("district_id", newEntity.getDistrictId());
             model.addAttribute("sodpo_id", newEntity.getSosdpoId());
-            model.addAttribute("ps_id", newEntity.getPsId());
+            model.addAttribute("ps_id", newEntity.getPsId().getPsId());
             model.addAttribute("beat_id", newEntity.getBeatId());
             model.addAttribute("submodule_id", newEntity.getSubmoduleId().getSubmoduleId());
             model.addAttribute("information", newEntity);

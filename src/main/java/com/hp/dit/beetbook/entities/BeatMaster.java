@@ -33,8 +33,9 @@ public class BeatMaster implements Serializable {
     private Integer sosdpoId;
 
 
-    @Column(name = "ps_id")
-    private Integer psId;
+    @OneToOne
+    @JoinColumn(name = "ps_id")
+    private PoliceStationMaster psId;
 
     @Column(name = "active")
     private Boolean active;
@@ -127,11 +128,11 @@ public class BeatMaster implements Serializable {
         this.sosdpoId = sosdpoId;
     }
 
-    public Integer getPsId() {
+    public PoliceStationMaster getPsId() {
         return psId;
     }
 
-    public void setPsId(Integer psId) {
+    public void setPsId(PoliceStationMaster psId) {
         this.psId = psId;
     }
 

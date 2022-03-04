@@ -1,6 +1,7 @@
 package com.hp.dit.beetbook.repositories.user;
 
 import com.hp.dit.beetbook.entities.UserEntity;
+import com.hp.dit.beetbook.modals.InformationAddedUser;
 import com.hp.dit.beetbook.modals.LoggedInUserSession;
 import com.hp.dit.beetbook.modals.RevenueUserDetails;
 import com.hp.dit.beetbook.modals.UsePoJo;
@@ -18,5 +19,7 @@ public interface UserRepositoryCustom {
     UsePoJo apiLoginSho(Integer StateId, Integer DistrictId, Integer sosdpoid, Integer beatid, String username, String password );
 
     RevenueUserDetails getRevenueUserPhoneNumber(Integer userId);
+
+    InformationAddedUser getUserByUserId(Integer userId);
 
 }

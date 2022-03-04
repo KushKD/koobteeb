@@ -18,6 +18,8 @@
          <c:if test="${not empty serverError}">
             <div id="serverError" class="plErroMessage col-lg-12">${serverError}</div>
          </c:if>
+
+
          <div class="col-md-12">
             <div class="tab-content">
                <div id="user-timeline">
@@ -25,8 +27,9 @@
                      <h2> Location Details</h2>
                      <hr>
                      <div class="row">
+
                         <!-- Feilds -->
-                        <div class="col-lg-12">
+                        <div class="col-lg-10">
                            <div class="row">
                               <spring:bind path="id">
                                  <div class="col-md-4  form-group ${status.error ? 'has-error' : ''}" >
@@ -79,6 +82,14 @@
                               </spring:bind>
                            </div>
                         </div>
+
+                        <div class="col-lg-2">
+                                                <div class="row">
+                                                   <div class=" col-lg-12 form-group">
+                                                      <img style="width:200px;" class="img-thumbnail img-responsive"  src="${pageContext.request.contextPath}/downloadFile/${information.photo}" >
+                                                   </div>
+                                                </div>
+                                             </div>
                      </div>
                   </div>
                </div>
@@ -450,10 +461,30 @@
                                                  <div class=" col-lg-4 form-group">
                                                   <fieldset disabled="">
                                                      <label class="control-label" for="disabledInput">Username:</label>
-                                                     <input class="form-control" id="disabledInput" type="text" value="${user.userName}" disabled="">
+                                                     <input class="form-control" id="disabledInput" type="text" value="${user.username}" disabled="">
                                                   </fieldset>
                                                </div>
 
+<div class=" col-lg-4 form-group">
+                                                  <fieldset disabled="">
+                                                     <label class="control-label" for="disabledInput">First Name:</label>
+                                                     <input class="form-control" id="disabledInput" type="text" value="${user.firstName}" disabled="">
+                                                  </fieldset>
+                                               </div>
+
+                                               <div class=" col-lg-4 form-group">
+                                                                                                 <fieldset disabled="">
+                                                                                                    <label class="control-label" for="disabledInput">Last Name:</label>
+                                                                                                    <input class="form-control" id="disabledInput" type="text" value="${user.lastName}" disabled="">
+                                                                                                 </fieldset>
+                                                                                              </div>
+
+                                                                                              <div class=" col-lg-4 form-group">
+                                                                                                                                                <fieldset disabled="">
+                                                                                                                                                   <label class="control-label" for="disabledInput">Rank:</label>
+                                                                                                                                                   <input class="form-control" id="disabledInput" type="text" value="${user.rank}" disabled="">
+                                                                                                                                                </fieldset>
+                                                                                                                                             </div>
                                                 <div class=" col-lg-4 form-group">
                                                  <fieldset disabled="">
                                                     <label class="control-label" for="disabledInput">Mobile Number:</label>
@@ -475,7 +506,8 @@
                               </div>
                            </div>
 
- <input type="submit" id="payment_proceed"  value="Update Information" class="btn btn-primary">
+ <input type="submit" id="payment_proceed"  value="Update Information" class="btn btn-primary"> &nbsp; &nbsp;
+ <a href="${pageContext.request.contextPath}/viewCompleteData" class="btn btn-danger">Go Back</a>
    <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
 
       </div>

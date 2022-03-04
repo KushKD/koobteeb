@@ -23,6 +23,7 @@
                <tr>
                   <th>Beat Id</th>
                   <th>Beat Name</th>
+                  <th>Police Station Name</th>
                   <th>District Name</th>
                   <th>State Name</th>
                   <th> Active/Inactive</th>
@@ -48,6 +49,9 @@
 			{
 				data: 'beatName'
 			},
+			{
+            				data: 'psId.psName'
+            			},
 
 			{
 				data: 'districtId.districtName'

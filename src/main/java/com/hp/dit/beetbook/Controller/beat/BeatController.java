@@ -2,6 +2,7 @@ package com.hp.dit.beetbook.Controller.beat;
 
 import com.hp.dit.beetbook.entities.BeatMaster;
 import com.hp.dit.beetbook.entities.DistrictMaster;
+import com.hp.dit.beetbook.entities.PoliceStationMaster;
 import com.hp.dit.beetbook.entities.StatesMaster;
 import com.hp.dit.beetbook.form.activebeat.ActiveBeat;
 import com.hp.dit.beetbook.form.beat.BeatForm;
@@ -102,7 +103,10 @@ public class BeatController {
                 beat.setDistrictId(districtMaster);
 
                 beat.setSosdpoId(Integer.parseInt(form.getSosdpoId()));
-                beat.setPsId(Integer.parseInt(form.getPsId()));
+
+                PoliceStationMaster ps = new PoliceStationMaster();
+                ps.setPsId(Integer.parseInt(form.getPsId()));
+                beat.setPsId(ps);
 
                // beat.setLatitude(Double.parseDouble(form.getLatitude()));
                // beat.setLongitude(Double.parseDouble(form.getLongitude()));
@@ -222,7 +226,10 @@ public class BeatController {
 
 
                 beat.setSosdpoId(Integer.parseInt(form.getSosdpoId()));
-                beat.setPsId(Integer.parseInt(form.getPsId()));
+
+                PoliceStationMaster policeStationMaster = new PoliceStationMaster();
+                policeStationMaster.setPsId(Integer.parseInt(form.getPsId()));
+                beat.setPsId(policeStationMaster);
 
                // beat.setLatitude(Double.parseDouble(form.getLatitude()));
                // beat.setLongitude(Double.parseDouble(form.getLongitude()));
