@@ -335,29 +335,29 @@ class BeetbookApplicationTests {
 
     }
 
-    @Test
-    @Transactional
-    @Rollback(value = false)
-    void locationLogs() throws Exception  {
+//    @Test
+//    @Transactional
+//    @Rollback(value = false)
+//    void locationLogs() throws Exception  {
+//
+//        //31.1142457,77.1775003
+//
+//        EncryptDecrypt ED = new EncryptDecrypt();
+//        JsonObject jsonObjecttwo = new JsonObject();
+//        jsonObjecttwo.addProperty("user_id", "1");
+//        jsonObjecttwo.addProperty("role_id", "1");
+//        jsonObjecttwo.addProperty("latitude", "31.1142457");
+//        jsonObjecttwo.addProperty("longitude", "77.1775003");
+//        jsonObjecttwo.addProperty("username", "beat");
+//        jsonObjecttwo.addProperty("mobile", "9459619235");
+//        jsonObjecttwo.addProperty("beat_id", "1");
+//        System.out.println(ED.encrypt(jsonObjecttwo.toString()));
+//        String ps = apiController.saveLocationLogs(ED.encrypt(jsonObjecttwo.toString()));
+//        System.out.println("===Loggged In SHO User===");
+//        System.out.println(ps);
+//        System.out.println(ED.decrypt(ps));
 
-        //31.1142457,77.1775003
-
-        EncryptDecrypt ED = new EncryptDecrypt();
-        JsonObject jsonObjecttwo = new JsonObject();
-        jsonObjecttwo.addProperty("user_id", "1");
-        jsonObjecttwo.addProperty("role_id", "1");
-        jsonObjecttwo.addProperty("latitude", "31.1142457");
-        jsonObjecttwo.addProperty("longitude", "77.1775003");
-        jsonObjecttwo.addProperty("username", "beat");
-        jsonObjecttwo.addProperty("mobile", "9459619235");
-        jsonObjecttwo.addProperty("beat_id", "1");
-        System.out.println(ED.encrypt(jsonObjecttwo.toString()));
-        String ps = apiController.saveLocationLogs(ED.encrypt(jsonObjecttwo.toString()));
-        System.out.println("===Loggged In SHO User===");
-        System.out.println(ps);
-        System.out.println(ED.decrypt(ps));
-
-    }
+  //  }
 
     //getSubModules
     @Test
@@ -447,6 +447,22 @@ String json = "{\"stateId\": 9,\n    \"districtId\": 204,\n    \"sosdpoId\": 1,\
         System.out.println("===Data Active Beats===");
         System.out.println(data);
         System.out.println(ED.decrypt(data));
+
+    }
+
+    @Test
+    @Transactional
+    @Rollback(value = false)
+    void getUsers() throws Exception  {
+        JsonObject jsonObjecttwo = new JsonObject();
+        jsonObjecttwo.addProperty("beat_id", "206");
+
+        EncryptDecrypt ED = new EncryptDecrypt();
+
+        String modules = apiController.getUsers(ED.encrypt(jsonObjecttwo.toString()));
+        System.out.println("===Users From Beat===");
+        System.out.println(modules);
+        System.out.println(ED.decrypt(modules));
 
     }
 
