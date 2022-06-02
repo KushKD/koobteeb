@@ -24,6 +24,8 @@ public interface InformationRepositoryCustom {
 
     List<InformationMarkers> getUploadedInformationByOfficialDateWise(Integer userId,String toDate);
 
+    List<InformationMarkers> getUploadedInformationByOfficialDateWise(Integer beatId, Integer userId,String fromDate);
+
 
 
 

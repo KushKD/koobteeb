@@ -265,4 +265,33 @@ public class InformationRepositoryCustomImpl implements InformationRepositoryCus
         TypedQuery<InformationMarkers> query =  entityManager.createQuery(cq).setMaxResults(50);
         return query.getResultList();
     }
+
+    @Override
+    public List<InformationMarkers> getUploadedInformationByOfficialDateWise(Integer beatId, Integer userId, String fromDate) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<InformationMarkers> cq = cb.createQuery(InformationMarkers.class);
+        Root<InformationEntity> book = cq.from(InformationEntity.class);
+        Predicate userId_ = cb.equal(book.get("userId"), userId);
+        Predicate beatId_ = cb.equal(book.get("beatId"), beatId);
+        Predicate active = cb.equal(book.get("active"), true);
+        Predicate fromDate_ = cb.greaterThanOrEqualTo(cb.function("to_char",String.class, book.get("createdDate"), cb.literal("DD-MM-YYYY")), fromDate);
+       // Predicate toDate_ = cb.lessThanOrEqualTo(cb.function("to_char",String.class, book.get("createdDate"), cb.literal("DD-MM-YYYY")), toDate);
+      //  Predicate dateBetween = cb.between(cb.function("to_char",String.class, book.get("createdDate"), cb.literal("DD-MM-YYYY")), fromDate,toDate);
+
+        cq.where(beatId_,userId_,active,fromDate_).orderBy(cb.desc(book.get("createdDate")));
+        cq.multiselect(
+                book.get("id"),
+                book.get("latitude"),
+                book.get("longitude"),
+                book.get("name"),
+                book.get("photo"),
+                book.get("submoduleId").<String>get("submoduleName"),
+                book.get("submoduleId").<Integer>get("submoduleId"),
+                book.get("moduleId"),
+                book.get("submoduleId").<String>get("subiconName"),
+                book.get("createdDate")
+        ).distinct(true);
+        TypedQuery<InformationMarkers> query =  entityManager.createQuery(cq).setMaxResults(100);
+        return query.getResultList();
+    }
 }

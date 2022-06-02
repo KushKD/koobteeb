@@ -1685,7 +1685,82 @@ public class API {
         }
     }
 
+/**
+ * Get Markers Via User Beat and Date
+ */
+@RequestMapping(value = "/api/getCheckingRemarksInformation", method = RequestMethod.POST, consumes = "text/plain", produces = "text/plain")
+@ResponseBody
+public String getCheckingRemarksInformation(@RequestBody String userData) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, JsonProcessingException {
+    Map<String, Object> map = null;
+    String LogsData_ = null, jsonStr = null;
+    EncryptDecrypt ED = new EncryptDecrypt();
+    ObjectMapper Obj = null;
+    String encrypted = null,  beatid=null, userid= null, fromdate = null, todate= null ;
+    UserLocationLogsEntity userLocationLogsEntity = null, userSavedLocationLogsEntity = null;
 
+    if (userData != null && !userData.isEmpty()) {
+        logger.info("User Data Encrypted:-\t" + userData);
+        LogsData_ = ED.decrypt(userData);
+        logger.info("User Data DeEncrypted:-\t" + LogsData_);
+
+        try {
+            JsonObject jsonObject = new JsonParser().parse(LogsData_).getAsJsonObject();
+            System.out.println(jsonObject.toString());
+            logger.info("API:: Logs Data is (Json Object ):- " + jsonObject);
+            beatid = jsonObject.getAsJsonObject().get("beat_id").getAsString();
+            logger.info("beatid:- " + beatid);
+            userid = jsonObject.getAsJsonObject().get("user_id").getAsString();
+            logger.info("userID:- " + userid);
+            fromdate = jsonObject.getAsJsonObject().get("from_date").getAsString();
+            logger.info("fromDate:- " + fromdate);
+            List<InformationMarkers> markers = informationRepository.getUploadedInformationByOfficialDateWise(Integer.parseInt(beatid),Integer.parseInt(userid),fromdate);
+
+            if (!markers.isEmpty()) {
+                map = new HashMap<String, Object>();
+                map.put(Constants.keyResponse, markers);
+                map.put(Constants.keyMessage, "Data Found Successfully.");
+                map.put(Constants.keyStatus, HttpStatus.OK.value());
+                Obj = new ObjectMapper();
+                jsonStr = Obj.writeValueAsString(map);
+                logger.info(jsonStr);
+                logger.info(ED.encrypt(jsonStr));
+                return ED.encrypt(jsonStr);
+            } else {
+                map = new HashMap<String, Object>();
+                map.put(Constants.keyResponse, "No Record Found");
+                map.put(Constants.keyMessage, "Request Successful. No Record Found");
+                map.put(Constants.keyStatus, HttpStatus.NO_CONTENT.value());
+                Obj = new ObjectMapper();
+                jsonStr = Obj.writeValueAsString(map);
+                logger.info(jsonStr);
+                return ED.encrypt(jsonStr);
+            }
+
+        } catch (Exception ex) {
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, "Data not in valid format");
+            map.put(Constants.keyMessage, "Internal Error");
+            map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+            Obj = new ObjectMapper();
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+            logger.info(ED.encrypt(jsonStr));
+            return ED.encrypt(jsonStr);
+        }
+
+
+    } else {
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, "Data not in valid format");
+        map.put(Constants.keyMessage, "Internal Error");
+        map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+        Obj = new ObjectMapper();
+        jsonStr = Obj.writeValueAsString(map);
+        logger.info(jsonStr);
+        logger.info(ED.encrypt(jsonStr));
+        return ED.encrypt(jsonStr);
+    }
+}
 
 
 }
