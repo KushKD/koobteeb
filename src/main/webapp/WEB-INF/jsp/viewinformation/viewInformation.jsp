@@ -506,6 +506,50 @@
                               </div>
                            </div>
 
+
+
+ <!--Comments Section  -->
+                  <c:if test="${not empty comments}">
+                   <div class="col-md-12">
+                                                <div class="tab-content">
+                                                   <div id="user-timeline">
+                                                      <div class="timeline-post">
+                                                         <h2> Comments By:-</h2>
+                                                         <div class="row">
+
+                  <table class="col-lg-12 table table-hover table-bordered">
+                     <thead>
+                        <tr>
+                           <th>S.No</th>
+                           <th>Comments</th>
+                           <th>Comments Added By </th>
+                           <th>Date</th>
+
+                        </tr>
+                     </thead>
+                     <tbody>
+
+                           <c:forEach items="${comments}" var="comments" varStatus="loopCounter">
+                              <tr>
+                                 <td><c:out value="${loopCounter.count}"/>  </td>
+                                 <td>${comments.comments}</td>
+                                 <td>${comments.userId.username}</td>
+                                 <td style="color:red;"><fmt:formatDate value='${comments.createdDate}' pattern='dd-MM-yyyy HH:mm:ss' /></td>
+                                </tr>
+                           </c:forEach>
+
+                     </tbody>
+                  </table>
+                   </c:if>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+                  <!-- Comments by DC, BDO and DFO ENDS -->
+
+
+
  <input type="submit" id="payment_proceed"  value="Update Information" class="btn btn-primary"> &nbsp; &nbsp;
  <a href="${pageContext.request.contextPath}/viewCompleteData" class="btn btn-danger">Go Back</a>
    <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
@@ -527,15 +571,11 @@
                                          getStates();
                                          }
                    }
-
     function getdistrictsOnLoad(){
                  if(document.getElementById('sid') != null && document.getElementById('sid').value  != null ){
                          getdistrictsUpdate(document.getElementById('did').value);
                          }
                      }
-
-
-
       function getSOSDPOLoad(){
                        if(document.getElementById('sosid') != null && document.getElementById('sosid').value  != null ){
                                getSOSDPOUpdate();
@@ -543,21 +583,16 @@
                                                          getSOSDPO();
                                                          }
                            }
-
-
-
         function getPoliceStationOnLoad(){
                        if(document.getElementById('psid') != null && document.getElementById('psid').value  != null ){
                                getPoliceStationsViasosdpoid(document.getElementById('sosid').value);
                                }
                            }
-
         function getBeatOnLoad(){
                              if(document.getElementById('beatid') != null && document.getElementById('beatid').value  != null ){
                                      getBeat(document.getElementById('psid').value);
                                      }
                                  }
-
    function getsubmoduleidLoad(){
                        if(document.getElementById('submoduleid') != null && document.getElementById('submoduleid').value  != null ){
                                getSubmoduleUpdate();
@@ -565,9 +600,6 @@
                                                          getSubmodule();
                                                          }
                            }
-
-
-
      $( document ).ready(function() {
         getStatesOnLoad();
            getdistrictsOnLoad();
@@ -575,8 +607,5 @@
            getPoliceStationOnLoad();
            getBeatOnLoad();
            getsubmoduleidLoad();
-
      });
-
-
 </script>

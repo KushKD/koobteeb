@@ -7,6 +7,7 @@ import com.hp.dit.beetbook.form.viewdata.ViewData;
 import com.hp.dit.beetbook.modals.InformationAddedUser;
 import com.hp.dit.beetbook.modals.LoggedInUserSession;
 import com.hp.dit.beetbook.modals.information.InformationMarkerWeb;
+import com.hp.dit.beetbook.repositories.comments.CommentsRepository;
 import com.hp.dit.beetbook.repositories.information.InformationRepository;
 import com.hp.dit.beetbook.repositories.user.UserRepository;
 import com.hp.dit.beetbook.utilities.Utilities;
@@ -42,6 +43,9 @@ public class ViewDataController  {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    CommentsRepository commentsRepository;
 
 
 
@@ -169,6 +173,9 @@ public class ViewDataController  {
             InformationEntity information =informationRepository.getCompleteInformationViaId(district_id);
             System.out.println(information.toString());
 
+            List<CommentsMaster> comments = commentsRepository.getAllActiveComments(district_id);
+            System.out.println(comments.toString());
+
 
 
 
@@ -186,6 +193,7 @@ public class ViewDataController  {
             model.addAttribute("beat_id", information.getBeatId().getBeatId());
             model.addAttribute("submodule_id", information.getSubmoduleId().getSubmoduleId());
             model.addAttribute("information", information);
+            model.addAttribute("comments",comments);
             model.addAttribute("user", user);
 
             model.addAttribute("viewInformationWebForm", new ViewInformationWebForm());

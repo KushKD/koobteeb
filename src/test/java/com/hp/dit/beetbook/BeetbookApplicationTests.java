@@ -2,7 +2,9 @@ package com.hp.dit.beetbook;
 
 import com.google.gson.JsonObject;
 import com.hp.dit.beetbook.apicontroller.API;
+import com.hp.dit.beetbook.entities.CommentsMaster;
 import com.hp.dit.beetbook.repositories.RolesRepository;
+import com.hp.dit.beetbook.repositories.comments.CommentsRepository;
 import com.hp.dit.beetbook.repositories.stateRepository.StateRepository;
 import com.hp.dit.beetbook.repositories.user.UserRepository;
 import com.hp.dit.beetbook.security.EncryptDecrypt;
@@ -12,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @SpringBootTest
 class BeetbookApplicationTests {
@@ -28,6 +31,8 @@ class BeetbookApplicationTests {
     @Autowired
 	UserRepository userRepository;
 
+    @Autowired
+    CommentsRepository commentsRepository;
 
 //    @Test
 //    @Transactional
@@ -489,5 +494,36 @@ String json = "{\"stateId\": 9,\n    \"districtId\": 204,\n    \"sosdpoId\": 1,\
     }
 
 
+    @Test
+    @Transactional
+    @Rollback(value = false)
+        //  /api/saveComments
+           void addComments() throws Exception  {
+        JsonObject jsonObjecttwo = new JsonObject();
+        jsonObjecttwo.addProperty("comment", "Verified and Tested");
+        jsonObjecttwo.addProperty("user_id", "1");
+        jsonObjecttwo.addProperty("information_id", "619");
+
+        EncryptDecrypt ED = new EncryptDecrypt();
+
+        String savedData = apiController.saveComments(ED.encrypt(jsonObjecttwo.toString()));
+        System.out.println("===Saved Data===");
+        System.out.println(savedData);
+        System.out.println(ED.decrypt(savedData));
+
+    }
+
+    @Test
+    @Transactional
+    @Rollback(value = false)
+        //  /api/saveComments
+    void getComments() throws Exception  {
+
+
+        List<CommentsMaster> savedData = commentsRepository.getAllActiveComments(619);
+        System.out.println("===Saved Data===");
+        System.out.println(savedData.toString());
+
+    }
 
 }

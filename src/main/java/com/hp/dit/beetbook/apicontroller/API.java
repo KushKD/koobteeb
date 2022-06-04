@@ -18,6 +18,7 @@ import com.hp.dit.beetbook.modals.submoduleModal.SubModuleRoleList;
 import com.hp.dit.beetbook.modals.usersviabeat.UsersViaBeat;
 import com.hp.dit.beetbook.repositories.RolesRepository;
 import com.hp.dit.beetbook.repositories.beats.BeatRepository;
+import com.hp.dit.beetbook.repositories.comments.CommentsRepository;
 import com.hp.dit.beetbook.repositories.districtRepository.DistrictRepository;
 import com.hp.dit.beetbook.repositories.information.InformationRepository;
 import com.hp.dit.beetbook.repositories.modules.ModuleRepository;
@@ -116,6 +117,9 @@ public class API {
 
     @Autowired
     UserDatatableRepository userDatatableRepository;
+
+    @Autowired
+    CommentsRepository commentsRepository;
 
 
 
@@ -1753,6 +1757,114 @@ public String getCheckingRemarksInformation(@RequestBody String userData) throws
         map = new HashMap<String, Object>();
         map.put(Constants.keyResponse, "Data not in valid format");
         map.put(Constants.keyMessage, "Internal Error");
+        map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+        Obj = new ObjectMapper();
+        jsonStr = Obj.writeValueAsString(map);
+        logger.info(jsonStr);
+        logger.info(ED.encrypt(jsonStr));
+        return ED.encrypt(jsonStr);
+    }
+}
+
+/**
+ * Save Comments
+ */
+@RequestMapping(value = "/api/saveComments", method = RequestMethod.POST, consumes = "text/plain", produces = "text/plain")
+@ResponseBody
+public String saveComments(@RequestBody String userData) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, JsonProcessingException {
+    Map<String, Object> map = null;
+    String LogsData_ = null, jsonStr = null;
+    EncryptDecrypt ED = new EncryptDecrypt();
+    ObjectMapper Obj = null;
+    String encrypted = null,  userId = null, informationId, comments;
+    CommentsMaster commentsEntity = null, savedCommentsEntity = null;
+
+    if (userData != null && !userData.isEmpty()) {
+        logger.info("User Data Encrypted:-\t" + userData);
+        LogsData_ = ED.decrypt(userData);
+        logger.info("User Data DeEncrypted:-\t" + LogsData_);
+
+        try {
+            JsonObject jsonObject = new JsonParser().parse(LogsData_).getAsJsonObject();
+            System.out.println(jsonObject.toString());
+            logger.info("API:: Logs Data is (Json Object ):- " + jsonObject);
+
+
+
+            userId = jsonObject.getAsJsonObject().get("user_id").getAsString();
+            informationId = jsonObject.getAsJsonObject().get("information_id").getAsString();
+            comments = jsonObject.getAsJsonObject().get("comment").getAsString();
+
+            logger.info("InformationId:- " + informationId);
+            logger.info("userId:- " + userId);
+            logger.info("Comments:- " + comments);
+
+
+            commentsEntity = new CommentsMaster();
+            commentsEntity.setComments(comments);
+
+            UserEntity user = new UserEntity();
+            user.setUserId(Long.valueOf(userId));
+            commentsEntity.setUserId(user);
+
+          //  InformationEntity information = new InformationEntity();
+           // information.setId(Integer.parseInt(informationId));
+            commentsEntity.setInformationId(Integer.parseInt(informationId));
+
+            commentsEntity.setActive(true);
+            commentsEntity.setDeleted(false);
+
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            Date date = new Date(timestamp.getTime());
+            commentsEntity.setCreatedDate(date);
+
+            logger.info("User \t" + commentsEntity.toString());
+
+            savedCommentsEntity = commentsRepository.save(commentsEntity);
+            if (savedCommentsEntity!=null) {
+
+
+
+                map = new HashMap<String, Object>();
+                map.put(Constants.keyResponse, savedCommentsEntity.getCommnetsId());
+                map.put(Constants.keyMessage, "Saved successfully.");
+                map.put(Constants.keyStatus, HttpStatus.OK.value());
+                Obj = new ObjectMapper();
+                jsonStr = Obj.writeValueAsString(map);
+                logger.info(jsonStr);
+                logger.info(ED.encrypt(jsonStr));
+                return ED.encrypt(jsonStr);
+
+
+
+            } else {
+                map = new HashMap<String, Object>();
+                map.put(Constants.keyResponse, "Unable to save Data");
+                map.put(Constants.keyMessage, "Request Successful. Unable to save Data");
+                map.put(Constants.keyStatus, HttpStatus.NO_CONTENT.value());
+                Obj = new ObjectMapper();
+                jsonStr = Obj.writeValueAsString(map);
+                logger.info(jsonStr);
+                return ED.encrypt(jsonStr);
+            }
+
+        } catch (Exception ex) {
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, "Data not in valid format");
+            map.put(Constants.keyMessage, "Request Successful. Data Found Successfully.");
+            map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
+            Obj = new ObjectMapper();
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+            logger.info(ED.encrypt(jsonStr));
+            return ED.encrypt(jsonStr);
+        }
+
+
+    } else {
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, "Data not in valid format");
+        map.put(Constants.keyMessage, "Request Successful. Data Found Successfully.");
         map.put(Constants.keyStatus, HttpStatus.INTERNAL_SERVER_ERROR.value());
         Obj = new ObjectMapper();
         jsonStr = Obj.writeValueAsString(map);

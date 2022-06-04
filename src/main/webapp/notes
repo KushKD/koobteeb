@@ -43,6 +43,21 @@ CREATE TABLE mst_sosdpo (
 );
 
 
+CREATE TABLE mst_comments (
+    comments_id serial PRIMARY KEY  NOT NULL,
+    comments TEXT NOT NULL,
+    user_id INTEGER NOT NULL,
+    id INTEGER NOT NULL,
+    is_active boolean DEFAULT true NOT NULL,
+    is_deleted boolean DEFAULT false NOT NULL,
+    created_on timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
+    lastmodifieddate timestamp without time zone,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (id) REFERENCES information(id)
+
+);
+
+
 CREATE TABLE mst_policestation (
     ps_id serial PRIMARY KEY  NOT NULL,
     ps_name character varying(100) NOT NULL,
