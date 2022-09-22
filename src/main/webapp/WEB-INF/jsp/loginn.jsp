@@ -28,7 +28,7 @@
                      <p class="login-card-description" align="center">
                         <spring:message code="loginpage.heading" text="Login"/>
                      </p>
-                     <form  method="post" class="loginForm"  action="${pageContext.request.contextPath}/login">
+                     <form  method="post" onsubmit="return submit_form()" class="loginForm"  action="${pageContext.request.contextPath}/login">
                         <div class="form-group">
                            <label class="control-label" for="username" >
                               <spring:message code="loginpage.username" text="Enter Username"/>
@@ -72,3 +72,30 @@
       </div>
    </main>
 </body>
+
+<script>
+function submit_form() {
+    //alert("are we haere");
+    var submitData = validateFields();
+
+    if (!submitData) return false;
+
+}
+
+function validateFields(){
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
+    var captcha = document.getElementById('captcha').value;
+
+    var encodedStringUsername = btoa(username);
+    var encodedStringPassword = btoa(password);
+    var encodedStringCaptcha = btoa(captcha);
+
+    document.getElementById('username').value=encodedStringUsername;
+    document.getElementById('password').value=encodedStringPassword;
+    document.getElementById('captcha').value=encodedStringCaptcha;
+
+
+            return true;
+}
+</script>

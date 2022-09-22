@@ -1,8 +1,9 @@
 package com.hp.dit.beetbook.configuration;
 
 
-import com.hp.dit.beetbook.captcha.CaptchaAuthenticationProvider;
+//import com.hp.dit.beetbook.captcha.CaptchaAuthenticationProvider;
 import com.hp.dit.beetbook.captcha.CaptchaDetailsSource;
+import com.hp.dit.beetbook.captcha.CustomAuthenticationProvider;
 import com.hp.dit.beetbook.utilities.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,17 +41,24 @@ import java.util.Collection;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+  //  @Autowired
+  //  private CaptchaAuthenticationProvider authenticationProvider;
+
+    //KD New Test
     @Autowired
-    private CaptchaAuthenticationProvider authenticationProvider;
+    private CustomAuthenticationProvider customAuthenticationProvider;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider);
+        auth.authenticationProvider(customAuthenticationProvider);  //authenticationProvider
     }
     @Autowired
     private CaptchaDetailsSource detailsSource;
 
     private static final Logger logger = LoggerFactory.getLogger(SecurityConfiguration.class);
+
+
+
 
     @Bean
     public AuthenticationManager customAuthenticationManager() throws Exception {
@@ -91,11 +99,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/createrole/").hasAnyRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
+                .formLogin( )
                 .loginPage(Constants.loginController)
+                //.loginProcessingUrl("/LoginProcessing")
                 .successHandler(loginSuccessHandler())
                 .failureHandler(loginFailureHandler())
-                .authenticationDetailsSource(detailsSource).permitAll().and()
+                .authenticationDetailsSource(detailsSource)
+                .permitAll().and()
                 .logout().logoutSuccessHandler(logoutSuccessHandler())
                 .clearAuthentication(true)
                 .invalidateHttpSession(true)
