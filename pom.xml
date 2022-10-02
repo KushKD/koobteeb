@@ -9,11 +9,11 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.hp.dit</groupId>
-	<artifactId>beetbook</artifactId>
+	<artifactId>election_ems</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>beetbook</name>
-	<description>Himachal Pradesh Police department Beet Book</description>
+	<name>election_ems</name>
+	<description>State Election Commission</description>
 	<properties>
 		<java.version>1.8</java.version>
 		<deploy.wildfly.host>127.0.0.1</deploy.wildfly.host>
