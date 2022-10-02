@@ -17,7 +17,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @SpringBootTest
-class BeetbookApplicationTests {
+class EMSElectionsApplicationTests {
 
     @Autowired
     StateRepository stateRepository;

@@ -137,6 +137,22 @@
 
     <!-- Users End-->
 
+
+
+    <!-- Roles -->
+    <definition name="getRoles" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/roles/viewrole.jsp" />
+    </definition>
+
+    <definition name="updatrole" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/roles/updaterole.jsp" />
+    </definition>
+
+
+
+
+    <!-- Roles End-->
+
    <!--Module MAster -->
     <definition name="createmodule" extends="baselayoutdashboard">
         <put-attribute name="content" value="/WEB-INF/jsp/module/createmodule.jsp" />

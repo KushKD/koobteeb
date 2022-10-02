@@ -1,6 +1,7 @@
 package com.hp.dit.election_ems.entities;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name="roles")
@@ -20,6 +21,14 @@ public class RolesEntity   {
     
     @Column(name="active")
     private boolean active;
+
+	@Column(name = "createddate")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createdDate;
+
+	@Column(name = "lastmodifieddate")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date updatedOn;
 
 //    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //    @JoinTable(name = "user_role_mapping", joinColumns = @JoinColumn(name = "roleId", referencedColumnName = "role_id"),
@@ -68,6 +77,22 @@ public class RolesEntity   {
 //	}
 
 
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Date getUpdatedOn() {
+		return updatedOn;
+	}
+
+	public void setUpdatedOn(Date updatedOn) {
+		this.updatedOn = updatedOn;
+	}
+
 	@Override
 	public String toString() {
 		return "RolesEntity{" +
@@ -75,6 +100,8 @@ public class RolesEntity   {
 				", roleName='" + roleName + '\'' +
 				", roleDescription='" + roleDescription + '\'' +
 				", active=" + active +
+				", createdDate=" + createdDate +
+				", updatedOn=" + updatedOn +
 				'}';
 	}
 }

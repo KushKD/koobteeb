@@ -17,6 +17,21 @@
    </div>
 
  <div class="row">
+
+    <sec:authorize access="hasAnyAuthority('SUPER ADMIN')">
+          <div class="col-md-6 col-lg-3">
+             <div class="widget-small warning coloured-icon">
+                <i class="icon fa fa-lock fa-3x"></i>
+                <div class="info">
+                   <a href="${pageContext.request.contextPath}/getRoles" style=" text-decoration: none !important;">
+                      <h5>View Roles</h5>
+                   </a>
+                </div>
+             </div>
+          </div>
+          </sec:authorize>
+
+
     <sec:authorize access="hasAnyAuthority('SUPER ADMIN')">
       <div class="col-md-6 col-lg-3">
          <div class="widget-small primary coloured-icon">
@@ -29,6 +44,7 @@
          </div>
       </div>
       </sec:authorize>
+
        <sec:authorize access="hasAnyAuthority('SUPER ADMIN')">
             <div class="col-md-6 col-lg-3">
                <div class="widget-small warning coloured-icon">

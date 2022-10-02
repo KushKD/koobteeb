@@ -23,10 +23,10 @@ import java.util.Collections;
 @EnableCaching
 @EnableScheduling
 @EnableConfigurationProperties({FileStorageProperties.class})
-public class BeetbookApplication {
+public class EMSElectionsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BeetbookApplication.class, args);
+		SpringApplication.run(EMSElectionsApplication.class, args);
 	}
 
 
