@@ -5,23 +5,23 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "mst_sosdpo")
-public class S0SdpoMaster implements Serializable {
+@Table(name = "mst_bank")
+public class BankMaster implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "mst_sosdpo_sosdpo_id_seq", strategy = GenerationType.AUTO)
-    @SequenceGenerator(name = "mst_sosdpo_sosdpo_id_seq", sequenceName = "public.mst_sosdpo_sosdpo_id_seq", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(generator = "mst_bank_bank_id_seq", strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "mst_bank_bank_id_seq", sequenceName = "public.mst_bank_bank_id_seq", initialValue = 1, allocationSize = 1)
 
-    @Column(name="sosdpo_id")
-    private Integer sosdpoId;
+    @Column(name = "bank_id")
+    private Integer bankId;
 
-    @Column(name="sosdpo_name")
-    private String sosdpoName;
+    @Column(name = "bank_name")
+    private String bankName;
 
-    @Column(name="is_active")
+    @Column(name = "is_active")
     private boolean active;
 
-    @Column(name="is_deleted")
+    @Column(name = "is_deleted")
     private boolean deleted;
 
     @Column(name = "created_on")
@@ -32,21 +32,20 @@ public class S0SdpoMaster implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOn;
 
-
-    public Integer getSosdpoId() {
-        return sosdpoId;
+    public Integer getBankId() {
+        return bankId;
     }
 
-    public void setSosdpoId(Integer sosdpoId) {
-        this.sosdpoId = sosdpoId;
+    public void setBankId(Integer bankId) {
+        this.bankId = bankId;
     }
 
-    public String getSosdpoName() {
-        return sosdpoName;
+    public String getBankName() {
+        return bankName;
     }
 
-    public void setSosdpoName(String sosdpoName) {
-        this.sosdpoName = sosdpoName;
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
     }
 
     public boolean isActive() {
@@ -83,9 +82,9 @@ public class S0SdpoMaster implements Serializable {
 
     @Override
     public String toString() {
-        return "S0SdpoMaster{" +
-                "sosdpoId=" + sosdpoId +
-                ", sosdpoName='" + sosdpoName + '\'' +
+        return "BankMaster{" +
+                "bankId=" + bankId +
+                ", bankName='" + bankName + '\'' +
                 ", active=" + active +
                 ", deleted=" + deleted +
                 ", createdDate=" + createdDate +

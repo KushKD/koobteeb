@@ -1,6 +1,6 @@
 package com.hp.dit.election_ems.validators;
 
-import com.hp.dit.election_ems.form.sosdpo.SoSdpoUpdate;
+import com.hp.dit.election_ems.form.sosdpo.BankUpdate;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -12,12 +12,12 @@ public class SoSdpoValidatorUpdate implements Validator {
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return SoSdpoUpdate.class.equals(aClass);
+        return BankUpdate.class.equals(aClass);
     }
 
     @Override
     public void validate(Object o, Errors errors) {
-        SoSdpoUpdate user = (SoSdpoUpdate) o;
+        BankUpdate user = (BankUpdate) o;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "soSdpoName", "NotEmpty");
 

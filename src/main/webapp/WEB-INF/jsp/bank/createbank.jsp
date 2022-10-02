@@ -7,8 +7,8 @@
 
 <main class="app-content">
 
-        <form:form method="POST" modelAttribute="soSdpoForm" action="${pageContext.request.contextPath}/savesosdpo" class="form-signin">
-            <h2 class="form-signin-heading">Create So/SDPO </h2>
+        <form:form method="POST" modelAttribute="bankForm" action="${pageContext.request.contextPath}/savesosdpo" class="form-signin">
+            <h2 class="form-signin-heading">Create Bank </h2>
              <c:if test="${not empty successMessage}">
                     <div id="serverError" class="successMessage">${successMessage}</div>
                 </c:if>
@@ -18,7 +18,7 @@
                 </c:if>
             <spring:bind path="soSdpo">
                 <div class="form-group ${status.error ? 'has-error' : ''}">
-                    <form:input type="text" autocomplete="off"  oncopy="return false" onpaste="return false" path="soSdpo" class="form-control" placeholder="SO/SDPO Name"
+                    <form:input type="text" autocomplete="off"  oncopy="return false" onpaste="return false" path="soSdpo" class="form-control" placeholder="Bank Name"
                                 autofocus="true"></form:input>
                     <form:errors  path="soSdpo"></form:errors>
                 </div>

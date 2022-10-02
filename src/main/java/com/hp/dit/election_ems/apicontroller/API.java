@@ -24,7 +24,7 @@ import com.hp.dit.election_ems.repositories.information.InformationRepository;
 import com.hp.dit.election_ems.repositories.modules.ModuleRepository;
 import com.hp.dit.election_ems.repositories.pin.PinRepository;
 import com.hp.dit.election_ems.repositories.policestationRepository.PSRepository;
-import com.hp.dit.election_ems.repositories.sosdpo.SoSdpoRepository;
+import com.hp.dit.election_ems.repositories.bank.BankRepository;
 import com.hp.dit.election_ems.repositories.stateRepository.StateRepository;
 import com.hp.dit.election_ems.repositories.submoduleoptions.SubModuleOptionRepository;
 import com.hp.dit.election_ems.repositories.submodules.SubModuleRepository;
@@ -89,7 +89,7 @@ public class API {
     private FileStorageService fileStorageService;
 
     @Autowired
-    private SoSdpoRepository soSdpoRepository;
+    private BankRepository bankRepository;
 
     @Autowired
     private RolesRepository rolesRepository;
@@ -266,7 +266,7 @@ public class API {
         String jsonStr = null;
 
         try {
-            List<S0SdpoMaster> states = soSdpoRepository.getAllActiveSOSdo();
+            List<BankMaster> states = bankRepository.getAllActiveSOSdo();
             if (!states.isEmpty()) {
                 map = new HashMap<String, Object>();
                 map.put(Constants.keyResponse, states);

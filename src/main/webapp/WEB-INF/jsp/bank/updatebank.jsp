@@ -3,8 +3,8 @@
 		<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 			<script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
 			<main class="app-content">
-				<form:form method="POST" modelAttribute="soSdpoUpdate" action="${pageContext.request.contextPath}/updateSoSDPOEntity" class="form-signin">
-					<h2 class="form-signin-heading">Update State</h2>
+				<form:form method="POST" modelAttribute="bankUpdate" action="${pageContext.request.contextPath}/updateSoSDPOEntity" class="form-signin">
+					<h2 class="form-signin-heading">Update Bank</h2>
 					<c:if test="${not empty successMessage}">
 						<div id="serverError" class="successMessage">${successMessage}</div>
 					</c:if>
@@ -14,13 +14,13 @@
 					</c:if>
 					<spring:bind path="soSdpoId">
 						<div class="form-group ${status.error ? 'has-error' : ''}">
-							<form:input type="text" autocomplete="off"  oncopy="return false" onpaste="return false" path="soSdpoId" readonly="true" value="${sosdpo_to_update.sosdpoId}" class="form-control" autofocus="true"></form:input>
+							<form:input type="text" autocomplete="off"  oncopy="return false" onpaste="return false" path="soSdpoId" readonly="true" value="${sosdpo_to_update.bankId}" class="form-control" autofocus="true"></form:input>
 							<form:errors path="soSdpoId"></form:errors>
 						</div>
 					</spring:bind>
 					<spring:bind path="soSdpoName">
 						<div class="form-group ${status.error ? 'has-error' : ''}">
-							<form:input type="text" autocomplete="off"  oncopy="return false" onpaste="return false" path="soSdpoName" class="form-control" value="${sosdpo_to_update.sosdpoName}" autofocus="true"></form:input>
+							<form:input type="text" autocomplete="off"  oncopy="return false" onpaste="return false" path="soSdpoName" class="form-control" value="${sosdpo_to_update.bankName}" autofocus="true"></form:input>
 							<form:errors path="soSdpoName"></form:errors>
 						</div>
 					</spring:bind>

@@ -1,21 +1,16 @@
 package com.hp.dit.election_ems.Controller.roles;
 
-import com.hp.dit.election_ems.entities.ModuleMaster;
 import com.hp.dit.election_ems.entities.RolesEntity;
 import com.hp.dit.election_ems.form.RolesForm;
-import com.hp.dit.election_ems.form.module.ModuleForm;
 import com.hp.dit.election_ems.modals.LoggedInUserSession;
-import com.hp.dit.election_ems.repositories.RolesRepository;
 import com.hp.dit.election_ems.repositories.roles.RolesRepositoryDatatables;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +28,8 @@ public class RolesController {
 
     @Autowired
     RolesRepositoryDatatables rolesRepository;
+
+
 
     @RequestMapping(value = "/getRoles", method = RequestMethod.GET)
     public String viewBarrier(Model model, HttpServletRequest request) throws Exception {

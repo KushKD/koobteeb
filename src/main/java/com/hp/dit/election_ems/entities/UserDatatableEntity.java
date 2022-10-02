@@ -34,7 +34,7 @@ public class UserDatatableEntity {
 
     @OneToOne
     @JoinColumn(name = "sosdpo_id")
-    private S0SdpoMaster sosdpoId;
+    private BankMaster sosdpoId;
 
     @OneToOne
     @JoinColumn(name = "ps_id")
@@ -110,11 +110,11 @@ public class UserDatatableEntity {
         this.districtId = districtId;
     }
 
-    public S0SdpoMaster getSosdpoId() {
+    public BankMaster getSosdpoId() {
         return sosdpoId;
     }
 
-    public void setSosdpoId(S0SdpoMaster sosdpoId) {
+    public void setSosdpoId(BankMaster sosdpoId) {
         this.sosdpoId = sosdpoId;
     }
 

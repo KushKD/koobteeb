@@ -48,23 +48,23 @@
     </definition>
 
 
-    <!-- SO SDPO -->
+    <!-- Bank -->
 
     <definition name="createSoSdpo" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/sosdpo/createsosdpo.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/bank/createbank.jsp" />
     </definition>
 
 
     <definition name="updateSoSdpo" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/sosdpo/updatesosdpo.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/bank/updatebank.jsp" />
     </definition>
 
 
     <definition name="viewSoSdpo" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/sosdpo/viewsosdpo.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/bank/viewbank.jsp" />
     </definition>
 
-    <!-- SO SDPO Ends-->
+    <!-- Bank Ends-->
 
     <!-- Police Station -->
 
@@ -97,12 +97,12 @@
 
 
     <definition name="updateSoSdpo" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/sosdpo/updatesosdpo.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/bank/updatebank.jsp" />
     </definition>
 
 
     <definition name="viewSoSdpo" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/sosdpo/viewsosdpo.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/bank/viewbank.jsp" />
     </definition>
     <!-- Police Station -->
 

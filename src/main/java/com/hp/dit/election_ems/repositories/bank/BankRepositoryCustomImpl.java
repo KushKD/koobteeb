@@ -1,6 +1,6 @@
-package com.hp.dit.election_ems.repositories.sosdpo;
+package com.hp.dit.election_ems.repositories.bank;
 
-import com.hp.dit.election_ems.entities.S0SdpoMaster;
+import com.hp.dit.election_ems.entities.BankMaster;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -13,28 +13,28 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Service
-public class SoSdpoRepositoryCustomImpl implements SoSdpoRepositoryCustom{
+public class BankRepositoryCustomImpl implements BankRepositoryCustom {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
-    public List<S0SdpoMaster> getAllSOSdpo() throws Exception {
+    public List<BankMaster> getAllSOSdpo() throws Exception {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<S0SdpoMaster> cq = cb.createQuery(S0SdpoMaster.class);
-        Root<S0SdpoMaster> book = cq.from(S0SdpoMaster.class);
-        TypedQuery<S0SdpoMaster> query =  entityManager.createQuery(cq);
+        CriteriaQuery<BankMaster> cq = cb.createQuery(BankMaster.class);
+        Root<BankMaster> book = cq.from(BankMaster.class);
+        TypedQuery<BankMaster> query =  entityManager.createQuery(cq);
         return query.getResultList();
     }
 
     @Override
-    public S0SdpoMaster getAllSOSdpoViaId(Integer id_) throws Exception {
+    public BankMaster getAllSOSdpoViaId(Integer id_) throws Exception {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<S0SdpoMaster> cq = cb.createQuery(S0SdpoMaster.class);
-        Root<S0SdpoMaster> book = cq.from(S0SdpoMaster.class);
-        Predicate id = cb.equal(book.get("sosdpoId"), id_);
+        CriteriaQuery<BankMaster> cq = cb.createQuery(BankMaster.class);
+        Root<BankMaster> book = cq.from(BankMaster.class);
+        Predicate id = cb.equal(book.get("bankId"), id_);
         cq.where(id);
-        TypedQuery<S0SdpoMaster> query =  entityManager.createQuery(cq);
+        TypedQuery<BankMaster> query =  entityManager.createQuery(cq);
         return query.getResultList().get(0);
     }
 
@@ -42,10 +42,10 @@ public class SoSdpoRepositoryCustomImpl implements SoSdpoRepositoryCustom{
     public Integer sdpoCount(String so_sdpo) {
             CriteriaBuilder cb = entityManager.getCriteriaBuilder();
             CriteriaQuery<Long> cq = cb.createQuery(Long.class);
-            Root<S0SdpoMaster> book = cq.from(S0SdpoMaster.class);
+            Root<BankMaster> book = cq.from(BankMaster.class);
             Predicate isActive_ = cb.equal(book.get("active"), true);
             Predicate isDeleted_ = cb.equal(book.get("deleted"), false);
-            Predicate sosdpoName = cb.equal(book.get("sosdpoName"), so_sdpo);
+            Predicate sosdpoName = cb.equal(book.get("bankName"), so_sdpo);
             cq.where(isActive_,isDeleted_,sosdpoName);
             cq.select(cb.count(book)).where(isActive_,isDeleted_,sosdpoName);
             return Math.toIntExact(entityManager.createQuery(cq).getSingleResult());
@@ -54,14 +54,14 @@ public class SoSdpoRepositoryCustomImpl implements SoSdpoRepositoryCustom{
     }
 
     @Override
-    public List<S0SdpoMaster> getAllActiveSOSdo() throws Exception {
+    public List<BankMaster> getAllActiveSOSdo() throws Exception {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<S0SdpoMaster> cq = cb.createQuery(S0SdpoMaster.class);
-        Root<S0SdpoMaster> book = cq.from(S0SdpoMaster.class);
+        CriteriaQuery<BankMaster> cq = cb.createQuery(BankMaster.class);
+        Root<BankMaster> book = cq.from(BankMaster.class);
         Predicate active = cb.equal(book.get("active"), true);
         Predicate deleted = cb.equal(book.get("deleted"), false);
         cq.where(active,deleted);
-        TypedQuery<S0SdpoMaster> query =  entityManager.createQuery(cq);
+        TypedQuery<BankMaster> query =  entityManager.createQuery(cq);
         return query.getResultList();
     }
 }

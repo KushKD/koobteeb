@@ -12,7 +12,7 @@ import com.hp.dit.election_ems.repositories.beats.BeatRepository;
 import com.hp.dit.election_ems.repositories.districtRepository.DistrictRepository;
 import com.hp.dit.election_ems.repositories.modules.ModuleRepository;
 import com.hp.dit.election_ems.repositories.policestationRepository.PSRepository;
-import com.hp.dit.election_ems.repositories.sosdpo.SoSdpoRepository;
+import com.hp.dit.election_ems.repositories.bank.BankRepository;
 import com.hp.dit.election_ems.repositories.stateRepository.StateRepository;
 import com.hp.dit.election_ems.repositories.submodules.SubModuleRepository;
 import com.hp.dit.election_ems.repositories.user.UserRepository;
@@ -45,7 +45,7 @@ public class AjaxContoller {
     DistrictRepository districtRepository;
 
     @Autowired
-    SoSdpoRepository soSdpoRepository;
+    BankRepository bankRepository;
 
     @Autowired
     PSRepository psRepository;
@@ -149,7 +149,7 @@ public class AjaxContoller {
     public @ResponseBody
     String getSOSDPO() throws Exception {
         Map<String, Object> map = null;
-        List<S0SdpoMaster> states = soSdpoRepository.getAllActiveSOSdo();
+        List<BankMaster> states = bankRepository.getAllActiveSOSdo();
 
         map = new HashMap<String, Object>();
         map.put(Constants.keyResponse, states);

@@ -87,8 +87,8 @@ public class PoliceStationController {
                 ps.setDistrictId(district);
 
 
-                S0SdpoMaster sosdpo = new S0SdpoMaster();
-                sosdpo.setSosdpoId(Integer.parseInt(form.getSosdpoId()));
+                BankMaster sosdpo = new BankMaster();
+                sosdpo.setBankId(Integer.parseInt(form.getSosdpoId()));
                 ps.setSosdpoId(sosdpo);
 
                 ps.setDeleted(false);
@@ -194,8 +194,8 @@ public class PoliceStationController {
                 ps.setDistrictId(district);
 
 
-                S0SdpoMaster sosdpo = new S0SdpoMaster();
-                sosdpo.setSosdpoId(Integer.parseInt(form.getSosdpoId()));
+                BankMaster sosdpo = new BankMaster();
+                sosdpo.setBankId(Integer.parseInt(form.getSosdpoId()));
                 ps.setSosdpoId(sosdpo);
 
 

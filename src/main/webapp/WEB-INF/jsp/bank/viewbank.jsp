@@ -21,8 +21,8 @@
          <table id="sampleTable" class="table table-striped table-bordered">
             <thead>
                <tr>
-                  <th>SO/SDPO Id</th>
-                  <th>SO/SDPO Name</th>
+                  <th>Bank Id</th>
+                  <th>Bank Name</th>
                   <th> Active/Inactive</th>
                   <th> Action</th>
                </tr>
@@ -40,10 +40,10 @@
 		columns: [
 
 			{
-				data: 'sosdpoId'
+				data: 'bankId'
 			},
 			{
-				data: 'sosdpoName'
+				data: 'bankName'
 			},
 
 
@@ -61,7 +61,7 @@
 
 
 			{
-				data: 'sosdpoId',
+				data: 'bankId',
 				render: function (data) {
 					return '<div class="btn-group"><a href="${pageContext.request.contextPath}/updateSoSdpo/${"' + data + '"}" class="btn btn-primary" ;>Update</a></div>'
 				}

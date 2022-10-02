@@ -2,7 +2,7 @@ package com.hp.dit.election_ems.form.sosdpo;
 
 import java.io.Serializable;
 
-public class SoSdpoUpdate implements Serializable {
+public class BankUpdate implements Serializable {
 
     private String soSdpoId;
     private String soSdpoName;

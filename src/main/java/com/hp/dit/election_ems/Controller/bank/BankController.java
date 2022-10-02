@@ -1,11 +1,11 @@
-package com.hp.dit.election_ems.Controller.sosdpo;
+package com.hp.dit.election_ems.Controller.bank;
 
 
-import com.hp.dit.election_ems.entities.S0SdpoMaster;
-import com.hp.dit.election_ems.form.sosdpo.SoSdpoForm;
-import com.hp.dit.election_ems.form.sosdpo.SoSdpoUpdate;
+import com.hp.dit.election_ems.entities.BankMaster;
+import com.hp.dit.election_ems.form.sosdpo.BankForm;
+import com.hp.dit.election_ems.form.sosdpo.BankUpdate;
 import com.hp.dit.election_ems.modals.LoggedInUserSession;
-import com.hp.dit.election_ems.repositories.sosdpo.SoSdpoRepository;
+import com.hp.dit.election_ems.repositories.bank.BankRepository;
 import com.hp.dit.election_ems.validators.SoSdpoValidator;
 import com.hp.dit.election_ems.validators.SoSdpoValidatorUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +27,12 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 @Controller
-public class SoSdpoController {
+public class BankController {
 
 
 
     @Autowired
-    SoSdpoRepository soSdpoRepository;
+    BankRepository bankRepository;
 
     @Autowired
     SoSdpoValidator soSdpoValidator;
@@ -54,7 +54,7 @@ public class SoSdpoController {
                 return "login";
             }else{
 
-                model.addAttribute("soSdpoForm", new SoSdpoForm());
+                model.addAttribute("bankForm", new BankForm());
                 return "createSoSdpo";
             }
 
@@ -67,28 +67,28 @@ public class SoSdpoController {
           //saveState
           @Transactional
           @RequestMapping(value = "/savesosdpo", method = RequestMethod.POST)
-          public String saveSoSDPO(@ModelAttribute("soSdpoForm") SoSdpoForm form, BindingResult bindingResult, Model model, HttpServletRequest request) throws IOException {
+          public String saveSoSDPO(@ModelAttribute("bankForm") BankForm form, BindingResult bindingResult, Model model, HttpServletRequest request) throws IOException {
               soSdpoValidator.validate(form, bindingResult);
               Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
               if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
                   return "login";
               } else {
-                  S0SdpoMaster savedState = null;
+                  BankMaster savedState = null;
                   if (bindingResult.hasErrors()) {
                       return "createSoSdpo";
                   }
 
                   try {
-                      S0SdpoMaster sodpo = new S0SdpoMaster();
-                      sodpo.setSosdpoName(form.getSoSdpo().toString());
+                      BankMaster sodpo = new BankMaster();
+                      sodpo.setBankName(form.getSoSdpo().toString());
                       sodpo.setActive(true);
                       sodpo.setDeleted(false);
                       Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                       Date date = new Date(timestamp.getTime());
                       sodpo.setCreatedDate(date);
-                      savedState = soSdpoRepository.save(sodpo);
+                      savedState = bankRepository.save(sodpo);
                       form.setSoSdpo("");
-                      request.getSession().setAttribute("successMessage", "SO SDPO Saved Successfully. Generated SO SDPO Id is:- " + savedState.getSosdpoId());
+                      request.getSession().setAttribute("successMessage", "Bank Saved Successfully. Generated Bank Id is:- " + savedState.getBankId());
 
                       return "createSoSdpo";
                   } catch (Exception ex) {
@@ -139,10 +139,10 @@ public class SoSdpoController {
                     return "login";
                 }else{
 
-                    S0SdpoMaster so_sdpo = soSdpoRepository.getAllSOSdpoViaId(id);
+                    BankMaster so_sdpo = bankRepository.getAllSOSdpoViaId(id);
                     System.out.println(so_sdpo.toString());
                     model.addAttribute("sosdpo_to_update", so_sdpo);
-                    model.addAttribute("soSdpoUpdate", new SoSdpoUpdate());
+                    model.addAttribute("bankUpdate", new BankUpdate());
                     return "updateSoSdpo";
                 }
 
@@ -158,14 +158,14 @@ public class SoSdpoController {
     //saveState
     @Transactional
     @RequestMapping(value = "/updateSoSDPOEntity", method = RequestMethod.POST)
-    public String updateSoSDPOEntity(@ModelAttribute("soSdpoUpdate") SoSdpoUpdate form, BindingResult bindingResult, Model model, HttpServletRequest request) throws IOException {
+    public String updateSoSDPOEntity(@ModelAttribute("bankUpdate") BankUpdate form, BindingResult bindingResult, Model model, HttpServletRequest request) throws IOException {
         soSdpoValidatorUpdate.validate(form, bindingResult);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
-            S0SdpoMaster savedState = null;
+            BankMaster savedState = null;
             if (bindingResult.hasErrors()) {
                 return "createSoSdpo";
             }
@@ -174,12 +174,12 @@ public class SoSdpoController {
 
                 //Get State Data via ID
 
-                S0SdpoMaster updateSoSdpo = new S0SdpoMaster();
+                BankMaster updateSoSdpo = new BankMaster();
 
-                updateSoSdpo = soSdpoRepository.getAllSOSdpoViaId(Integer.parseInt(form.getSoSdpoId()));
+                updateSoSdpo = bankRepository.getAllSOSdpoViaId(Integer.parseInt(form.getSoSdpoId()));
 
-                updateSoSdpo.setSosdpoName(form.getSoSdpoName().toString());
-                updateSoSdpo.setSosdpoId(Integer.parseInt(form.getSoSdpoId()));
+                updateSoSdpo.setBankName(form.getSoSdpoName().toString());
+                updateSoSdpo.setBankId(Integer.parseInt(form.getSoSdpoId()));
 
                 if (form.getSoSdpoActive().equalsIgnoreCase("T")) {
                     updateSoSdpo.setActive(true);
@@ -195,7 +195,7 @@ public class SoSdpoController {
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                 Date date = new Date(timestamp.getTime());
                 updateSoSdpo.setUpdatedOn(date);
-                savedState = soSdpoRepository.save(updateSoSdpo);
+                savedState = bankRepository.save(updateSoSdpo);
                 form.setSoSdpoName("");
                 request.getSession().setAttribute("successMessage", "So/SDPO Updated.");
 

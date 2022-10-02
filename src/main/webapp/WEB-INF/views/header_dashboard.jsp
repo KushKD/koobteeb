@@ -62,14 +62,34 @@
                </li>
             </sec:authorize>
             <sec:authorize access="hasAuthority('SUPER ADMIN')">
-               <li class="treeview">
-                  <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">So/SDPO Master</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-                  <ul class="treeview-menu">
-                     <li><a class="treeview-item" href="${pageContext.request.contextPath}/createsoSdpo" ><i class="icon fa fa-circle-o"></i> Create SO/SDPO</a></li>
-                     <li><a class="treeview-item" href="${pageContext.request.contextPath}/viewsoSdpo"><i class="icon fa fa-circle-o"></i> Update SO/SDPO</a></li>
-                  </ul>
-               </li>
-            </sec:authorize>
+                           <li class="treeview">
+                              <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">Bank Master</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+                              <ul class="treeview-menu">
+                                 <li><a class="treeview-item" href="${pageContext.request.contextPath}/createsoSdpo" ><i class="icon fa fa-circle-o"></i> Create Bank</a></li>
+                                 <li><a class="treeview-item" href="${pageContext.request.contextPath}/viewsoSdpo"><i class="icon fa fa-circle-o"></i> Update Bank</a></li>
+                              </ul>
+                           </li>
+                        </sec:authorize>
+             <sec:authorize access="hasAuthority('SUPER ADMIN')">
+                           <li class="treeview">
+                              <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">Role Master</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+                              <ul class="treeview-menu">
+                                 <li><a class="treeview-item" href="${pageContext.request.contextPath}/createRole" ><i class="icon fa fa-circle-o"></i> Create Role</a></li>
+                                 <li><a class="treeview-item" href="${pageContext.request.contextPath}/getRoles"><i class="icon fa fa-circle-o"></i> Update Role</a></li>
+                              </ul>
+                           </li>
+                        </sec:authorize>
+              <sec:authorize access="hasAuthority('SUPER ADMIN')">
+                            <li class="treeview">
+                               <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">User Master</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+                               <ul class="treeview-menu">
+
+                                  <li><a class="treeview-item" href="${pageContext.request.contextPath}/createUser"><i class="icon fa fa-circle-o"></i> Create User</a></li>
+                                  <li><a class="treeview-item" href="${pageContext.request.contextPath}/viewUsers"><i class="icon fa fa-circle-o"></i> Update Users</a></li>
+                               </ul>
+                            </li>
+                         </sec:authorize>
+
             <sec:authorize access="hasAuthority('SUPER ADMIN')">
                <li class="treeview">
                   <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">Police Station Masters</span><i class="treeview-indicator fa fa-angle-right"></i></a>
@@ -88,16 +108,7 @@
                   </ul>
                </li>
             </sec:authorize>
-            <sec:authorize access="hasAuthority('SUPER ADMIN')">
-               <li class="treeview">
-                  <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">User Master</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-                  <ul class="treeview-menu">
-                     <li><a class="treeview-item" href="${pageContext.request.contextPath}/createRole" ><i class="icon fa fa-circle-o"></i> Create Role</a></li>
-                     <li><a class="treeview-item" href="${pageContext.request.contextPath}/createUser"><i class="icon fa fa-circle-o"></i> Create User</a></li>
-                     <li><a class="treeview-item" href="${pageContext.request.contextPath}/viewUsers"><i class="icon fa fa-circle-o"></i> Update Users</a></li>
-                  </ul>
-               </li>
-            </sec:authorize>
+
             <sec:authorize access="hasAuthority('SUPER ADMIN')">
                <li class="treeview">
                   <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">Module Master</span><i class="treeview-indicator fa fa-angle-right"></i></a>

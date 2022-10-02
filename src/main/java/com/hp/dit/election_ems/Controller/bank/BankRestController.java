@@ -1,8 +1,8 @@
-package com.hp.dit.election_ems.Controller.sosdpo;
+package com.hp.dit.election_ems.Controller.bank;
 
 import com.hp.dit.election_ems.Controller.beat.BeatRestController;
-import com.hp.dit.election_ems.entities.S0SdpoMaster;
-import com.hp.dit.election_ems.repositories.sosdpo.SoSdpoRepository;
+import com.hp.dit.election_ems.entities.BankMaster;
+import com.hp.dit.election_ems.repositories.bank.BankRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,16 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-public class SoSdpoRestController {
+public class BankRestController {
 
     @Autowired
-    SoSdpoRepository soSdpoRepository;
+    BankRepository bankRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(BeatRestController.class);
 
     @RequestMapping(value = "/apidataTable/allSdpo", method = RequestMethod.GET)
-    public DataTablesOutput<S0SdpoMaster> allDistricts_(@Valid DataTablesInput input) {
+    public DataTablesOutput<BankMaster> allDistricts_(@Valid DataTablesInput input) {
         System.out.println(input);
-        return soSdpoRepository.findAll(input);
+        return bankRepository.findAll(input);
     }
 }
