@@ -11,11 +11,11 @@
       <div class="card login-card">
          <div class="row no-gutters">
             <div class="col-md-5">
-               <img src="${pageContext.request.contextPath}/resources/images/login/4.jpg" id="bgm" alt="login" class="login-card-img">
+               <img src="${pageContext.request.contextPath}/resources/images/login/voting.jpg" id="bgm" alt="login" class="login-card-img">
             </div>
             <div class="col-md-7">
                <a>
-               <img src="${pageContext.request.contextPath}/resources/images/login/1111.png" class="avatar1">
+               <img src="${pageContext.request.contextPath}/resources/images/login/eci.png" class="avatar1">
                </a>
                <a >
                <img src="${pageContext.request.contextPath}/resources/images/login/1200.png" class="avatar2">
@@ -26,7 +26,7 @@
                      <div class="brand-wrapper">
                      </div>
                      <p class="login-card-description" align="center">
-                        <spring:message code="loginpage.heading" text="Login"/>
+                        <spring:message code="loginpage.heading" text="Expenditure Monitoring System Login"/>
                      </p>
                      <form  method="post" onsubmit="return submit_form()" class="loginForm"  action="${pageContext.request.contextPath}/login">
                         <div class="form-group">
