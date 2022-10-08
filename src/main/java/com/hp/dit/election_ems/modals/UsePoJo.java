@@ -16,11 +16,9 @@ public class UsePoJo implements Serializable {
 	private String password;
 	private Integer stateID;
 	private Integer districtId;
-	private Integer sosdpoId;
-	private Integer psId;
-	private Integer beatId;
 
-	public UsePoJo(Long user_id, String user_name, Long mobile_number, String firstName, String lastName, String password, Integer stateID, Integer districtId, Integer sosdpoId, Integer psId, Integer beatId) {
+
+	public UsePoJo(Long user_id, String user_name, Long mobile_number, String firstName, String lastName, String password, Integer stateID, Integer districtId) {
 		this.user_id = user_id;
 		this.user_name = user_name;
 		this.mobile_number = mobile_number;
@@ -29,9 +27,6 @@ public class UsePoJo implements Serializable {
 		this.password = password;
 		this.stateID = stateID;
 		this.districtId = districtId;
-		this.sosdpoId = sosdpoId;
-		this.psId = psId;
-		this.beatId = beatId;
 	}
 
 	public static long getSerialVersionUID() {
@@ -102,29 +97,8 @@ public class UsePoJo implements Serializable {
 		this.districtId = districtId;
 	}
 
-	public Integer getSosdpoId() {
-		return sosdpoId;
-	}
 
-	public void setSosdpoId(Integer sosdpoId) {
-		this.sosdpoId = sosdpoId;
-	}
 
-	public Integer getPsId() {
-		return psId;
-	}
-
-	public void setPsId(Integer psId) {
-		this.psId = psId;
-	}
-
-	public Integer getBeatId() {
-		return beatId;
-	}
-
-	public void setBeatId(Integer beatId) {
-		this.beatId = beatId;
-	}
 
 	@Override
 	public String toString() {
@@ -137,9 +111,6 @@ public class UsePoJo implements Serializable {
 				", password='" + password + '\'' +
 				", stateID=" + stateID +
 				", districtId=" + districtId +
-				", sosdpoId=" + sosdpoId +
-				", psId=" + psId +
-				", beatId=" + beatId +
 				'}';
 	}
 }

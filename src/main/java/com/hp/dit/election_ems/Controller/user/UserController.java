@@ -119,11 +119,7 @@ public class UserController {
                     pojo.setState_name((String) result[8]);
                     pojo.setDistrict_id((Integer) result[9]);
                     pojo.setDistrict_name((String) result[10]);
-                    pojo.setBeat_id((Integer) result[11]);
-                    pojo.setBeat_name((String) result[12]);
-                    pojo.setRank((String) result[13]);
-                    pojo.setSodpo_id((Integer) result[14]);
-                    pojo.setPs_id((Integer) result[15]);
+                    pojo.setRank((String) result[11]);
 
                     usersDetails.add(pojo);
                 }
@@ -167,13 +163,11 @@ public class UserController {
                 user.setLastName(updateUser.getLastName());
                 user.setStateId(Integer.parseInt(updateUser.getStateId()));
                 user.setDistrictId(Integer.parseInt(updateUser.getDistrictId()));
-                user.setBeatId(Integer.parseInt(updateUser.getBeatId()));
+
                 user.setPassword(encoder.encode(updateUser.getPassword()));
                 String roleIid = updateUser.getRoleId();
 
-                user.setSosdpoId(Integer.parseInt(updateUser.getSosdpoId()));
-                user.setPsId(Integer.parseInt(updateUser.getPsId()));
-                user.setBeatId(Integer.parseInt(updateUser.getBeatId()));
+
                 user.setRank(updateUser.getRank());
 
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -186,12 +180,11 @@ public class UserController {
                         BigInteger.valueOf(user.getMobileNumber()),
                         user.getStateId(),
                         user.getDistrictId(),
-                        user.getBeatId(),
+
                         user.isActive(),
                         date,
                         Integer.parseInt(updateUser.getUserId()),
-                        user.getSosdpoId(),
-                        user.getPsId(),
+
                         user.getRank());
 
                 if(saved == 1){
@@ -335,9 +328,7 @@ public class UserController {
                 user.setLastName(registerUser.getLastName());
                 user.setStateId(Integer.parseInt(registerUser.getStateId()));
                 user.setDistrictId(Integer.parseInt(registerUser.getDistrictId()));
-                user.setSosdpoId(Integer.parseInt(registerUser.getSosdpoId()));
-                user.setPsId(Integer.parseInt(registerUser.getPsId()));
-                user.setBeatId(Integer.parseInt(registerUser.getBeatId()));
+
                 user.setRank(registerUser.getRank());
                 user.setPassword(encoder.encode(registerUser.getPassword()));
                 String roleIid = registerUser.getRoleId();

@@ -731,7 +731,8 @@ public class API {
         String userData_ = null, jsonStr = null;
         EncryptDecrypt ED = new EncryptDecrypt();
         ObjectMapper Obj = null;
-        String encrypted = null, psid=null, username = null, beatid=null, password = null, stateId = null, districtId = null, sosdpoid = null, mobileNumber = null, roleId;
+        String encrypted = null, psid=null, username = null, beatid=null,
+                password = null, stateId = null, districtId = null, sosdpoid = null, mobileNumber = null, roleId=null;
 
         if (userData != null && !userData.isEmpty()) {
             logger.info("User Data Encrypted:-\t" + userData);
@@ -748,22 +749,21 @@ public class API {
                 password = jsonObject.getAsJsonObject().get("password").getAsString();
                 stateId = jsonObject.getAsJsonObject().get("stateId").getAsString();
                 districtId = jsonObject.getAsJsonObject().get("districtId").getAsString();
-                sosdpoid = jsonObject.getAsJsonObject().get("sdpoId").getAsString();
-                psid = jsonObject.getAsJsonObject().get("psId").getAsString();
+                roleId = jsonObject.getAsJsonObject().get("roleid").getAsString();
+
 
                 logger.info("Username:- " + username);
                 logger.info("password:- " + password);
                 logger.info("stateId:- " + stateId);
                 logger.info("districtId:- " + districtId);
-                logger.info("barrierId:- " + sosdpoid);
-                logger.info("psid:- " + psid);
+                logger.info("roleid:- "+ roleId);
+
+
 
 
                 UsePoJo user = userRepository.apiLoginSho(
                         Integer.parseInt(stateId),
                         Integer.parseInt(districtId),
-                        Integer.parseInt(sosdpoid),
-                        Integer.parseInt(psid),
                         username,password);
                 logger.info("User \t" + user.toString());
 
@@ -804,9 +804,17 @@ public class API {
                     boolean isPasswordMatch = encoder.matches(password, user.getPassword());
                     System.out.println("Password : " + password + "   isPasswordMatch    : " + isPasswordMatch);
 
+                    boolean isRoleMatched = false;
+
+                    if(roleId.equalsIgnoreCase(Integer.toString(userwithRole.getRoleId()))){
+                        isRoleMatched = true;
+                    }else{
+                        isRoleMatched = false;
+                    }
+
                     //Get RoleId via UserPojo UserID
 
-                    if (isPasswordMatch) {
+                    if (isPasswordMatch && isRoleMatched) {
 
                         map = new HashMap<String, Object>();
                         map.put(Constants.keyResponse, userwithRole);
@@ -820,7 +828,7 @@ public class API {
 
                     } else {
                         map = new HashMap<String, Object>();
-                        map.put(Constants.keyResponse, "Password Doesn't Match!");
+                        map.put(Constants.keyResponse, "Either Role Selected or Password Doesn't Match!");
                         map.put(Constants.keyMessage, "Request Successful.");
                         map.put(Constants.keyStatus, HttpStatus.NO_CONTENT.value());
                         Obj = new ObjectMapper();
@@ -882,14 +890,14 @@ public class API {
             JsonObject jsonObject = new JsonParser().parse(jsonStr).getAsJsonObject();
             System.out.println(jsonObject.toString());
             logger.info("API:: User Data is (Json Object ):- " + jsonObject);
-            district_id = jsonObject.getAsJsonObject().get("districtId").getAsString();
+           // district_id = jsonObject.getAsJsonObject().get("districtId").getAsString();
             pin = jsonObject.getAsJsonObject().get("pin").getAsString();
 
-            logger.info("districtId:- " + district_id);
+           // logger.info("districtId:- " + district_id);
             logger.info("pin:- " + pin);
 
 
-            PinMaster pinDetails = pinRepository.findActivePins(district_id,pin);
+            PinMaster pinDetails = pinRepository.findActivePins(pin);
             if (pinDetails != null) {
                 map = new HashMap<String, Object>();
                 map.put(Constants.keyResponse, pinDetails);

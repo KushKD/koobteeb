@@ -23,8 +23,6 @@
                <tr>
                   <th>Pin Id</th>
                   <th>Pin</th>
-                  <th>District Name</th>
-                  <th>State Name</th>
                   <th> Active/Inactive</th>
                   <th> Action</th>
                </tr>
@@ -48,14 +46,6 @@
 			},
 			{
 				data: 'pin'
-			},
-
-
-			{
-				data: 'districtId.districtName'
-			},
-			{
-				data: 'stateID.stateName',
 			},
 
 

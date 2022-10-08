@@ -32,14 +32,6 @@ public class UserEntity {
 	@Column(name = "district_id")
 	private Integer districtId;
 
-	@Column(name = "sosdpo_id")
-	private Integer sosdpoId;
-
-	@Column(name = "ps_id")
-	private Integer psId;
-
-	@Column(name = "beat_id")
-	private Integer beatId;
 
 	@Column(name = "state_id")
 	private Integer stateId;
@@ -50,21 +42,7 @@ public class UserEntity {
     @Column(name = "active")
     private boolean active;
 
-	public Integer getSosdpoId() {
-		return sosdpoId;
-	}
 
-	public void setSosdpoId(Integer sosdpoId) {
-		this.sosdpoId = sosdpoId;
-	}
-
-	public Integer getPsId() {
-		return psId;
-	}
-
-	public void setPsId(Integer psId) {
-		this.psId = psId;
-	}
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "user_role_mapping", joinColumns = @JoinColumn(name = "userId", referencedColumnName = "user_id"),
@@ -168,13 +146,7 @@ public class UserEntity {
 		this.rank = rank;
 	}
 
-	public Integer getBeatId() {
-		return beatId;
-	}
 
-	public void setBeatId(Integer beatId) {
-		this.beatId = beatId;
-	}
 
 	@Override
 	public String toString() {
@@ -186,9 +158,6 @@ public class UserEntity {
 				", rank='" + rank + '\'' +
 				", password='" + password + '\'' +
 				", districtId=" + districtId +
-				", sosdpoId=" + sosdpoId +
-				", psId=" + psId +
-				", beatId=" + beatId +
 				", stateId=" + stateId +
 				", mobileNumber=" + mobileNumber +
 				", active=" + active +

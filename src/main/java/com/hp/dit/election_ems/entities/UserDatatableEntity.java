@@ -32,17 +32,7 @@ public class UserDatatableEntity {
     @JoinColumn(name = "district_id")
     private DistrictMaster districtId;
 
-    @OneToOne
-    @JoinColumn(name = "sosdpo_id")
-    private BankMaster sosdpoId;
 
-    @OneToOne
-    @JoinColumn(name = "ps_id")
-    private PoliceStationMaster psId;
-
-    @OneToOne
-    @JoinColumn(name = "beat_id")
-    private BeatMaster beatId;
 
     @OneToOne
     @JoinColumn(name = "state_id")
@@ -110,29 +100,8 @@ public class UserDatatableEntity {
         this.districtId = districtId;
     }
 
-    public BankMaster getSosdpoId() {
-        return sosdpoId;
-    }
 
-    public void setSosdpoId(BankMaster sosdpoId) {
-        this.sosdpoId = sosdpoId;
-    }
 
-    public PoliceStationMaster getPsId() {
-        return psId;
-    }
-
-    public void setPsId(PoliceStationMaster psId) {
-        this.psId = psId;
-    }
-
-    public BeatMaster getBeatId() {
-        return beatId;
-    }
-
-    public void setBeatId(BeatMaster beatId) {
-        this.beatId = beatId;
-    }
 
     public StatesMaster getStateId() {
         return stateId;
@@ -168,9 +137,6 @@ public class UserDatatableEntity {
                 ", rank='" + rank + '\'' +
                 ", password='" + password + '\'' +
                 ", districtId=" + districtId +
-                ", sosdpoId=" + sosdpoId +
-                ", psId=" + psId +
-                ", beatId=" + beatId +
                 ", stateId=" + stateId +
                 ", mobileNumber=" + mobileNumber +
                 ", active=" + active +

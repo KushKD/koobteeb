@@ -284,9 +284,8 @@ class EMSElectionsApplicationTests {
         JsonObject jsonObjecttwo = new JsonObject();
         jsonObjecttwo.addProperty("stateId", "9");
         jsonObjecttwo.addProperty("districtId", "204");
-        jsonObjecttwo.addProperty("sdpoId", "4");
-        jsonObjecttwo.addProperty("psId", "7");
-        jsonObjecttwo.addProperty("username", "shouser");
+        jsonObjecttwo.addProperty("roleid", "1");
+        jsonObjecttwo.addProperty("username", "kush");
         jsonObjecttwo.addProperty("password", "Demo@123");
         System.out.println(ED.encrypt(jsonObjecttwo.toString()));
         String ps = apiController.loginSoSP(ED.encrypt(jsonObjecttwo.toString()));
@@ -306,8 +305,8 @@ class EMSElectionsApplicationTests {
     void checkPin() throws Exception  {
             EncryptDecrypt ED = new EncryptDecrypt();
         JsonObject jsonObjecttwo = new JsonObject();
-        jsonObjecttwo.addProperty("districtId", "206");
-        jsonObjecttwo.addProperty("pin", "123457");
+       // jsonObjecttwo.addProperty("districtId", "206");
+        jsonObjecttwo.addProperty("pin", "121212");
         System.out.println(ED.encrypt(jsonObjecttwo.toString()));
         String districts = apiController.checkPin(ED.encrypt(jsonObjecttwo.toString()));
         System.out.println("===Districts===");

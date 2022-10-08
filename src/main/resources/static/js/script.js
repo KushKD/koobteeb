@@ -699,7 +699,7 @@ function getDistrictsViaStates(id) {
 			selectRole.find('option').remove();
 			selectRole.append("<option value=" + 0 + " >" + "---Select District ---" + "</option>")
 			for (i = 0; i < json_.RESPONSE.length; i++) {
-				if (document.getElementById('bid') != null && document.getElementById('bid').value == json_.RESPONSE[i].barrierId) {
+				if (document.getElementById('sid') != null && document.getElementById('sid').value == json_.RESPONSE[i].barrierId) {
 					selectRole.append("<option selected value=" + json_.RESPONSE[i].districtId + " >" + json_.RESPONSE[i].districtName + "</option>")
 				} else {
 					selectRole.append("<option value=" + json_.RESPONSE[i].districtId + " >" + json_.RESPONSE[i].districtName + "</option>")

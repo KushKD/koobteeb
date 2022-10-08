@@ -107,13 +107,6 @@ public class PinController {
 
                 pin.setPin(Integer.parseInt(form.getPin()));
 
-                StatesMaster statesMaster = new StatesMaster();
-                statesMaster.setStateID(Integer.parseInt(form.getStateId()));
-                pin.setStateID(statesMaster);
-
-                DistrictMaster districtMaster = new DistrictMaster();
-                districtMaster.setDistrictId(Integer.parseInt(form.getDistrictId()));
-                pin.setDistrictId(districtMaster);
 
 
                 if (form.getStateIsActive().equalsIgnoreCase("T")) {

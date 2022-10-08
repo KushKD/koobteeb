@@ -11,6 +11,6 @@ public interface PinRepositoryCustom {
 
     List<PinMaster> findAllActivePins() throws Exception;
     PinMaster getPinViaId(Integer pin_id) throws Exception;
-    PinMaster findActivePins(String districtId, String pin) throws Exception;
+    PinMaster findActivePins( String pin) throws Exception;
 
 }

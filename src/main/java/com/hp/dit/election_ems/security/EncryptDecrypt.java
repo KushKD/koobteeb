@@ -16,8 +16,8 @@ import java.security.NoSuchAlgorithmException;
 
 
 public class EncryptDecrypt {
-    private static final String SECRET_KEY_1 = "1234567890abcdef";
-    private static final String SECRET_KEY_2 = "1234567890abcdef";
+    private static final String SECRET_KEY_1 = "'<l)l1zYUB,O>v#o";
+    private static final String SECRET_KEY_2 = "ZS,l(>D'#wAkFo51";
 
     private IvParameterSpec ivParameterSpec;
     private SecretKeySpec secretKeySpec;

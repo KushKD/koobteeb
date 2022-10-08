@@ -18,17 +18,15 @@
    <div class="row" >
       <div class="container">
       <h2 class="form-signin-heading">User Master</h2>
-         <table id="sampleTable" class="table table-responsive table-striped table-bordered">
+         <table id="sampleTable" style="width:100%" class="table table-responsive table-striped table-bordered">
             <thead>
                <tr>
                   <th>User Id</th>
                   <th>First Name</th>
                   <th>Last Name</th>
                   <th>Mobile Number</th>
-                  <th>Beat Name</th>
-                  <th>Police Station Name</th>
-                  <th>SO/SDPO</th>
-
+                  <th>State </th>
+                  <th>District </th>
                   <th> Active/Inactive</th>
                   <th> Action</th>
                </tr>
@@ -60,15 +58,11 @@
 				data: 'mobileNumber'
 			},
 			{
-				data: 'beatId.beatName'
+            				data: 'stateId.stateName'
+            			},
+{
+				data: 'districtId.districtName'
 			},
-			{
-				data: 'psId.psName'
-			},
-			{
-				data: 'sosdpoId.sosdpoName'
-			},
-
 
 			{
 				data: 'active',

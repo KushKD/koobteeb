@@ -69,33 +69,11 @@
             <spring:bind path="districtId">
                <div class="form-group  ${status.error ? 'has-error' : ''}">
                   <form:label path="districtId" for="roles">Select District</form:label>
-                  <form:select path="districtId" name="stateId" class="form-control" autocomplete="off"  oncopy="return false" onpaste="return false" id="districts" onchange="getBarriers(this.value)" ></form:select>
+                  <form:select path="districtId" name="districtId" class="form-control" autocomplete="off"  oncopy="return false" onpaste="return false" id="districts"  ></form:select>
                   <form:errors path="districtId"></form:errors>
                </div>
             </spring:bind>
 
-        <spring:bind path="sosdpoId">
-                           <div class="form-group  ${status.error ? 'has-error' : ''}">
-                              <form:label path="sosdpoId" for="roles">Select SO /SDPO </form:label>
-                              <form:select path="sosdpoId" name="sosdpoId" class="form-control" autocomplete="off"  oncopy="return false" onpaste="return false" id="sosdpoId" onchange="getPoliceStationsViasosdpoid(this.value)"></form:select>
-                              <form:errors path="sosdpoId"></form:errors>
-                           </div>
-                        </spring:bind>
-                        <spring:bind path="psId">
-                                 <div class="form-group  ${status.error ? 'has-error' : ''}">
-                                    <form:label path="psId" for="poicestation">Select Police Station </form:label>
-                                    <form:select path="psId" name="psId" class="form-control" autocomplete="off"  oncopy="return false" onpaste="return false" id="psId" onchange="getBeat(this.value);"></form:select>
-                                    <form:errors path="psId"></form:errors>
-                                 </div>
-                              </spring:bind>
-
-                     <spring:bind path="beatId">
-                                 <div class="form-group  ${status.error ? 'has-error' : ''}">
-                                    <form:label path="beatId" for="roles">Select Beat</form:label>
-                                    <form:select path="beatId" name="beatId" autocomplete="off"  oncopy="return false" onpaste="return false" class="form-control" id="beats" ></form:select>
-                                    <form:errors path="beatId"></form:errors>
-                                 </div>
-                              </spring:bind>
 
 
 
@@ -147,10 +125,7 @@
    </div>
    <input class="form-control col-md-6"  id="did" type="hidden" value="${usersDetails.state_id}"  />
       <input class="form-control col-md-6"  id="sid" type="hidden" value="${usersDetails.district_id}"  />
-      <input class="form-control col-md-6"  id="sosid" type="hidden" value="${usersDetails.sodpo_id}"  />
-      <input class="form-control col-md-6"  id="psid" type="hidden" value="${usersDetails.ps_id}"  />
       <input class="form-control col-md-6"  id="rid" type="hidden" value="${usersDetails.role_id}"  />
-      <input class="form-control col-md-6"  id="beatid" type="hidden" value="${usersDetails.beat_id}"  />
 
 </main>
 
@@ -174,31 +149,14 @@
                             }
                         }
 
-    function getSOSDPOLoad(){
-                     if(document.getElementById('sosid') != null && document.getElementById('sosid').value  != null ){
-                             getSOSDPOUpdate();
-                             }
-                         }
 
 
-
-      function getPoliceStationOnLoad(){
-                     if(document.getElementById('psid') != null && document.getElementById('psid').value  != null ){
-                             getPoliceStationsViasosdpoid(document.getElementById('sosid').value);
-                             }
-                         }
-
-      function getBeatOnLoad(){
-                           if(document.getElementById('beatid') != null && document.getElementById('beatid').value  != null ){
-                                   getBeat(document.getElementById('psid').value);
-                                   }
-                               }
    $(document).ready(function() {
     getStatesOnLoad();
     getdistrictsOnLoad();
-    getSOSDPOLoad();
-    getPoliceStationOnLoad();
+
+
     getrolesOnLoad();
-    getBeatOnLoad();
+
    });
 </script>

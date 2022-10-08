@@ -72,29 +72,6 @@
                   <form:errors path="districtId"></form:errors>
                </div>
             </spring:bind>
-            <spring:bind path="sosdpoId">
-                     <div class="form-group  ${status.error ? 'has-error' : ''}">
-                        <form:label path="sosdpoId" for="roles">Select SO /SDPO </form:label>
-                        <form:select path="sosdpoId" name="sosdpoId" class="form-control" autocomplete="off"  oncopy="return false" onpaste="return false" id="sosdpoId" onchange="getPoliceStationsViasosdpoid(this.value)"></form:select>
-                        <form:errors path="sosdpoId"></form:errors>
-                     </div>
-                  </spring:bind>
-                  <spring:bind path="psId">
-                           <div class="form-group  ${status.error ? 'has-error' : ''}">
-                              <form:label path="psId" for="poicestation">Select Police Station </form:label>
-                              <form:select path="psId" name="psId" class="form-control" autocomplete="off"  oncopy="return false" onpaste="return false" id="psId" onchange="getBeat(this.value);"></form:select>
-                              <form:errors path="psId"></form:errors>
-                           </div>
-                        </spring:bind>
-
-               <spring:bind path="beatId">
-                           <div class="form-group  ${status.error ? 'has-error' : ''}">
-                              <form:label path="beatId" for="roles">Select Beat</form:label>
-                              <form:select path="beatId" name="stateId" autocomplete="off"  oncopy="return false" onpaste="return false" class="form-control" id="beats" ></form:select>
-                              <form:errors path="beatId"></form:errors>
-                           </div>
-                        </spring:bind>
-
 
 
       <spring:bind path="roleId">
