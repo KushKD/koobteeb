@@ -86,7 +86,7 @@
                </div>
             </sec:authorize>
 
-       <sec:authorize access="hasAnyAuthority('SUPER ADMIN')">
+       <sec:authorize access="hasAnyAuthority('SUPER ADMIN','Bank Official')">
                       <div class="col-md-6 col-lg-3">
                          <div class="widget-small danger coloured-icon">
                             <i class="icon fa fa-exchange fa-3x"></i>
@@ -101,12 +101,12 @@
 
 
 
-        <sec:authorize access="hasAnyAuthority('SUPER ADMIN')">
+        <sec:authorize access="hasAnyAuthority('SUPER ADMIN','Bank Official')">
                              <div class="col-md-6 col-lg-3">
                                 <div class="widget-small info coloured-icon">
                                    <i class="icon fa fa-exchange fa-3x"></i>
                                    <div class="info">
-                                      <a href="${pageContext.request.contextPath}/viewtransfer" style=" text-decoration: none !important;">
+                                      <a href="${pageContext.request.contextPath}/viewTransfer" style=" text-decoration: none !important;">
                                          <h5>View Transfers</h5>
                                       </a>
                                    </div>

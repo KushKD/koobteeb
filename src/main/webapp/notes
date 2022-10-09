@@ -360,3 +360,37 @@ SELECT ST_AsGeoJSON(beat_geometry) from  mst_beat WHERE ps_id=1
    ST_GeomFromText('POINT(76.6934887 30.7350626)',4326)::geography,
    40000 -- DISTANCE IN METERS
  );
+
+
+
+
+ -- Create Transfer User Entries
+ CREATE TABLE mst_transfer_request_entries (
+     transfer_request_id serial PRIMARY KEY  NOT NULL,
+     vehicle_number character varying(50) NOT NULL,
+     source_address character varying(200) NOT NULL,
+     dest_address character varying(200) NOT NULL,
+     from_date character varying(30) NOT NULL,
+     thrue_date character varying(30) NOT NULL,
+     other_information character varying(255)  NULL,
+     data_entered_by INTEGER NOT NULL,
+     active boolean DEFAULT true NOT NULL,
+     createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
+     lastmodifieddate timestamp without time zone,
+     FOREIGN KEY (data_entered_by) REFERENCES users(user_id)
+ );
+
+
+ -- Create Files Table Byte
+ CREATE TABLE mst_transfer_request_documents (
+     doc_id serial PRIMARY KEY  NOT NULL,
+     transfer_request_id INTEGER NOT NULL,
+     vehicle_image_owner bytea  NULL,
+     document_name character varying(255) NOT NULL,
+     uploaded_by INTEGER NOT NULL,
+     active boolean DEFAULT true NOT NULL,
+     createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
+     lastmodifieddate timestamp without time zone,
+     FOREIGN KEY (transfer_request_id) REFERENCES mst_transfer_request_entries(transfer_request_id),
+     FOREIGN KEY (uploaded_by) REFERENCES users(user_id)
+ );

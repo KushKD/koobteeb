@@ -1,5 +1,6 @@
 package com.hp.dit.election_ems.validators;
 
+import com.hp.dit.election_ems.entities.TransferRequestEntities;
 import com.hp.dit.election_ems.form.module.ModuleForm;
 import com.hp.dit.election_ems.form.transfer.TransferForm;
 import com.hp.dit.election_ems.repositories.modules.ModuleRepository;
@@ -12,25 +13,24 @@ import org.springframework.validation.Validator;
 @Component
 public class TransferValidator implements Validator {
 
-    @Autowired
-    ModuleRepository moduleRepository;
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return ModuleForm.class.equals(aClass);
+        return TransferForm.class.equals(aClass);
     }
 
     @Override
     public void validate(Object o, Errors errors) {
+
         TransferForm user = (TransferForm) o;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "moduleName", "NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "moduleIcon", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "vehicleNo", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "fromDate", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thruDate", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sourceAddress", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "destAddress", "NotEmpty");
 
 
-//        if (moduleRepository.moduleCount(user.getVehicleNo()) >0) {
-//            errors.rejectValue("moduleName", "Duplicate.module.moduleName");
-//        }
 
 
     }
