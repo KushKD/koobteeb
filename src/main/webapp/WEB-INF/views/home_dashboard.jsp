@@ -6,7 +6,7 @@
    <div class="app-title">
       <div>
          <h1><i class="fa fa-dashboard"></i> Dashboard</h1>
-         <p>Beat Book Panel</p>
+         <p>Expenditure Monitoring Panel - State Election Commission, Government of Himachal Pradesh</p>
       </div>
       <ul class="app-breadcrumb breadcrumb">
          <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
@@ -47,7 +47,7 @@
 
        <sec:authorize access="hasAnyAuthority('SUPER ADMIN')">
             <div class="col-md-6 col-lg-3">
-               <div class="widget-small warning coloured-icon">
+               <div class="widget-small danger coloured-icon">
                   <i class="icon fa fa-get-pocket fa-3x"></i>
                   <div class="info">
                      <a href="${pageContext.request.contextPath}/viewmodule" style=" text-decoration: none !important;">
@@ -57,68 +57,9 @@
                </div>
             </div>
             </sec:authorize>
-        <sec:authorize access="hasAnyAuthority('SUPER ADMIN')">
-      <div class="col-md-6 col-lg-3">
-         <div class="widget-small info coloured-icon">
-            <i class="icon fa fa-info fa-3x"></i>
-            <div class="info">
-               <a href="${pageContext.request.contextPath}/viewData" style=" text-decoration: none !important;">
-                  <h5>View Information</h5>
-               </a>
-            </div>
-         </div>
-      </div>
-      </sec:authorize>
 
-        <sec:authorize access="hasAnyAuthority('SUPER ADMIN')">
-            <div class="col-md-6 col-lg-3">
-               <div class="widget-small danger coloured-icon">
-                  <i class="icon fa fa-book fa-3x"></i>
-                  <div class="info">
-                     <a href="${pageContext.request.contextPath}/viewCompleteData" style=" text-decoration: none !important;">
-                        <h5>View Complete Information</h5>
-                     </a>
-                  </div>
-               </div>
-            </div>
-            </sec:authorize>
 
-      <sec:authorize access="hasAnyAuthority('SUPER ADMIN')">
-         <div class="col-md-6 col-lg-3">
-            <div class="widget-small danger coloured-icon">
-               <i class="icon fa fa-building fa-3x"></i>
-               <div class="info">
-                  <a href="${pageContext.request.contextPath}/viewps" style=" text-decoration: none !important;">
-                     <h5>View Police Station</h5>
-                  </a>
-               </div>
-            </div>
-         </div>
-      </sec:authorize>
-       <sec:authorize access="hasAnyAuthority('SUPER ADMIN')">
-               <div class="col-md-6 col-lg-3">
-                  <div class="widget-small info coloured-icon">
-                     <i class="icon fa fa-globe fa-3x"></i>
-                     <div class="info">
-                        <a href="${pageContext.request.contextPath}/viewbeat" style=" text-decoration: none !important;">
-                           <h5>View Beats</h5>
-                        </a>
-                     </div>
-                  </div>
-               </div>
-            </sec:authorize>
-            <sec:authorize access="hasAnyAuthority('SUPER ADMIN')">
-                           <div class="col-md-6 col-lg-3">
-                              <div class="widget-small danger coloured-icon">
-                                 <i class="icon fa fa-check fa-3x"></i>
-                                 <div class="info">
-                                    <a href="${pageContext.request.contextPath}/activeBeat" style=" text-decoration: none !important;">
-                                       <h5>Active Beats</h5>
-                                    </a>
-                                 </div>
-                              </div>
-                           </div>
-                        </sec:authorize>
+
       <sec:authorize access="hasAnyAuthority('SUPER ADMIN')">
          <div class="col-md-6 col-lg-3">
             <div class="widget-small primary coloured-icon">
@@ -138,7 +79,7 @@
                      <i class="icon fa fa-sign-in fa-3x"></i>
                      <div class="info">
                         <a href="${pageContext.request.contextPath}/beatOfficerLogs" style=" text-decoration: none !important;">
-                           <h5>View Officer Login Logs</h5>
+                           <h5>View Mobile Users Logs</h5>
                         </a>
                      </div>
                   </div>
@@ -147,11 +88,11 @@
 
        <sec:authorize access="hasAnyAuthority('SUPER ADMIN')">
                       <div class="col-md-6 col-lg-3">
-                         <div class="widget-small warning coloured-icon">
-                            <i class="icon fa fa-taxi fa-3x"></i>
+                         <div class="widget-small danger coloured-icon">
+                            <i class="icon fa fa-exchange fa-3x"></i>
                             <div class="info">
-                               <a href="${pageContext.request.contextPath}/dailyActivity" style=" text-decoration: none !important;">
-                                  <h5>View Daily Activity</h5>
+                               <a href="${pageContext.request.contextPath}/createtransfer" style=" text-decoration: none !important;">
+                                  <h5>Create Transfer Request</h5>
                                </a>
                             </div>
                          </div>
@@ -163,15 +104,28 @@
         <sec:authorize access="hasAnyAuthority('SUPER ADMIN')">
                              <div class="col-md-6 col-lg-3">
                                 <div class="widget-small info coloured-icon">
-                                   <i class="icon fa fa-map-o fa-3x"></i>
+                                   <i class="icon fa fa-exchange fa-3x"></i>
                                    <div class="info">
-                                      <a href="${pageContext.request.contextPath}/dailyActivityMaps" style=" text-decoration: none !important;">
-                                         <h5>View Daily Activity Maps</h5>
+                                      <a href="${pageContext.request.contextPath}/viewtransfer" style=" text-decoration: none !important;">
+                                         <h5>View Transfers</h5>
                                       </a>
                                    </div>
                                 </div>
                              </div>
                           </sec:authorize>
+
+          <sec:authorize access="hasAnyAuthority('SUPER ADMIN')">
+                                     <div class="col-md-6 col-lg-3">
+                                        <div class="widget-small warning coloured-icon">
+                                           <i class="icon fa fa-lock fa-3x"></i>
+                                           <div class="info">
+                                              <a href="${pageContext.request.contextPath}/viewpin" style=" text-decoration: none !important;">
+                                                 <h5>Pin Management</h5>
+                                              </a>
+                                           </div>
+                                        </div>
+                                     </div>
+                                  </sec:authorize>
 
 
 

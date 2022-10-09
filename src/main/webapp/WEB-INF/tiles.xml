@@ -148,9 +148,6 @@
         <put-attribute name="content" value="/WEB-INF/jsp/roles/updaterole.jsp" />
     </definition>
 
-
-
-
     <!-- Roles End-->
 
    <!--Module MAster -->
@@ -209,6 +206,17 @@
         <put-attribute name="content" value="/WEB-INF/jsp/modulerole/updatemodulerolemapping.jsp" />
     </definition>
     <!-- Module Role Mapping Ends -->
+
+    <!-- Create Transfer -->
+    <definition name="createTransfer" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/transfer/createtransfer.jsp" />
+    </definition>
+
+    <definition name="viewTransfer" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/transfer/viewtransfer.jsp" />
+    </definition>
+
+    <!-- Create Transfer Ends -->
 
 
 
