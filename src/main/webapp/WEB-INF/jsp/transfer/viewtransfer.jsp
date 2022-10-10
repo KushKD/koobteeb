@@ -15,6 +15,26 @@
    }
 </style>
 <main class="app-content">
+<!-- Modal -->
+	<div class="modal fade" id="empModal" role="dialog">
+		<div class="modal-dialog  modal-lg">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Cash Transfer Request Details</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal Pop Up Closed -->
+
+
+
    <div class="row" style="box-shadow: 0 0 8px 2px #888; padding:10px;">
       <div class="container">
       <h2 class="form-signin-heading">View Cash Transfer Requests</h2>
@@ -75,7 +95,7 @@
 			{
 				data: 'transferRequestID',
 				render: function (data) {
-					return '<div class="btn-group"><a href="${pageContext.request.contextPath}/updateSoSdpo/${"' + data + '"}" class="btn btn-success" ;>View Details</a></div>'
+					return '<div class="btn-group"><a style="text-decoration:none; color:#FFFFFF;" onclick="getData(' + data + ')" class="btn btn-success" ;>View Details</a></div>'
 				}
 
 

@@ -783,3 +783,107 @@ function getUsers(id) {
 
 }
 
+
+function getData(id) {
+    $.ajax({
+        type: "GET",
+        url: formURL + "/ajax/getTransferRequestData",
+        data: {
+            "id": id
+        },
+        success: function(data) {
+        console.log(data.RESPONSE);
+            var html = "";
+            html += "<div class='row' >";
+
+            html += "<div class='col-md-4 form-group' >";
+            html += " <label class='control-label' style='font-weight: bold; color:red;'> Vehicle Number:  </label>";
+            html += " <label class='control-label' style='font-weight: bold;'>" + data.RESPONSE.vehicleNo + "</label> </div>";
+
+            html += "<div class='col-md-4 form-group'  >";
+            html += " <label class='control-label' style='font-weight: bold; color:red;'> Source Address :  </label>";
+            html += " <label class='control-label' style='font-weight: bold;'>" + data.RESPONSE.sourceAddress + "</label> </div>";
+
+            html += "<div class='col-md-4 form-group'  >";
+            html += " <label class='control-label' style='font-weight: bold; color:red;'> Destination Address :  </label>";
+            html += " <label class='control-label' style='font-weight: bold;'>" + data.RESPONSE.destAddress + "</label> </div>";
+
+
+            //html += "<div class='col-md-3 form-group'  >";
+            //html += " <img class='img-responsive img-thumbnail' style='width:100px; height:100px;' src='" + window.location.protocol + "//" + window.location.hostname + "/downloadFile/" + data.RESPONSE.vehicleOwnerImageName + "'></img> </div>";
+
+            html += "</div>";
+
+
+            html += "<div class='row' >";
+            html += "<div class='col-md-4 form-group'  >";
+            html += " <label class='control-label' style='font-weight: bold; color:red;'>  From Date:  </label>";
+            html += " <label class='control-label' style='font-weight: bold;'>" + data.RESPONSE.fromDate + "</label> </div>";
+
+
+            html += "<div class='col-md-4 form-group'  >";
+            html += " <label class='control-label' style='font-weight: bold; color:red;'> Thru Date:  </label>";
+            html += " <label class='control-label' style='font-weight: bold;'>" + data.RESPONSE.thruDate + "</label> </div>";
+
+
+
+            html += "</div>";
+
+
+
+            html += "<div class='row' >";
+
+             html += "<div class='col-md-4 form-group'  >";
+                       html += " <label class='control-label' style='font-weight: bold; color:red;'> Entered By  </label>";
+                       html += " <label class='control-label' style='font-weight: bold;'>" + data.RESPONSE.enteredBy + "</label> </div>";
+
+            html += "<div class='col-md-4 form-group'  >";
+            html += " <label class='control-label' style='font-weight: bold; color:red;'> Mobile Number:  </label>";
+            html += " <label class='control-label' style='font-weight: bold;'>" + data.RESPONSE.enteredByMobile + "</label> </div>";
+
+
+            html += "<div class='col-md-4 form-group'  >";
+            html += " <label class='control-label' style='font-weight: bold; color:red;'> Role   </label>";
+            html += " <label class='control-label' style='font-weight: bold;'>" + data.RESPONSE.role + "</label> </div>";
+
+
+            html += "</div>";
+
+            html += "<div class='row' >";
+            html += "<div class='col-md-12 form-group'  >";
+            html += " <h4 class='control-label' style='font-weight: bold;'> View Uploaded Documents  </h4>";
+            html += "</div>";
+
+             html += "<div class='col-md-12 form-group'  >";
+             html += "<table class='col-lg-12 table table-stripped'>";
+             html += "<thead>";
+             html += "<tr><th>Document Name</th><th>Document Updated On</th><th>View</th></tr></thead>";
+
+             html += "<tbody>";
+
+            for (var i = 0; i < data.RESPONSE.documents.length; i++) {
+                var documents = data.RESPONSE.documents[i];
+                html += "<tr><td>"+documents.documentName+"</td>";
+                const d = new Date(documents.createdDate );
+                date = d.getHours() + ":" + d.getMinutes() + ", " + d.toDateString();
+                html += "<td>"+date+"</td>";
+                html += "<td><a href='"+ window.location.protocol + "//" + window.location.host + "/downloadFile/" +documents.documentName+"'style='text-decoration:none; color:#FFFFFF;'class='btn btn-success' ;>Click to View</a></td></tr>";
+
+            }
+             html += "</tbody>";
+             html += "</table>";
+             html += "</div>";
+
+
+            $('.modal-body').html(html);
+
+            $('#empModal').modal('show');
+
+        },
+        error: function(data) {
+            console.log(data)
+        }
+
+    });
+    }
+

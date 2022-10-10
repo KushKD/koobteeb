@@ -5,5 +5,5 @@ import org.springframework.data.jpa.datatables.repository.DataTablesRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TRDRepository extends DataTablesRepository<TrdocumentsEntity,Integer> {
+public interface TRDRepository extends DataTablesRepository<TrdocumentsEntity,Integer>,TRDRepositoryCustom {
 }

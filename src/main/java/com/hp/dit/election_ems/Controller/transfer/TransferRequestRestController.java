@@ -49,7 +49,6 @@ public class TransferRequestRestController {
             Root<TransferRequestEntities> book = cq.from(TransferRequestEntities.class);
             Predicate stateId_ = cb.equal(book.get("enteredBy").<Long>get("userId"), user.getUserId());
             cq.where(stateId_);
-
             TypedQuery<TransferRequestEntities> queryq =  entityManager.createQuery(cq);
             return cq.getRestriction();
         };

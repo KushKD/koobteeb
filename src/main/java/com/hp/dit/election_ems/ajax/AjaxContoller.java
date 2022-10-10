@@ -6,15 +6,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hp.dit.election_ems.entities.*;
 import com.hp.dit.election_ems.modals.*;
 import com.hp.dit.election_ems.modals.beats.BeatsNameId;
+import com.hp.dit.election_ems.modals.usersviabeat.ShowCashRequestData;
 import com.hp.dit.election_ems.modals.usersviabeat.UsersViaBeat;
 import com.hp.dit.election_ems.repositories.RolesRepository;
 import com.hp.dit.election_ems.repositories.beats.BeatRepository;
 import com.hp.dit.election_ems.repositories.districtRepository.DistrictRepository;
+import com.hp.dit.election_ems.repositories.documents.TRDRepository;
 import com.hp.dit.election_ems.repositories.modules.ModuleRepository;
 import com.hp.dit.election_ems.repositories.policestationRepository.PSRepository;
 import com.hp.dit.election_ems.repositories.bank.BankRepository;
 import com.hp.dit.election_ems.repositories.stateRepository.StateRepository;
 import com.hp.dit.election_ems.repositories.submodules.SubModuleRepository;
+import com.hp.dit.election_ems.repositories.transfer.TransferRepository;
 import com.hp.dit.election_ems.repositories.user.UserRepository;
 import com.hp.dit.election_ems.repositories.userdatatable.UserDatatableRepository;
 import com.hp.dit.election_ems.utilities.Constants;
@@ -61,6 +64,12 @@ public class AjaxContoller {
 
     @Autowired
     UserDatatableRepository userDatatableRepository;
+
+    @Autowired
+    TransferRepository transferRepository;
+
+    @Autowired
+    TRDRepository trdRepository;
 
 
 
@@ -298,6 +307,42 @@ public class AjaxContoller {
 
     }
 
+
+    //getTransferRequestData
+    @RequestMapping(value = "/ajax/getTransferRequestData", method = RequestMethod.GET,  produces="application/json")
+    public @ResponseBody
+    String getTransferRequestData(@RequestParam(value = "id", required = true) String id) throws Exception {
+        Map<String, Object> map = null;
+
+        TransferRequestEntities users = transferRepository.getTransactionViaId(Integer.parseInt(id));
+        List<TrdocumentsEntity> documents = trdRepository.getDocumentsViaId(Integer.parseInt(id));
+        ShowCashRequestData data = new ShowCashRequestData();
+        data.setDocuments(documents);
+        data.setVehicleNo(users.getVehicleNumber());
+        data.setSourceAddress(users.getSourceAddress());
+        data.setDestAddress(users.getDestAddress());
+        data.setFromDate(users.getFromDate());
+        data.setThruDate(users.getThrueDate());
+        data.setEnteredBy(users.getEnteredBy().getUserName());
+        data.setEnteredByMobile(Long.toString(users.getEnteredBy().getMobileNumber()));
+        data.setRole(users.getEnteredBy().getRoles().get(0).getRoleName());
+        data.setRoleDesc(users.getEnteredBy().getRoles().get(0).getRoleDescription());
+
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, data);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+
+        ObjectMapper Obj = new ObjectMapper();
+        String jsonStr = null;
+        jsonStr = Obj.writeValueAsString(map);
+        logger.info(jsonStr);
+        System.out.println(jsonStr);
+        return jsonStr;
+
+
+    }
 
 }
 
