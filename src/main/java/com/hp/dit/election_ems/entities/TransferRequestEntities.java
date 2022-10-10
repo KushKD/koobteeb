@@ -28,6 +28,9 @@ public class TransferRequestEntities {
     @Column(name="thrue_date")
     private String thrueDate;
 
+    @Column(name="amount")
+    private Long amount;
+
     @Column(name="other_information")
     private String otherInformation;
 
@@ -135,6 +138,14 @@ public class TransferRequestEntities {
         this.updatedOn = updatedOn;
     }
 
+    public Long getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Long amount) {
+        this.amount = amount;
+    }
+
     @Override
     public String toString() {
         return "TransferRequestEntities{" +
@@ -144,6 +155,7 @@ public class TransferRequestEntities {
                 ", destAddress='" + destAddress + '\'' +
                 ", fromDate='" + fromDate + '\'' +
                 ", thrueDate='" + thrueDate + '\'' +
+                ", amount=" + amount +
                 ", otherInformation='" + otherInformation + '\'' +
                 ", enteredBy=" + enteredBy +
                 ", active=" + active +

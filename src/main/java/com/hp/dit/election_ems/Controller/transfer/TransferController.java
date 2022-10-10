@@ -119,6 +119,7 @@ public class TransferController {
             transferRequestEntities.setSourceAddress(transferForm.getSourceAddress().toString());
             transferRequestEntities.setDestAddress(transferForm.getDestAddress().toString());
             transferRequestEntities.setActive(true);
+            transferRequestEntities.setAmount(Long.parseLong(transferForm.getAmount()));
 
             UserEntity user = new UserEntity();
             user.setUserId(userSession.getUserId());

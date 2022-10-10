@@ -15,6 +15,16 @@ public class TransferForm implements Serializable {
     private String destAddress;
     private MultipartFile[] attachFiles;
 
+    private String amount;
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
     public String getVehicleNo() {
         return vehicleNo;
     }
@@ -72,6 +82,7 @@ public class TransferForm implements Serializable {
                 ", sourceAddress='" + sourceAddress + '\'' +
                 ", destAddress='" + destAddress + '\'' +
                 ", attachFiles=" + Arrays.toString(attachFiles) +
+                ", amount='" + amount + '\'' +
                 '}';
     }
 }

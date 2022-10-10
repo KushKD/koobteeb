@@ -11,7 +11,7 @@
       <div class="card login-card">
          <div class="row no-gutters">
             <div class="col-md-5">
-               <img src="${pageContext.request.contextPath}/resources/images/login/voting.jpg" id="bgm" alt="login" class="login-card-img">
+               <img src="${pageContext.request.contextPath}/resources/images/login/back_ec.jpg" id="bgm" alt="login" class="login-card-img">
             </div>
             <div class="col-md-7">
                <a>

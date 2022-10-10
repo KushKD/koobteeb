@@ -825,6 +825,9 @@ function getData(id) {
             html += " <label class='control-label' style='font-weight: bold; color:red;'> Thru Date:  </label>";
             html += " <label class='control-label' style='font-weight: bold;'>" + data.RESPONSE.thruDate + "</label> </div>";
 
+            html += "<div class='col-md-4 form-group'  >";
+            html += " <label class='control-label' style='font-weight: bold; color:red;'> Amount:  </label>";
+            html += " <label class='control-label' style='font-weight: bold;'>" + data.RESPONSE.amount + "</label> </div>";
 
 
             html += "</div>";
@@ -834,8 +837,8 @@ function getData(id) {
             html += "<div class='row' >";
 
              html += "<div class='col-md-4 form-group'  >";
-                       html += " <label class='control-label' style='font-weight: bold; color:red;'> Entered By  </label>";
-                       html += " <label class='control-label' style='font-weight: bold;'>" + data.RESPONSE.enteredBy + "</label> </div>";
+           html += " <label class='control-label' style='font-weight: bold; color:red;'> Entered By  </label>";
+           html += " <label class='control-label' style='font-weight: bold;'>" + data.RESPONSE.enteredBy + "</label> </div>";
 
             html += "<div class='col-md-4 form-group'  >";
             html += " <label class='control-label' style='font-weight: bold; color:red;'> Mobile Number:  </label>";

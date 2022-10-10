@@ -4,6 +4,44 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/common.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/script.js"></script>
+
+<style>
+#files-area{
+	width: 30%;
+	margin: 0 auto;
+}
+.file-block{
+	border-radius: 10px;
+	background-color: rgba(144, 163, 203, 0.2);
+	margin: 5px;
+	color: initial;
+	display: inline-flex;
+	& > span.name{
+		padding-right: 10px;
+		width: max-content;
+		display: inline-flex;
+	}
+}
+.file-delete{
+	display: flex;
+	width: 24px;
+	color: initial;
+	background-color: #6eb4ff00;
+	font-size: large;
+	justify-content: center;
+	margin-right: 3px;
+	cursor: pointer;
+	&:hover{
+		background-color: rgba(144, 163, 203, 0.2);
+		border-radius: 10px;
+	}
+	& > span{
+		transform: rotate(45deg);
+	}
+}
+
+</style>
+
 <main class="app-content">
    <form:form method="POST" modelAttribute="transferForm" action="${pageContext.request.contextPath}/saveTransfer" enctype="multipart/form-data" class="form-signin">
       <h2 class="form-signin-heading">Create New Request for Transfer</h2>
@@ -49,12 +87,22 @@
                                    </div>
                                 </spring:bind>
 
-      <div  id="attachFiles" class="form-group col-lg-4">
+        <spring:bind path="amount">
+               <div class="form-group ${status.error ? 'has-error' : ''}">
+                  <form:input type="text" path="amount"  autocomplete="off"  oncopy="return false" onpaste="return false"  class="form-control" style="text-transform:uppercase" onkeypress="return alpha(event)"  autofocus="true" placeholder="Amount to Transfer"></form:input>
+                  <form:errors path="amount"></form:errors>
+               </div>
+            </spring:bind>
+
+      <div  id="attachFiles1" class="form-group col-lg-4">
          <label for="attachFiles" class="form-label"> <spring:message code="form.documentry.aadhaar" text="Attach Files" />
             * </label>
          <form:input class="form-control" oncopy="return false" onpaste="return false" type="file" id="attachFiles" multiple="multiple" path="attachFiles" name="attachFiles" />
          <form:errors style="color:red;" path="attachFiles"></form:errors>
+         <div class="col-lg-12"><div class="image-preview row"></div></div>
       </div>
+
+
 
       <button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
        <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
@@ -67,6 +115,7 @@
 <script type="text/javascript">
 
   $( document ).ready(function() {
+
 
   var date = new Date();
   var from_today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
@@ -91,4 +140,37 @@
 
 
   });
-   </script>
+
+</script>
+  <script>
+  let file_input = document.querySelector('#attachFiles');
+  let image_preview = document.querySelector('.image-preview');
+
+  const handle_file_preview = (e) => {
+   let files = e.target.files;
+    let length = files.length;
+
+    for(let i = 0; i < length; i++) {
+     var div = document.createElement('div');
+     div.style.cssText += 'display: inline; align-items: center; justify-content: center';
+     div.classList.add("col-lg-3");
+     div.id = 'div'+i;
+
+        let image = document.createElement('img');
+        image.style.cssText += 'height: 75px; border: 1px solid #000; margin: 5px';
+
+        image.src = window.URL.createObjectURL(files[i]);
+        console.log(files[i].name);
+        image_preview.appendChild(image);
+         let label = document.createElement('label');
+         label.style.cssText += 'color:black; margin: 5px';
+         label.innerHTML = files[i].name;
+         div.appendChild(image);
+         div.appendChild(label);
+         image_preview.appendChild(div);
+
+    }
+  }
+
+  file_input.addEventListener('change', handle_file_preview);
+  </script>

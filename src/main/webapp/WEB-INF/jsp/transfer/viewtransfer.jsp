@@ -78,18 +78,18 @@
 				data: 'transferRequestID',
 				render: function (data) {
 
-						return '<div="btn-group"><a style="text-decoration:none;" class=" center icon fa fa-qrcode fa-3x" href="${pageContext.request.contextPath}/updateSoSdpo/${"' + data + '"}";></a></div>'
+						return '<div="btn-group"><a style="text-decoration:none;" class=" center icon fa fa-qrcode fa-3x" href="${pageContext.request.contextPath}/generateId/${"' + data + '"}";></a></div>'
 
 				}
 			},
 			{
-                                    	data: 'createdDate',
-                                    	render: function (data) {
-                                            const d = new Date( data );
-                                            date = d.getHours() + ":" + d.getMinutes() + ", " + d.toDateString();
-                                                return '<div class="button-group btn btn-warning" style="width:100%">' + date + '</div>'
-                                        }
-                                    },
+                data: 'createdDate',
+                render: function (data) {
+                    const d = new Date( data );
+                    date = d.getHours() + ":" + d.getMinutes() + ", " + d.toDateString();
+                        return '<div class="button-group btn btn-warning" style="width:100%">' + date + '</div>'
+                }
+            },
 
 
 			{

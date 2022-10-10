@@ -29,6 +29,7 @@ public class TransferValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thruDate", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sourceAddress", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "destAddress", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "amount", "NotEmpty");
 
 
 

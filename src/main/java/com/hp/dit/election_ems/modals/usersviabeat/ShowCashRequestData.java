@@ -18,6 +18,16 @@ public class ShowCashRequestData implements Serializable {
     private String roleDesc;
     private List<TrdocumentsEntity> documents;
 
+    private String amount;
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
     public String getVehicleNo() {
         return vehicleNo;
     }
@@ -111,6 +121,7 @@ public class ShowCashRequestData implements Serializable {
                 ", role='" + role + '\'' +
                 ", roleDesc='" + roleDesc + '\'' +
                 ", documents=" + documents +
+                ", amount=" + amount +
                 '}';
     }
 }

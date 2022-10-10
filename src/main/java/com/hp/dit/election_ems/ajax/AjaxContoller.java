@@ -327,6 +327,7 @@ public class AjaxContoller {
         data.setEnteredByMobile(Long.toString(users.getEnteredBy().getMobileNumber()));
         data.setRole(users.getEnteredBy().getRoles().get(0).getRoleName());
         data.setRoleDesc(users.getEnteredBy().getRoles().get(0).getRoleDescription());
+        data.setAmount(Long.toString(users.getAmount()));
 
 
         map = new HashMap<String, Object>();
