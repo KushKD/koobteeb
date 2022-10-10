@@ -172,8 +172,8 @@ public class TransferController {
             transferForm.setDestAddress("");
             transferForm.setFromDate("");
             transferForm.setThruDate("");
-            request.getSession().setAttribute("successMessage", "Request Raised Successfully. Generated Transfer Id is:- " + savedTransferRequest.getTransferRequestID());
-            return "createTransfer";
+            request.getSession().setAttribute("successMessage", "Request Raised Successfully. Generated Transfer Id is:- " + "EMS-HP-"+savedTransferRequest.getTransferRequestID());
+            return "redirect:/viewTransfer";
         } catch (Exception ex) {
             request.getSession().setAttribute("successMessage", ex.getLocalizedMessage());
             return "createTransfer";

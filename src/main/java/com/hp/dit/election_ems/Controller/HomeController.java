@@ -175,10 +175,9 @@ public class HomeController {
 
 
         TransferRequestEntities transferRequestEntities = transferRepository.getTransactionViaId(Integer.parseInt(id));
-       // List<UserTranactionEntity> userTranactionEntity = userTranactionRepository.getUserTransactionViaOwnerId(Integer.parseInt(id));
         ByteArrayInputStream bis = GeneratePdfReport.generateIdCard(transferRequestEntities);
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline; filename=" + transferRequestEntities.getTransferRequestID() + ".pdf");
+        headers.add("Content-Disposition", "inline; filename=" + "HP-EMS-"+transferRequestEntities.getTransferRequestID() + ".pdf");
 
 
         return ResponseEntity

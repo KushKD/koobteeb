@@ -78,7 +78,7 @@
 				data: 'transferRequestID',
 				render: function (data) {
 
-						return '<div="btn-group"><a style="text-decoration:none;" class=" center icon fa fa-qrcode fa-3x" href="${pageContext.request.contextPath}/generateId/${"' + data + '"}";></a></div>'
+						return '<div="btn-group"><a style="text-decoration:none;" class=" center icon fa fa-qrcode fa-3x" target="_blank" href="${pageContext.request.contextPath}/generateId/${"' + data + '"}";></a></div>'
 
 				}
 			},

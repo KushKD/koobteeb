@@ -41,6 +41,7 @@ public class GeneratePdfReport {
         Document document = new Document(PageSize.A7, 5, 5, 5, 5);
 
 
+
         ByteArrayOutputStream out = new ByteArrayOutputStream();
 
 
