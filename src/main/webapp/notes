@@ -395,3 +395,24 @@ SELECT ST_AsGeoJSON(beat_geometry) from  mst_beat WHERE ps_id=1
      FOREIGN KEY (transfer_request_id) REFERENCES mst_transfer_request_entries(transfer_request_id),
      FOREIGN KEY (uploaded_by) REFERENCES users(user_id)
  );
+
+ -- Updated Users with Bank Details
+ CREATE TABLE users(
+ user_id SERIAL PRIMARY KEY NOT NULL,
+ first_name character varying(100),
+ last_name  character varying (100),
+ username character varying (100),
+ password character varying (200),
+ mobile_number INTEGER,
+ rank character varying(200),
+ state_id INTEGER NOT NULL,
+ district_id INTEGER NOT NULL,
+ bank_id INTEGER NOT NULL,
+ active boolean DEFAULT true NOT NULL,
+ createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
+ lastmodifieddate timestamp without time zone,
+ FOREIGN KEY (state_id) REFERENCES mst_state(state_id),
+ FOREIGN KEY (district_id) REFERENCES mst_district(district_id),
+ FOREIGN KEY (bank_id) REFERENCES mst_bank(bank_id)
+
+ );

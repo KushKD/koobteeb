@@ -18,6 +18,15 @@ public class RegisterUser implements Serializable {
     private String psId;
     private String rank;
 
+    private String bankId;
+
+    public String getBankId() {
+        return bankId;
+    }
+
+    public void setBankId(String bankId) {
+        this.bankId = bankId;
+    }
 
     public String getPsId() {
         return psId;
@@ -139,6 +148,7 @@ public class RegisterUser implements Serializable {
                 ", sosdpoId='" + sosdpoId + '\'' +
                 ", psId='" + psId + '\'' +
                 ", rank='" + rank + '\'' +
+                ", bankId='" + bankId + '\'' +
                 '}';
     }
 }

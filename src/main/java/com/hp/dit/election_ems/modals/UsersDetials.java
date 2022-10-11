@@ -22,6 +22,25 @@ public class UsersDetials implements Serializable {
     private Integer sodpo_id;
     private Integer ps_id;
 
+    private Integer bankId;
+    private String bankName;
+
+    public Integer getBankId() {
+        return bankId;
+    }
+
+    public void setBankId(Integer bankId) {
+        this.bankId = bankId;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+
     public Integer getSodpo_id() {
         return sodpo_id;
     }
@@ -169,6 +188,8 @@ public class UsersDetials implements Serializable {
                 ", rank='" + rank + '\'' +
                 ", sodpo_id=" + sodpo_id +
                 ", ps_id=" + ps_id +
+                ", bankId=" + bankId +
+                ", bankName='" + bankName + '\'' +
                 '}';
     }
 }

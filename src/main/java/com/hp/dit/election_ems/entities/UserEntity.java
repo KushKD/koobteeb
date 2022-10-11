@@ -33,6 +33,12 @@ public class UserEntity {
 	private Integer districtId;
 
 
+
+	@OneToOne
+	@JoinColumn(name = "bank_id")
+	private BankMaster bankId;
+
+
 	@Column(name = "state_id")
 	private Integer stateId;
     
@@ -48,6 +54,14 @@ public class UserEntity {
 	@JoinTable(name = "user_role_mapping", joinColumns = @JoinColumn(name = "userId", referencedColumnName = "user_id"),
 			inverseJoinColumns = @JoinColumn(name = "roleId", referencedColumnName = "role_id"))
     private List<RolesEntity> roles;
+
+	public BankMaster getBankId() {
+		return bankId;
+	}
+
+	public void setBankId(BankMaster bankId) {
+		this.bankId = bankId;
+	}
 
 	public String getUsername() {
 		return username;
@@ -147,7 +161,6 @@ public class UserEntity {
 	}
 
 
-
 	@Override
 	public String toString() {
 		return "UserEntity{" +
@@ -158,6 +171,7 @@ public class UserEntity {
 				", rank='" + rank + '\'' +
 				", password='" + password + '\'' +
 				", districtId=" + districtId +
+				", bankId=" + bankId +
 				", stateId=" + stateId +
 				", mobileNumber=" + mobileNumber +
 				", active=" + active +

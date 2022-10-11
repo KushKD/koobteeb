@@ -53,7 +53,7 @@
 
        <spring:bind path="rank">
                <div class="form-group  ${status.error ? 'has-error' : ''}">
-                  <form:input type="text"  required="required" path="rank" autocomplete="off"  oncopy="return false" onpaste="return false"   class="form-control"  name="rank" placeholder="Rank" ></form:input>
+                  <form:input type="text"  required="required" path="rank" autocomplete="off"  oncopy="return false" onpaste="return false"   class="form-control"  name="rank" placeholder="Description" ></form:input>
                   <form:errors  path="rank"></form:errors>
                </div>
             </spring:bind>
@@ -68,10 +68,18 @@
             <spring:bind path="districtId">
                <div class="form-group  ${status.error ? 'has-error' : ''}">
                   <form:label path="districtId" for="roles">Select District</form:label>
-                  <form:select path="districtId" name="stateId" class="form-control" autocomplete="off"  oncopy="return false" onpaste="return false" id="districts" onchange="getBarriers(this.value)" ></form:select>
+                  <form:select path="districtId" name="stateId" class="form-control" autocomplete="off"  oncopy="return false" onpaste="return false" id="districts"  ></form:select>
                   <form:errors path="districtId"></form:errors>
                </div>
             </spring:bind>
+
+        <spring:bind path="bankId">
+                      <div class="form-group  ${status.error ? 'has-error' : ''}">
+                         <form:label path="bankId" for="bank">Select Bank</form:label>
+                         <form:select path="bankId" name="bankId" class="form-control" autocomplete="off"  oncopy="return false" onpaste="return false" id="banks"  ></form:select>
+                         <form:errors path="bankId"></form:errors>
+                      </div>
+                   </spring:bind>
 
 
       <spring:bind path="roleId">
@@ -111,6 +119,7 @@
    $(document).ready(function() {
    	getStates();
    	getSOSDPO();
+   	getBanks();
 
    });
 </script>

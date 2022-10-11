@@ -54,7 +54,7 @@
 
       <spring:bind path="rank">
                <div class="form-group  ${status.error ? 'has-error' : ''}">
-                  <form:input type="text"  required="required" path="rank"  value="${usersDetails.rank}"  oncopy="return false" onpaste="return false" minlength="10"  class="form-control"  name="rank" placeholder="Rank" ></form:input>
+                  <form:input type="text"  required="required" path="rank"  value="${usersDetails.rank}"  oncopy="return false" onpaste="return false" minlength="10"  class="form-control"  name="rank" placeholder="Description" ></form:input>
                   <form:errors  path="rank"></form:errors>
                </div>
             </spring:bind>
@@ -73,6 +73,14 @@
                   <form:errors path="districtId"></form:errors>
                </div>
             </spring:bind>
+
+              <spring:bind path="bankId">
+                           <div class="form-group  ${status.error ? 'has-error' : ''}">
+                              <form:label path="bankId" for="roles">Select Bank</form:label>
+                              <form:select path="bankId" name="bankId" class="form-control" autocomplete="off"  oncopy="return false" onpaste="return false" id="banks"  ></form:select>
+                              <form:errors path="bankId"></form:errors>
+                           </div>
+                        </spring:bind>
 
 
 
@@ -126,6 +134,7 @@
    <input class="form-control col-md-6"  id="did" type="hidden" value="${usersDetails.state_id}"  />
       <input class="form-control col-md-6"  id="sid" type="hidden" value="${usersDetails.district_id}"  />
       <input class="form-control col-md-6"  id="rid" type="hidden" value="${usersDetails.role_id}"  />
+      <input class="form-control col-md-6"  id="baid" type="hidden" value="${usersDetails.bankId}"  />
 
 </main>
 
@@ -149,14 +158,20 @@
                             }
                         }
 
+    function getBankOnLoad(){
+    if(document.getElementById('baid') != null && document.getElementById('baid').value  != null ){
+                         getbanksUpdate(document.getElementById('baid').value);
+                         }
+
+    }
+
 
 
    $(document).ready(function() {
     getStatesOnLoad();
     getdistrictsOnLoad();
-
-
     getrolesOnLoad();
+     getBankOnLoad();
 
    });
 </script>

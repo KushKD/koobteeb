@@ -27,6 +27,7 @@
                   <th>Mobile Number</th>
                   <th>State </th>
                   <th>District </th>
+                  <th>Bank</th>
                   <th> Active/Inactive</th>
                   <th> Action</th>
                </tr>
@@ -63,6 +64,9 @@
 {
 				data: 'districtId.districtName'
 			},
+			{
+            				data: 'bankId.bankName'
+            			},
 
 			{
 				data: 'active',

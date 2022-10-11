@@ -1,6 +1,7 @@
 package com.hp.dit.election_ems.Controller.user;
 
 import com.hp.dit.election_ems.CustomLogin.CustomUserService;
+import com.hp.dit.election_ems.entities.BankMaster;
 import com.hp.dit.election_ems.entities.RolesEntity;
 import com.hp.dit.election_ems.entities.UserEntity;
 import com.hp.dit.election_ems.form.RolesForm;
@@ -120,6 +121,8 @@ public class UserController {
                     pojo.setDistrict_id((Integer) result[9]);
                     pojo.setDistrict_name((String) result[10]);
                     pojo.setRank((String) result[11]);
+                    pojo.setBankId((Integer)result[12]);
+                    pojo.setBankName((String) result[13]);
 
                     usersDetails.add(pojo);
                 }
@@ -164,6 +167,10 @@ public class UserController {
                 user.setStateId(Integer.parseInt(updateUser.getStateId()));
                 user.setDistrictId(Integer.parseInt(updateUser.getDistrictId()));
 
+                BankMaster bank = new BankMaster();
+                bank.setBankId(Integer.parseInt(updateUser.getBankId()));
+                user.setBankId(bank);
+
                 user.setPassword(encoder.encode(updateUser.getPassword()));
                 String roleIid = updateUser.getRoleId();
 
@@ -180,6 +187,7 @@ public class UserController {
                         BigInteger.valueOf(user.getMobileNumber()),
                         user.getStateId(),
                         user.getDistrictId(),
+                        user.getBankId().getBankId(),
 
                         user.isActive(),
                         date,
@@ -329,6 +337,10 @@ public class UserController {
                 user.setStateId(Integer.parseInt(registerUser.getStateId()));
                 user.setDistrictId(Integer.parseInt(registerUser.getDistrictId()));
 
+                BankMaster bank = new BankMaster();
+                bank.setBankId(Integer.parseInt(registerUser.getBankId()));
+                user.setBankId(bank);
+
                 user.setRank(registerUser.getRank());
                 user.setPassword(encoder.encode(registerUser.getPassword()));
                 String roleIid = registerUser.getRoleId();
@@ -346,7 +358,7 @@ public class UserController {
                     registerUser.setPassword("");
                     registerUser.setUsername("");
                     registerUser.setRoleId("0");
-                    return "createuser";
+                    return "redirect:/viewUsers";
                 } else {
                     registerUser.setMobileNumber("");
                     registerUser.setPasswordConfirm("");

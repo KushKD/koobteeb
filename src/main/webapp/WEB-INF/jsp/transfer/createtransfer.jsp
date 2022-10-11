@@ -4,6 +4,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/common.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/script.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/plugins/dropzone-min.js"></script>
 
 <style>
 #files-area{
@@ -43,7 +44,7 @@
 </style>
 
 <main class="app-content">
-   <form:form method="POST" modelAttribute="transferForm" action="${pageContext.request.contextPath}/saveTransfer" enctype="multipart/form-data" class="form-signin">
+   <form:form method="POST"  modelAttribute="transferForm" action="${pageContext.request.contextPath}/saveTransfer" enctype="multipart/form-data" class="form-signin">
       <h2 class="form-signin-heading">Create New Request for Transfer</h2>
       <c:if test="${not empty successMessage}">
          <div id="serverError" class="successMessage">${successMessage}</div>

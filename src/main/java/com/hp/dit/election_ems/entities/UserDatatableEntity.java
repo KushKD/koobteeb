@@ -38,6 +38,10 @@ public class UserDatatableEntity {
     @JoinColumn(name = "state_id")
     private StatesMaster stateId;
 
+    @OneToOne
+    @JoinColumn(name = "bank_id")
+    private BankMaster bankId;
+
     @Column(name = "mobile_number")
     private Long mobileNumber;
 
@@ -127,6 +131,14 @@ public class UserDatatableEntity {
         this.active = active;
     }
 
+    public BankMaster getBankId() {
+        return bankId;
+    }
+
+    public void setBankId(BankMaster bankId) {
+        this.bankId = bankId;
+    }
+
     @Override
     public String toString() {
         return "UserDatatableEntity{" +
@@ -138,6 +150,7 @@ public class UserDatatableEntity {
                 ", password='" + password + '\'' +
                 ", districtId=" + districtId +
                 ", stateId=" + stateId +
+                ", bankId=" + bankId +
                 ", mobileNumber=" + mobileNumber +
                 ", active=" + active +
                 '}';

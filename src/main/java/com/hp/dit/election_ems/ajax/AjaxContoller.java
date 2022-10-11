@@ -74,6 +74,7 @@ public class AjaxContoller {
 
 
 
+
     private static final Logger logger = LoggerFactory.getLogger(AjaxContoller.class);
 
 
@@ -96,6 +97,9 @@ public class AjaxContoller {
         return jsonStr;
 
     }
+
+
+
 
 
     @RequestMapping(value = "/ajax/getRoles", method = RequestMethod.GET,  produces="application/json")
@@ -328,6 +332,7 @@ public class AjaxContoller {
         data.setRole(users.getEnteredBy().getRoles().get(0).getRoleName());
         data.setRoleDesc(users.getEnteredBy().getRoles().get(0).getRoleDescription());
         data.setAmount(Long.toString(users.getAmount()));
+        data.setBankName(users.getEnteredBy().getBankId().getBankName());
 
 
         map = new HashMap<String, Object>();

@@ -236,6 +236,73 @@ function getStates() {
 
 }
 
+//getBanks
+function getBanks() {
+	$.ajax({
+		type: "GET",
+		url: formURL + "/ajax/getsospdo",
+
+		success: function(data) {
+			//Tomcat
+			var json_ = JSON.parse(JSON.stringify(data));
+			//Jboss
+			//var json_ = JSON.parse(data);
+			console.log(json_);
+			var selectRole = $('#banks'); // the state select element
+			selectRole.find('option').remove();
+			selectRole.append("<option value=" + 0 + " >" + "---Select Banks---" + "</option>")
+			for (i = 0; i < json_.RESPONSE.length; i++) {
+				if (document.getElementById('baid') != null && document.getElementById('baid').value == json_.RESPONSE[i].bankId) {
+					selectRole.append("<option selected value=" + json_.RESPONSE[i].bankId + " >" + json_.RESPONSE[i].bankName + "</option>")
+				} else {
+					selectRole.append("<option value=" + json_.RESPONSE[i].bankId + " >" + json_.RESPONSE[i].bankName + "</option>")
+				}
+			}
+
+		},
+		error: function(data) {
+			console.log(data)
+		}
+
+	});
+
+
+}
+
+//getbanksUpdate
+function getbanksUpdate(baid) {
+	$.ajax({
+		type: "GET",
+		url: formURL + "/ajax/getsospdo",
+
+		success: function(data) {
+			//Tomcat
+			var json_ = JSON.parse(JSON.stringify(data));
+			//Jboss
+			//var json_ = JSON.parse(data);
+			console.log(json_);
+			var selectRole = $('#banks'); // the state select element
+			selectRole.find('option').remove();
+			selectRole.append("<option value=" + 0 + " >" + "---Select Banks---" + "</option>")
+			for (i = 0; i < json_.RESPONSE.length; i++) {
+				if (document.getElementById('baid') != null && document.getElementById('baid').value == json_.RESPONSE[i].bankId) {
+					selectRole.append("<option selected value=" + json_.RESPONSE[i].bankId + " >" + json_.RESPONSE[i].bankName + "</option>")
+				} else {
+					selectRole.append("<option value=" + json_.RESPONSE[i].bankId + " >" + json_.RESPONSE[i].bankName + "</option>")
+				}
+			}
+
+		},
+		error: function(data) {
+			console.log(data)
+		}
+
+	});
+
+
+}
+
+
 
 function getStatesUpdate() {
 	$.ajax({
@@ -273,6 +340,9 @@ function getStatesUpdate() {
 
 
 }
+
+
+
 
 
 //getdistrictsUpdate
@@ -799,6 +869,10 @@ function getData(id) {
             html += "<div class='col-md-4 form-group' >";
             html += " <label class='control-label' style='font-weight: bold; color:red;'> Vehicle Number:  </label>";
             html += " <label class='control-label' style='font-weight: bold;'>" + data.RESPONSE.vehicleNo + "</label> </div>";
+
+ html += "<div class='col-md-4 form-group'  >";
+            html += " <label class='control-label' style='font-weight: bold; color:red;'> Bank Name :  </label>";
+            html += " <label class='control-label' style='font-weight: bold;'>" + data.RESPONSE.bankName + "</label> </div>";
 
             html += "<div class='col-md-4 form-group'  >";
             html += " <label class='control-label' style='font-weight: bold; color:red;'> Source Address :  </label>";

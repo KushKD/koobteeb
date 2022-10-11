@@ -21,6 +21,16 @@ public class UpdateUser implements Serializable {
     private String userIsActive;
     private Integer oldroleid;
 
+    private String bankId;
+
+    public String getBankId() {
+        return bankId;
+    }
+
+    public void setBankId(String bankId) {
+        this.bankId = bankId;
+    }
+
     public String getPsId() {
         return psId;
     }
@@ -168,6 +178,7 @@ public class UpdateUser implements Serializable {
                 ", psId='" + psId + '\'' +
                 ", userIsActive='" + userIsActive + '\'' +
                 ", oldroleid=" + oldroleid +
+                ", bankId=" + bankId +
                 '}';
     }
 }
