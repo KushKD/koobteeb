@@ -27,8 +27,8 @@ public class UserLocationLogsEntity implements Serializable {
     @Column(name = "role_id")
     private Integer roleId;
 
-    @Column(name = "beat_id")
-    private Integer beat_id;
+    @Column(name = "bank_id")
+    private Integer bankId;
 
     @Column(name = "latitude")
     private Double latitude;
@@ -81,12 +81,12 @@ public class UserLocationLogsEntity implements Serializable {
         this.roleId = roleId;
     }
 
-    public Integer getBeat_id() {
-        return beat_id;
+    public Integer getBankId() {
+        return bankId;
     }
 
-    public void setBeat_id(Integer beat_id) {
-        this.beat_id = beat_id;
+    public void setBankId(Integer bankId) {
+        this.bankId = bankId;
     }
 
     public Double getLatitude() {
@@ -159,7 +159,7 @@ public class UserLocationLogsEntity implements Serializable {
                 "logsId=" + logsId +
                 ", userId=" + userId +
                 ", roleId=" + roleId +
-                ", beat_id=" + beat_id +
+                ", bankId=" + bankId +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
                 ", username='" + username + '\'' +

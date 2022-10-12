@@ -1027,7 +1027,7 @@ public class API {
         String LogsData_ = null, jsonStr = null;
         EncryptDecrypt ED = new EncryptDecrypt();
         ObjectMapper Obj = null;
-        String encrypted = null,  username = null, beatid=null,  mobileNumber = null, roleId = null , userId = null;
+        String encrypted = null,  username = null, bankid=null,  mobileNumber = null, roleId = null , userId = null;
         String latitude_ =null, longitude_=null;
         UserLocationLogsEntity userLocationLogsEntity = null, userSavedLocationLogsEntity = null;
 
@@ -1046,7 +1046,7 @@ public class API {
                 userId = jsonObject.getAsJsonObject().get("user_id").getAsString();
                 roleId = jsonObject.getAsJsonObject().get("role_id").getAsString();
                 mobileNumber = jsonObject.getAsJsonObject().get("mobile").getAsString();
-                beatid = jsonObject.getAsJsonObject().get("beat_id").getAsString();
+                bankid = jsonObject.getAsJsonObject().get("bank_id").getAsString();
                 latitude_ = jsonObject.getAsJsonObject().get("latitude").getAsString();
                 longitude_ = jsonObject.getAsJsonObject().get("longitude").getAsString();
 
@@ -1054,7 +1054,7 @@ public class API {
                 logger.info("userId:- " + userId);
                 logger.info("roleId:- " + roleId);
                 logger.info("mobileNumber:- " + mobileNumber);
-                logger.info("beatid:- " + beatid);
+                logger.info("bankId:- " + bankid);
                 logger.info("latitude_:- " + latitude_);
                 logger.info("longitude_:- " + longitude_);
 
@@ -1064,7 +1064,7 @@ public class API {
                 userLocationLogsEntity.setUserId(Integer.parseInt(userId));
                 userLocationLogsEntity.setRoleId(Integer.parseInt(roleId));
                 userLocationLogsEntity.setMobileNumber(Long.valueOf(mobileNumber));
-                userLocationLogsEntity.setBeat_id(Integer.parseInt(beatid));
+                userLocationLogsEntity.setBankId(Integer.parseInt(bankid));
                 userLocationLogsEntity.setLatitude(Double.parseDouble(latitude_));
                 userLocationLogsEntity.setLongitude(Double.parseDouble(longitude_));
                 userLocationLogsEntity.setActive(true);

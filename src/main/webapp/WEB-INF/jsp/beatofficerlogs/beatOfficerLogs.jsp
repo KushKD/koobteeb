@@ -17,15 +17,15 @@
 <main class="app-content">
    <div class="row" style="box-shadow: 0 0 8px 2px #888; padding:10px;">
       <div class="container">
-      <h2 class="form-signin-heading">Officer Login Logs</h2>
+      <h2 class="form-signin-heading">Mobile Application Access Logs</h2>
          <table id="sampleTable" class="table table-striped table-bordered">
             <thead>
                <tr>
                   <th>Id</th>
                   <th>User Name</th>
                   <th>Mobile Number</th>
-                  <th>Beat Name</th>
-                  <th>Police Station Name</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
                   <th>Date</th>
 
                </tr>
@@ -54,11 +54,12 @@
 				data: 'userId.mobileNumber'
 			},
 			{
-				data: 'userId.beatId.beatName'
+				data: 'userId.firstName'
 			},
 			{
-				data: 'userId.psId.psName',
-			},
+            				data: 'userId.lastName'
+            			},
+
             {
             	data: 'createdDate',
             	render: function (data) {

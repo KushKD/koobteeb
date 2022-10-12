@@ -217,14 +217,14 @@ CREATE TABLE user_location_logs(
     longitude DOUBLE PRECISION NOT NULL,
     username character varying (55),
     mobile_number INTEGER NOT NULL,
-    beat_id INTEGER NOT NULL,
+    bank_id INTEGER NOT NULL,
     location_points geometry NOT NULL,
     active boolean DEFAULT true NOT NULL,
     createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
     lastmodifieddate timestamp without time zone,
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (role_id) REFERENCES roles(role_id),
-    FOREIGN KEY (beat_id) REFERENCES mst_beat(beat_id)
+    FOREIGN KEY (bank_id) REFERENCES mst_bank(bank_id)
 )
 
 
