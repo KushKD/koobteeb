@@ -3,6 +3,9 @@ package com.hp.dit.election_ems.ajax;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.hp.dit.election_ems.entities.*;
 import com.hp.dit.election_ems.modals.*;
 import com.hp.dit.election_ems.modals.beats.BeatsNameId;
@@ -30,6 +33,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.math.BigInteger;
 import java.util.*;
 
 @Controller
@@ -349,6 +354,51 @@ public class AjaxContoller {
 
 
     }
+
+    /**
+     ###################### ID Card Generation Type Reports ##########################
+     */
+
+
+    @RequestMapping(value = "/ajax/getTotalIDCards", method = RequestMethod.GET,  produces="application/json")
+    public @ResponseBody
+    String getTotalIDCards() throws JsonProcessingException {
+        Map<String, Object> map = null;
+        List<Object[] > roles = transferRepository.getPassGeneratedBarrierWiseTotal();
+        List<TotalIdCardsPojo> modelRole = new ArrayList<>();
+
+
+        for (Object[] result : roles) {
+            TotalIdCardsPojo pojo = new TotalIdCardsPojo();
+            pojo.setBarrierName((String) result[1]);
+            pojo.setNoOfIdCardGenerated((BigInteger) result[2]);
+            modelRole.add(pojo);
+        }
+
+        String json = new Gson().toJson(modelRole);
+        JsonArray array = new Gson().fromJson(json, JsonArray.class);
+        System.out.println(array.toString());
+
+        JsonObject members = new JsonObject();
+        members.add("members",array);
+        System.out.println(members);
+        logger.info(members.toString());
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, members.toString());
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+
+        ObjectMapper Obj = new ObjectMapper();
+        String jsonStr = null;
+        jsonStr = Obj.writeValueAsString(map);
+        logger.info(jsonStr);
+        return jsonStr;
+
+
+    }
+
+
 
 }
 
