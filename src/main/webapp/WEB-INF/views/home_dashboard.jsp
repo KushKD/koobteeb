@@ -101,18 +101,31 @@
 
 
 
-        <sec:authorize access="hasAnyAuthority('SUPER ADMIN','Bank Official')">
+        <sec:authorize access="hasAnyAuthority('Bank Official')">
                              <div class="col-md-6 col-lg-3">
                                 <div class="widget-small info coloured-icon">
                                    <i class="icon fa fa-exchange fa-3x"></i>
                                    <div class="info">
                                       <a href="${pageContext.request.contextPath}/viewTransfer" style=" text-decoration: none !important;">
-                                         <h5>View Transfers</h5>
+                                         <h5>View Transfers Role Wise</h5>
                                       </a>
                                    </div>
                                 </div>
                              </div>
                           </sec:authorize>
+
+         <sec:authorize access="hasAnyAuthority('SUPER ADMIN')">
+                 <div class="col-md-6 col-lg-3">
+                    <div class="widget-small warning coloured-icon">
+                       <i class="icon fa fa-lock fa-3x"></i>
+                       <div class="info">
+                          <a href="${pageContext.request.contextPath}/viewAllTransfer" style=" text-decoration: none !important;">
+                             <h5>View Complete Transfers</h5>
+                          </a>
+                       </div>
+                    </div>
+                 </div>
+                 </sec:authorize>
 
           <sec:authorize access="hasAnyAuthority('SUPER ADMIN')">
                                      <div class="col-md-6 col-lg-3">

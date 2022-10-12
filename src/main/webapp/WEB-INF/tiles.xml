@@ -216,6 +216,11 @@
         <put-attribute name="content" value="/WEB-INF/jsp/transfer/viewtransfer.jsp" />
     </definition>
 
+    <definition name="viewAllTransfer" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/transfer/viewalltransfer.jsp" />
+    </definition>
+
+
     <!-- Create Transfer Ends -->
 
 

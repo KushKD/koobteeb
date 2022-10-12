@@ -56,4 +56,11 @@ public class TransferRequestRestController {
 
         return transferRepository.findAll(input,userId);
     }
+
+    //viewAllTransferRequests
+    @RequestMapping(value = "/apidataTable/viewAllTransferRequests", method = RequestMethod.GET)
+    public DataTablesOutput<TransferRequestEntities> viewAllTransferRequests(@Valid DataTablesInput input) {
+        System.out.println(input);
+        return transferRepository.findAll(input);
+    }
 }

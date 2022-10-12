@@ -1,9 +1,6 @@
 package com.hp.dit.election_ems.Controller.transfer;
 
-import com.hp.dit.election_ems.entities.ModuleMaster;
-import com.hp.dit.election_ems.entities.TransferRequestEntities;
-import com.hp.dit.election_ems.entities.TrdocumentsEntity;
-import com.hp.dit.election_ems.entities.UserEntity;
+import com.hp.dit.election_ems.entities.*;
 import com.hp.dit.election_ems.form.module.ModuleForm;
 import com.hp.dit.election_ems.form.transfer.TransferForm;
 import com.hp.dit.election_ems.form.viewdata.ViewData;
@@ -94,6 +91,28 @@ public class TransferController {
         }
     }
 
+    @RequestMapping(value = "/viewAllTransfer", method = RequestMethod.GET)
+    public String viewAllRequests(Model model,HttpServletRequest request) throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "login";
+        } else {
+
+            LoggedInUserSession user = (LoggedInUserSession) request.getSession().getAttribute("UserData");
+            System.out.println(user);
+
+            if(user==null){
+                return "login";
+            }else{
+
+                return "viewAllTransfer";
+            }
+
+
+
+        }
+    }
+
 
     @RequestMapping(value = "/saveTransfer", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Transactional
@@ -124,6 +143,10 @@ public class TransferController {
             UserEntity user = new UserEntity();
             user.setUserId(userSession.getUserId());
             transferRequestEntities.setEnteredBy(user);
+
+            BankMaster bank = new BankMaster();
+            bank.setBankId(userSession.getBankId());
+            transferRequestEntities.setBankId(bank);
 
 
 

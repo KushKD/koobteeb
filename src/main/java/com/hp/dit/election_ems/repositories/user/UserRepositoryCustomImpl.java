@@ -35,12 +35,12 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         cq.multiselect(
                 book.get("stateId"),
                 book.get("districtId"),
-               // book.get("barrierId"),
                 book.get("userId"),
                 book.get("username"),
                 book.get("firstName"),
                 book.get("lastName"),
-                book.get("mobileNumber")).distinct(true);
+                book.get("mobileNumber"),
+                book.get("bankId").<Integer>get("bankId")).distinct(true);
         TypedQuery<LoggedInUserSession> query =  entityManager.createQuery(cq);
         return query.getResultList();
 

@@ -13,10 +13,12 @@ public class LoggedInUserSession implements Serializable {
     private String lastName;
     private Long mobileNumber;
 
-    public LoggedInUserSession(Integer stateId, Integer districtId, Long userId, String userName, String firstName, String lastName, Long mobileNumber) {
+    private Integer bankId;
+
+    public LoggedInUserSession(Integer stateId, Integer districtId, Long userId, String userName, String firstName, String lastName, Long mobileNumber, Integer bankId_) {
         this.stateId = stateId;
         this.districtId = districtId;
-       // BarrierId = barrierId;
+        this.bankId  = bankId_;
         this.userId = userId;
         this.userName = userName;
         this.firstName = firstName;
@@ -39,8 +41,6 @@ public class LoggedInUserSession implements Serializable {
     public void setDistrictId(Integer districtId) {
         this.districtId = districtId;
     }
-
-
 
     public Long getUserId() {
         return userId;
@@ -82,6 +82,14 @@ public class LoggedInUserSession implements Serializable {
         this.mobileNumber = mobileNumber;
     }
 
+    public Integer getBankId() {
+        return bankId;
+    }
+
+    public void setBankId(Integer bankId) {
+        this.bankId = bankId;
+    }
+
     @Override
     public String toString() {
         return "LoggedInUserSession{" +
@@ -92,6 +100,7 @@ public class LoggedInUserSession implements Serializable {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", mobileNumber=" + mobileNumber +
+                ", bankId='" + bankId + '\'' +
                 '}';
     }
 }

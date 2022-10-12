@@ -372,13 +372,15 @@ SELECT ST_AsGeoJSON(beat_geometry) from  mst_beat WHERE ps_id=1
      dest_address character varying(200) NOT NULL,
      from_date character varying(30) NOT NULL,
      thrue_date character varying(30) NOT NULL,
+     bank_id INTEGER NOT NULL,
      amount INTEGER NOT NULL,
      other_information character varying(255)  NULL,
      data_entered_by INTEGER NOT NULL,
      active boolean DEFAULT true NOT NULL,
      createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
      lastmodifieddate timestamp without time zone,
-     FOREIGN KEY (data_entered_by) REFERENCES users(user_id)
+     FOREIGN KEY (data_entered_by) REFERENCES users(user_id),
+     FOREIGN KEY (bank_id) REFERENCES mst_bank(bank_id)
  );
 
 

@@ -38,6 +38,11 @@ public class TransferRequestEntities {
     @JoinColumn (name="data_entered_by")
     private UserEntity enteredBy;
 
+    @OneToOne
+    @JoinColumn (name="bank_id")
+    private BankMaster bankId;
+
+
     @Column(name="active")
     private boolean active;
 
@@ -48,7 +53,6 @@ public class TransferRequestEntities {
     @Column(name = "lastmodifieddate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOn;
-
 
     public Integer getTransferRequestID() {
         return transferRequestID;
@@ -98,6 +102,14 @@ public class TransferRequestEntities {
         this.thrueDate = thrueDate;
     }
 
+    public Long getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Long amount) {
+        this.amount = amount;
+    }
+
     public String getOtherInformation() {
         return otherInformation;
     }
@@ -112,6 +124,14 @@ public class TransferRequestEntities {
 
     public void setEnteredBy(UserEntity enteredBy) {
         this.enteredBy = enteredBy;
+    }
+
+    public BankMaster getBankId() {
+        return bankId;
+    }
+
+    public void setBankId(BankMaster bankId) {
+        this.bankId = bankId;
     }
 
     public boolean isActive() {
@@ -138,14 +158,6 @@ public class TransferRequestEntities {
         this.updatedOn = updatedOn;
     }
 
-    public Long getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Long amount) {
-        this.amount = amount;
-    }
-
     @Override
     public String toString() {
         return "TransferRequestEntities{" +
@@ -158,6 +170,7 @@ public class TransferRequestEntities {
                 ", amount=" + amount +
                 ", otherInformation='" + otherInformation + '\'' +
                 ", enteredBy=" + enteredBy +
+                ", bankId=" + bankId +
                 ", active=" + active +
                 ", createdDate=" + createdDate +
                 ", updatedOn=" + updatedOn +
