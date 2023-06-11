@@ -35,9 +35,9 @@
       <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
       <aside class="app-sidebar">
          <div class="app-sidebar__user">
-            <img class="app-sidebar__user-avatar" src="${pageContext.request.contextPath}/resources/images/user.png" alt="User Image">
+            <img class="app-sidebar__user-avatar" src="${pageContext.request.contextPath}/resources/images/hp_police_logo.png" style="max-height:100px;" alt="User Image">
             <div>
-               <p class="app-sidebar__user-name">${pageContext.request.userPrincipal.name}</p>
+               <p class="app-sidebar__user-name">${authority_}</p>
                <!-- <p class="app-sidebar__user-designation">Mobile Number</p> -->
             </div>
          </div>

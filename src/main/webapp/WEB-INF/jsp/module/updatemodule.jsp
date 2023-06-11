@@ -60,8 +60,18 @@
             <form:errors style="color:red;" path="isDeleted"></form:errors>
          </div>
       </spring:bind>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
-       <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+
+
+
+
+       <div class="col-lg-12">
+            <button class="btn btn-lg btn-primary col-lg-4" type="submit">Save</button>
+                   <a href="${pageContext.request.contextPath}/viewmodule" class="btn btn-lg btn-danger col-lg-4">Go Back</a>
+
+                         <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+            </div>
+
+
       <c:remove var="successMessage" scope="session" />
    </form:form>
    </div>

@@ -46,8 +46,12 @@
                                                                                     <form:errors  style="color:red;" path="stateIsDeleted"></form:errors>
                                                                                  </div>
 					</spring:bind>
-					<button class="btn btn-lg btn-primary btn-block" type="submit">Update</button>
-					<c:remove var="successMessage" scope="session" />
+					  <div class="col-lg-12" style="margin-top:10px;">
+                                         <button class="btn btn-lg btn-primary col-lg-5" type="submit">Submit</button>
+
+                                          <a href="${pageContext.request.contextPath}/viewStates" class="btn btn-lg btn-danger col-lg-5">Go Back</a>
+                                       <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+                                       </div>
 					</form:form>
 				</div>
 			</main>

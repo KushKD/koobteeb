@@ -3,6 +3,7 @@ package com.hp.dit.beetbook.Controller.dailyactivity;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hp.dit.beetbook.form.dailyactivity.DailyactivityForm;
 import com.hp.dit.beetbook.form.dailyactivity.DailyactivitymapsForm;
+import com.hp.dit.beetbook.modals.InformationAddedUser;
 import com.hp.dit.beetbook.modals.LoggedInUserSession;
 import com.hp.dit.beetbook.modals.information.InformationMarkers;
 import com.hp.dit.beetbook.repositories.information.InformationRepository;
@@ -72,14 +73,28 @@ public class DailyActivityMapsController {
                 List<InformationMarkers> data = informationRepository.getUploadedInformationByOfficialDateWise(Integer.parseInt(form.getUserId()),form.getDate());
                 System.out.println(data);
 
+                /**
+                 * Get User Detail by User ID
+                 */
+                InformationAddedUser userDetails = userRepository.getUserByUserId(Integer.parseInt(form.getUserId()));
+                System.out.println(userDetails);
+
                 String jsonStr = null;
                 ObjectMapper Obj = null;
                 Obj = new ObjectMapper();
                 jsonStr = Obj.writeValueAsString(data);
                 System.out.println(jsonStr);
 
+
+                String jsonStr2 = null;
+                ObjectMapper Obj2 = null;
+                Obj2 = new ObjectMapper();
+                jsonStr2 = Obj2.writeValueAsString(userDetails);
+                System.out.println(jsonStr2);
+
                 model.addAttribute("usersDetails", user);
                 model.addAttribute("data", jsonStr);
+                model.addAttribute("user", jsonStr2);
                 model.addAttribute("beatId", form.getBeatId());
                 model.addAttribute("sosdpoId", form.getSosdpoId());
                 model.addAttribute("userId", form.getUserId());

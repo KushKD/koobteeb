@@ -109,6 +109,8 @@ public class HomeController {
             //Get the User Data and Set Set the Data in Session
             List<LoggedInUserSession> data = userRepository.getUserGeoData(username);
             request.getSession().setAttribute("UserData", data.get(0));
+            request.getSession().setAttribute("authority_", authority_.toString());
+
 
 
                 return "redirect:/dashboard";

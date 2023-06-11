@@ -33,7 +33,12 @@
             </thead>
          </table>
       </div>
+
+      <div class="col-lg-12" style="margin-top:10px;">
+      <a href="${pageContext.request.contextPath}/dashboard" class="btn btn-lg btn-danger col-lg-12">Go Back</a>
    </div>
+
+
 </main>
 
 

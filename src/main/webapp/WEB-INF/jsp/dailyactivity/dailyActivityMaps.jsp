@@ -155,8 +155,15 @@
 						<form:errors  path="date"></form:errors>
 					</div>
 				</spring:bind>
-				<button class="btn btn-lg btn-primary btn-block">Submit</button>
-				 <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+
+
+				<div class="col-lg-12" style="margin-top:10px;">
+               <button class="btn btn-lg btn-primary col-lg-5">Submit</button>
+               <a href="${pageContext.request.contextPath}/dashboard" class="btn btn-lg btn-danger col-lg-5">Go Back</a>
+               <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+               </div>
+
+
 				<c:remove var="successMessage" scope="session" />
 			</div>
 
@@ -172,6 +179,7 @@
                  <input class="form-control col-md-6"  id="beatid" type="hidden" value="${beatId}"  />
                  <input class="form-control col-md-6"  id="uid" type="hidden" value="${userId}"  />
                  <div id="data" style="display:none;" > ${data} </div>
+                  <div id="data_user" style="display:none;" > ${user} </div>
 
 <div class="row">
         <div id="map"></div>
@@ -257,13 +265,18 @@ function getUserIDLoad(){
 
    <script>
 
-   var markersOnMap = null;
+   var markersOnMap,information = null;
    var dataServer = document.getElementById('data');
+   var dataUser = document.getElementById('data_user');
 
-   if (dataServer.innerHTML != null) {
+
+   if (dataServer.innerHTML != null &&  dataUser.innerHTML !=null) {
    	var json_ = JSON.parse(JSON.stringify(dataServer.innerHTML));
+   		var json2_ = JSON.parse(JSON.stringify(dataUser.innerHTML));
    	markersOnMap = json_;
+   	information = json2_;
    	console.log(markersOnMap);
+   	console.log(information);
 
    	function initMap() {
    		function getContextPath() {
@@ -302,7 +315,11 @@ function getUserIDLoad(){
    				"</div>" +
    				"<div style='width:200px;float:left;padding-left:20px'>" +
    				"<h6 style='font-size:150%;color:black'>" + JSON.parse(markersOnMap)[i].subModuleName + "</h6>" +
-   				"<p style='font-size:150%;color:blue'>" + JSON.parse(markersOnMap)[i].name + "</p>" +
+   				"<p style='font-size:150%;color:blue'> Name: " + JSON.parse(markersOnMap)[i].name + "</p>" +
+   				"<p style='font-size:80%;color:black'> First Name: " + JSON.parse(information).firstName + " </p>" +
+   				"<p style='font-size:80%;color:black'> Last Name: " + JSON.parse(information).lastName + "</p>" +
+   				"<p style='font-size:80%;color:black'> Rank: " + JSON.parse(information).rank + "</p>" +
+   				"<p style='font-size:80%;color:black'> Mobile Number: " + JSON.parse(information).mobileNumber + "</p>" +
    				"</div>"
    			"</div>";
 
